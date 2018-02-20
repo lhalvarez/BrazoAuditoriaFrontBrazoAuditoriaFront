@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div id="wrapper" >
             <Header
-              title="Codejobs"
+              title="Titulo de Pagina"
               items={items}
             />
             <div id="page-wrapper">
