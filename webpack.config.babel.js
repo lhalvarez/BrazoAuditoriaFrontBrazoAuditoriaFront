@@ -66,8 +66,12 @@ const getLoaders = () => ({
       loaders: ['style-loader', 'css-loader']
     },
     {
-      test: /\.(eot|ttf|woff|woff2|png|svg)$/,
+      test: /\.(eot|ttf|woff|woff2|svg)$/,
       loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+    },
+    {
+      test: /\.(png)$/,
+      loader: 'url-loader?limit=10000&mimetype=image/png'
     }
   ]
 });
