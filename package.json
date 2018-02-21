@@ -2,6 +2,7 @@
   "name": "WEBPortalAuditoria",
   "version": "0.1.0",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "bluebird": "^3.5.0",
@@ -9,6 +10,7 @@
     "express-handlebars": "^3.0.0",
     "html-minifier": "^3.5.2",
     "isomorphic-fetch": "^2.2.1",
+    "node-rest-client": "^3.1.0",
     "path": "^0.12.7",
     "prop-types": "^15.5.8",
     "query-string": "^4.3.4",
@@ -16,9 +18,11 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
+    "react-toastify": "^3.3.4",
     "redux": "^3.7.0",
     "redux-immutable-state-invariant": "^2.0.0",
-    "redux-promise-middleware": "^4.3.0"
+    "redux-promise-middleware": "^4.3.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

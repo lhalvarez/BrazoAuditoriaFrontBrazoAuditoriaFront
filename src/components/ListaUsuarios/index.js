@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import store from './store';
+import {connect} from 'react-redux';
+import {consultaUsuarios} from './actions'
+import { toast } from 'react-toastify';
+
+
 
 class Usuarios extends Component{
 
@@ -10,27 +14,18 @@ class Usuarios extends Component{
 
     this.state = {
       usuarios: [],
-      usuario: ''
+      usuario: '',
+      estatus: ''
     };
-
-    store.subscribe(() => {
-      this.setState({
-        usuarios: store.getState().usuarios
-      });
-    });
 
 
     this.handleUsuario = this.handleUsuario.bind(this);
   }
 
-  componentDidMount(){
+  componentWillMount(){
 
+    this.props.consultaUsuarios();
     console.log('Estoy apunto de montar el componente');
-
-    store.dispatch({
-      type: "CONSULTA_TODOS_USUARIOS",
-      usuario: this.state.usuario
-    });
 
   }
 
@@ -45,6 +40,23 @@ class Usuarios extends Component{
 
   buscaUsuario(){
     console.log('Buscando a un usuario', this.state.usuario);
+
+  }
+
+  renderUsersList(){
+
+    toast.info("La consulta fue realizada de manera exitosa");
+
+    return this.props.users.map((user) => {
+
+      return(
+        <tr key={user.id}>
+          <td>{user.id}</td>
+          <td>{user.name}</td>
+        </tr>
+      )
+    })
+
   }
 
 
@@ -90,16 +102,17 @@ class Usuarios extends Component{
         <div className="col-lg-12">
           <div className="table-responsive">
             <table className="table table-striped table-bordered table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre Usuario</th>
+                </tr>
+              </thead>
 
               <tbody>
-{/*              {
-                this.state.usuarios.map( item =>
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.title}</td>
-                    </tr>
-                )
-              }*/}
+              {
+                this.renderUsersList()
+              }
               </tbody>
 
             </table>
@@ -112,4 +125,13 @@ class Usuarios extends Component{
 
 }
 
-export default Usuarios;
+
+function mapStateToProps(state){
+
+  return {
+    users: state.user.list
+  }
+
+}
+
+export default connect(mapStateToProps,{consultaUsuarios})(Usuarios);
