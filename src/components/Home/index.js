@@ -11,11 +11,7 @@ class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <h1>Pagina de Inicio</h1>
-
-        <p>
-
-        </p>
+        <h3>Página de Inicio</h3>
       </div>
     );
   }

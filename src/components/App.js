@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import Header from './Global/Header';
+import Navigation from './Global/Navigation';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
 
@@ -12,8 +13,8 @@ import Footer from './Global/Footer';
 import items from '../data/menu';
 
 //Resources
-import '../public/plugins/bootstrap/dist/css/bootstrap.min.css'
 import '../public/css/auditoria.css';
+import '../public/plugins/bootstrap/dist/css/bootstrap.min.css'
 import '../public/plugins/font-awesome/css/font-awesome.css';
 
 class App extends Component {
@@ -26,14 +27,16 @@ class App extends Component {
 
     return (
       <div id="wrapper" >
-            <Header
-              title="Titulo de Pagina"
-              items={items}
-            />
-            <div id="page-wrapper">
-              <Content body = {children} />
-            </div>
-          <Footer />
+        <nav className="mainnav navbar navbar-default navbar-static-top" role="navigation">
+          <Header
+            items={items}
+          />
+          <Navigation title="Título de la página" />
+        </nav>
+        <div id="page-wrapper">
+          <Content body = {children} />
+        </div>
+        <Footer />
       </div>
     );
   }
