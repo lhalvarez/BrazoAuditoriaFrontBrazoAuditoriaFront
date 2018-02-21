@@ -49,6 +49,14 @@ class Navigation extends Component{
 	                                </li>
 	                            </ul>
 	                        </li>
+                        <li>
+                          <a href="#"><i className="fa fa-files-o fa-fw"></i> Lista Usuarios<span className="fa arrow"></span></a>
+                          <ul className="nav nav-second-level">
+                            <li>
+                              <NavLink to='/usuarios'>Consulta Usuarios</NavLink>
+                            </li>
+                          </ul>
+                        </li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -56,7 +64,7 @@ class Navigation extends Component{
 	                <div className="downbar-text">
 	                    <h3><b>{this.props.title}</b></h3>
 	                </div>
-	            
+
 	            </div>
 			</div>
 		);
