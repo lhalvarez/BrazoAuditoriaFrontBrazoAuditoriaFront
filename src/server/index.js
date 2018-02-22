@@ -6,6 +6,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import open from 'open';
 import exphbs from 'express-handlebars';
+import cfenv from 'cfenv'
+
 
 // Config
 import config from '../config';
@@ -23,6 +25,8 @@ import * as hbsHelper from '../lib/handlebars';
 
 // Environment
 const isDevelopment = process.env.NODE_ENV !== 'production';
+
+const appEnv = cfenv.getAppEnv();
 
 // Express app
 const app = express();
@@ -60,8 +64,18 @@ app.get('*', (req, res) => {
 });
 
 // Listen port 3000
-app.listen(config.serverPort, err => {
+
+
+app.listen(appEnv.port, err => {
+
+  console.log("Es ambiente productivo: ", isDevelopment)
+
+  console.log("El valor de los datos productivos son: ", appEnv.port)
+  console.log("El valor de los datos productivos url: ", appEnv.url)
+
   if (!err) {
-    open(`${config.baseUrl}`);
+    open(`${appEnv.url}`);
   }
 });
+
+
