@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-class Navigation extends Component{
+class Menu extends Component{
 	render(){
 		return (
 			<div>
@@ -71,4 +71,4 @@ class Navigation extends Component{
 	}
 }
 
-export default Navigation;
+export default Menu;

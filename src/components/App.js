@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import Header from './Global/Header';
-import Navigation from './Global/Navigation';
+import Menu from './Global/Menu';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
 import Notificacion from './Global/Notificacion'
@@ -33,7 +33,7 @@ class App extends Component {
           <Header
             items={items}
           />
-          <Navigation title="Título de la página" />
+          <Menu title="Título de la página" />
         </nav>
         <div id="page-wrapper">
           <Content body = {children} />
