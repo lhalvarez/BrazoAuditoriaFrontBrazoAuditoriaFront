@@ -1,8 +1,6 @@
 // Dependencies
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ToastContainer } from 'react-toastify';
-
 
 // Assets
 
@@ -17,7 +15,6 @@ class Content extends Component {
 
     return (
       <div>
-        <ToastContainer />
         {body}
       </div>
     );

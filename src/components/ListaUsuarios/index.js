@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {consultaUsuarios} from './actions'
-import { toast } from 'react-toastify';
-
 
 
 class Usuarios extends Component{
@@ -18,8 +16,13 @@ class Usuarios extends Component{
       estatus: ''
     };
 
-
     this.handleUsuario = this.handleUsuario.bind(this);
+  }
+
+  dispatchNotification(fn, timeout) {
+    setTimeout(() => {
+      this.context.store.dispatch(fn(notificationOpts));
+    }, timeout);
   }
 
   componentWillMount(){
@@ -28,6 +31,7 @@ class Usuarios extends Component{
     console.log('Estoy apunto de montar el componente');
 
   }
+
 
   handleUsuario(event){
 
@@ -39,13 +43,12 @@ class Usuarios extends Component{
   }
 
   buscaUsuario(){
-    console.log('Buscando a un usuario', this.state.usuario);
 
+    console.log('Buscando a un usuario', this.state.usuario);
+    this.dispatchNotification(success, 250);
   }
 
   renderUsersList(){
-
-    toast.info("La consulta fue realizada de manera exitosa");
 
     return this.props.users.map((user) => {
 
@@ -61,7 +64,10 @@ class Usuarios extends Component{
 
 
   render() {
+
+    const {notifications} = this.props;
     return (
+
       <div>
       <div className="row">
         <div className="col-lg-12">
@@ -124,7 +130,6 @@ class Usuarios extends Component{
   }
 
 }
-
 
 function mapStateToProps(state){
 

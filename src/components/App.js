@@ -7,6 +7,7 @@ import Header from './Global/Header';
 import Navigation from './Global/Navigation';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
+import Notificacion from './Global/Notificacion'
 
 
 // Data
@@ -27,6 +28,7 @@ class App extends Component {
 
     return (
       <div id="wrapper" >
+        <Notificacion />
         <nav className="mainnav navbar navbar-default navbar-static-top" role="navigation">
           <Header
             items={items}
