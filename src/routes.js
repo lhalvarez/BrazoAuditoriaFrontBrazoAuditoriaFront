@@ -8,7 +8,14 @@ import Page404 from './components/Page404';
 
 // Container
 import Home from './components/Home';
-import Usuarios from './components/ListaUsuarios'
+import Usuarios from './components/ListaUsuarios';
+
+
+import cargaAuditoria from './containers/cargaAuditoria';
+import validacionPartidas from './containers/validacionPartidas';
+import salidaPartidas from './containers/salidaPartidas';
+
+
 import AuditoriaFisicaAbierta from './containers/AuditoriaFisicaAbierta';
 import AuditoriaFisicaCerrada from './containers/AuditoriaFisicaCerrada';
 import AuditoriaFotografia from './containers/AuditoriaFotografia';
@@ -18,6 +25,9 @@ const AppRoutes = () =>
 	<App>
 		<Switch>
 			<Route exact path="/" component={Home} />
+			<Route exact path="/cargar-partidas" component={cargaAuditoria} />
+			<Route exact path="/validacion-partidas" component={validacionPartidas} />
+			<Route exact path="/salida-partidas" component={salidaPartidas} />
 			<Route exact path="/auditoria-fisica-caja-abierta" component={AuditoriaFisicaAbierta} />
 			<Route exact path="/auditoria-fisica-caja-cerrada" component={AuditoriaFisicaCerrada} />
 			<Route exact path="/auditoria-fotografia" component={AuditoriaFotografia} />
