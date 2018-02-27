@@ -13,15 +13,15 @@ export function consultaUsuarios(){
   return(dispatch, getState) => {
 
 
-    MessageService.getAll(API.USUARIOS.endpoint)
+    MessageService.getAll(API.ENDPOINTS.USUARIOS.BUSQUEDA.endpoint)
       .then((response) => {
 
-        console.log('Entregando la respuesta', response)
-        dispatch( {type: CONSULTA_USUARIOS, payload: response })
-        dispatch(addNotification(API.AVISOS.USUARIOS.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'success'));
-        dispatch(addNotification(API.AVISOS.USUARIOS.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'error'));
-        dispatch(addNotification(API.AVISOS.USUARIOS.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'warning'));
-        dispatch(addNotification(API.AVISOS.USUARIOS.consulta_exito,"La consulta de usuarios se realizo de forma exitosa", 'info'));
+        console.log('Entregando la respuesta', response);
+        dispatch( {type: CONSULTA_USUARIOS, payload: response });
+        dispatch(addNotification(API.AVISOS.USUARIOS.BUSQUEDA.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'success'));
+        dispatch(addNotification(API.AVISOS.USUARIOS.BUSQUEDA.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'error'));
+        dispatch(addNotification(API.AVISOS.USUARIOS.BUSQUEDA.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'warning'));
+        dispatch(addNotification(API.AVISOS.USUARIOS.BUSQUEDA.consulta_exito,"La consulta de usuarios se realizo de forma exitosa", 'info'));
 
       });
 

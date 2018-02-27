@@ -17,12 +17,13 @@ function getById(endpoint, id){
 
 }
 
-function getAll(endpoint){
+function getAll(endpoint, params){
 
   return requestApi({
 
     url: `${endpoint}` ,
-    method: 'GET'
+    method: 'GET',
+    params: params
 
   });
 

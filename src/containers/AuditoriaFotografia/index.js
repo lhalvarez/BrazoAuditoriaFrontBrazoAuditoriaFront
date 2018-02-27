@@ -1,9 +1,9 @@
 // Dependencies
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import Auditoria from '../../components/Auditoria';
 
-class AuditoriaFotografía extends Component{
-	
+class AuditoriaFotografia extends Component{
+
 	static propTypes = {
 
   	};
@@ -11,10 +11,10 @@ class AuditoriaFotografía extends Component{
 	render(){
 		return (
 			<div>
-				<h3>Página de Auditoría por Fotografía</h3>
+        <Auditoria />
 			</div>
 		);
 	}
 }
 
-export default AuditoriaFotografía;
+export default AuditoriaFotografia;
