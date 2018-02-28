@@ -16,8 +16,8 @@ export function consultaUsuarios(){
     MessageService.getAll(API.USUARIOS.endpoint)
       .then((response) => {
 
-        console.log('Entregando la respuesta', response)
-        dispatch( {type: CONSULTA_USUARIOS, payload: response })
+        console.log('Entregando la respuesta', response);
+        dispatch( {type: CONSULTA_USUARIOS, payload: response });
         dispatch(addNotification(API.AVISOS.USUARIOS.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'success'));
         dispatch(addNotification(API.AVISOS.USUARIOS.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'error'));
         dispatch(addNotification(API.AVISOS.USUARIOS.consulta_exito,'La consulta de usuarios se realizo de forma exitosa', 'warning'));
@@ -26,4 +26,5 @@ export function consultaUsuarios(){
       });
 
   }
+
 }

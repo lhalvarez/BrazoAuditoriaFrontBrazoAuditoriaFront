@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
+import Input from 'react-validation/build/input'
+import Form from 'react-validation/build/form';
+import '../../lib/utils/Validation';
 import {consultaUsuarios} from './actions'
 
+const required = (value, props) => {
+  if (!value || (props.isCheckable && !props.checked)) {
+    console.log("Estoy en la funcion de validacion")
+    return <span className="form-error is-visible">Required</span>;
+  }
+};
 
 class Usuarios extends Component{
 
@@ -17,6 +26,7 @@ class Usuarios extends Component{
     };
 
     this.handleUsuario = this.handleUsuario.bind(this);
+
   }
 
   dispatchNotification(fn, timeout) {
@@ -35,7 +45,7 @@ class Usuarios extends Component{
 
   handleUsuario(event){
 
-    console.log('Entrando a la funcion')
+    console.log('Entrando a la funcion');
     this.setState({
       usuario: event.target.value
     });
@@ -45,7 +55,8 @@ class Usuarios extends Component{
   buscaUsuario(){
 
     console.log('Buscando a un usuario', this.state.usuario);
-    this.dispatchNotification(success, 250);
+    //this.dispatchNotification(success, 250);
+    this.form.validateAll();
   }
 
   renderUsersList(){
@@ -62,6 +73,12 @@ class Usuarios extends Component{
 
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log(event);
+  };
+
 
   render() {
 
@@ -69,12 +86,16 @@ class Usuarios extends Component{
     return (
 
       <div>
+
       <div className="row">
+
         <div className="col-lg-12">
           <h1 className="page-header">Consulta de Usuarios</h1>
         </div>
+
       </div>
       <div className="row">
+      <Form ref={c => { this.form = c }} onSubmit={this.handleSubmit}>
         <div className="col-lg-12">
           <div className="panel panel-default">
             <div className="panel-heading">
@@ -86,7 +107,7 @@ class Usuarios extends Component{
                   <div className="form-group row">
                     <label className="col-sm-4 col-form-label">Id. Usuario</label>
                     <div className="col-sm-8">
-                      <input className="form-control input-sm" placeholder="123125" onChange={this.handleUsuario} type="text"/>
+                      <Input className="form-control input-sm" name="idUsuario" placeholder="123125" onChange={this.handleUsuario} type="text" validations={[required]}/>
                     </div>
                   </div>
                 </div>
@@ -103,6 +124,7 @@ class Usuarios extends Component{
             </div>
           </div>
         </div>
+      </Form>
       </div>
       <div className="row">
         <div className="col-lg-12">

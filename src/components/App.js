@@ -7,7 +7,7 @@ import Header from './Global/Header';
 import Menu from './Global/Menu';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
-import Notificacion from './Global/Notificacion'
+import Notificacion from './Global/Notificacion';
 
 
 // Data
@@ -15,13 +15,18 @@ import items from '../data/menu';
 
 //Resources
 import '../public/css/auditoria.css';
-import '../public/plugins/bootstrap/dist/css/bootstrap.min.css'
+import '../public/plugins/bootstrap/dist/css/bootstrap.min.css';
 import '../public/plugins/font-awesome/css/font-awesome.css';
 
+
+
 class App extends Component {
+
   static propTypes = {
     children: PropTypes.object.isRequired
   };
+
+
 
   render() {
     const { children } = this.props;
@@ -30,9 +35,7 @@ class App extends Component {
       <div id="wrapper" >
         <Notificacion />
         <nav className="mainnav navbar navbar-default navbar-static-top" role="navigation">
-          <Header
-            items={items}
-          />
+          <Header items={items}/>
           <Menu title="Título de la página" />
         </nav>
         <div id="page-wrapper">
