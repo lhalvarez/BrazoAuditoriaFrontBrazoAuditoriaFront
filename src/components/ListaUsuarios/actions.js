@@ -13,7 +13,7 @@ export function consultaUsuarios(){
   return(dispatch, getState) => {
 
 
-    MessageService.getAll(API.USUARIOS.endpoint)
+    MessageService.getAll(API.ENDPOINTS.USUARIOS.BUSQUEDA.endpoint)
       .then((response) => {
 
         console.log('Entregando la respuesta', response);

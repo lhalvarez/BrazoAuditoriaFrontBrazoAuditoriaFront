@@ -16,13 +16,13 @@ class Menu extends Component{
 	                            <a href="#"><i className="fa fa-files-o fa-fw"></i> Partidas<span className="fa arrow"></span></a>
 	                            <ul className="nav nav-second-level">
 	                                <li>
-	                                    <a href="#">Cargar Partidas</a>
+	                                    <a href="/cargar-partidas">Cargar Partidas</a>
 	                                </li>
 	                                <li>
-	                                    <a href="#">Validación Partidas</a>
+	                                    <a href="/validacion-partidas">Validación Partidas</a>
 	                                </li>
 	                                <li>
-	                                    <a href="#">Salida de Partidas</a>
+	                                    <a href="/salida-partidas">Salida de Partidas</a>
 	                                </li>
 	                            </ul>
 	                        </li>
