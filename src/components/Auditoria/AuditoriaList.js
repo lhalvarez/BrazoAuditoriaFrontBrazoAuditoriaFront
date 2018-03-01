@@ -16,12 +16,15 @@ const AuditoriaList = ({partidas}) => {
                             </tr>
                         </thead>
                         <tbody>
-                        {partidas.map(partida =>
-                            <tr key={partida.id}>
-                                <td><Link to={`/auditoria-salida-prendas/${partida.id}`}>{partida.id}</Link></td>
-                                <td>{partida.name}</td>
-                            </tr>
-                        )}
+                        {partidas.map(partida => {
+                            const {folio, sucursal} = partida;
+                            return (
+                                <tr key={folio}>
+                                    <td><Link to={`/auditoria-salida-prendas/${folio}`}>{folio}</Link></td>
+                                    <td>Sucursal {sucursal}</td>
+                                </tr>
+                            );
+                        })}
                         </tbody>
                     </table>
                 </div>

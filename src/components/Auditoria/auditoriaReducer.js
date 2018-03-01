@@ -2,8 +2,6 @@ import { PAGINAR_PARTIDAS, BUSQUEDA_PARTIDAS } from "./actions";
 
 const initialState = {
     list: [],
-    page: 0,
-    pageSize: 10,
     total: 0
 };
 
@@ -11,16 +9,13 @@ export function auditoriaReducer(state = initialState, action) {
     switch (action.type) {
         case PAGINAR_PARTIDAS:
             return Object.assign({}, state, {
-                list: action.payload.object.content,
-                page: action.payload.object.number,
-                pageSize: action.payload.object.size,
-                total: action.payload.object.totalElements
+                list: action.payload.object.contenido,
+                total: action.payload.object.totalElementos
             });
         case BUSQUEDA_PARTIDAS:
             return Object.assign({}, state, {
-                list: [action.payload.object],
-                page: initialState.page,
-                pageSize: initialState.pageSize,
+                list: [{ folio: action.payload.object.llavePartida.folio,
+                         sucursal: action.payload.object.detallePartida.sucursal }],
                 total: initialState.total
             });
         default:

@@ -18,12 +18,13 @@ class Auditoria extends Component {
         this.state = {
             page: 0,
             pageSize: 10,
-            folio: 0
+            folio: 0,
+            idAuditoria: 1
         };
     };
 
     componentDidMount() {
-        this.props.paginarResultados(this.state.page, this.state.pageSize);
+        this.props.paginarResultados(this.state.idAuditoria, this.state.page, this.state.pageSize);
         console.log('Estoy apunto de montar el componente');
     }
 
@@ -33,7 +34,7 @@ class Auditoria extends Component {
             page: 0,
             pageSize: 10
         });
-        this.props.buscarPartida(this.state.folio);
+        this.props.buscarPartida(this.state.idAuditoria, this.state.folio);
     };
 
     handlePartida = (event) => {
@@ -49,7 +50,7 @@ class Auditoria extends Component {
         console.log('onChange:pageSize=', pageSize);
         this.setState({
             page: page - 1
-        }, this.props.paginarResultados(page - 1, this.state.pageSize));
+        }, this.props.paginarResultados(this.state.idAuditoria, page - 1, this.state.pageSize));
     };
 
     limpiar = () => {
@@ -58,12 +59,12 @@ class Auditoria extends Component {
               page: 0,
               pageSize: 10,
               folio: 0
-            }, this.props.paginarResultados(0, this.state.pageSize));
+            }, this.props.paginarResultados(this.state.idAuditoria, 0, this.state.pageSize));
          }
     };
 
     render = () => {
-        const data = {page: this.props.page, pageSize: this.props.pageSize, total: this.props.total};
+        const data = {page: this.state.page, pageSize: this.state.pageSize, total: this.props.total};
         return (
             <div className="auditoriaCont">
                 <div className="row">
@@ -87,8 +88,6 @@ function mapStateToProps(state) {
     return {
         partidas: state.partidas.list,
         total: state.partidas.total,
-        page: state.partidas.page,
-        pageSize: state.partidas.pageSize,
         folio: state.partidas.folio
     }
 }
