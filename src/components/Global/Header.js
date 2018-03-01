@@ -2,6 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { store } from '../../store';
+import { cerrarSesion } from '../Session/actions';
 
 // Assets
 import logoNMP from '../../public/images/logo-NMP.png';
@@ -11,6 +15,31 @@ class Header extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired
   };
+
+  constructor(){
+    super();
+
+    this.logout = this.logout.bind(this);
+    this.handleStoreChanges = this.handleStoreChanges.bind(this);
+
+    this.state = { usuario: '' };
+
+    this.unsuscribe = store.subscribe(this.handleStoreChanges);
+  }
+
+  logout(e){
+    e.preventDefault();
+    this.props.cerrarSesion();
+  }
+
+  handleStoreChanges(){
+    if(store.getState().session.activeSession)
+      this.setState({ usuario: store.getState().session.usuario });
+  }
+
+  componentWillUnmount(){
+    this.unsuscribe();
+  }
 
   render(){
     const { items } = this.props;
@@ -30,7 +59,7 @@ class Header extends Component {
         <ul className="nav navbar-top-links navbar-right">
             <li className="dropdown">
                 <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Nombre de usuario  <i className="fa fa-caret-down"></i>
+                    {this.state.usuario}  <i className="fa fa-caret-down"></i>
                 </a>
                 <ul className="dropdown-menu dropdown-user">
                     <li><a href="#"><i className="fa fa-user fa-fw"></i> User Profile</a>
@@ -38,7 +67,7 @@ class Header extends Component {
                     <li><a href="#"><i className="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li className="divider"></li>
-                    <li><a href="#"><i className="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="#" onClick={this.logout}><i className="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
             </li>
@@ -48,4 +77,11 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps(state){
+
+  return {
+  }
+
+}
+
+export default connect(mapStateToProps,{cerrarSesion})(Header);

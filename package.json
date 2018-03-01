@@ -48,5 +48,8 @@
     "start": "babel-node src/server/index.js",
     "production": "NODE_ENV=production BABEL_ENV=production npm run build && npm start",
     "build": "NODE_ENV=production webpack --config webpack.config.babel.js"
+  },
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
   }
 }
