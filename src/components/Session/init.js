@@ -70,12 +70,12 @@ class SessionInit extends Component{
 				rol,
 				token,
 				usuario
-			});
-			
-			return <div></div>;
+			});	
 		}
 		else
-			return <Redirect to="/" />;
+			window.location = '/';
+
+		return <div></div>;
 	}
 }
 
