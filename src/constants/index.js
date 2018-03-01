@@ -24,8 +24,8 @@ export const API = Object.freeze({
         },
         PARTIDAS: {
             AUDITORIA_FOTOGRAFIA: {
-                BUSQUEDA: { endpoint: 'http://localhost:8080/auditoria/usuario' },
-                PAGINADO: { endpoint: 'http://localhost:8080/auditoria/usuarios' }
+                BUSQUEDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/folio' },
+                PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria' }
             }
         }
     }

@@ -5,14 +5,14 @@ import {addNotification} from "../Global/GlobalActions";
 export const PAGINAR_PARTIDAS = 'PAGINAR_PARTIDAS';
 export const BUSQUEDA_PARTIDAS = 'BUSQUEDA_PARTIDAS';
 
-export function paginarResultados (page, pageSize) {
+export function paginarResultados (idAuditoria, page, pageSize) {
     const params = {
-        page: page,
-        size: pageSize
+        p: page,
+        t: pageSize
     };
 
     return (dispatch) => {
-        MessageService.getAll(API.ENDPOINTS.PARTIDAS.AUDITORIA_FOTOGRAFIA.PAGINADO.endpoint, params)
+        MessageService.getAll(API.ENDPOINTS.PARTIDAS.AUDITORIA_FOTOGRAFIA.PAGINADO.endpoint + '/' + idAuditoria.toString() + '/partida', params)
         .then((response) => {
             console.log('Entregando la respuesta', response);
             dispatch({ type: PAGINAR_PARTIDAS, payload: response });
@@ -28,7 +28,7 @@ export function paginarResultados (page, pageSize) {
     }
 }
 
-export function buscarPartida(folio) {
+export function buscarPartida(idAuditoria, folio) {
     return (dispatch) => {
         MessageService.getById(API.ENDPOINTS.PARTIDAS.AUDITORIA_FOTOGRAFIA.BUSQUEDA.endpoint, folio)
         .then((response) => {
