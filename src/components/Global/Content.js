@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// Assets
-
-
 class Content extends Component {
   static propTypes = {
     body: PropTypes.object.isRequired

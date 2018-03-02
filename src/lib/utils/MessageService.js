@@ -43,9 +43,17 @@ function save(endpoint, params){
 
 }
 
+function destroy(endpoint, params){
+  return requestApi({
+    url: `${endpoint}`,
+    method: 'DELETE',
+    data: params
+  });
+}
+
 
 const MessageService = {
-  getById, save, getAll
+  getById, save, getAll, destroy
 }
 
 
