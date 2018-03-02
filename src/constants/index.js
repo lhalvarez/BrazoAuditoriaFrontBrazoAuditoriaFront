@@ -42,3 +42,8 @@ export const NUMERICAS = Object.freeze({
     VERIFICAR_SESION: 300000,
     CERRAR_SESION: 1800000
 });
+
+/* Habilitar o inhabilitar la seguridad con sesión */
+export const CONFIG = Object.freeze({
+    ENABLE_SESSION: false
+});
