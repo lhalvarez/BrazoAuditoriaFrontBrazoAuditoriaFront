@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import 'rc-pagination/assets/index.css';
 import { Link } from 'react-router-dom';
 
-const AuditoriaList = ({partidas}) => {
+const PartidaAuditoriaList = ({partidas}) => {
     return (
         <div className="row">
             <div className="col-lg-12">
@@ -33,8 +33,8 @@ const AuditoriaList = ({partidas}) => {
     );
 };
 
-AuditoriaList.propTypes = {
+PartidaAuditoriaList.propTypes = {
     partidas: PropTypes.array.isRequired
 };
 
-export default AuditoriaList;
+export default PartidaAuditoriaList;

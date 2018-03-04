@@ -13,7 +13,8 @@ export const API = Object.freeze({
             AUDITORIA_FOTOGRAFIA: {
                 registros_obtenidos: 'Registros cargados de forma correcta.',
                 partida_encontrada: 'Registro de partida encontrado.',
-                registro_no_encontrado: 'El registro de la partida no fue encontrado.',
+                auditoria_encontrada: 'Registro de auditoría encontrado.',
+                registro_no_encontrado: 'El registro no fue encontrado.',
                 error_busqueda: 'Ocurrio un error al procesar la busqueda'
             }
         }
@@ -22,10 +23,19 @@ export const API = Object.freeze({
         USUARIOS: {
             BUSQUEDA: { endpoint: 'https://jsonplaceholder.typicode.com/users' }
         },
-        PARTIDAS: {
-            AUDITORIA_FOTOGRAFIA: {
-                BUSQUEDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/folio' },
-                PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria' }
+        AUDITORIA: {
+            FOTOGRAFIA: {
+                PARTIDAS: {
+                    BUSQUEDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/:idAuditoria/partida/folio' },
+                    PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/:idAuditoria/partida' }
+                },
+                AUDITORIAS: {
+                    BUSQUEDA: {
+                        ID: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria' },
+                        ARCHIVO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/nombreArchivo' }
+                    },
+                    PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria' }
+                }
             }
         },
         SEGURIDAD: {
@@ -46,4 +56,14 @@ export const NUMERICAS = Object.freeze({
 /* Habilitar o inhabilitar la seguridad con sesión */
 export const CONFIG = Object.freeze({
     ENABLE_SESSION: false
+});
+
+/* Titulos de las paginas parametrizados mediante componente <ContainerTitle /> */
+export const TITLES = Object.freeze({
+    AUDITORIA: {
+        FOTOGRAFIA: {
+            INFO_AUDITORIA: 'Información Auditoría por Fotografía',
+            PARTIDAS_AUDITORIA: 'Partidas para Auditoría :idAuditoria cargada en archivo :archivo'
+        }
+    }
 });

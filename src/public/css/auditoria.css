@@ -321,3 +321,8 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+
+h1.page-header {
+    font-size: 2.2em;
+    margin-top: 10px;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AuditoriaFormSearch extends Component {
+class PartidaFormSearch extends Component {
     constructor(props) {
         super(props);
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -9,7 +9,7 @@ class AuditoriaFormSearch extends Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        this.props.buscarPartida(this.props.buscarPartida);
+        this.props.buscarPartida();
     };
 
     resetForm = () => {
@@ -23,16 +23,16 @@ class AuditoriaFormSearch extends Component {
                 <div className="col-lg-12">
                     <div className="panel panel-default">
                         <form ref={(el) => this.formBusquedaPartida = el} onSubmit={this.onFormSubmit}>
-                            <div className="panel-heading">
-                                <p>Busqueda de partida</p>
+                            <div className="panel-heading" style={{paddingBottom: '-10px'}}>
+                                <p>Búsqueda de partida</p>
                             </div>
-                            <div className="panel-body">
+                            <div className="panel-body" style={{paddingTop: '0px'}}>
                                 <div className="row">
                                     <div className="col-lg-6">
                                         <div className="form-group row">
                                             <label className="col-sm-4 col-form-label">Folio:</label>
                                             <div className="col-sm-8">
-                                                <input id="inputFolio" className="form-control input-sm" placeholder="Folio de la partida"
+                                                <input style={{marginTop: '-10px'}} id="inputFolio" className="form-control" placeholder="Folio de la partida"
                                                        onChange={this.props.handlePartida} type="number" value={this.props.folio} required="required" min="1" max="999999999" />
                                             </div>
                                         </div>
@@ -43,7 +43,7 @@ class AuditoriaFormSearch extends Component {
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="pull-right">
-                                            <input className="btn btn-sm btn-primary" type="submit" value="Buscar Partida"/>
+                                            <input style={{marginRight: '5px'}} className="btn btn-sm btn-primary" type="submit" value="Buscar Partida"/>
                                             <button className="btn btn-sm btn-primary" type="button" onClick={this.resetForm}>Limpiar</button>
                                         </div>
                                     </div>
@@ -57,4 +57,4 @@ class AuditoriaFormSearch extends Component {
     };
 }
 
-export default AuditoriaFormSearch;
+export default PartidaFormSearch;
