@@ -1,20 +1,15 @@
 // Dependencies
 import React, { Component } from 'react';
-import Auditoria from '../../components/Auditoria';
+import InformacionAuditoriaFotografia from '../../components/Auditoria/Fotografia/Informacion/Auditoria/index';
 
-class AuditoriaFotografia extends Component{
-
-	static propTypes = {
-
-  	};
-
-	render(){
-		return (
-			<div>
-        <Auditoria />
-			</div>
-		);
-	}
+class AuditoriaFotografia extends Component {
+    render() {
+        return (
+            <div>
+                <InformacionAuditoriaFotografia />
+            </div>
+        );
+    }
 }
 
 export default AuditoriaFotografia;

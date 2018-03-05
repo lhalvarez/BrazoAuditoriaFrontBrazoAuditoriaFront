@@ -1,8 +1,11 @@
 /*
 * Acciones relacionadas a la sesión
 */
-import { API } from '../../constants';
+import { API, CONFIG } from '../../constants';
 import MessageService from '../../lib/utils/MessageService';
+
+/* Datos de sesión simulados */
+import { fake } from '../../data/fakeSessionData';
 
 export const REDIRECCIONAR_LOGIN = 'REDIRECCIONAR_LOGIN';
 
@@ -24,6 +27,10 @@ export const MENU_VERIFICADO = 'MENU_VERIFICADO';
 export const ERROR_VERIFICACION_MENU = 'ERROR_VERIFICACION_MENU';
 
 export function redireccionarLogin(){
+	if(!CONFIG.ENABLE_SESSION){
+		return dispatch => dispatch({ type: REDIRECCIONAR_LOGIN })
+	}
+
 	return dispatch => {
 		window.location = API.ENDPOINTS.LOGINNMP;
 		dispatch({ type: REDIRECCIONAR_LOGIN });
@@ -31,6 +38,17 @@ export function redireccionarLogin(){
 }
 
 export function iniciarSesion(body){
+	if(!CONFIG.ENABLE_SESSION){
+		return dispatch => {
+			dispatch({ type: INICIANDO_SESION });
+
+			sessionStorage.setItem('userData', JSON.stringify(fake.userData));
+			sessionStorage.setItem('menu',JSON.stringify(fake.menu));
+
+			dispatch({ type: SESION_INICIADA, ...fake.userData });
+		}
+	}
+
 	return dispatch => {
 		dispatch({ type: INICIANDO_SESION });
 
@@ -59,6 +77,13 @@ export function iniciarSesion(body){
 }
 
 export function cerrarSesion(){
+	if(!CONFIG.ENABLE_SESSION){
+		return dispatch => {
+			dispatch({ type: CERRANDO_SESION });
+			dispatch({ type: SESION_CERRADA });
+		}
+	}
+
 	return dispatch => {
 		if(window.sessionStorage.userData === undefined){
 			redirectLogin(dispatch);
@@ -94,6 +119,17 @@ export function cerrarSesion(){
 }
 
 export function verificarSesion(){
+	if(!CONFIG.ENABLE_SESSION){
+		return dispatch => {
+			dispatch({ type: VERIFICANDO_SESION });
+			
+			sessionStorage.setItem('userData', JSON.stringify(fake.userData));
+			sessionStorage.setItem('menu',JSON.stringify(fake.menu));
+
+			dispatch({ type: SESION_VERIFICADA, ...fake.userData });
+		}
+	}
+
 	return dispatch => {
 		if(window.sessionStorage.userData === undefined){
 			redirectLogin(dispatch);
@@ -133,6 +169,13 @@ export function verificarSesion(){
 }
 
 export function verificarMenu(){
+	if(!CONFIG.ENABLE_SESSION){
+		return dispatch => {
+			dispatch({ type: VERIFICANDO_MENU });
+			dispatch({ type: MENU_VERIFICADO, menu: fake.menu });
+		}
+	}
+
 	return dispatch => {
 		dispatch({ type: VERIFICANDO_MENU });
 
