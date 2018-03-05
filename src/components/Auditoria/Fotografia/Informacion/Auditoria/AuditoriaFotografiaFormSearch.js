@@ -47,37 +47,37 @@ class AuditoriaFotografiaFormSearch extends Component {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="panel panel-default">
+                        <div className="panel-heading" style={{paddingBottom: '0px'}}>
+                            <p>Búsqueda de Auditoría</p>
+                        </div>
                         <form ref={(el) => this.formBusquedaAuditoriaFotografia = el} onSubmit={this.onFormSubmit}>
-                            <div className="panel-heading" style={{paddingBottom: '0px'}}>
-                                <p>Búsqueda de Auditoría</p>
-                            </div>
-                                <div className="panel-body" style={{paddingTop: '0px'}}>
-                                    <div className="form-row">
-                                        <div className="form-group col-md-6">
-                                            <label className="col-form-label">Id auditoria:</label>
-                                            <input id="inputIdAuditoria"
-                                                   className="form-control"
-                                                   placeholder="Id Auditoria"
-                                                   onChange={this.handleInputAuditoria}
-                                                   type="number"
-                                                   value={this.props.data.idAuditoria}
-                                                   disabled={this.state.disableInput}
-                                                   required="required" min="1" max="1000000" />
-                                        </div>
-                                        <div className="form-group col-md-6">
-                                            <label className="col-form-label">Archivo de carga:</label>
-                                            <select className="form-control form-control-sm"
-                                                    value={this.props.data.nombreArchivo}
-                                                    onChange={this.handleDatosForm}
-                                                    disabled={this.state.disableSelect}>
-                                                <option value={''}>Selecciona un archivo</option>
-                                                {this.props.data.archivosAuditoria.map(archivo => (
-                                                    <option key={archivo} value={archivo}>{archivo}</option>
-                                                ))}
-                                            </select>
-                                        </div>
+                            <div className="panel-body" style={{paddingTop: '10px'}}>
+                                <div className="form-row">
+                                    <div className="form-group col-md-6">
+                                        <label className="col-form-label">Id auditoria:</label>
+                                        <input id="inputIdAuditoria"
+                                               className="form-control"
+                                               placeholder="Id Auditoria"
+                                               onChange={this.handleInputAuditoria}
+                                               type="number"
+                                               value={this.props.data.idAuditoria}
+                                               disabled={this.state.disableInput}
+                                               required="required" min="1" max="1000000" />
                                     </div>
-                              </div>
+                                    <div className="form-group col-md-6">
+                                        <label className="col-form-label">Archivo de carga:</label>
+                                        <select className="form-control form-control-sm"
+                                                value={this.props.data.nombreArchivo}
+                                                onChange={this.handleDatosForm}
+                                                disabled={this.state.disableSelect}>
+                                            <option value={''}>Selecciona un archivo</option>
+                                            {this.props.data.archivosAuditoria.map(archivo => (
+                                                <option key={archivo} value={archivo}>{archivo}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="panel-footer">
                                 <div className="row">
                                     <div className="col-sm-12">
