@@ -23,14 +23,14 @@ const menu = [
 					{
 						"idMenu": 30,
 						"descripcion": "Carga",
-						"url": "#",
+						"url": "/cargar-partidas",
 						"ico": "ico",
 						"submenus": null
 					},
 					{
 						"idMenu": 31,
 						"descripcion": "Validación",
-						"url": "#",
+						"url": "/validacion-partidas",
 						"ico": "ico",
 						"submenus": null
 					}
@@ -61,7 +61,7 @@ const menu = [
 			{
 				"idMenu": 5,
 				"descripcion": "Consulta Salida",
-				"url": "#",
+				"url": "/salida-partidas",
 				"ico": "ico",
 				"submenus": null
 			}
