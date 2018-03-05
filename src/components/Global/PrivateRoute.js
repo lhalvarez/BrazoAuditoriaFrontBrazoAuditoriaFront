@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 import { store } from '../../store';
 import { verificarSesion, verificarMenu, cerrarSesion } from '../Session/actions';
-import { NUMERICAS, CONFIG } from '../../constants';
+import { NUMERICAS } from '../../constants';
 
 class PrivateRoute extends Component{
 
@@ -41,13 +41,11 @@ class PrivateRoute extends Component{
 	}
 
 	componentDidMount(){
-		if(CONFIG.ENABLE_SESSION){		
-			/* Verificar la sesión cada n segundos */
-			setInterval(() => this.props.verificarSesion(),NUMERICAS.VERIFICAR_SESION);
+		/* Verificar la sesión cada n segundos */
+		setInterval(() => this.props.verificarSesion(),NUMERICAS.VERIFICAR_SESION);
 
-			/* Cerrar la sesión después de n segundos */
-			setTimeout(() => this.props.cerrarSesion(),NUMERICAS.CERRAR_SESION);
-		}
+		/* Cerrar la sesión después de n segundos */
+		setTimeout(() => this.props.cerrarSesion(),NUMERICAS.CERRAR_SESION);
 	}
 
 	componentWillUnmount(){
