@@ -55,7 +55,7 @@ export const NUMERICAS = Object.freeze({
 
 /* Habilitar o inhabilitar la seguridad con sesión */
 export const CONFIG = Object.freeze({
-    ENABLE_SESSION: false
+    ENABLE_SESSION: true
 });
 
 /* Titulos de las paginas parametrizados mediante componente <ContainerTitle /> */
