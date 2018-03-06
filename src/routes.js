@@ -29,8 +29,14 @@ const AppRoutes = () =>
 	<App>
 		<Switch>
 			<PrivateRoute exact path="/" component={Home} />
-			<PrivateRoute exact path="/cargar-partidas" component={cargaAuditoria} />
-			<PrivateRoute exact path="/validacion-partidas" component={validacionPartidas} />
+
+			//Fotografía
+			<PrivateRoute exact path="/cargar-partidas-fotografia" component={cargaAuditoria} />
+			<PrivateRoute exact path="/validacion-partidas-fotografia" component={validacionPartidas} />
+			//Física
+			<PrivateRoute exact path="/cargar-partidas-fisica" component={cargaAuditoria} />
+			<PrivateRoute exact path="/validacion-partidas-fisica" component={validacionPartidas} />
+			//Consulta Salida
 			<PrivateRoute exact path="/salida-partidas" component={salidaPartidas} />
 			<PrivateRoute exact path="/auditoria-fisica-caja-abierta" component={AuditoriaFisicaAbierta} />
 			<PrivateRoute exact path="/auditoria-fisica-caja-cerrada" component={AuditoriaFisicaCerrada} />
