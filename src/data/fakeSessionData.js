@@ -23,14 +23,14 @@ const menu = [
 					{
 						"idMenu": 30,
 						"descripcion": "Carga",
-						"url": "/cargar-partidas",
+						"url": "/cargar-partidas-fisica",
 						"ico": "ico",
 						"submenus": null
 					},
 					{
 						"idMenu": 31,
 						"descripcion": "Validación",
-						"url": "/validacion-partidas",
+						"url": "/validacion-partidas-fisica",
 						"ico": "ico",
 						"submenus": null
 					}
@@ -45,14 +45,14 @@ const menu = [
 					{
 						"idMenu": 32,
 						"descripcion": "Carga",
-						"url": "#",
+						"url": "/cargar-partidas-fotografia",
 						"ico": "ico",
 						"submenus": null
 					},
 					{
 						"idMenu": 33,
 						"descripcion": "Validación",
-						"url": "#",
+						"url": "validacion-partidas-fotografia",
 						"ico": "ico",
 						"submenus": null
 					}
