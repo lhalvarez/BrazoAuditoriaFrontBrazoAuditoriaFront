@@ -34,7 +34,7 @@ class Header extends Component {
 
   handleStoreChanges(){
     if(store.getState().session.activeSession)
-      this.setState({ usuario: store.getState().session.usuario });
+      this.setState({ usuario: store.getState().session.detalleUsuario.nombreCompleto });
   }
 
   componentWillUnmount(){

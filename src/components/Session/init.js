@@ -12,12 +12,12 @@ import { store } from '../../store';
 import { redireccionarLogin, iniciarSesion } from './actions';
 
 // Valores en hard code provisionales hasta que el servicio los regrese
-var rol = 1;
+var detalleUsuario = null;
+var menu = null;
 var token = '';
-var usuario = mockUser();
 
 // Función provisional para generar un usuario diferente en cada sesión
-function mockUser(){
+/*function mockUser(){
 	let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	let text = '';
 
@@ -25,7 +25,7 @@ function mockUser(){
     	text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   	return text;
-}
+}*/
 
 class SessionInit extends Component{
 	
@@ -67,9 +67,9 @@ class SessionInit extends Component{
 			let codigoAutorizacion = /^.+code=(.*)$/.exec(search)[1].split('&')[0];
 			this.props.iniciarSesion({
 				codigoAutorizacion,
-				rol,
-				token,
-				usuario
+				detalleUsuario,
+				menu,
+				token
 			});	
 		}
 		else

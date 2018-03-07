@@ -55,8 +55,8 @@ export function iniciarSesion(body){
 		MessageService.save(API.ENDPOINTS.SEGURIDAD.INICIAR_SESION.endpoint,body)
 		.then( response => {
 			let userData = {
-				usuario: response.object.usuario,
-				token: response.object.token
+				token: response.object.token,
+				detalleUsuario: response.object.detalleUsuario
 			};
 
 			sessionStorage.setItem('userData', JSON.stringify(userData));
@@ -101,7 +101,7 @@ export function cerrarSesion(){
 		sessionStorage.removeItem('userData');
 		sessionStorage.removeItem('menu');
 
-		MessageService.destroy(API.ENDPOINTS.SEGURIDAD.INICIAR_SESION.endpoint,userData.usuario)
+		MessageService.destroy(API.ENDPOINTS.SEGURIDAD.INICIAR_SESION.endpoint,userData.detalleUsuario.usuario)
 		.then(
 			response => {
 				dispatch({ type: SESION_CERRADA });
@@ -141,22 +141,24 @@ export function verificarSesion(){
 		} catch(e) {
 			redirectLogin(dispatch);
 			sessionStorage.removeItem('userData');
+			sessionStorage.removeItem('menu');
 		}
 
 		dispatch({ type: VERIFICANDO_SESION });
 
-		MessageService.getAll(`${API.ENDPOINTS.SEGURIDAD.VERIFICAR_SESION.endpoint}/${userData.usuario}`)
+		MessageService.getAll(`${API.ENDPOINTS.SEGURIDAD.VERIFICAR_SESION.endpoint}/${userData.detalleUsuario.usuario}`)
 		.then(response => {
 			dispatch({ 
 				type: SESION_VERIFICADA,
-				usuario: userData.usuario,
-				token: userData.token
+				token: userData.token,
+				detalleUsuario: userData.detalleUsuario
 			});
 		})
 		.catch(error => {
 			dispatch({ type: ERROR_VERIFICACION_SESION });
 
 			sessionStorage.removeItem('userData');
+			sessionStorage.removeItem('menu');
 
 			redirectLogin(dispatch);
 		});

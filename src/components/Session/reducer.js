@@ -21,7 +21,13 @@ import {
 
 const initialState = {
 	token: '',
-	usuario: '',
+	detalleUsuario: {
+		correo: '',
+		nombreCompleto: '',
+		sucursal: 0,
+		usuario: '',
+		rol: 1
+	},
 	activeSession: false
 };
 
@@ -34,7 +40,7 @@ export function sessionReducer(state = initialState, action){
 		case SESION_INICIADA: 
 			return Object.assign({},state,{ 
 				token: action.token,
-				usuario: action.usuario,
+				detalleUsuario: action.detalleUsuario,
 				activeSession: true
 			})
 		case CERRANDO_SESION:
@@ -48,7 +54,7 @@ export function sessionReducer(state = initialState, action){
 		case SESION_VERIFICADA:
 			return Object.assign({},state,{ 
 				token: action.token,
-				usuario: action.usuario,
+				detalleUsuario: action.detalleUsuario,
 				activeSession: true
 			})
 		case ERROR_VERIFICACION_SESION:
