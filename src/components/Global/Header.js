@@ -67,7 +67,7 @@ class Header extends Component {
                     <li><a href="#"><i className="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li className="divider"></li>
-                    <li><a href="#" onClick={this.logout}><i className="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="#" onClick={this.logout}><i className="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
                     </li>
                 </ul>
             </li>
