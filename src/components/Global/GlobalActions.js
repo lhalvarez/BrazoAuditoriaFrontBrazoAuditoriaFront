@@ -14,3 +14,12 @@ export function addNotification(title, message, level) {
 
 }
 
+/*
+* Acciones relacionadas a la navegación del sistema
+*/
+
+export const CAMBIO_PAGINA = 'CAMBIO_PAGINA';
+
+export function setPageTitle(pageTitle){
+	return dispatch => dispatch({ type: CAMBIO_PAGINA, pageTitle });
+}

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { store } from '../../store';
+import { setPageTitle } from './GlobalActions';
 import { verificarSesion, verificarMenu, cerrarSesion } from '../Session/actions';
 import { NUMERICAS } from '../../constants';
 
@@ -22,6 +23,7 @@ class PrivateRoute extends Component{
   		super();
 
   		this.handleStoreChanges = this.handleStoreChanges.bind(this);
+  		this.pageChanged = this.pageChanged.bind(this);
 
   		this.unsuscribe = store.subscribe(this.handleStoreChanges);
   		this.state = {};
@@ -38,6 +40,7 @@ class PrivateRoute extends Component{
 	componentWillMount(){
 		this.props.verificarSesion();
 		this.props.verificarMenu();
+		this.pageChanged();
 	}
 
 	componentDidMount(){
@@ -50,6 +53,15 @@ class PrivateRoute extends Component{
 
 	componentWillUnmount(){
 		this.unsuscribe();
+  	}
+
+  	pageChanged(){
+		if(this.props.title)
+			this.props.setPageTitle(this.props.title);
+  	}
+
+  	componentDidUpdate(){
+		this.pageChanged();
   	}
 
 	render(){
@@ -70,4 +82,4 @@ function mapStateToProps(state){
 
 }
 
-export default connect(mapStateToProps,{ verificarSesion, verificarMenu, cerrarSesion })(PrivateRoute);
+export default connect(mapStateToProps,{ verificarSesion, verificarMenu, cerrarSesion, setPageTitle })(PrivateRoute);

@@ -9,15 +9,10 @@ import Content from './Global/Content';
 import Footer from './Global/Footer';
 import Notificacion from './Global/Notificacion';
 
-
-// Data
-import items from '../data/menu';
-
 //Resources
 import '../public/css/auditoria.css';
 import '../public/plugins/bootstrap/dist/css/bootstrap.min.css';
 import '../public/plugins/font-awesome/css/font-awesome.css';
-
 
 
 class App extends Component {
@@ -35,8 +30,8 @@ class App extends Component {
       <div id="wrapper" >
         <Notificacion />
         <nav className="mainnav navbar navbar-default navbar-static-top" role="navigation">
-          <Header items={items}/>
-          <Menu title="Título de la página" />
+          <Header />
+          <Menu />
         </nav>
         <div id="page-wrapper">
           <Content body = {children} />

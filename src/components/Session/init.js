@@ -16,17 +16,6 @@ var detalleUsuario = null;
 var menu = null;
 var token = '';
 
-// Función provisional para generar un usuario diferente en cada sesión
-/*function mockUser(){
-	let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	let text = '';
-
-	for (var i = 0; i < 20; i++)
-    	text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-  	return text;
-}*/
-
 class SessionInit extends Component{
 	
 	static propTypes = {

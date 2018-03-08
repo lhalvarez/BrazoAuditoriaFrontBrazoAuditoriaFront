@@ -1,4 +1,4 @@
-import {ADD_NOTIFICATION} from './GlobalActions'
+import { ADD_NOTIFICATION, CAMBIO_PAGINA } from './GlobalActions'
 
 
 const initialState = {
@@ -17,4 +17,22 @@ export function notification(state = initialState, action){
 
   }
 
+}
+
+/*
+* Reducer encargado de mostrar actualizaciones de estado 
+* relacionadas con la navegación del sistema 
+*/
+
+const navInitialState = {
+	pageTitle : 'Nacional Monte de Piedad'
+};
+
+export function nav(state = navInitialState, action){
+	switch (action.type) {
+		case CAMBIO_PAGINA:
+			return Object.assign({},state,{pageTitle: action.pageTitle});
+		default:
+			return state;
+	}
 }
