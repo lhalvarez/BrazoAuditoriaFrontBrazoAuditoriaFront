@@ -31,8 +31,8 @@ const AppRoutes = () =>
 			<PrivateRoute exact path="/" component={Home} />
 
 			//Fotografía
-			<PrivateRoute exact path="/cargar-partidas-fotografia" component={cargaAuditoria} />
-			<PrivateRoute exact path="/validacion-partidas-fotografia" component={validacionPartidas} />
+      <PrivateRoute exact path="/cargar-partidas-fotografia" component={cargaAuditoria} />
+      <PrivateRoute exact path="/validacion-partidas-fotografia" component={validacionPartidas} />
 			//Física
 			<PrivateRoute exact path="/cargar-partidas-fisica" component={cargaAuditoria} />
 			<PrivateRoute exact path="/validacion-partidas-fisica" component={validacionPartidas} />
@@ -44,7 +44,7 @@ const AppRoutes = () =>
       <PrivateRoute exact path="/detalle-auditoria-fotografia/:idAuditoria" component={DetalleAuditoriaFotografia} />
 			<PrivateRoute exact path="/auditoria-salida-prendas" component={AuditoriaPrendas} />
 			<PrivateRoute exact path="/usuarios" component={Usuarios} />
-			<Route exact path="/ingreso" component={SessionInit} />
+      <Route exact path="/ingreso" component={SessionInit} />
 			<PrivateRoute component={Page404} />
 		</Switch>
 	</App>;

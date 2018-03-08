@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table'
 import "react-table/react-table.css";
 import "./style.css";
-import {getDocs} from './actions';
+import {getDocs,saveDoc,saveAuditoria} from './actions';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios, { post } from 'axios';
-import {saveDoc} from './actions'
+import { store } from '../../store';
 
 import {
   Modal,
@@ -35,19 +35,18 @@ class cargaAuditoria extends Component{
     this.state = {
       data: getData(),
       show: false,
-      file:null,
-    };
+      file:null ,
+      detalleUsuario: store.getState().session.detalleUsuario
+
+  };
     this.tipoAuditoria = 0;
 
 
   }
-	  static propTypes = {
 
-  	};
     switchView(){
       if(this.props.path === '/cargar-partidas-fotografia') this.tipoAuditoria = 1;
       if(this.props.path === '/cargar-partidas-fisica') this.tipoAuditoria = 2;
-      console.log(this.tipoAuditoria);
     }
 
     handleClose() {
@@ -56,32 +55,38 @@ class cargaAuditoria extends Component{
 
     handleShow() {
       this.setState({ show: true });
-      console.log(this.state);
     }
     onFormSubmit(e){
       e.preventDefault();
       this.handleClose();
-      //saveDoc();
-      this.fileUpload(this.state.file).then((response)=>{
-        console.log(response.data);
+      this.fileUpload(this.state.file);
 
-      })
     }
     onChange(e) {
       this.setState({file:e.target.files[0]})
     }
     fileUpload(file){
-      const url = 'https://dev1775-auditoria.mybluemix.net/auditoria/cargarArchivo';
       var formData = new FormData();
       formData.append('file',file,'file')
-      const config = {
+      /*const config = {
           headers: {
               'content-type': 'multipart/form-data'
           }
-      }
-      //saveDoc(formData);
-      //console.log(url, formData);
-      return post(url,formData);
+      }; */
+      let tipoAuditoria = 'Fotografía';
+      let estadoAuditoría = 'En espera de revisión';
+      console.log(file);
+      const auditoria = {
+        "estadoAuditoria": estadoAuditoría,
+        "estadoCarga": 'Cargando...',
+        "idSucursal": this.state.detalleUsuario.sucursal,
+        "nombreArchivo": file.name,
+        "solicitante": this.state.detalleUsuario.usuario,
+        "tipoAuditoria": tipoAuditoria
+      };
+
+      this.props.saveAuditoria(auditoria);
+      this.props.saveDoc(formData);
     }
 
 
@@ -271,4 +276,12 @@ class cargaAuditoria extends Component{
 	}
 }
 
-export default cargaAuditoria;
+function mapStateToProps(state){
+
+  return {
+    users: state.user.list
+  }
+
+}
+
+export default connect(mapStateToProps,{saveDoc,saveAuditoria})(cargaAuditoria);

@@ -31,7 +31,7 @@ function getAll(endpoint, params){
 
 function save(endpoint, params){
 
-
+  
   var obj = toObject(params);
 
   return requestApi({
