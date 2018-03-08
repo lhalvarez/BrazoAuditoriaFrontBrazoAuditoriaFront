@@ -16,10 +16,10 @@ const PartidaAuditoriaList = ({partidas}) => {
                             </tr>
                         </thead>
                         <tbody>
-                        {partidas.map(partida => {
+                        {partidas.map((partida, index) => {
                             const {folio, sucursal} = partida;
                             return (
-                                <tr key={folio}>
+                                <tr key={`${index}-${folio}`}>
                                     <td><Link to={`/auditoria-salida-prendas/${folio}`}>{folio}</Link></td>
                                     <td>Sucursal {sucursal}</td>
                                 </tr>

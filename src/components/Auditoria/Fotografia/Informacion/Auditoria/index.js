@@ -7,13 +7,14 @@ import AuditoriaFotografiaFormSearch from './AuditoriaFotografiaFormSearch';
 import {buscarAuditoria, paginarAuditorias} from "../../actions";
 import {connect} from "react-redux";
 import {AUDITORIAS} from './../../../../../data/fakeAuditorias';
+import PropTypes from 'prop-types';
 
 class InformacionAuditoriaFotografia extends Component {
     constructor() {
         super();
         
         this.onChangePagination = this.onChangePagination.bind(this);
-        this.onChangeArchivo = this.onChangeArchivo.bind(this);
+        this.handleArchivo = this.handleArchivo.bind(this);
         this.buscarAuditoria = this.buscarAuditoria.bind(this);
         this.handleAuditoria = this.handleAuditoria.bind(this);
         this.limpiar = this.limpiar.bind(this);
@@ -39,10 +40,10 @@ class InformacionAuditoriaFotografia extends Component {
         }, this.props.paginarAuditorias(page - 1, this.state.pageSize));
     };
     
-    onChangeArchivo = (event) => {
-      console.log("Archivo: " + event.target.value);
+    handleArchivo = (archivo) => {
+      console.log("Archivo: " + archivo);
         this.setState({
-            nombreArchivo: event.target.value,
+            nombreArchivo: archivo,
             idAuditoria: null
         });
     };
@@ -83,7 +84,7 @@ class InformacionAuditoriaFotografia extends Component {
             archivosAuditoria: archivos,
             buscarAuditoria: this.buscarAuditoria,
             handleAuditoria: this.handleAuditoria,
-            onChangeArchivo: this.onChangeArchivo,
+            handleArchivo: this.handleArchivo,
             limpiar: this.limpiar
         };
         
@@ -91,7 +92,7 @@ class InformacionAuditoriaFotografia extends Component {
             <div className="auditoriaFotografiaCont">
                 <ContainerTitle title={TITLES.AUDITORIA.FOTOGRAFIA.INFO_AUDITORIA} />
                 <AuditoriaFotografiaFormSearch data={data} />
-                <AuditoriaFotografiaList auditorias={this.props.auditorias} />
+                { this.props.auditorias.length > 0 && <AuditoriaFotografiaList auditorias={this.props.auditorias} /> }
                 <Pagination current={this.state.page + 1}
                             pageSize={this.state.pageSize}
                             hideOnSinglePage={true}
@@ -101,6 +102,10 @@ class InformacionAuditoriaFotografia extends Component {
         );
     }
 }
+
+InformacionAuditoriaFotografia.propTypes = {
+    auditorias: PropTypes.array.isRequired
+};
 
 function mapStateToProps(state) {
     return {

@@ -17,10 +17,10 @@ const AuditoriaFotografiaList = ({auditorias}) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {auditorias.map(auditoria => {
+                            {auditorias.map((auditoria, index) => {
                                 const {id, nombreArchivo, totalPartidas} = auditoria;
                                 return (
-                                    <tr key={id}>
+                                    <tr key={`${index}-${id}`}>
                                         <td>{id}</td>
                                         <td>{nombreArchivo}</td>
                                         <td>{totalPartidas}</td>

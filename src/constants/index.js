@@ -32,9 +32,10 @@ export const API = Object.freeze({
                 AUDITORIAS: {
                     BUSQUEDA: {
                         ID: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria' },
-                        ARCHIVO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/nombreArchivo' }
+                        ARCHIVO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/nombreArchivo' },
+                        AUTO_COMPLETE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/autocomplete/nombreArchivo' }
                     },
-                    PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria' }
+                    PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/cargas/completas' }
                 }
             }
         },

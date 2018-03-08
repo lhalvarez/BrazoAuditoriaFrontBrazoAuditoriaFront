@@ -68,7 +68,7 @@ class Auditoria extends Component {
                                         .replace(":archivo", this.props.nombreArchivo)} />
                 <PartidaFormSearch handlePartida={this.handlePartida} limpiar={this.limpiar}
                                    buscarPartida={this.buscarPartida}  />
-                <PartidaAuditoriaList partidas={this.props.partidas} />
+                { this.props.partidas.length > 0 && <PartidaAuditoriaList partidas={this.props.partidas} /> }
                 <Pagination current={this.state.page + 1}
                             pageSize={data.pageSize}
                             total={data.total}
