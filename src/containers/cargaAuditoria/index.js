@@ -1,12 +1,10 @@
 // Dependencies
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import ReactTable from 'react-table'
 import "react-table/react-table.css";
 import "./style.css";
 import {getDocs,saveDoc,saveAuditoria} from './actions';
-import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios, { post } from 'axios';
 import { store } from '../../store';
@@ -30,12 +28,14 @@ class cargaAuditoria extends Component{
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.onChangeFile = this.onChangeFile.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
+    this.onChangeTipoAuditoria = this.onChangeTipoAuditoria.bind(this);
     this.state = {
       data: getData(),
       show: false,
       file:null ,
+      tipoCarga: '',
       detalleUsuario: store.getState().session.detalleUsuario
 
   };
@@ -62,18 +62,23 @@ class cargaAuditoria extends Component{
       this.fileUpload(this.state.file);
 
     }
-    onChange(e) {
+    onChangeFile(e) {
       this.setState({file:e.target.files[0]})
+    }
+    onChangeTipoAuditoria(e){
+      this.setState({tipoCarga:e.target.value});
     }
     fileUpload(file){
       var formData = new FormData();
       formData.append('file',file,'file')
-      /*const config = {
-          headers: {
-              'content-type': 'multipart/form-data'
-          }
-      }; */
-      let tipoAuditoria = 'Fotografía';
+
+      if(this.tipoAuditoria === 1){
+        var tipoAudit = 'Fotografía';
+      }else{
+        var tipoAudit = this.state.tipoCarga;
+      }
+
+
       let estadoAuditoría = 'En espera de revisión';
       console.log(file);
       const auditoria = {
@@ -82,7 +87,7 @@ class cargaAuditoria extends Component{
         "idSucursal": this.state.detalleUsuario.sucursal,
         "nombreArchivo": file.name,
         "solicitante": this.state.detalleUsuario.usuario,
-        "tipoAuditoria": tipoAuditoria
+        "tipoAuditoria": tipoAudit
       };
 
       this.props.saveAuditoria(auditoria);
@@ -155,7 +160,7 @@ class cargaAuditoria extends Component{
                   <div className="form-group">
                   <label htmlFor="documento" className="col-sm-2 control-label">Documento</label>
                   <div className="col-sm-10">
-                    <input type="file" className="form-control" id="documento" onChange={this.onChange}  />
+                    <input type="file" className="form-control" id="documento" onChange={this.onChangeFile}  />
                   </div>
                   </div>
                   <div className="form-group">
@@ -241,10 +246,10 @@ class cargaAuditoria extends Component{
                     <div className="form-group">
                     <label htmlFor="documento" className="col-sm-4 control-label">Tipo de auditoría</label>
                     <div className="col-sm-8">
-                    <select className="form-control" id="documento">
+                    <select className="form-control" id="documento" onChange={this.onChangeTipoAuditoria}>
                       <option value="0" disabled>Seleccione...</option>
-                      <option value="1">Caja Cerrada</option>
-                      <option value="2">Caja Abierta</option>
+                      <option value="Física Caja Cerrada">Caja Cerrada</option>
+                      <option value="Física Caja Abierta">Caja Abierta</option>
                     </select>
 
                     </div>
@@ -252,7 +257,7 @@ class cargaAuditoria extends Component{
                     <div className="form-group">
                     <label htmlFor="documento" className="col-sm-4 control-label">Documento</label>
                     <div className="col-sm-8">
-                      <input type="file" className="form-control" id="documento" onChange={this.onChange}  />
+                      <input type="file" className="form-control" id="documento" onChange={this.onChangeFile}  />
                     </div>
                     </div>
                     <div className="form-group">
