@@ -17,4 +17,5 @@ class DetalleAuditoriaFotografia extends Component {
     }
 }
 
+
 export default DetalleAuditoriaFotografia;
