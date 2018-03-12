@@ -8,11 +8,7 @@ class cargaAuditoria extends Component {
   render() {
     return (
       <div>
-
-
-        <CargarAuditorias path={this.props.path}/>
-
-
+       <CargarAuditorias path={this.props.path}/>
       </div>
     );
   }

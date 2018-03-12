@@ -19,20 +19,30 @@ class SeccionCargarArchivos extends Component {
     this.state = {
       tipoCarga: '',
       file:null,
-      nameFile: 'Arrastre y suelte su archivo en esta área'
+      nameFile: 'Arrastre y suelte su archivo en esta área',
+      fileError: null
     };
   };
   onChangeFile(e,files) {
+
     files.forEach(file => {
-      // check file size
+      this.setState({file:file});
+      this.setState({nameFile:file.name});
       if (file.size > 2000 * 2000) {
-        file.error = 'file size exceeded 1MB';
+        file.error = 'El archivo debe tener menos de 2MB';
+        this.setState({fileError:file.error})
+        this.setState({file:null});
+        this.setState({nameFile:'Error en el archivo'});
       }
+      if (file.type !== 'application/vnd.ms-excel') {
+        file.error = 'El archivo debe de ser en formato .csv';
+        this.setState({fileError:file.error});
+        this.setState({file:null});
+        this.setState({nameFile:'Error en el archivo'});
+      }
+
     });
 
-    this.setState({file:files[0]});
-    this.setState({nameFile:files[0].name});
-    $('#inputDrop').data('title',files[0].name);
   }
 
   onChangeTipoAuditoria(e){
@@ -124,9 +134,9 @@ class SeccionCargarArchivos extends Component {
                             >
                               <div className="form-control-file text-primary" id="inputDrop" data-title={this.state.nameFile}>
                               </div>
+
                             </Receiver>
-
-
+                            <div className="msgError text-danger">{this.state.fileError}</div>
 
                         </div>
                       </div>

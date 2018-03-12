@@ -34,3 +34,11 @@
     border-style: solid;
     box-shadow: inset 0px 0px 0px 0.25em currentColor;
 }
+
+ .msgError{
+     color: red;
+     padding: 10px;
+     margin: 0 auto;
+     text-align: center;
+
+ }
