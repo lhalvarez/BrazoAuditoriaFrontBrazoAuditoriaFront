@@ -49,4 +49,6 @@ const AppRoutes = () =>
 		</Switch>
 	</App>;
 
+
+
 export default AppRoutes;

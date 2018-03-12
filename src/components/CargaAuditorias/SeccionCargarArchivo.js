@@ -1,0 +1,213 @@
+import React, { Component } from 'react';
+import { Receiver } from 'react-file-uploader';
+import './style.css';
+import ContainerTitle from '../Global/ContainerTitle';
+
+
+class SeccionCargarArchivos extends Component {
+  constructor(props) {
+    super(props);
+    this.resetForm = this.resetForm.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.fileUpload = this.fileUpload.bind(this);
+    this.onChangeFile = this.onChangeFile.bind(this);
+    this.onChangeTipoAuditoria = this.onChangeTipoAuditoria.bind(this);
+
+    this.onDragEnter = this.onDragEnter.bind(this);
+    this.onDragOver = this.onDragOver.bind(this);
+    this.onDragLeave = this.onDragLeave.bind(this);
+    this.state = {
+      tipoCarga: '',
+      file:null,
+      nameFile: 'Arrastre y suelte su archivo en esta área'
+    };
+  };
+  onChangeFile(e,files) {
+    files.forEach(file => {
+      // check file size
+      if (file.size > 2000 * 2000) {
+        file.error = 'file size exceeded 1MB';
+      }
+    });
+
+    this.setState({file:files[0]});
+    this.setState({nameFile:files[0].name});
+    $('#inputDrop').data('title',files[0].name);
+  }
+
+  onChangeTipoAuditoria(e){
+    this.setState({tipoCarga:e.target.value});
+  }
+  onFormSubmit(e){
+    e.preventDefault();
+    console.log('evitado');
+    this.fileUpload(this.state.file);
+  }
+  resetForm = () => {
+    this.formBusquedaPartida.reset();
+    //this.props.limpiar();
+  };
+  fileUpload(file){
+    var formData = new FormData();
+    formData.append('file',file,'file')
+
+    if(this.props.tipoAuditoria === 1){
+      var tipoAudit = 'Fotografía';
+    }else{
+      var tipoAudit = this.state.tipoCarga;
+    }
+
+
+    let estadoAuditoría = 'En espera de revisión';
+    const auditoria = {
+      "estadoAuditoria": estadoAuditoría,
+      "estadoCarga": 'Cargando...',
+      "idSucursal": this.props.detalleUsuario.sucursal,
+      "nombreArchivo": file.name,
+      "solicitante": this.props.detalleUsuario.usuario,
+      "tipoAuditoria": tipoAudit
+    };
+
+    this.props.saveAuditoria(auditoria);
+    this.props.saveDoc(formData);
+  }
+
+
+
+
+
+  //funciones para drag&drop
+
+  onDragEnter(e) {
+    this.setState({ isReceiverOpen: true });
+    console.log('onDragEnter');
+  }
+
+  onDragOver(e) {
+    // your codes here
+    console.log('onDragOver');
+  }
+
+  onDragLeave(e) {
+    this.setState({ isReceiverOpen: false });
+    console.log('onDragLeave');
+  }
+
+
+
+
+
+  render = () => {
+    if(this.props.tipoAuditoria === 1){
+      return(
+        <div className="row">
+          <ContainerTitle title={'Carga de auditoría por fotografía'}/>
+          <div className="col-lg-12">
+            <div className="panel panel-default">
+              <div className="panel-heading" >
+                <p>Carga nuevo archivo auditoría</p>
+              </div>
+              <form ref={(el) => this.formBusquedaPartida = el} onSubmit={this.onFormSubmit}>
+                <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>
+                  <div className="row">
+                    <div className="col-lg-6 col-lg-offset-3">
+                      <div className="form-group row">
+                        <label htmlFor="documento" className="col-sm-2 control-label"></label>
+                        <div className="col-sm-12">
+
+                            <Receiver
+                              isOpen={true}
+                              onDragEnter={this.onDragEnter}
+                              onDragOver={this.onDragOver}
+                              onDragLeave={this.onDragLeave}
+                              onFileDrop={this.onChangeFile}
+                            >
+                              <div className="form-control-file text-primary" id="inputDrop" data-title={this.state.nameFile}>
+                              </div>
+                            </Receiver>
+
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="panel-footer">
+                  <div className="row">
+                    <div className="col-sm-12">
+                      <div className="pull-right">
+                        <input style={{marginRight: '5px'}} className="btn btn-sm btn-primary" type="submit" value="Cargar Documento"/>
+                        <button className="btn btn-sm btn-primary" type="button" onClick={this.resetForm}>Limpiar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return(
+      <div>
+        <div className="row">
+          <ContainerTitle title={'Carga de auditoría física'}/>
+          <div className="col-lg-12">
+            <div className="panel panel-default">
+              <div className="panel-heading" >
+                <p>Carga nuevo archivo auditoría física</p>
+              </div>
+              <form ref={(el) => this.formBusquedaPartida = el} onSubmit={this.onFormSubmit}>
+                <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <div className="form-group row">
+                        <label htmlFor="documento" className="col-sm-2 control-label">Tipo de auditoría</label>
+                        <div className="col-sm-10">
+                          <select className="form-control" id="documento" defaultValue={0} onChange={this.onChangeTipoAuditoria}>
+                            <option value="0" disabled >Seleccione...</option>
+                            <option value="Física Caja Cerrada">Caja Cerrada</option>
+                            <option value="Física Caja Abierta">Caja Abierta</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
+                      <div className="form-group row">
+                        <div className="col-sm-12">
+                          <Receiver
+                            isOpen={true}
+                            onDragEnter={this.onDragEnter}
+                            onDragOver={this.onDragOver}
+                            onDragLeave={this.onDragLeave}
+                            onFileDrop={this.onChangeFile}
+                          >
+                            <div className="form-control-file text-primary" id="inputDrop" data-title={this.state.nameFile}>
+                            </div>
+                          </Receiver>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="panel-footer">
+                  <div className="row">
+                    <div className="col-sm-12">
+                      <div className="pull-right">
+                        <input style={{marginRight: '5px'}} className="btn btn-sm btn-primary" type="submit" value="Cargar Documento"/>
+                        <button className="btn btn-sm btn-primary" type="button" onClick={this.resetForm}>Limpiar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+}
+
+export default SeccionCargarArchivos;
