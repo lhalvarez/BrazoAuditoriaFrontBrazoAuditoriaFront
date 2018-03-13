@@ -4,6 +4,7 @@ import { notification, nav } from '../components/Global/GlobalReducer';
 import {auditoriaReducer} from "../components/Auditoria/Fotografia/auditoriaReducer";
 import { sessionReducer } from '../components/Session/reducer';
 import { cargaAuditora } from '../components/CargaAuditorias/reducer';
+import { cajaAbierta } from '../components/Auditoria/Fisica/CajaAbierta/reducer';
 
 const rootReducer = combineReducers({
 
@@ -12,8 +13,9 @@ const rootReducer = combineReducers({
   auditoriaFotografia: auditoriaReducer,
   session: sessionReducer,
   cargaAuditora,
-  nav
-
+  nav,
+  cajaAbierta
+  
 });
 
 export default rootReducer;

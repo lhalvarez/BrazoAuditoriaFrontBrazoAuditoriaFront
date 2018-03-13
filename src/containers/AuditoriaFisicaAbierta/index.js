@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import AuditoriaFisicaCajaAbierta from '../../components/Auditoria/Fisica/CajaAbierta';
+import FirmaValuador from '../../components/Auditoria/Fisica/FirmaValuador';
+
 class AuditoriaFisicaAbierta extends Component{
 	
 	static propTypes = {
@@ -11,7 +14,8 @@ class AuditoriaFisicaAbierta extends Component{
 	render(){
 		return (
 			<div>
-				<h3>Página de Auditoría Física de Caja Abierta</h3>
+				<AuditoriaFisicaCajaAbierta />
+				<FirmaValuador />
 			</div>
 		);
 	}

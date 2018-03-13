@@ -330,3 +330,17 @@ h1.page-header {
 .autoCompleteCont > div {
     width: 100%;
 }
+img{
+  max-width: 100%;
+}
+label, p, table{
+    font-size: 12px;            
+}
+.panel-heading{
+  position: relative;
+}
+.panel-heading i{
+  position: absolute;
+  top: 5px;
+  right: 15px;
+}

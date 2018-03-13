@@ -74,6 +74,12 @@ export const TITLES = Object.freeze({
         FOTOGRAFIA: {
             INFO_AUDITORIA: 'Información Auditoría por Fotografía',
             PARTIDAS_AUDITORIA: 'Partidas para Auditoría :idAuditoria cargada en archivo :archivo'
+        },
+        FISICA: {
+            CAJA_ABIERTA: {
+                BUSQUEDA_PARTIDA: 'Validación de prendas del depósito Automatizado por Auditoría Caja Abierta',
+                DETALLE_PARTIDA: 'Detalle de Partida'
+            }
         }
     }
 });

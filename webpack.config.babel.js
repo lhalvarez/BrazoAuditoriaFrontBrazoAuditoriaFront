@@ -72,6 +72,10 @@ const getLoaders = () => ({
     {
       test: /\.(png)$/,
       loader: 'url-loader?limit=10000&mimetype=image/png'
+    },
+    {
+      test: /\.(jpg)$/,
+      loader: 'url-loader?limit=10000&mimetype=image/jpg'
     }
   ]
 });
