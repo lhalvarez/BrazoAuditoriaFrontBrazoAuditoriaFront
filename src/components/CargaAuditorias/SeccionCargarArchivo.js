@@ -116,6 +116,7 @@ class SeccionCargarArchivos extends Component {
             <div className="panel panel-default">
               <div className="panel-heading" >
                 <p>Carga nuevo archivo auditoría</p>
+                <i className="fa fa-3x fa-dropbox"></i>
               </div>
               <form ref={(el) => this.formBusquedaPartida = el} onSubmit={this.onFormSubmit}>
                 <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>
