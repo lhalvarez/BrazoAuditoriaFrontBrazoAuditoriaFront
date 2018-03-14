@@ -197,6 +197,7 @@ class SeccionCargarArchivos extends Component {
                             <div className="form-control-file text-primary" id="inputDrop" data-title={this.state.nameFile}>
                             </div>
                           </Receiver>
+                          <div className="msgError text-danger">{this.state.fileError}</div>
                         </div>
                       </div>
                     </div>

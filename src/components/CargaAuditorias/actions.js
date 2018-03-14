@@ -19,14 +19,15 @@ export function getDocs(){
   }
 }
 
-export function getDoc(id){
+export function getDoc(nombreArchivo){
+  console.log(nombreArchivo, 'hay wey');
   return (dispatch)=>{
-    MessageService.getById(API.ENDPOINTS.PARTIDAS.LEER_DOCUMENTO.endpoint,id)
+    MessageService.getById(API.ENDPOINTS.PARTIDAS.LEER_DOCUMENTO.endpoint,nombreArchivo)
       .then((response) => {
         dispatch( {type: GET_DOC, payload: response });
         dispatch(addNotification('Documento cargado exitósamente', 'success'));
       }).catch(error => {
-        dispatch(addNotification('Se ha generado un error','Se ha generado un error'+error, 'error'));
+      dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
       });
   }
 }
@@ -43,7 +44,11 @@ export function saveDoc(formData){
   }
 }
 
-export function deleteDoc(formData){
+export function deleteDoc(nombreDocumento){
+  console.log('Se ha activado el método para eliminar documento');
+  return(dispatch, getState) => {
+    dispatch( {type: DELETE_DOC, payload: nombreDocumento });
+  }
 
 }
 

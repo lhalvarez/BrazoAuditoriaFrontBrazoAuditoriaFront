@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getDocs,saveDoc,saveAuditoria} from './actions';
+import {getDocs,saveDoc,saveAuditoria,getDoc,deleteDoc} from './actions';
 import {connect} from 'react-redux';
 import { store } from '../../store';
 import {AUDITORIAS} from '../../data/fakeAuditorias';
@@ -8,7 +8,7 @@ import {AUDITORIAS} from '../../data/fakeAuditorias';
 
 
 import SeccionCargarArchivos from './SeccionCargarArchivo';
-import SeccionTabla from './SeccionTabla';
+import SeccionTabla from './tabla';
 
 class CargarAuditorias extends React.Component {
 
@@ -50,6 +50,8 @@ class CargarAuditorias extends React.Component {
         auditorias={AUDITORIAS}
         detalleUsuario={this.state.detalleUsuario}
         tipoAuditoria={this.tipoAuditoria}
+        getDoc={this.props.getDoc}
+        deleteDoc={this.props.deleteDoc}
         />
 
       </div>
@@ -65,4 +67,4 @@ function mapStateToProps(state){
   }
 
 }
-export default connect(mapStateToProps,{saveDoc,saveAuditoria})(CargarAuditorias);
+export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc})(CargarAuditorias);
