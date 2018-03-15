@@ -2,6 +2,10 @@ $(function() {
 
     $('#side-menu').metisMenu();
 
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
 });
 
 //Loads the correct sidebar on window load,

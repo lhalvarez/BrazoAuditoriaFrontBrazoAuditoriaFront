@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { cargarDetallePartida } from '../CajaAbierta/actions';
+import { history } from '../../../../history';
 
 class FirmaValuador extends Component{
 	static propTypes = {
@@ -16,6 +17,10 @@ class FirmaValuador extends Component{
 
   	handleSubmit(){
   		this.props.cargarDetallePartida();
+  	}
+
+  	sinValuador(){
+  		history.push('/auditoria-fisica-caja-cerrada');
   	}
 
   	render(){
@@ -33,7 +38,7 @@ class FirmaValuador extends Component{
 			        Formulario de firma de valuador
 			      </div>
 			      <div className="modal-footer">
-			        <button type="button" className="btn btn-secondary" data-dismiss="modal">Sin Valuador</button>
+			        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.sinValuador}>Sin Valuador</button>
 			        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleSubmit}>Aceptar</button>
 			      </div>
 			    </div>

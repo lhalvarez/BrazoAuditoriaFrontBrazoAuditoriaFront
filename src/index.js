@@ -3,11 +3,12 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import Bluebird from 'bluebird';
 
 import { store } from './store';
 import reducers from './reducers';
+import { history } from './history';
 
 
 // Routes
@@ -31,7 +32,7 @@ window.addEventListener('unhandledrejection', error => {
 
 render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
       <AppRoutes />
     </Router>
   </Provider>
