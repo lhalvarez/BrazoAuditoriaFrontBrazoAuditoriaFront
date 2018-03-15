@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getDocs,saveDoc,saveAuditoria,getDoc,deleteDoc} from './actions';
+import {getDocs,saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification} from './actions';
 import {connect} from 'react-redux';
 import { store } from '../../store';
 import {AUDITORIAS} from '../../data/fakeAuditorias';
@@ -9,6 +9,7 @@ import {AUDITORIAS} from '../../data/fakeAuditorias';
 
 import SeccionCargarArchivos from './SeccionCargarArchivo';
 import SeccionTabla from './tabla';
+import CargaFotografia from './cargaFotografia';
 
 class CargarAuditorias extends React.Component {
 
@@ -28,6 +29,7 @@ class CargarAuditorias extends React.Component {
   switchView(){
     if(this.props.path === '/cargar-partidas-fotografia') this.tipoAuditoria = 1;
     if(this.props.path === '/cargar-partidas-fisica') this.tipoAuditoria = 2;
+
   }
 
 
@@ -36,28 +38,46 @@ class CargarAuditorias extends React.Component {
 
   render() {
     this.switchView();
-    return (
-      <div>
-        <SeccionCargarArchivos
-          path={this.props.path}
-          detalleUsuario={this.state.detalleUsuario}
-          tipoAuditoria={this.tipoAuditoria}
-          saveDoc={this.props.saveDoc}
-          saveAuditoria={this.props.saveAuditoria}
-        />
+    if (this.tipoAuditoria === 1) {
+      return (
+        <div>
 
-        <SeccionTabla
-        auditorias={AUDITORIAS}
-        detalleUsuario={this.state.detalleUsuario}
-        tipoAuditoria={this.tipoAuditoria}
-        getDoc={this.props.getDoc}
-        deleteDoc={this.props.deleteDoc}
-        />
+          <CargaFotografia
+            saveDoc={this.props.saveDoc}
+            saveAuditoria={this.props.saveAuditoria}
+            auditorias={AUDITORIAS}
+            detalleUsuario={this.state.detalleUsuario}
+            tipoAuditoria={this.tipoAuditoria}
+            getDoc={this.props.getDoc}
+            deleteDoc={this.props.deleteDoc}
+            sendNotification={this.props.sendNotification}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <SeccionCargarArchivos
+            path={this.props.path}
+            detalleUsuario={this.state.detalleUsuario}
+            tipoAuditoria={this.tipoAuditoria}
+            saveDoc={this.props.saveDoc}
+            saveAuditoria={this.props.saveAuditoria}
+            sendNotification={this.props.sendNotification}
+          />
 
-      </div>
-    );
+          <SeccionTabla
+            auditorias={AUDITORIAS}
+            detalleUsuario={this.state.detalleUsuario}
+            tipoAuditoria={this.tipoAuditoria}
+            getDoc={this.props.getDoc}
+            deleteDoc={this.props.deleteDoc}
+          />
+
+        </div>
+      );
+    }
   }
-
 }
 
 function mapStateToProps(state){
@@ -67,4 +87,4 @@ function mapStateToProps(state){
   }
 
 }
-export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc})(CargarAuditorias);
+export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification})(CargarAuditorias);

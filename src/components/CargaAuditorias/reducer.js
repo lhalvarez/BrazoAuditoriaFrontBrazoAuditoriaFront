@@ -6,9 +6,9 @@ import {
   GET_AUDITORIAS,
   GET_AUDITORIA,
   SAVE_AUDITORIA,
-  EDIT_AUDITORIA,
   DELETE_AUDITORIA
   } from './actions'
+import {ADD_NOTIFICATION} from "../Global/GlobalActions";
 
 
 const initialState = {
@@ -35,9 +35,9 @@ export function cargaAuditora(state = initialState, action){
       return Object.assign({}, state, {auditorias: action.payload})
     case SAVE_AUDITORIA:
       return Object.assign({}, state, {auditorias: action.payload})
-    case EDIT_AUDITORIA:
-      return Object.assign({}, state, {auditorias: action.payload})
     case DELETE_AUDITORIA:
+      return Object.assign({}, state, {auditorias: action.payload})
+    case 'ADD_NOTIFICATION':
       return Object.assign({}, state, {auditorias: action.payload})
     default:
       return state

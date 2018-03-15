@@ -1,6 +1,7 @@
 
 import { API } from '../../constants/index'
-import {addNotification} from '../../components/Global/GlobalActions'
+import {addNotification} from '../../components/Global/GlobalActions';
+import {ADD_NOTIFICATION} from '../../components/Global/GlobalActions';
 import MessageService from '../../lib/utils/MessageService';
 
 export const GET_DOCS = 'GET_DOCS'; // Acción para obtener los documentos que ya se tienen registrados
@@ -10,7 +11,6 @@ export const DELETE_DOC = 'DELETE_DOC'; //Acción para eliminar el documento .Xl
 export const GET_AUDITORIAS = 'GET_AUDITORIAS'; // Acción para obtener la carga completa de auditorías
 export const GET_AUDITORIA = 'GET_AUDITORIA'; // Acción para obtener la carga correspondiente al id pasado
 export const SAVE_AUDITORIA = 'SAVE_AUDITORIA'; //Acción para guardar los datos de la autitoría
-export const EDIT_AUDITORIA = 'EDIT_AUDITORIA'; //Acción para editar la auditoría
 export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la auditoría
 
 export function getDocs(){
@@ -83,4 +83,10 @@ export function saveAuditoria(formData){
 export function deleteAuditorias(formData){
 
 
+}
+export function sendNotification(title,message,type){
+  return (dispatch) => {
+    dispatch( {type: ADD_NOTIFICATION});
+    dispatch(addNotification(title,message ,type));
+  }
 }
