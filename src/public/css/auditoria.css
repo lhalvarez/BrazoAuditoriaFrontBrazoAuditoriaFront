@@ -336,13 +336,26 @@ img{
 label, p, table{
     font-size: 12px;            
 }
+label{
+  text-align: right;
+  padding-top: 5px;
+}
 .panel-heading{
   position: relative;
 }
-.panel-heading i{
+.panel-heading p > i{
   position: absolute;
   top: 5px;
   right: 15px;
+}
+.panel-action-icons{
+  position: absolute;
+  top: 8px;
+  right: 5px;
+}
+.panel-action-icons i{
+  cursor: pointer;
+  margin-right: 15px;
 }
 textarea{
   max-width: 100%;
@@ -350,7 +363,7 @@ textarea{
   min-height: 84px;
   max-height: 84px;
 }
-.partida-container{
+.partida-container, .form-group > div{
   position: relative;
 }
 .hover-curtain{
@@ -375,4 +388,18 @@ textarea{
 }
 .partida-container:hover .hover-curtain{
   opacity: 1;
+}
+.form-group > div i{
+  position: absolute;
+  top: 7px;
+  right: 22px;
+}
+.form-group > div i.fa-check-circle{
+  color: green;
+}
+.form-group > div i.fa-times-circle{
+  color: red;
+}
+input{
+  padding-right: 28px !important;
 }
