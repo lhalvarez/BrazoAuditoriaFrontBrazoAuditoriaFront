@@ -81,7 +81,7 @@ class TablasValidacion extends Component {
             case validacionFisica:
                 return (
                     <div className="row">
-                        <ContainerTitle title={'Carga de Auditoría Fisica'} />
+                        <ContainerTitle title={'Validación de Auditoría Fisica'} />
                         <div className="col-lg-12">
                             <div className="table-responsive">
                                 <table className="table table-striped table-bordered table-hover table-condensed">
@@ -177,7 +177,7 @@ class TablasValidacion extends Component {
             case validacionFotografia:
                 return (
                     <div className="row">
-                        <ContainerTitle title={'Carga de Auditoría por Fotografía'} />
+                        <ContainerTitle title={'Validación de Auditoría por Fotografía'} />
                         <div className="col-lg-12">
                             <div className="table-responsive">
                                 <table className="table table-striped table-bordered table-hover table-condensed">
