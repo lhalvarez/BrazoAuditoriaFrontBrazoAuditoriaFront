@@ -1,0 +1,9 @@
+
+export const CAMPOS = [
+  {id: 1, nombreSelect: 'Subramo', atributos: [{value:'valor1',text:'texto1'},{value:'valor2',text:'texto2'},{value:'valor3',text:'texto3'}]},
+  {id: 2, nombreSelect: 'Metal', atributos: [{value:'valora',text:'textoa'},{value:'valorb',text:'textob'},{value:'valorc',text:'textoc'}]},
+  {id: 3, nombreSelect: 'Kilates', atributos: [{value:'valora',text:'textoa'},{value:'valorb',text:'textob'},{value:'valorc',text:'textoc'}]},
+  {id: 4, nombreSelect: 'Rango', atributos: [{value:'valora',text:'textoa'},{value:'valorb',text:'textob'},{value:'valorc',text:'textoc'}]},
+  {id: 5, nombreSelect: 'incremento', atributos: [{value:'valora',text:'textoa'},{value:'valorb',text:'textob'},{value:'valorc',text:'textoc'}]}
+];
+

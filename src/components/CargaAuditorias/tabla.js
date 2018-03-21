@@ -10,6 +10,10 @@ class SeccionTabla extends Component {
     this.deleteDoc =this.deleteDoc.bind(this);
     this.state = {
     };
+    this.auditorias = this.props.auditorias;
+    if(!this.props.auditorias){
+      this.auditorias = [];
+    }
   };
 
   getDoc(nombreArchivo){
@@ -20,7 +24,7 @@ class SeccionTabla extends Component {
   }
   render = () => {
 
-    const auditorias = this.props.auditorias;
+    const auditorias = this.auditorias;
     if(this.props.tipoAuditoria === 1){
       return(
         <div className="row">
@@ -39,6 +43,7 @@ class SeccionTabla extends Component {
                 </tr>
                 </thead>
                 <tbody>
+
                 {auditorias.map((auditoria, index) => {
                   const {id, nombreArchivo, totalPartidas} = auditoria;
                   return (

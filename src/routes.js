@@ -23,6 +23,7 @@ import AuditoriaFisicaAbierta from './containers/AuditoriaFisicaAbierta';
 import AuditoriaFisicaCerrada from './containers/AuditoriaFisicaCerrada';
 import AuditoriaFotografia from './containers/AuditoriaFotografia';
 import DetalleAuditoriaFotografia from './containers/AuditoriaFotografia/DetalleAuditoriaFotografia';
+import DetallePartidaFotografia from './containers/AuditoriaFotografia/DetallePartidaFotografia';
 import AuditoriaPrendas from './containers/AuditoriaPrendas';
 
 const AppRoutes = () =>
@@ -42,6 +43,9 @@ const AppRoutes = () =>
 			<PrivateRoute exact path="/auditoria-fisica-caja-cerrada" component={AuditoriaFisicaCerrada} title="Auditoría Física de Caja Cerrada" />
 			<PrivateRoute exact path="/auditoria-fotografia" component={AuditoriaFotografia} title="Información Auditoría por Fotografía" />
       <PrivateRoute exact path="/detalle-auditoria-fotografia/:idAuditoria" component={DetalleAuditoriaFotografia} title="Información Auditoría por Fotografía" />
+
+      <PrivateRoute exact path="/detalle-partida-fotografia/:idPartida" component={DetallePartidaFotografia} title="Detalle de partida" />
+
 			<PrivateRoute exact path="/auditoria-salida-prendas" component={AuditoriaPrendas} title="Auditoría Salida Prendas" />
 			<PrivateRoute exact path="/usuarios" component={Usuarios} title="Lista de Usuarios" />
       <Route exact path="/ingreso" component={SessionInit} />

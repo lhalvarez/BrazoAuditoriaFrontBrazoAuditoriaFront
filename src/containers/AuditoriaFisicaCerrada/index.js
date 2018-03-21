@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class AuditoriaFisicaCerrada extends Component{
-	
+
 	static propTypes = {
 
   	};
@@ -11,7 +11,7 @@ class AuditoriaFisicaCerrada extends Component{
 	render(){
 		return (
 			<div>
-				<h3>Página de Auditoría Física de Caja Cerrada</h3>
+				<h3>Aqui se colocarán los detalles de auditoría caja cerrada</h3>
 			</div>
 		);
 	}

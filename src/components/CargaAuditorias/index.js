@@ -24,6 +24,7 @@ class CargarAuditorias extends React.Component {
 
     };
     this.tipoAuditoria = 0;
+    this.Auditorias = this.props.getDocs();
   }
 
   switchView(){
@@ -45,7 +46,7 @@ class CargarAuditorias extends React.Component {
           <CargaFotografia
             saveDoc={this.props.saveDoc}
             saveAuditoria={this.props.saveAuditoria}
-            auditorias={AUDITORIAS}
+            auditorias={this.Auditorias}
             detalleUsuario={this.state.detalleUsuario}
             tipoAuditoria={this.tipoAuditoria}
             getDoc={this.props.getDoc}
@@ -67,7 +68,7 @@ class CargarAuditorias extends React.Component {
           />
 
           <SeccionTabla
-            auditorias={AUDITORIAS}
+            auditorias={this.Auditorias}
             detalleUsuario={this.state.detalleUsuario}
             tipoAuditoria={this.tipoAuditoria}
             getDoc={this.props.getDoc}
@@ -87,4 +88,4 @@ function mapStateToProps(state){
   }
 
 }
-export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification})(CargarAuditorias);
+export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification,getDocs})(CargarAuditorias);

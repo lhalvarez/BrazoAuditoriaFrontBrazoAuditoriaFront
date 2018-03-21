@@ -134,8 +134,9 @@ class SeccionCargarArchivos extends Component {
           <div className="col-lg-12">
             <div className="panel panel-default">
               <div className="panel-heading" >
+                <i className="fa fa-3x fa-upload pull-right"></i>
                 <p>Carga nuevo archivo auditoría</p>
-                <i className="fa fa-3x fa-dropbox"></i>
+
               </div>
               <form id="formBusquedaPartida" onSubmit={this.onFormSubmit}>
                 <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>
@@ -189,7 +190,9 @@ class SeccionCargarArchivos extends Component {
             <div className="col-lg-12">
               <div className="panel panel-default">
                 <div className="panel-heading">
+                  <i className="fa fa-3x fa-upload pull-right"></i>
                   <p>Carga nuevo archivo auditoría física</p>
+
                 </div>
                 <form id="formBusquedaPartida" onSubmit={this.onFormSubmit}>
                   <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>

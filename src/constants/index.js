@@ -49,6 +49,7 @@ export const API = Object.freeze({
           LEER_DOCUMENTO:{endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/nombreArchivo'},
           CARGAR_DOCUMENTO:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/cargarArchivo' },
 
+          LEER_AUDITORIAS:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut/' },
           LEER_AUDITORIA:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/' },
           CARGAR_AUDITORIA:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/crear/' },
 
@@ -73,7 +74,8 @@ export const TITLES = Object.freeze({
     AUDITORIA: {
         FOTOGRAFIA: {
             INFO_AUDITORIA: 'Información Auditoría por Fotografía',
-            PARTIDAS_AUDITORIA: 'Partidas para Auditoría :idAuditoria cargada en archivo :archivo'
+            PARTIDAS_AUDITORIA: 'Partidas para Auditoría :idAuditoria cargada en archivo :archivo',
+            PARTIDAS_DETALLES: 'Detalle de partida :idPartida'
         },
         FISICA: {
             CAJA_ABIERTA: {

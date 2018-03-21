@@ -20,7 +20,7 @@ const PartidaAuditoriaList = ({partidas}) => {
                             const {folio, sucursal} = partida;
                             return (
                                 <tr key={`${index}-${folio}`}>
-                                    <td><Link to={`/auditoria-salida-prendas/${folio}`}>{folio}</Link></td>
+                                    <td><Link to={`/detalle-partida-fotografia/${folio}`}>{folio}</Link></td>
                                     <td>Sucursal {sucursal}</td>
                                 </tr>
                             );
