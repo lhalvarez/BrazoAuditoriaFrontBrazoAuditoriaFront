@@ -168,6 +168,7 @@ class SeccionCargarArchivos extends Component {
                     <div className="col-sm-12">
                       <div className="pull-right">
                         <input style={{marginRight: '5px'}} className="btn btn-sm btn-primary" type="submit" value="Cargar Documento"/>
+
                         <button className="btn btn-sm btn-primary" type="button" onClick={this.resetForm}>Limpiar</button>
                       </div>
                     </div>

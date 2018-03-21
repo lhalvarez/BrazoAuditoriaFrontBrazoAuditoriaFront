@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import UserAvatar from 'react-user-avatar';
 
 import { store } from '../../store';
 import { cerrarSesion } from '../Session/actions';
@@ -52,11 +53,10 @@ class Header extends Component {
             </button>
             <Link className="navbar-brand" to="/"><img src={logoNMP} alt="" /></Link>
         </div>
-
         <ul className="nav navbar-top-links navbar-right">
             <li className="dropdown">
                 <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-                    {this.state.usuario}  <i className="fa fa-caret-down"></i>
+                {this.state.usuario} <i className="fa fa-caret-down"></i>
                 </a>
                 <ul className="dropdown-menu dropdown-user">
                     <li><a href="#"><i className="fa fa-user fa-fw"></i> Perfil de Usuario</a>

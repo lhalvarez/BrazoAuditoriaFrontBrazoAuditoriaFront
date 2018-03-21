@@ -81,5 +81,8 @@ export const TITLES = Object.freeze({
                 DETALLE_PARTIDA: 'Detalle de Partida'
             }
         }
+    },
+    INICIO:{
+        PAGINA_INICIO: 'Bienvenido '
     }
 });

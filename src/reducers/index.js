@@ -5,6 +5,7 @@ import {auditoriaReducer} from "../components/Auditoria/Fotografia/auditoriaRedu
 import { sessionReducer } from '../components/Session/reducer';
 import { cargaAuditora } from '../components/CargaAuditorias/reducer';
 import { cajaAbierta } from '../components/Auditoria/Fisica/CajaAbierta/reducer';
+import {homeReducer} from '../components/Home/homeReducer';
 
 const rootReducer = combineReducers({
 
@@ -14,8 +15,9 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   cargaAuditora,
   nav,
-  cajaAbierta
-  
+  cajaAbierta,
+  homeReducer: homeReducer
+
 });
 
 export default rootReducer;
