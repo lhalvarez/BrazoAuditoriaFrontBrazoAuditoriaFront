@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import SeccionCargarArchivos from './SeccionCargarArchivo';
 import SeccionTabla from './tabla';
+import Pagination from 'rc-pagination';
 
 class CargaFotografia extends Component {
 
   constructor(props) {
+
     super(props);
     this.state = {
+      page: 0,
+      pageSize: 10,
+      total: 0,
     };
+    this.onChangePagination = this.onChangePagination.bind(this);
+
+  };
+  onChangePagination = (page, pageSize) => {
+    this.setState({
+      page: page - 1
+    }, this.props.getDocs(page - 1, this.state.pageSize));
   };
 
   render  () {
@@ -22,13 +34,21 @@ class CargaFotografia extends Component {
         sendNotification={this.props.sendNotification}
       />
 
-      <SeccionTabla
-        auditorias={this.props.auditorias}
-        detalleUsuario={this.props.detalleUsuario}
-        tipoAuditoria={this.props.tipoAuditoria}
-        getDoc={this.props.getDoc}
-        deleteDoc={this.props.deleteDoc}
-        />
+
+        { this.props.auditoriasList.length > 0 && <SeccionTabla
+          auditoriasList={this.props.auditoriasList}
+          detalleUsuario={this.props.detalleUsuario}
+          tipoAuditoria={this.props.tipoAuditoria}
+          getDoc={this.props.getDoc}
+          deleteDoc={this.props.deleteDoc}
+          getDocs={this.props.getDocs}
+                            /> }
+        <Pagination current={this.state.page + 1}
+                    pageSize={this.state.pageSize}
+                    hideOnSinglePage={true}
+                    total={this.state.total}
+                    onChange={this.onChangePagination} />
+
       </div>
     );
   }

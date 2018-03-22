@@ -13,12 +13,15 @@ export const GET_AUDITORIA = 'GET_AUDITORIA'; // Acción para obtener la carga c
 export const SAVE_AUDITORIA = 'SAVE_AUDITORIA'; //Acción para guardar los datos de la autitoría
 export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la auditoría
 
-export function getDocs(){
+export function getDocs(page, pageSize){
+  const params = {
+    p: page,
+    t: pageSize
+  };
   return (dispatch)=>{
-    MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,{p:'1',t:'10'})
+    MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
       .then((response) => {
         dispatch( {type: GET_AUDITORIAS, payload: response });
-        dispatch(addNotification('Error','Documento cargado exitósamente', 'success'));
       }).catch(error => {
       dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
     });

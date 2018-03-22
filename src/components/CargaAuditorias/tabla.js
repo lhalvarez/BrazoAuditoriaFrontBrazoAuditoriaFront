@@ -10,10 +10,7 @@ class SeccionTabla extends Component {
     this.deleteDoc =this.deleteDoc.bind(this);
     this.state = {
     };
-    this.auditorias = this.props.auditorias;
-    if(!this.props.auditorias){
-      this.auditorias = [];
-    }
+
   };
 
   getDoc(nombreArchivo){
@@ -24,7 +21,7 @@ class SeccionTabla extends Component {
   }
   render = () => {
 
-    const auditorias = this.auditorias;
+    const listaDeAuditorias = this.props.auditoriasList;
     if(this.props.tipoAuditoria === 1){
       return(
         <div className="row">
@@ -44,23 +41,25 @@ class SeccionTabla extends Component {
                 </thead>
                 <tbody>
 
-                {auditorias.map((auditoria, index) => {
-                  const {id, nombreArchivo, totalPartidas} = auditoria;
-                  return (
-                    <tr key={`${index}-${id}`}>
-                      <td>{id}</td>
-                      <td><Link to="#" onClick={() => {this.getDoc(nombreArchivo)} }>{nombreArchivo}</Link></td>
-                      <td>{this.props.detalleUsuario.sucursal}</td>
-                      <td>{this.props.detalleUsuario.usuario}</td>
-                      <td>{totalPartidas}</td>
-                      <td>Pendiente de autorización</td>
-                      <td>
-                        <Link to="#" onClick={() => {this.deleteDoc(nombreArchivo)} }>
-                          Eliminar
-                        </Link>
-                      </td>
-                    </tr>
-                  );
+                {listaDeAuditorias.map((auditoria, index) => {
+                  const {id, carga} = auditoria;
+                  if(carga.tipoAuditoria.id === 1){
+                    return (
+                      <tr key={`${index}-${id}`}>
+                        <td>{id}</td>
+                        <td><Link to="#" onClick={() => {this.getDoc(carga.nombreArchivo)} }>{carga.nombreArchivo}</Link></td>
+                        <td>{carga.idSucursal}</td>
+                        <td>{carga.solicitante}</td>
+                        <td>{carga.noPartidas}</td>
+                        <td>Pendiente de autorización</td>
+                        <td>
+                          <Link to="#" onClick={() => {this.deleteDoc(carga.nombreArchivo)} }>
+                            Eliminar
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  }
                 })}
                 </tbody>
               </table>
@@ -87,25 +86,28 @@ class SeccionTabla extends Component {
               </tr>
               </thead>
               <tbody>
-              {auditorias.map((auditoria, index) => {
-                const {id, nombreArchivo, totalPartidas} = auditoria;
-                return (
-                  <tr key={`${index}-${id}`}>
-                    <td>{id}</td>
-                    <td>{nombreArchivo}</td>
-                    <td>{this.props.detalleUsuario.sucursal}</td>
-                    <td>{this.props.detalleUsuario.usuario}</td>
-                    <td>{totalPartidas}</td>
-                    <td>Pendiente de autorización</td>
-                    <td>caja Cerrada</td>
-                    <td>
-                      <Link to={{ pathname: `/detalle-auditoria-fotografia/${id}`,
-                        query: { nombreArchivo: nombreArchivo }}}>
-                        Eliminar
-                      </Link>
-                    </td>
-                  </tr>
-                );
+              {listaDeAuditorias.map((auditoria, index) => {
+                const {id, carga} = auditoria;
+                if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
+                  return (
+                    <tr key={`${index}-${id}`}>
+                      <td>{id}</td>
+                      <td><Link to="#" onClick={() => {this.getDoc(carga.nombreArchivo)} }>{carga.nombreArchivo}</Link></td>
+                      <td>{carga.idSucursal}</td>
+                      <td>{carga.solicitante}</td>
+                      <td>{carga.noPartidas}</td>
+                      <td>Pendiente de autorización</td>
+                      <td>{carga.tipoAuditoria.descripcion}</td>
+                      <td>
+                        <Link to={{ pathname: `/detalle-auditoria-fotografia/${id}`,
+                          query: { nombreArchivo: carga.nombreArchivo }}}>
+                          Eliminar
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                }
+
               })}
               </tbody>
             </table>
