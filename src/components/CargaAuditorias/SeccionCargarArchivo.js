@@ -38,15 +38,17 @@ class SeccionCargarArchivos extends Component {
         this.setState({nameFile:'Error en el archivo'});
       }
       console.log(file.name.split('.').pop());
-      if (file.type !== 'application/vnd.ms-excel') {
+
         if(file.name.split('.').pop() !== 'csv'){
           file.error = 'El archivo debe de ser en formato .csv';
           this.setState({fileError:file.error});
           this.setState({file:null});
           this.setState({nameFile:'Error en el archivo'});
+        }else{
+          this.setState({fileError:null});
         }
 
-      }
+
 
     });
 
@@ -58,7 +60,6 @@ class SeccionCargarArchivos extends Component {
   onFormSubmit(e,dispatch){
     e.preventDefault();
 
-    console.log(this.props);
 
     if(this.state.file === null){
       this.props.sendNotification('Error al enviar documento','Debe cargar un documento válido','error');
@@ -84,7 +85,7 @@ class SeccionCargarArchivos extends Component {
     formData.append('file',file,'file')
 
     if(this.props.tipoAuditoria === 1){
-      var tipoAudit = 'Fotografía';
+      var tipoAudit = 'AIM';
     }else{
       var tipoAudit = this.state.tipoCarga;
     }
@@ -192,7 +193,6 @@ class SeccionCargarArchivos extends Component {
                 <div className="panel-heading">
                   <i className="fa fa-3x fa-upload pull-right"></i>
                   <p>Carga nuevo archivo auditoría física</p>
-
                 </div>
                 <form id="formBusquedaPartida" onSubmit={this.onFormSubmit}>
                   <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>
@@ -204,8 +204,8 @@ class SeccionCargarArchivos extends Component {
                             <select className="form-control" id="documento" defaultValue={0}
                                     onChange={this.onChangeTipoAuditoria}>
                               <option value="0" disabled>Seleccione...</option>
-                              <option value="Física Caja Cerrada">Caja Cerrada</option>
-                              <option value="Física Caja Abierta">Caja Abierta</option>
+                              <option value="AFCC">Caja Cerrada</option>
+                              <option value="AFCA">Caja Abierta</option>
                             </select>
                           </div>
                         </div>

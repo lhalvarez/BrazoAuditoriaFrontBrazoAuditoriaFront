@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import {getDocs,saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification} from './actions';
 import {connect} from 'react-redux';
 import { store } from '../../store';
-import {AUDITORIAS} from '../../data/fakeAuditorias';
+import Pagination from 'rc-pagination';
 
 
 
@@ -17,15 +17,27 @@ class CargarAuditorias extends React.Component {
     super(props);
 
     this.switchView = this.switchView.bind(this);
+    this.onChangePagination = this.onChangePagination.bind(this);
 
     this.state = {
       detalleUsuario: store.getState().session.detalleUsuario,
-      isReceiverOpen: false
+      isReceiverOpen: false,
+      page: 0,
+      pageSize: 10,
+      total: 0,
 
     };
     this.tipoAuditoria = 0;
-    this.Auditorias = this.props.getDocs();
   }
+  componentDidMount () {
+    this.props.getDocs(this.state.page, this.state.pageSize);
+  }
+
+  onChangePagination = (page, pageSize) => {
+    this.setState({
+      page: page - 1
+    }, this.props.getDocs(page - 1, this.state.pageSize));
+  };
 
   switchView(){
     if(this.props.path === '/cargar-partidas-fotografia') this.tipoAuditoria = 1;
@@ -46,10 +58,11 @@ class CargarAuditorias extends React.Component {
           <CargaFotografia
             saveDoc={this.props.saveDoc}
             saveAuditoria={this.props.saveAuditoria}
-            auditorias={this.Auditorias}
+            auditoriasList={this.props.auditorias}
             detalleUsuario={this.state.detalleUsuario}
             tipoAuditoria={this.tipoAuditoria}
             getDoc={this.props.getDoc}
+            getDocs={this.props.getDocs}
             deleteDoc={this.props.deleteDoc}
             sendNotification={this.props.sendNotification}
           />
@@ -67,13 +80,17 @@ class CargarAuditorias extends React.Component {
             sendNotification={this.props.sendNotification}
           />
 
-          <SeccionTabla
-            auditorias={this.Auditorias}
+          { this.props.auditorias.length > 0 && <SeccionTabla
+            auditoriasList={this.props.auditorias}
             detalleUsuario={this.state.detalleUsuario}
             tipoAuditoria={this.tipoAuditoria}
             getDoc={this.props.getDoc}
-            deleteDoc={this.props.deleteDoc}
-          />
+            deleteDoc={this.props.deleteDoc}/> }
+          <Pagination current={this.state.page + 1}
+                      pageSize={this.state.pageSize}
+                      hideOnSinglePage={true}
+                      total={this.state.total}
+                      onChange={this.onChangePagination} />
 
         </div>
       );
@@ -81,11 +98,10 @@ class CargarAuditorias extends React.Component {
   }
 }
 
-function mapStateToProps(state){
 
+function mapStateToProps(state) {
   return {
-
+    auditorias: state.cargaAuditora.auditorias
   }
-
 }
 export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification,getDocs})(CargarAuditorias);

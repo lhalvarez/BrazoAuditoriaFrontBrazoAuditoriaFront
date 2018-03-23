@@ -11,24 +11,42 @@ class DetallePartidaCajaAbierta extends Component{
   	constructor(){
   		super();
 
-  		this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggleForm = this.toggleForm.bind(this);
+  		this.clearForm = this.clearForm.bind(this);
   	}
 
   	handleSubmit(e){
   		e.preventDefault();
   	}
 
+    toggleForm(e){
+        let $icon = $(e.target);
+        let $panelBody = $icon.parents('.panel').find('.panel-body');
+        let $panelFooter = $icon.parents('.panel').find('.panel-footer');
+
+        $panelBody.toggle(() => $icon.toggleClass('fa-toggle-up fa-toggle-down'));
+        $panelFooter.toggle();
+    }
+
+    clearForm(e){
+        let $icon = $(e.target);
+        let $panelBody = $icon.parents('.panel').find('.panel-body');
+
+        $panelBody.find('input').each((index,element) => element.value = '');
+    }
+
   	render(){
   		return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} ref={el => this.el = el}>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
                                 <p>Datos Generales</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-eraser"></i>
-                                    <i className="fa fa-toggle-up"></i>
+                                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
+                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -81,7 +99,7 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Fotografía de la Partida</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-toggle-up"></i>
+                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -97,7 +115,7 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Detalle de la Partida</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-toggle-up"></i>
+                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -222,8 +240,8 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Detalle de la Partida (Edición)</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-eraser"></i>
-                                    <i className="fa fa-toggle-up"></i>
+                                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
+                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -350,8 +368,8 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Observaciones de la Partida</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-eraser"></i>
-                                    <i className="fa fa-toggle-up"></i>
+                                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
+                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">

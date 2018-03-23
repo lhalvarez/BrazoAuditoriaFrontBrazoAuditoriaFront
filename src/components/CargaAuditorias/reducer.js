@@ -30,7 +30,7 @@ export function cargaAuditora(state = initialState, action){
     case DELETE_DOC:
       return Object.assign({}, state, {documentos: action.payload})
     case GET_AUDITORIAS:
-      return Object.assign({}, state, {auditorias: action.payload})
+      return Object.assign({}, state, {auditorias: action.payload.object.contenido})
     case GET_AUDITORIA:
       return Object.assign({}, state, {auditorias: action.payload})
     case SAVE_AUDITORIA:
@@ -38,7 +38,7 @@ export function cargaAuditora(state = initialState, action){
     case DELETE_AUDITORIA:
       return Object.assign({}, state, {auditorias: action.payload})
     case 'ADD_NOTIFICATION':
-      return Object.assign({}, state, {auditorias: action.payload})
+      return Object.assign({}, state, {})
     default:
       return state
 
