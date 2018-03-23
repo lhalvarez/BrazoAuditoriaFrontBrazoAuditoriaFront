@@ -1,7 +1,8 @@
 import {BUSCAR_USUARIO_SESION} from './actions'
 
 const initialState = {
-  usuario: []
+  usuario: [],
+  dashboard:[]
 };
 
 export function homeReducer(state = initialState, action) {
@@ -11,8 +12,7 @@ export function homeReducer(state = initialState, action) {
   switch (action.type) {
 
     case BUSCAR_USUARIO_SESION:
-      result = action.payload ? { usuario: action.payload } : initialState;
-      console.log("regresando ", result);
+      result = action.payload ? { usuario: action.payload.usuario, dashboard: action.payload.object } : initialState;
       return Object.assign({}, state, result);
     default:
       return state
