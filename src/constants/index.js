@@ -44,18 +44,19 @@ export const API = Object.freeze({
             VERIFICAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' },
             CERRAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' }
         },
-        DASHBOARD:{
+        DASHBOARD: {
             RESUMEN_PENDIENTES: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/dashboard' }
         },
         LOGINNMP: 'https://iamdr.montepiedad.com.mx:4446/loginNMP/?contextType=external&username=string&password=secure_string&challenge_url=https%3A%2F%2Fiamdr.montepiedad.com.mx%3A4446%2FloginNMP&request_id=418267511198979006&authn_try_count=0&locale=es_ES&resource_url=https%253A%252F%252Fiamdr.montepiedad.com.mx%253A4446%252Fms_oauth%252Foauth2%252Fui%252Fbmservice%252Fshowconsent%253Fresponse_type%25253Dcode%252526client_id%25253Dbmclient%252526redirect_uri%25253Dhttps%25253A%25252F%25252Fdev1775-auditoriafront.mybluemix.net%25252Fingreso%252526scope%25253DBMUserProfile.me%252526state%25253Dgetauthz%252526oracle_client_name%25253DBrazoMecanicoClient',
-        PARTIDAS:{
-          LEER_DOCUMENTO:{endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/nombreArchivo'},
-          CARGAR_DOCUMENTO:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/cargarArchivo' },
+        PARTIDAS: {
+            LEER_DOCUMENTO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/nombreArchivo' },
+            CARGAR_DOCUMENTO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/cargarArchivo' },
 
-          LEER_AUDITORIAS:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut/' },
-          LEER_AUDITORIA:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/' },
-          CARGAR_AUDITORIA:{ endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/crear/' },
-
+            LEER_AUDITORIAS: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut/' },
+            LEER_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/' },
+            CARGAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/crear/' },
+            AUDITORIA_PENDIENTE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut' },
+            VALIDAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/autorizacion' }
 
         }
     }
@@ -87,7 +88,7 @@ export const TITLES = Object.freeze({
             }
         }
     },
-    INICIO:{
+    INICIO: {
         PAGINA_INICIO: 'Bienvenido '
     }
 });

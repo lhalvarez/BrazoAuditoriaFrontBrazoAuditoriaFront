@@ -21,22 +21,37 @@ class TablasValidacion extends Component {
         this.handleShowReject = this.handleShowReject.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onChangeRechazo = this.onChangeRechazo.bind(this);
+        this.handleOnSubmitAccept = this.handleOnSubmitAccept.bind(this);
+        this.handleOnSubmitReject = this.handleOnSubmitReject.bind(this);
+        this.initialState = this.initialState.bind(this);
 
         this.state = {
 
             showAccept: false,
             showReject: false,
             selected: [],
+            selectedAccept: [],
+            selectedReject: [],
 
         };
     }
 
-    onChange(auditoria, e) {
+    initialState() {
+        this.setState({
+            selected: [],
+            selectedAccept: [],
+            selectedReject: []
+        });
+    }
+
+    onChange(carga, id, e) {
 
         const selected = this.state.selected
         const objAuditor = {
-            id: auditoria.id,
-            nombreArchivo: auditoria.nombreArchivo
+            id: id,
+            nombreArchivo: carga.nombreArchivo,
+            validador: carga.solicitante
         }
         let index
 
@@ -51,21 +66,94 @@ class TablasValidacion extends Component {
     }
 
     handleClose() {
+        //console.log(this.state)
         this.setState({
             showAccept: false,
             showReject: false
         });
+        this.initialState()
     }
 
 
     handleShowAccept() {
-        this.setState({ showAccept: true });
-        console.log(this.state);
+        if (this.state.selected.length === 0) {
+            this.props.sendNotification('Aviso', 'Debe seleccionar al menos un elemento', 'error');
+            return;
+        } else {
+            //Se activa el modal
+            this.setState({ showAccept: true });
+        }
+    }
+
+    handleOnSubmitAccept() {
+
+        //Se arma un objeto de este tipo para mandar el POST
+        //{
+        //    "autorizada": true,
+        //     "autorizador": "string",
+        //     "idAuditoria": 0,
+        //     "observaciones": "string"
+        //}   
+
+        let aceptadas = this.state.selectedAccept;
+        this.state.selected.forEach(aceptada => {
+
+            let accpt = {
+                "autorizada": true,
+                "autorizador": aceptada.validador,
+                "idAuditoria": aceptada.id,
+                "observaciones": "Fue Aceptada"
+            }
+            aceptadas.push(accpt);
+
+        });
+
+        try {
+            this.props.saveAuditoria(aceptadas);
+            this.props.sendNotification('Aviso', 'Se aceptaron correctamente', 'success');
+            this.handleClose();
+            this.initialState();
+        } catch (error) {
+            this.props.sendNotification('Aviso', 'Ocurrrio un error ' + error, 'error');
+            return;
+        }
+
+    }
+
+    handleOnSubmitReject() {
+
+        //Se arma un objeto de este tipo para mandar el POST
+        //{
+        //    "autorizada": false,
+        //     "autorizador": "string",
+        //     "idAuditoria": 0,
+        //     "observaciones": "string"
+        //}   
+
+        if (this.state.selectedReject.length == 0) {
+            this.props.sendNotification('Aviso', 'Escribir motivo de Rechazo', 'error');
+            return;
+        }
+
+        this.props.saveAuditoria(this.state.selectedReject);
+        this.props.sendNotification('Aviso', 'Se acepto el rechazo correctamente', 'success');
+        this.handleClose();
+        this.initialState();
+
+
     }
 
     handleShowReject() {
-        this.setState({ showReject: true });
-        console.log(this.state);
+
+        if (this.state.selected.length === 0) {
+            this.props.sendNotification('Aviso', 'Debe seleccionar al menos un elemento', 'error');
+            return;
+        } else {
+            //Se activa el modal
+            //console.log(this.state)
+            this.setState({ showReject: true });
+        }
+
     }
 
 
@@ -76,6 +164,7 @@ class TablasValidacion extends Component {
 
         const auditorias = this.props.auditorias;
         const validacion = this.props.tipoValidacion;
+        const listaAuditoriasPendientes = this.props.auditoriasList
 
         switch (validacion) {
             case validacionFisica:
@@ -92,31 +181,33 @@ class TablasValidacion extends Component {
                                             <th>Creador</th>
                                             <th>Total Partidas</th>
                                             <th>Tipo Auditoria</th>
-                                            <th></th>
+                                            <th>Aceptar/Rechazar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {auditorias.map((auditoria, index) => {
-                                            const { id, nombreArchivo, totalPartidas, tipoAuditoria } = auditoria;
-                                            return (
-                                                <tr key={`${index}-${id}`}>
-                                                    <td>{nombreArchivo}</td>
-                                                    <td>0</td>
-                                                    <td>roberto</td>
-                                                    <td>{totalPartidas}</td>
-                                                    <td>Caja Cerrada</td>
-                                                    <td>
-                                                        < div >
-                                                            <input
-                                                                type="checkbox"
-                                                                className="checkbox"
-                                                                value={id}
-                                                                onChange={this.onChange.bind(this, auditoria)}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            );
+                                            const { id, carga } = auditoria;
+                                            if (carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3) {
+                                                return (
+                                                    <tr key={`${index}-${id}`}>
+                                                        <td>{carga.nombreArchivo}</td>
+                                                        <td>{carga.idSucursal}</td>
+                                                        <td>{carga.solicitante}</td>
+                                                        <td>{carga.noPartidas}</td>
+                                                        <td>{carga.tipoAuditoria.descripcion}</td>
+                                                        <td>
+                                                            < div >
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="checkbox"
+                                                                    value={id}
+                                                                    onChange={this.onChange.bind(this, carga, id)}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            }
                                         })}
                                     </tbody>
                                 </table>
@@ -126,7 +217,7 @@ class TablasValidacion extends Component {
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="pull-right">
-                                            <button className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
+                                            <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
                                             <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
                                         </div>
                                     </div>
@@ -143,10 +234,10 @@ class TablasValidacion extends Component {
                                     <label>Se validaran las auditorias seleccionadas, ¿Desea Continuar? </label>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
                                         Cancelar
 				  				</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitAccept}>
                                         Aceptar
 				  				</button>
                                 </ModalFooter>
@@ -159,13 +250,14 @@ class TablasValidacion extends Component {
                                 <ModalBody>
                                     <RechazoList
                                         checked={this.state.selected}
+                                        selectedReject={this.state.selectedReject}
                                     />
                                 </ModalBody>
                                 <ModalFooter>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
                                         Cancelar
 				  			</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitReject}>
                                         Aceptar
 				  			</button>
                                 </ModalFooter>
@@ -187,30 +279,32 @@ class TablasValidacion extends Component {
                                             <th>Sucursal</th>
                                             <th>Creador</th>
                                             <th>Total Partidas</th>
-                                            <th></th>
+                                            <th>Aceptar/Rechazar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {auditorias.map((auditoria, index) => {
-                                            const { id, nombreArchivo, totalPartidas } = auditoria;
-                                            return (
-                                                <tr key={`${index}-${id}`}>
-                                                    <td>{nombreArchivo}</td>
-                                                    <td>0</td>
-                                                    <td>roramirez</td>
-                                                    <td>{totalPartidas}</td>
-                                                    <td>
-                                                        < div >
-                                                            <input
-                                                                type="checkbox"
-                                                                className="checkbox"
-                                                                value={id}
-                                                                onChange={this.onChange.bind(this, auditoria)}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            );
+                                            const { id, carga } = auditoria;
+                                            if (carga.tipoAuditoria.id === 1) {
+                                                return (
+                                                    <tr key={`${index}-${id}`}>
+                                                        <td>{carga.nombreArchivo}</td>
+                                                        <td>{carga.idSucursal}</td>
+                                                        <td>{carga.solicitante}</td>
+                                                        <td>{carga.noPartidas}</td>
+                                                        <td>
+                                                            < div >
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="checkbox"
+                                                                    value={id}
+                                                                    onChange={this.onChange.bind(this, carga, id)}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            }
                                         })}
                                     </tbody>
                                 </table>
@@ -220,7 +314,7 @@ class TablasValidacion extends Component {
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="pull-right">
-                                            <button className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
+                                            <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
                                             <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
                                         </div>
                                     </div>
@@ -237,10 +331,10 @@ class TablasValidacion extends Component {
                                     <label>Se validaran las auditorias seleccionadas, ¿Desea Continuar? </label>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
                                         Cancelar
 				  				</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitAccept}>
                                         Aceptar
 				  				</button>
                                 </ModalFooter>
@@ -253,13 +347,14 @@ class TablasValidacion extends Component {
                                 <ModalBody>
                                     <RechazoList
                                         checked={this.state.selected}
+                                        selectedReject={this.state.selectedReject}
                                     />
                                 </ModalBody>
                                 <ModalFooter>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
                                         Cancelar
 				  			</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleClose}>
+                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitReject}>
                                         Aceptar
 				  			</button>
                                 </ModalFooter>
