@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { cargarDetallePartida } from '../CajaAbierta/actions';
+import { cargarDetallePartida } from '../CajaCerrada/actions';
 import { history } from '../../../../history';
 
 class FirmaValuador extends Component{
@@ -20,7 +20,7 @@ class FirmaValuador extends Component{
   	}
 
   	sinValuador(){
-  		history.push('/auditoria-fisica-caja-cerrada');
+  		history.push('/auditoria-fisica-caja-abierta');
   	}
 
   	render(){

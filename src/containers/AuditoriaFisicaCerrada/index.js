@@ -1,18 +1,18 @@
 // Dependencies
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
+import AuditoriaFisicaCajaCerrada from '../../components/Auditoria/Fisica/CajaCerrada';
+import FirmaValuador from '../../components/Auditoria/Fisica/FirmaValuador';
 
 class AuditoriaFisicaCerrada extends Component{
 
-	static propTypes = {
-
-  	};
 
 	render(){
 		return (
-			<div>
-				<h3>Aqui se colocarán los detalles de auditoría caja cerrada</h3>
-			</div>
+      <div>
+        <AuditoriaFisicaCajaCerrada />
+        <FirmaValuador />
+      </div>
 		);
 	}
 }

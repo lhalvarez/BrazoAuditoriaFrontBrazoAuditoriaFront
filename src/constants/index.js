@@ -85,6 +85,10 @@ export const TITLES = Object.freeze({
             CAJA_ABIERTA: {
                 BUSQUEDA_PARTIDA: 'Validación de prendas del depósito Automatizado por Auditoría Caja Abierta',
                 DETALLE_PARTIDA: 'Detalle de Partida'
+            },
+            CAJA_CERRADA: {
+              BUSQUEDA_PARTIDA: 'Validación de prendas del depósito Automatizado por Auditoría Caja Cerrada',
+              DETALLE_PARTIDA: 'Detalle de Partida'
             }
         }
     },
