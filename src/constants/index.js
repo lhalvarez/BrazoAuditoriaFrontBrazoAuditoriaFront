@@ -37,6 +37,11 @@ export const API = Object.freeze({
                     },
                     PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/cargas/completas' }
                 }
+            },
+            FISICA: {
+                CAJA_ABIERTA: {
+                    DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
+                }
             }
         },
         SEGURIDAD: {
@@ -84,7 +89,7 @@ export const TITLES = Object.freeze({
         FISICA: {
             CAJA_ABIERTA: {
                 BUSQUEDA_PARTIDA: 'Validación de prendas del depósito Automatizado por Auditoría Caja Abierta',
-                DETALLE_PARTIDA: 'Detalle de Partida'
+                DETALLE_PARTIDA: 'Detalle de la Partida'
             },
             CAJA_CERRADA: {
               BUSQUEDA_PARTIDA: 'Validación de prendas del depósito Automatizado por Auditoría Caja Cerrada',

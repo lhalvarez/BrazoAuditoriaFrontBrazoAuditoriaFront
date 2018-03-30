@@ -20,7 +20,7 @@ class FirmaValuador extends Component{
   	}
 
   	sinValuador(){
-  		history.push('/auditoria-fisica-caja-abierta');
+  		history.push('/auditoria-fisica-caja-cerrada');
   	}
 
   	render(){

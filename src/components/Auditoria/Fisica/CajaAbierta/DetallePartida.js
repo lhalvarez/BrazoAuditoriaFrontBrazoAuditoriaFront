@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { store } from '../../../../store';
 import FotoPartida from './FotoPartida';
 
 class DetallePartidaCajaAbierta extends Component{
@@ -11,10 +12,26 @@ class DetallePartidaCajaAbierta extends Component{
   	constructor(){
   		super();
 
+        this.state = {
+            partidaCargada: false
+        };
+
+        this.handleStoreChange = this.handleStoreChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
   		this.clearForm = this.clearForm.bind(this);
+
+        this.unsuscribe = store.subscribe(this.handleStoreChange);
   	}
+
+    handleStoreChange(){
+        if(store.getState().cajaAbierta.partidaCargada){
+            this.setState({ partidaCargada: true });
+        }
+        else{
+            this.setState({ partidaCargada: false });
+        }
+    }
 
   	handleSubmit(e){
   		e.preventDefault();
@@ -33,10 +50,20 @@ class DetallePartidaCajaAbierta extends Component{
         let $icon = $(e.target);
         let $panelBody = $icon.parents('.panel').find('.panel-body');
 
-        $panelBody.find('input').each((index,element) => element.value = '');
+        $panelBody.find('input,textarea').each((index,element) => element.value = '');
+    }
+
+    componentWillUnmount(){
+      this.unsuscribe();
     }
 
   	render(){
+        const { partidaCargada } = this.state;
+
+        if(!partidaCargada)
+            return <div></div>;
+
+        /* El formulario se carga hasta que los datos de la partida hayan sido cargados */
   		return (
             <form onSubmit={this.handleSubmit} ref={el => this.el = el}>
                 <div className="row">

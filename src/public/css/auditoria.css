@@ -333,7 +333,7 @@ h1.page-header {
 img{
   max-width: 100%;
 }
-label, p, table{
+label, p, table, .help-block{
     font-size: 12px;            
 }
 label{
