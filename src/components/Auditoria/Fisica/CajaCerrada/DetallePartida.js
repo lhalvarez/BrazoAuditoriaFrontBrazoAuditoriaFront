@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import FotoPartida from './FotoPartida';
+import FotoPartida from '../FotoPartida';
 import CamposParametrizables  from '../../Fotografia/Informacion/Detalle/CamposParametrizables'
 
 class DetallePartidaCajaAbierta extends Component{
@@ -104,7 +104,15 @@ class DetallePartidaCajaAbierta extends Component{
                                 </div>
                             </div>
                             <div className="panel-body">
-                                <FotoPartida />
+                                <FotoPartida 
+                                    src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg" 
+                                    crop={{
+                                        superiorX: 150,
+                                        superiorY: 35,
+                                        inferiorX: 650,
+                                        inferiorY: 335
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
