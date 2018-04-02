@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { store } from '../../../../store';
 import { validarUsuario, requeridos } from './actions';
+import { cargarDetallePartida } from '../CajaCerrada/actions';
 import { history } from '../../../../history';
 
 class FirmaValuador extends Component{
@@ -31,6 +32,11 @@ class FirmaValuador extends Component{
     }
 
     handleStoreChange(){
+      /* PROVISIONAL */
+      if(store.getState().cajaAbierta.partidaCargada)
+        $('#modalFirmaValuador').modal('hide');
+      /*********/
+
 		if(store.getState().firmaValuador.loadDetail){
 			$('#modalFirmaValuador').modal('hide');
 	  		this.setState({ valuador: '', clave: '' });
@@ -38,6 +44,10 @@ class FirmaValuador extends Component{
   	}
 
   	handleSubmit(){
+      /* PROVISIONAL */
+      this.props.cargarDetallePartida();
+      /******/
+
   		const { valuador, clave } = this.state;
   		if(valuador && clave){
 	  		this.props.validarUsuario(valuador, clave);
@@ -104,4 +114,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps,{ validarUsuario, requeridos })(FirmaValuador);
+export default connect(mapStateToProps,{ validarUsuario, requeridos, cargarDetallePartida })(FirmaValuador);
