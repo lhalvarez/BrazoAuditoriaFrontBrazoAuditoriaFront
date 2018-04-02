@@ -1,7 +1,7 @@
 /*
 * Acciones relacionadas a la Auditoría de Caja Abierta
 */
-import { API, CONFIG } from '../../../../constants';
+import { API } from '../../../../constants';
 import MessageService from '../../../../lib/utils/MessageService';
 import { addNotification } from '../../../Global/GlobalActions';
 

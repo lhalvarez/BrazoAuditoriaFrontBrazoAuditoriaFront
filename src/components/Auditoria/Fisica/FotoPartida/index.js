@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { API } from '../../../../constants';
+import MessageService from '../../../../lib/utils/MessageService';
+
 class FotoPartida extends Component{
 	 static propTypes = {
 
@@ -22,38 +25,64 @@ class FotoPartida extends Component{
       };
 
       this.getCroppedImg = this.getCroppedImg.bind(this);
+      this.arrayBufferToBase64 = this.arrayBufferToBase64.bind(this);
     }
 
-    getCroppedImg() {
+    arrayBufferToBase64(buffer) {
+      let binary = '';
+      let bytes = [].slice.call(new Uint8Array(buffer));
 
-      const canvas = document.createElement('canvas');
-      canvas.width = this.state.crop.width;
-      canvas.height = this.state.crop.height;
-      const ctx = canvas.getContext('2d');
+      bytes.forEach((b) => binary += String.fromCharCode(b));
 
-      const imgObj = new Image();
-      imgObj.crossOrigin = "anonymous";
-      imgObj.src = this.state.croppedImg;
+      return window.btoa(binary);
+    };
 
-      // As Base64 string
-      return new Promise((resolve,reject) => {
-        imgObj.onload = () => {
-          ctx.drawImage(
-            imgObj,
-            this.state.crop.x,
-            this.state.crop.y,
-            this.state.crop.width,
-            this.state.crop.height,
-            0,
-            0,
-            this.state.crop.width,
-            this.state.crop.height
-          );
+    async getCroppedImg() {
+      let uri = this.props.src;
 
-          resolve(canvas.toDataURL('image/jpeg'));
-        };
-      });
+      let contentTypes = {
+        '.jpg': 'image/jpeg',
+        '.png': 'image/png',
+        '.bmp': 'image/bmp',
+        '.gif': 'image/gif'
+      };
 
+      let contentType = contentTypes[/^.+(\.jpg|\.png|\.gif|\.bmp)$/.exec(uri)[1]];
+
+      if(contentType){        
+        let buffer = await MessageService.fetchBuffer(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.CARGAR_FOTOGRAFIA.endpoint,{uri});
+        let base64Flag = `data:${contentType};base64,`;
+        let imageStr = this.arrayBufferToBase64(buffer);
+
+        /* Crear Canvas para la imagen */
+        const canvas = document.createElement('canvas');
+        canvas.width = this.state.crop.width;
+        canvas.height = this.state.crop.height;
+        const ctx = canvas.getContext('2d');
+
+        const imgObj = new Image();
+        imgObj.crossOrigin = "anonymous";
+        imgObj.src = base64Flag + imageStr;
+
+        // As Base64 string
+        return new Promise((resolve,reject) => {
+          imgObj.onload = () => {
+            ctx.drawImage(
+              imgObj,
+              this.state.crop.x,
+              this.state.crop.y,
+              this.state.crop.width,
+              this.state.crop.height,
+              0,
+              0,
+              this.state.crop.width,
+              this.state.crop.height
+            );
+
+            resolve(canvas.toDataURL(contentType));
+          };
+        });
+      }
       // As a blob
       // return new Promise((resolve, reject) => {
       //   canvas.toBlob(file => {

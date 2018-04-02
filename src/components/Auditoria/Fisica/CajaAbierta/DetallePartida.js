@@ -96,9 +96,9 @@ class DetallePartidaCajaAbierta extends Component{
                                         </div>
 
                                         <div className="form-group row">
-                                            <label htmlFor="valuador" className="col-sm-4 col-form-label">Valuador:</label>
+                                            <label htmlFor="valuador2" className="col-sm-4 col-form-label">Valuador:</label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control input-sm" id="valuador" placeholder="" />
+                                                <input type="text" className="form-control input-sm" id="valuador2" placeholder="" />
                                             </div>
                                         </div>
 
@@ -285,107 +285,107 @@ class DetallePartidaCajaAbierta extends Component{
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group row">
-                                                    <label htmlFor="subramo" className="col-sm-4 col-form-label">Subramo:</label>
+                                                    <label htmlFor="subramo2" className="col-sm-4 col-form-label">Subramo:</label>
                                                     <div className="col-sm-8">
-                                                        <select name="subramo" id="subramo" className="form-control input-sm"></select>
+                                                        <select name="subramo2" id="subramo2" className="form-control input-sm"></select>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="metal" className="col-sm-4 col-form-label">Metal:</label>
+                                                    <label htmlFor="metal2" className="col-sm-4 col-form-label">Metal:</label>
                                                     <div className="col-sm-8">
-                                                        <select name="metal" id="metal" className="form-control input-sm"></select>
+                                                        <select name="metal2" id="metal2" className="form-control input-sm"></select>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="kilates" className="col-sm-4 col-form-label">Kilates:</label>
+                                                    <label htmlFor="kilates2" className="col-sm-4 col-form-label">Kilates:</label>
                                                     <div className="col-sm-8">
-                                                        <select name="kilates" id="kilates" className="form-control input-sm"></select>
+                                                        <select name="kilates2" id="kilates2" className="form-control input-sm"></select>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="rango" className="col-sm-4 col-form-label">Rango:</label>
+                                                    <label htmlFor="rango2" className="col-sm-4 col-form-label">Rango:</label>
                                                     <div className="col-sm-8">
-                                                        <select name="rango" id="rango" className="form-control input-sm"></select>
+                                                        <select name="rango2" id="rango2" className="form-control input-sm"></select>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="deposito" className="col-sm-4 col-form-label">Número de depósito:</label>
+                                                    <label htmlFor="deposito2" className="col-sm-4 col-form-label">Número de depósito:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="text" className="form-control input-sm" id="deposito" />
+                                                        <input type="text" className="form-control input-sm" id="deposito2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="incremento" className="col-sm-4 col-form-label">Incremento:</label>
+                                                    <label htmlFor="incremento2" className="col-sm-4 col-form-label">Incremento:</label>
                                                     <div className="col-sm-8">
-                                                        <select name="incremento" id="incremento" className="form-control input-sm"></select>
+                                                        <select name="incremento2" id="incremento2" className="form-control input-sm"></select>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="desplazamiento" className="col-sm-4 col-form-label">Desplazamiento comercial:</label>
+                                                    <label htmlFor="desplazamiento2" className="col-sm-4 col-form-label">Desplazamiento comercial:</label>
                                                     <div className="col-sm-8">
-                                                        <select name="desplazamiento" id="desplazamiento" className="form-control input-sm"></select>
+                                                        <select name="desplazamiento2" id="desplazamiento2" className="form-control input-sm"></select>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="gramaje" className="col-sm-4 col-form-label">Gramaje:</label>
+                                                    <label htmlFor="gramaje2" className="col-sm-4 col-form-label">Gramaje:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="number" className="form-control input-sm" id="gramaje" />
+                                                        <input type="number" className="form-control input-sm" id="gramaje2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="avaluo" className="col-sm-4 col-form-label">Avalúo complementario:</label>
+                                                    <label htmlFor="avaluo2" className="col-sm-4 col-form-label">Avalúo complementario:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="number" className="form-control input-sm" id="avaluo" />
+                                                        <input type="number" className="form-control input-sm" id="avaluo2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="importe" className="col-sm-4 col-form-label">Importe gramo:</label>
+                                                    <label htmlFor="importe2" className="col-sm-4 col-form-label">Importe gramo:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="text" className="form-control input-sm" id="importe" />
+                                                        <input type="text" className="form-control input-sm" id="importe2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="prestamo" className="col-sm-4 col-form-label">Préstamo autorizado:</label>
+                                                    <label htmlFor="prestamo2" className="col-sm-4 col-form-label">Préstamo autorizado:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="number" className="form-control input-sm" id="prestamo" />
+                                                        <input type="number" className="form-control input-sm" id="prestamo2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="costo" className="col-sm-4 col-form-label">Costo del metal:</label>
+                                                    <label htmlFor="costo2" className="col-sm-4 col-form-label">Costo del metal:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="number" className="form-control input-sm" id="costo" />
+                                                        <input type="number" className="form-control input-sm" id="costo2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="valor-comercial" className="col-sm-4 col-form-label">Valor comercial:</label>
+                                                    <label htmlFor="valor-comercial2" className="col-sm-4 col-form-label">Valor comercial:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="number" className="form-control input-sm" id="valor-comercial" />
+                                                        <input type="number" className="form-control input-sm" id="valor-comercial2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="valor-monte" className="col-sm-4 col-form-label">Valor monte:</label>
+                                                    <label htmlFor="valor-monte2" className="col-sm-4 col-form-label">Valor monte:</label>
                                                     <div className="col-sm-8">
-                                                        <input type="number" className="form-control input-sm" id="valor-monte" />
+                                                        <input type="number" className="form-control input-sm" id="valor-monte2" />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group row">
-                                                    <label htmlFor="descripcion-partida" className="col-sm-4 col-form-label">Descripción de la partida:</label>
+                                                    <label htmlFor="descripcion-partida2" className="col-sm-4 col-form-label">Descripción de la partida:</label>
                                                     <div className="col-sm-8">
-                                                        <textarea name="" id="descripcion-partida" cols="20" rows="4" className="form-control input-sm"></textarea>
+                                                        <textarea name="" id="descripcion-partida2" cols="20" rows="4" className="form-control input-sm"></textarea>
                                                     </div>
                                                 </div>
                                             </div>

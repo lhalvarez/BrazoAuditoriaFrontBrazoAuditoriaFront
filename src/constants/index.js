@@ -36,7 +36,8 @@ export const API = Object.freeze({
                         AUTO_COMPLETE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/autocomplete/nombreArchivo' }
                     },
                     PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/cargas/completas' }
-                }
+                },
+                CARGAR_FOTOGRAFIA: { endpoint: '/api/fotografia' }
             },
             FISICA: {
                 CAJA_ABIERTA: {
