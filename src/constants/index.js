@@ -47,7 +47,8 @@ export const API = Object.freeze({
         SEGURIDAD: {
             INICIAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' },
             VERIFICAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' },
-            CERRAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' }
+            CERRAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' },
+            VALIDAR_USUARIO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/credenciales' }
         },
         DASHBOARD: {
             RESUMEN_PENDIENTES: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/dashboard' }
