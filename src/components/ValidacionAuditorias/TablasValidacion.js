@@ -92,7 +92,7 @@ class TablasValidacion extends Component {
         //     "autorizador": "string",
         //     "idAuditoria": 0,
         //     "observaciones": "string"
-        //}   
+        //}
 
         let aceptadas = this.state.selectedAccept;
         this.state.selected.forEach(aceptada => {
@@ -127,7 +127,7 @@ class TablasValidacion extends Component {
         //     "autorizador": "string",
         //     "idAuditoria": 0,
         //     "observaciones": "string"
-        //}   
+        //}
 
         if (this.state.selectedReject.length == 0) {
             this.props.sendNotification('Aviso', 'Escribir motivo de Rechazo', 'error');
