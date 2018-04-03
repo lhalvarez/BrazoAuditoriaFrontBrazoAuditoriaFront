@@ -21,7 +21,6 @@ class TablasValidacion extends Component {
         this.handleShowReject = this.handleShowReject.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.onChangeRechazo = this.onChangeRechazo.bind(this);
         this.handleOnSubmitAccept = this.handleOnSubmitAccept.bind(this);
         this.handleOnSubmitReject = this.handleOnSubmitReject.bind(this);
         this.initialState = this.initialState.bind(this);
