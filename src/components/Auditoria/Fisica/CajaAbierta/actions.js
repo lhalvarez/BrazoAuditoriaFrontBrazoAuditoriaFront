@@ -1,7 +1,7 @@
 /*
 * Acciones relacionadas a la Auditoría de Caja Abierta
 */
-import { API } from '../../../../constants';
+import { API, CATALOGOS } from '../../../../constants';
 import MessageService from '../../../../lib/utils/MessageService';
 import { addNotification } from '../../../Global/GlobalActions';
 
@@ -21,8 +21,16 @@ export function obtenerDetallePartida(rfid,folio){
 
 		MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA.endpoint}/${rfid}/${folio}`)
 		.then(response => {
-			dispatch({ type: DETALLE_PARTIDA_CARGADA, ...response.object, rfid, folio });
-			dispatch( addNotification(API.AVISOS.USUARIOS.consulta_exito,response.message,'success') );
+			MessageService.getAll( API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint.replace(':nombreCatalogo', CATALOGOS.OBSERVACION) )
+			.then(catResponse => {
+				dispatch({ type: DETALLE_PARTIDA_CARGADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
+				dispatch( addNotification(API.AVISOS.USUARIOS.consulta_exito,response.message,'success') );
+			})
+			.catch(error => {
+				dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA });
+				dispatch( addNotification(API.AVISOS.USUARIOS.error_consulta,error.data.message,'error') );
+			});
+
 		})
 		.catch(error => {
 			dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA });

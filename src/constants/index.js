@@ -65,6 +65,9 @@ export const API = Object.freeze({
             AUDITORIA_PENDIENTE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut' },
             VALIDAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/autorizacion' }
 
+        },
+        CATALOGOS: {
+            BUSCAR_CATALOGO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/catalogo/:nombreCatalogo' }
         }
     }
 });
@@ -102,4 +105,9 @@ export const TITLES = Object.freeze({
     INICIO: {
         PAGINA_INICIO: 'Bienvenido '
     }
+});
+
+/* Nombres de los catálogos disponibles */
+export const CATALOGOS = Object.freeze({
+    OBSERVACION: 'tipo_observacion' 
 });

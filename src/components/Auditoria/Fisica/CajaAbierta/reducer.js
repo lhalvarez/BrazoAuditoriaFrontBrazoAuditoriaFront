@@ -27,7 +27,8 @@ export function cajaAbierta(state = initialState,action){
 				llavePartida: action.llavePartida,
 				detallePartida: action.detallePartida,
 				foto: action.foto,
-				resultado: action.resultado
+				resultado: action.resultado,
+				tiposObservacion: action.tiposObservacion
 			};
 		case ERROR_CARGAR_DETALLE_PARTIDA:
 			return {...initialState};
