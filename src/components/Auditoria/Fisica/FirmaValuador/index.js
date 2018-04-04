@@ -6,6 +6,7 @@ import { validarUsuario, requeridos } from './actions';
 import { cargarDetallePartida } from '../CajaCerrada/actions';
 import { history } from '../../../../history';
 
+
 class FirmaValuador extends Component{
 	static propTypes = {
 
@@ -71,16 +72,16 @@ class FirmaValuador extends Component{
 			<div className="modal fade" id="modalFirmaValuador" tabIndex="-1" role="dialog" aria-labelledby="modalFirmaValuadorLabel" aria-hidden="true">
 			  <div className="modal-dialog" role="document">
 			    <div className="modal-content">
-			      
+
 			      <div className="modal-header">
 			      	<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			        <h5 className="modal-title" id="modalFirmaValuadorLabel">Firma de Valuador</h5>
 			      </div>
-			      
+
 			      <div className="modal-body">
-			      	
+
                     <div className="form-group row">
                         <label htmlFor="valuador" className="col-sm-4 col-form-label">Valuador:</label>
                         <div className="col-sm-8">
@@ -96,12 +97,12 @@ class FirmaValuador extends Component{
                     </div>
 
 			      </div>
-			      
+
 			      <div className="modal-footer">
 			        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.sinValuador}>Sin Valuador</button>
 			        <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Aceptar</button>
 			      </div>
-			    
+
 			    </div>
 			  </div>
 			</div>
