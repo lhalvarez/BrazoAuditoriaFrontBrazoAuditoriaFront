@@ -14,15 +14,7 @@ class FotoPartida extends Component{
     constructor(props){
       super(props);
 
-      this.state = {
-        crop: {
-          x: props.crop.superiorX,
-          y: props.crop.superiorY,
-          width: (props.crop.inferiorX - props.crop.superiorX),
-          height: (props.crop.inferiorY - props.crop.superiorY)
-        },
-        croppedImg: props.src
-      };
+      this.state = {croppedImg: ''};
 
       this.getCroppedImg = this.getCroppedImg.bind(this);
       this.arrayBufferToBase64 = this.arrayBufferToBase64.bind(this);
@@ -39,6 +31,7 @@ class FotoPartida extends Component{
 
     async getCroppedImg() {
       let uri = this.props.src;
+      let { superiorX, superiorY, inferiorX, inferiorY } = this.props.crop;
 
       let contentTypes = {
         '.jpg': 'image/jpeg',
@@ -49,47 +42,15 @@ class FotoPartida extends Component{
 
       let contentType = contentTypes[/^.+(\.jpg|\.png|\.gif|\.bmp)$/.exec(uri)[1]];
 
-      if(contentType){        
-        let buffer = await MessageService.fetchBuffer(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.CARGAR_FOTOGRAFIA.endpoint,{uri});
+      if(contentType){
+        let buffer = await MessageService.fetchBuffer(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.CARGAR_FOTOGRAFIA.endpoint,{
+          uri,superiorX, superiorY, inferiorX, inferiorY
+        });
         let base64Flag = `data:${contentType};base64,`;
         let imageStr = this.arrayBufferToBase64(buffer);
 
-        /* Crear Canvas para la imagen */
-        const canvas = document.createElement('canvas');
-        canvas.width = this.state.crop.width;
-        canvas.height = this.state.crop.height;
-        const ctx = canvas.getContext('2d');
-
-        const imgObj = new Image();
-        imgObj.crossOrigin = "anonymous";
-        imgObj.src = base64Flag + imageStr;
-
-        // As Base64 string
-        return new Promise((resolve,reject) => {
-          imgObj.onload = () => {
-            ctx.drawImage(
-              imgObj,
-              this.state.crop.x,
-              this.state.crop.y,
-              this.state.crop.width,
-              this.state.crop.height,
-              0,
-              0,
-              this.state.crop.width,
-              this.state.crop.height
-            );
-
-            resolve(canvas.toDataURL(contentType));
-          };
-        });
+        return (base64Flag + imageStr);
       }
-      // As a blob
-      // return new Promise((resolve, reject) => {
-      //   canvas.toBlob(file => {
-      //     file.name = 'cropped-image';
-      //     resolve(file);
-      //   }, 'image/jpeg');
-      // });
     }
 
     async componentWillMount(){
@@ -98,10 +59,22 @@ class FotoPartida extends Component{
     }
 
   	render(){
+      const { croppedImg } = this.state;
+
+      if(!croppedImg){
+        return (
+          <div className="row">
+            <div className="partida-container col-sm-8 col-sm-offset-2" style={{height:'200px'}}>
+              <div className="hover-curtain" style={{opacity:1}}><i className="fa fa-5x fa-spinner fa-spin"></i></div>
+            </div>
+          </div>
+        );
+      }
+
   		return (
         <div className="row">
     			<div className="partida-container col-sm-8 col-sm-offset-2">
-            <a href={this.props.src} data-toggle="lightbox">
+            <a href={this.state.croppedImg} data-toggle="lightbox">
     				  <div className="hover-curtain"><i className="fa fa-5x fa-search-plus"></i></div>
               <img src={this.state.croppedImg} alt="Imagen de la partida" />
             </a>
