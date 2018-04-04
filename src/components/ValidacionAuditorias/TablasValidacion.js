@@ -12,6 +12,7 @@ import {
 } from 'react-modal-bootstrap';
 import RechazoList from './rechazolist';
 import './style.css';
+import SwitchButton from '../../lib/utils/SwitchButton';
 
 class TablasValidacion extends Component {
 
@@ -54,15 +55,16 @@ class TablasValidacion extends Component {
         }
         let index
 
-        if (e.target.checked) {
+        if (e) {
             selected.push(objAuditor)
         } else {
             index = selected.indexOf(objAuditor)
             selected.splice(index, 1)
         }
 
-        this.setState({ selected: selected })
+        this.state.selected = selected;
     }
+
 
     handleClose() {
         //console.log(this.state)
@@ -108,6 +110,7 @@ class TablasValidacion extends Component {
         });
 
         try {
+            //console.log(aceptadas)
             this.props.saveAuditoria(aceptadas);
             this.props.sendNotification('Aviso', 'Se aceptaron correctamente', 'success');
             this.handleClose();
@@ -134,6 +137,7 @@ class TablasValidacion extends Component {
             return;
         }
 
+        //console.log(this.state.selectedReject)
         this.props.saveAuditoria(this.state.selectedReject);
         this.props.sendNotification('Aviso', 'Se acepto el rechazo correctamente', 'success');
         this.handleClose();
@@ -196,10 +200,8 @@ class TablasValidacion extends Component {
                                                         <td>{carga.tipoAuditoria.descripcion}</td>
                                                         <td>
                                                             < div >
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="checkbox"
-                                                                    value={id}
+                                                                <SwitchButton
+                                                                    name={carga.nombreArchivo}
                                                                     onChange={this.onChange.bind(this, carga, id)}
                                                                 />
                                                             </div>
@@ -293,10 +295,8 @@ class TablasValidacion extends Component {
                                                         <td>{carga.noPartidas}</td>
                                                         <td>
                                                             < div >
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="checkbox"
-                                                                    value={id}
+                                                                <SwitchButton
+                                                                    name={carga.nombreArchivo}
                                                                     onChange={this.onChange.bind(this, carga, id)}
                                                                 />
                                                             </div>
