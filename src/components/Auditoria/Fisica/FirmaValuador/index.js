@@ -5,6 +5,7 @@ import { store } from '../../../../store';
 import { validarUsuario, requeridos } from './actions';
 import { cargarDetallePartida } from '../CajaCerrada/actions';
 import { history } from '../../../../history';
+import { Button } from 'react-bootstrap';
 
 
 class FirmaValuador extends Component{
@@ -17,14 +18,12 @@ class FirmaValuador extends Component{
 
   		this.state = {
             valuador: '',
-            clave: ''
+            clave: '',
+            loadDetail: false
         };
 
-		this.handleStoreChange = this.handleStoreChange.bind(this);
-		this.handleChange = this.handleChange.bind(this);
+		  this.handleChange = this.handleChange.bind(this);
   		this.handleSubmit = this.handleSubmit.bind(this);
-
-  		this.unsuscribe = store.subscribe(this.handleStoreChange);
   	}
 
   	handleChange(e) {
@@ -32,52 +31,48 @@ class FirmaValuador extends Component{
         this.setState({ [name]: value });
     }
 
-    handleStoreChange(){
-      /* PROVISIONAL */
-      if(store.getState().cajaAbierta.partidaCargada)
-        $('#modalFirmaValuador').modal('hide');
-      /*********/
-
-		if(store.getState().firmaValuador.loadDetail){
-			$('#modalFirmaValuador').modal('hide');
-	  		this.setState({ valuador: '', clave: '' });
-		}
-  	}
-
   	handleSubmit(){
       /* PROVISIONAL */
       this.props.cargarDetallePartida();
       /******/
 
   		const { valuador, clave } = this.state;
+
   		if(valuador && clave){
-	  		this.props.validarUsuario(valuador, clave);
+        if(valuador.trim() != '' && clave.trim() != ''){
+          this.props.validarUsuario(valuador, clave);
+        }
+        else{
+          this.props.requeridos('El contenido de los campos es incorrecto.');
+        }
   		}
   		else{
-  			this.props.requeridos();
+  			this.props.requeridos('Los campos "Valuador" y "Clave" son requeridos.');
   		}
-  	}
-
-  	componentWillUnmount(){
-  		this.unsuscribe();
   	}
 
   	sinValuador(){
   		history.push('/auditoria-fisica-caja-cerrada');
   	}
 
+    renderModal(){
+      if(this.props.loadDetail){
+        $('#modalFirmaValuador').modal('hide');
+      }
+    }
+
   	render(){
+      this.renderModal();
   		const { valuador, clave } = this.state;
+
   		return (
 			<div className="modal fade" id="modalFirmaValuador" tabIndex="-1" role="dialog" aria-labelledby="modalFirmaValuadorLabel" aria-hidden="true">
 			  <div className="modal-dialog" role="document">
 			    <div className="modal-content">
 
 			      <div className="modal-header">
-			      	<button type="button" className="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			        <h5 className="modal-title" id="modalFirmaValuadorLabel">Firma de Valuador</h5>
+              <Button className="close" bsStyle="primary" data-dismiss="modal"><span>&times;</span></Button>
+              <h5 className="modal-title" id="modalFirmaValuadorLabel">Firma de Valuador</h5>
 			      </div>
 
 			      <div className="modal-body">
@@ -98,10 +93,12 @@ class FirmaValuador extends Component{
 
 			      </div>
 
-			      <div className="modal-footer">
-			        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.sinValuador}>Sin Valuador</button>
-			        <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Aceptar</button>
-			      </div>
+            <div className="modal-footer">
+              <div className="text-center">
+                <Button bsStyle="warning" data-dismiss="modal" onClick={this.sinValuador}>Sin Valuador</Button>
+                <Button bsStyle="primary" onClick={this.handleSubmit}>Aceptar</Button>
+              </div>
+            </div>
 
 			    </div>
 			  </div>
@@ -112,6 +109,9 @@ class FirmaValuador extends Component{
 
 function mapStateToProps(state){
   return {
+    valuador: state.firmaValuador.valuador,
+    clave: state.firmaValuador.clave,
+    loadDetail: state.firmaValuador.loadDetail
   }
 }
 

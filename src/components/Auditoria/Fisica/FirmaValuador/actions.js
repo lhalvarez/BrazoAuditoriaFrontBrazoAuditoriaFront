@@ -15,7 +15,7 @@ export function validarUsuario(valuador,clave){
 	return (dispatch)=>{
 	    MessageService.save(API.ENDPOINTS.SEGURIDAD.VALIDAR_USUARIO.endpoint,params)
 	      .then((response) => {
-	        dispatch( {type: VALIDAR_USUARIO, payload: response });
+	        dispatch( {type: VALIDAR_USUARIO, payload: response});
 	      }).catch(error => {
 	      	if(error.data.code === '401'){
 	      		dispatch(addNotification('Se ha generado un error!','Las credenciales ingresadas son incorrectas' , 'error'));
@@ -27,11 +27,11 @@ export function validarUsuario(valuador,clave){
   	}
 }
 
-export function requeridos(){
+export function requeridos(mensaje){
 	
 	return (dispatch)=>{
 		dispatch( {type: OCULTAR_DETALLE });
 	    dispatch( {type: ADD_NOTIFICATION});
-	    dispatch(addNotification('Se ha generado un error!','Los campos "Valuador" y "Clave" son requeridos.' , 'error'));
+	    dispatch(addNotification('Se ha generado un error!', mensaje, 'error'));
 	}
 }
