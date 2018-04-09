@@ -33,7 +33,8 @@ class CargaFotografia extends Component {
           tipoAuditoria={this.props.tipoAuditoria}
           getDoc={this.props.getDoc}
           deleteDoc={this.props.deleteDoc}
-          getDocs={this.props.getDocs}  />
+          getDocs={this.props.getDocs}
+          api={this.props.api}/>
       }else{
         return <div />;
       }
@@ -49,6 +50,7 @@ class CargaFotografia extends Component {
         saveDoc={this.props.saveDoc}
         saveAuditoria={this.props.saveAuditoria}
         sendNotification={this.props.sendNotification}
+        api={this.props.api}
       />
 
       <this.ShowTable />

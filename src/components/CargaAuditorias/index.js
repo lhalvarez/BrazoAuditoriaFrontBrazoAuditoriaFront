@@ -3,6 +3,7 @@ import {getDocs,saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification} from '.
 import {connect} from 'react-redux';
 import { store } from '../../store';
 import Pagination from 'rc-pagination';
+import {LEYENDAS} from  '../../constants';
 
 
 
@@ -66,6 +67,7 @@ class CargarAuditorias extends React.Component {
       getDocs={this.props.getDocs}
       deleteDoc={this.props.deleteDoc}
       sendNotification={this.props.sendNotification}
+      api={LEYENDAS}
     />
 
   }
@@ -84,7 +86,8 @@ class CargarAuditorias extends React.Component {
         detalleUsuario={this.state.detalleUsuario}
         tipoAuditoria={this.tipoAuditoria}
         getDoc={this.props.getDoc}
-        deleteDoc={this.props.deleteDoc}/>
+        deleteDoc={this.props.deleteDoc}
+        api={LEYENDAS}/>
     }else{
       return <div />
     }
@@ -114,6 +117,8 @@ class CargarAuditorias extends React.Component {
             saveDoc={this.props.saveDoc}
             saveAuditoria={this.props.saveAuditoria}
             sendNotification={this.props.sendNotification}
+            api={LEYENDAS}
+
           />
           <this.CargaFisica />
           <Pagination current={this.state.page + 1}

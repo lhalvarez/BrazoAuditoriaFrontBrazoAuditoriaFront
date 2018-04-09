@@ -109,5 +109,26 @@ export const TITLES = Object.freeze({
 
 /* Nombres de los catálogos disponibles */
 export const CATALOGOS = Object.freeze({
-    OBSERVACION: 'tipo_observacion' 
+    OBSERVACION: 'tipo_observacion'
 });
+
+/* Nombres de los catálogos disponibles */
+export const LEYENDAS = Object.freeze({
+  CARGA: {
+    DD_VACIO:'Arrastre y suelte su archivo en esta área',
+    TAMANO_ARCHIVO: 'El archivo debe tener menos de',
+    TAMANO_NUMERO: 2000, //2 MB,
+    TAMANO_MB : '2 MB',
+    ERROR_ARCHIVO: 'Error en el archivo',
+    FORMATO_ARCHIVO: '.csv',
+    FORMATO_ARCHIVO_LEYENDA: 'El archivo debe de ser en formato',
+    ERROR_ENVIAR_DOC: 'Error al enviar documento',
+    ERROR_DOCUMENTO_VALIDO: 'Debe cargar un documento válido',
+    ERROR_SELECT_AUDIT: 'Debe seleccionar un tipo de auditoría física',
+    ESPERA_REVISION: 'En espera de revisión',
+    CARGANDO:'Cargando...'
+
+
+  }
+});
+
