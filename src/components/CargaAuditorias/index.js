@@ -18,19 +18,22 @@ class CargarAuditorias extends React.Component {
 
     this.switchView = this.switchView.bind(this);
     this.onChangePagination = this.onChangePagination.bind(this);
+    this.CargaFoto = this.CargaFoto.bind(this);
+    this.CargaFisica = this.CargaFisica.bind(this);
 
     this.state = {
       detalleUsuario: store.getState().session.detalleUsuario,
       isReceiverOpen: false,
+      auditorias: [],
       page: 0,
       pageSize: 10,
-      total: 0,
-
+      total: 0
     };
     this.tipoAuditoria = 0;
   }
   componentDidMount () {
     this.props.getDocs(this.state.page, this.state.pageSize);
+
   }
 
   onChangePagination = (page, pageSize) => {
@@ -45,6 +48,48 @@ class CargarAuditorias extends React.Component {
 
   }
 
+  CargaFoto(){
+    let audits = this.props.auditorias;
+    let newStateAudits = [];
+    audits.forEach(function(element) {
+      if(element.carga.tipoAuditoria.id === 1){
+        newStateAudits.push(element);
+      }
+    });
+    return <CargaFotografia
+      saveDoc={this.props.saveDoc}
+      saveAuditoria={this.props.saveAuditoria}
+      auditoriasList={newStateAudits}
+      detalleUsuario={this.state.detalleUsuario}
+      tipoAuditoria={this.tipoAuditoria}
+      getDoc={this.props.getDoc}
+      getDocs={this.props.getDocs}
+      deleteDoc={this.props.deleteDoc}
+      sendNotification={this.props.sendNotification}
+    />
+
+  }
+
+  CargaFisica(){
+    let audits = this.props.auditorias;
+    let newStateAudits = [];
+    audits.forEach(function(element) {
+      if(element.carga.tipoAuditoria.id !== 1){
+        newStateAudits.push(element);
+      }
+    });
+    if(newStateAudits.length > 0){
+      return <SeccionTabla
+        auditoriasList={newStateAudits}
+        detalleUsuario={this.state.detalleUsuario}
+        tipoAuditoria={this.tipoAuditoria}
+        getDoc={this.props.getDoc}
+        deleteDoc={this.props.deleteDoc}/>
+    }else{
+      return <div />
+    }
+  }
+
 
 
 
@@ -55,17 +100,8 @@ class CargarAuditorias extends React.Component {
       return (
         <div>
 
-          <CargaFotografia
-            saveDoc={this.props.saveDoc}
-            saveAuditoria={this.props.saveAuditoria}
-            auditoriasList={this.props.auditorias}
-            detalleUsuario={this.state.detalleUsuario}
-            tipoAuditoria={this.tipoAuditoria}
-            getDoc={this.props.getDoc}
-            getDocs={this.props.getDocs}
-            deleteDoc={this.props.deleteDoc}
-            sendNotification={this.props.sendNotification}
-          />
+          <this.CargaFoto />
+
         </div>
       );
     } else {
@@ -79,13 +115,7 @@ class CargarAuditorias extends React.Component {
             saveAuditoria={this.props.saveAuditoria}
             sendNotification={this.props.sendNotification}
           />
-
-          { this.props.auditorias.length > 0 && <SeccionTabla
-            auditoriasList={this.props.auditorias}
-            detalleUsuario={this.state.detalleUsuario}
-            tipoAuditoria={this.tipoAuditoria}
-            getDoc={this.props.getDoc}
-            deleteDoc={this.props.deleteDoc}/> }
+          <this.CargaFisica />
           <Pagination current={this.state.page + 1}
                       pageSize={this.state.pageSize}
                       hideOnSinglePage={true}

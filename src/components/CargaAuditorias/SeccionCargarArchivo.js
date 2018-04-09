@@ -79,6 +79,7 @@ class SeccionCargarArchivos extends Component {
     this.setState({fileError:null});
     this.setState({file:null});
     this.setState({nameFile:'Arrastre y suelte su archivo en esta área'});
+    $('#documento').val(0);
   };
   fileUpload(file){
     var formData = new FormData();
@@ -135,7 +136,7 @@ class SeccionCargarArchivos extends Component {
           <div className="col-lg-12">
             <div className="panel panel-default">
               <div className="panel-heading" >
-                <i className="fa fa-3x fa-upload pull-right"></i>
+                <i className="fa fa-2x fa-upload pull-right"></i>
                 <p>Carga nuevo archivo auditoría</p>
 
               </div>
@@ -191,7 +192,7 @@ class SeccionCargarArchivos extends Component {
             <div className="col-lg-12">
               <div className="panel panel-default">
                 <div className="panel-heading">
-                  <i className="fa fa-3x fa-upload pull-right"></i>
+                  <i className="fa fa-2x fa-upload pull-right"></i>
                   <p>Carga nuevo archivo auditoría física</p>
                 </div>
                 <form id="formBusquedaPartida" onSubmit={this.onFormSubmit}>
@@ -203,7 +204,7 @@ class SeccionCargarArchivos extends Component {
                           <div className="col-sm-10">
                             <select className="form-control" id="documento" defaultValue={0}
                                     onChange={this.onChangeTipoAuditoria}>
-                              <option value="0" disabled>Seleccione...</option>
+                              <option value="0">Seleccione...</option>
                               <option value="AFCC">Caja Cerrada</option>
                               <option value="AFCA">Caja Abierta</option>
                             </select>

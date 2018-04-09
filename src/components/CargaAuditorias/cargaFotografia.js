@@ -14,12 +14,29 @@ class CargaFotografia extends Component {
       total: 0,
     };
     this.onChangePagination = this.onChangePagination.bind(this);
+    this.ShowTable = this.ShowTable.bind(this);
 
   };
   onChangePagination = (page, pageSize) => {
     this.setState({
       page: page - 1
     }, this.props.getDocs(page - 1, this.state.pageSize));
+  };
+
+
+
+   ShowTable() {
+      if(this.props.auditoriasList.length > 0){
+        return <SeccionTabla
+          auditoriasList={this.props.auditoriasList}
+          detalleUsuario={this.props.detalleUsuario}
+          tipoAuditoria={this.props.tipoAuditoria}
+          getDoc={this.props.getDoc}
+          deleteDoc={this.props.deleteDoc}
+          getDocs={this.props.getDocs}  />
+      }else{
+        return <div />;
+      }
   };
 
   render  () {
@@ -34,20 +51,13 @@ class CargaFotografia extends Component {
         sendNotification={this.props.sendNotification}
       />
 
+      <this.ShowTable />
+      <Pagination current={this.state.page + 1}
+                  pageSize={this.state.pageSize}
+                  hideOnSinglePage={true}
+                  total={this.state.total}
+                  onChange={this.onChangePagination} />
 
-        { this.props.auditoriasList.length > 0 && <SeccionTabla
-          auditoriasList={this.props.auditoriasList}
-          detalleUsuario={this.props.detalleUsuario}
-          tipoAuditoria={this.props.tipoAuditoria}
-          getDoc={this.props.getDoc}
-          deleteDoc={this.props.deleteDoc}
-          getDocs={this.props.getDocs}
-                            /> }
-        <Pagination current={this.state.page + 1}
-                    pageSize={this.state.pageSize}
-                    hideOnSinglePage={true}
-                    total={this.state.total}
-                    onChange={this.onChangePagination} />
 
       </div>
     );
