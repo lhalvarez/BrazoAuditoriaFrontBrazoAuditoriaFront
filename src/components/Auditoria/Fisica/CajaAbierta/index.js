@@ -18,8 +18,7 @@ class AuditoriaFisicaCajaAbierta extends Component{
   		super();
 
   		this.state = {
-  			title: TITLES.AUDITORIA.FISICA.CAJA_ABIERTA.BUSQUEDA_PARTIDA,
-  			loadDetail: false
+  			title: TITLES.AUDITORIA.FISICA.CAJA_ABIERTA.BUSQUEDA_PARTIDA
   		};
 
   		this.handleStoreChange = this.handleStoreChange.bind(this);
@@ -28,12 +27,13 @@ class AuditoriaFisicaCajaAbierta extends Component{
   	}
 
   	handleStoreChange(){
-  		if(store.getState().cajaAbierta.loadDetail){
+  		if(store.getState().cajaAbierta.partidaCargada){
   			this.setState({
-  				title: TITLES.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA,
-  				loadDetail: store.getState().cajaAbierta.loadDetail
+  				title: `${TITLES.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA} ${store.getState().cajaAbierta.llavePartida.rfid}`
   			});
   		}
+      else
+        this.setState({ title: TITLES.AUDITORIA.FISICA.CAJA_ABIERTA.BUSQUEDA_PARTIDA });
   	}
 
   	componentWillUnmount(){
@@ -41,16 +41,16 @@ class AuditoriaFisicaCajaAbierta extends Component{
   	}
 
   	render(){
-		const { title, loadDetail } = this.state;
+  		const { title } = this.state;
 
-		return (
-			<div>
-				<ContainerTitle title={title} />
-				<FormularioBusquedaPartida />
-				{ loadDetail && <DetallePartidaCajaAbierta /> }
-			</div>
-		);
-	}
+  		return (
+  			<div>
+  				<ContainerTitle title={title} />
+  				<FormularioBusquedaPartida />
+  				<DetallePartidaCajaAbierta />
+  			</div>
+  		);
+  	}
 }
 
 function mapStateToProps(state){

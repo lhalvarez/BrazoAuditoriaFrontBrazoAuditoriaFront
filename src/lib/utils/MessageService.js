@@ -60,9 +60,18 @@ function destroy(endpoint, params){
   });
 }
 
+function fetchBuffer(endpoint,body){
+  return requestApi({
+    url: `${endpoint}`,
+    responseType: 'arraybuffer',
+    method: 'POST',
+    data: body
+  });
+}
+
 
 const MessageService = {
-  getById, save, update, getAll, destroy
+  getById, save, update, getAll, destroy, fetchBuffer
 }
 
 

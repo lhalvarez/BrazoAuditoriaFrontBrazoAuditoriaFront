@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import FotoPartida from '../../../Fisica/CajaAbierta/FotoPartida';
+import FotoPartida from '../../../Fisica/FotoPartida';
 import CamposParametrizables  from './CamposParametrizables'
 
 
@@ -60,7 +60,15 @@ class Formulario extends Component {
                   <p>Fotografía de la Partida</p>
                 </div>
                 <div className="panel-body">
-                  <FotoPartida />
+                  <FotoPartida 
+                      src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg" 
+                      crop={{
+                        superiorX: 150,
+                        superiorY: 35,
+                        inferiorX: 650,
+                        inferiorY: 335
+                      }}
+                  />
                 </div>
               </div>
             </div>

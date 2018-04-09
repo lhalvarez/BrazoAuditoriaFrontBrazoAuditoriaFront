@@ -38,7 +38,7 @@ class Home extends Component {
         'Partidas Completas'
       ],
       datasets: [{
-        data: [300, 50],
+        data: [this.props.dashboard.partidasPendientes, this.props.dashboard.partidasCompletas],
         backgroundColor: [
           '#94142E',
           '#E0E0E0'
@@ -55,7 +55,7 @@ class Home extends Component {
         'Archivos Validados'
       ],
       datasets: [{
-        data: [200, 230],
+        data: [this.props.dashboard.archivosPendientes, this.props.dashboard.archivosAutorizadosRechazados],
         backgroundColor: [
           '#94142E',
           '#E0E0E0'
@@ -66,7 +66,6 @@ class Home extends Component {
         ]
       }]
     };
-    console.log('Se comienza a establecer los datos del usuario para ', this.props );
     //const { title } = this.state ;
     const { title } = this.state;
     return (
@@ -86,7 +85,7 @@ class Home extends Component {
                       <i style={{fontSize: '130px'}} className="fa fa-male"></i>
                     </Col>
                     <Col xs={10}>
-                      <Form horizontal>
+
                         <FormGroup controlId="formHorizontalNombre">
                           <Col  sm={3}>
                             Nombre:
@@ -120,7 +119,7 @@ class Home extends Component {
                             {this.props.usuario.sucursal}
                           </Col>
                         </FormGroup>
-                      </Form>
+
                     </Col>
                   </Row>
                 </Panel.Body>
@@ -198,7 +197,8 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    usuario: state.homeReducer.usuario
+    usuario: state.homeReducer.usuario,
+    dashboard: state.homeReducer.dashboard
   }
 }
 

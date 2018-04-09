@@ -21,7 +21,7 @@ class SeccionCargarArchivos extends Component {
     this.state = {
       tipoCarga: '',
       file:null,
-      nameFile: 'Arrastre y suelte su archivo en esta área',
+      nameFile: this.props.api.CARGA.DD_VACIO,
       fileError: null
     };
 
@@ -31,19 +31,19 @@ class SeccionCargarArchivos extends Component {
     files.forEach(file => {
       this.setState({file:file});
       this.setState({nameFile:file.name});
-      if (file.size > 2000 * 2000) {
-        file.error = 'El archivo debe tener menos de 2MB';
+      if (file.size > this.props.api.CARGA.TAMANO_NUMERO * this.props.api.CARGA.TAMANO_NUMERO) {
+        file.error = this.props.api.CARGA.TAMANO_ARCHIVO+' '+this.props.api.CARGA.TAMANO_MB;
         this.setState({fileError:file.error})
         this.setState({file:null});
-        this.setState({nameFile:'Error en el archivo'});
+        this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
       }
       console.log(file.name.split('.').pop());
 
         if(file.name.split('.').pop() !== 'csv'){
-          file.error = 'El archivo debe de ser en formato .csv';
+          file.error = this.props.api.CARGA.FORMATO_ARCHIVO_LEYENDA+' '+this.props.api.CARGA.FORMATO_ARCHIVO;
           this.setState({fileError:file.error});
           this.setState({file:null});
-          this.setState({nameFile:'Error en el archivo'});
+          this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
         }else{
           this.setState({fileError:null});
         }
@@ -62,12 +62,12 @@ class SeccionCargarArchivos extends Component {
 
 
     if(this.state.file === null){
-      this.props.sendNotification('Error al enviar documento','Debe cargar un documento válido','error');
+      this.props.sendNotification(this.props.api.CARGA.ERROR_ENVIAR_DOC,this.props.api.CARGA.ERROR_DOCUMENTO_VALIDO,'error');
       return;
     }
     if(this.props.tipoAuditoria === 2){
       if(this.state.tipoCarga === ''){
-        this.props.sendNotification('Error al enviar documento','Debe seleccionar un tipo de auditoría física','error');
+        this.props.sendNotification(this.props.api.CARGA.ERROR_ENVIAR_DOC,this.props.api.CARGA.ERROR_SELECT_AUDIT,'error');
         return;
       }
     }
@@ -78,11 +78,12 @@ class SeccionCargarArchivos extends Component {
 
     this.setState({fileError:null});
     this.setState({file:null});
-    this.setState({nameFile:'Arrastre y suelte su archivo en esta área'});
+    this.setState({nameFile:this.props.api.CARGA.DD_VACIO});
+    $('#documento').val(0);
   };
   fileUpload(file){
     var formData = new FormData();
-    formData.append('file',file,'file')
+    formData.append('file',file);
 
     if(this.props.tipoAuditoria === 1){
       var tipoAudit = 'AIM';
@@ -91,10 +92,10 @@ class SeccionCargarArchivos extends Component {
     }
 
 
-    let estadoAuditoría = 'En espera de revisión';
+    let estadoAuditoría = this.props.api.CARGA.ESPERA_REVISION;
     const auditoria = {
       "estadoAuditoria": estadoAuditoría,
-      "estadoCarga": 'Cargando...',
+      "estadoCarga": this.props.api.CARGA.CARGANDO,
       "idSucursal": this.props.detalleUsuario.sucursal,
       "nombreArchivo": file.name,
       "solicitante": this.props.detalleUsuario.usuario,
@@ -135,11 +136,11 @@ class SeccionCargarArchivos extends Component {
           <div className="col-lg-12">
             <div className="panel panel-default">
               <div className="panel-heading" >
-                <i className="fa fa-3x fa-upload pull-right"></i>
+                <i className="fa fa-2x fa-upload pull-right"></i>
                 <p>Carga nuevo archivo auditoría</p>
 
               </div>
-              <form id="formBusquedaPartida" onSubmit={this.onFormSubmit}>
+              <form id="formBusquedaPartida" onSubmit={this.onFormSubmit} encType="multipart/form-data">
                 <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>
                   <div className="row">
                     <div className="col-lg-6 col-lg-offset-3">
@@ -191,10 +192,10 @@ class SeccionCargarArchivos extends Component {
             <div className="col-lg-12">
               <div className="panel panel-default">
                 <div className="panel-heading">
-                  <i className="fa fa-3x fa-upload pull-right"></i>
+                  <i className="fa fa-2x fa-upload pull-right"></i>
                   <p>Carga nuevo archivo auditoría física</p>
                 </div>
-                <form id="formBusquedaPartida" onSubmit={this.onFormSubmit}>
+                <form id="formBusquedaPartida" onSubmit={this.onFormSubmit} encType="multipart/form-data">
                   <div className="panel-body" style={{paddingTop: '10px', paddingBottom: '0px'}}>
                     <div className="row">
                       <div className="col-lg-6">
@@ -203,7 +204,7 @@ class SeccionCargarArchivos extends Component {
                           <div className="col-sm-10">
                             <select className="form-control" id="documento" defaultValue={0}
                                     onChange={this.onChangeTipoAuditoria}>
-                              <option value="0" disabled>Seleccione...</option>
+                              <option value="0">Seleccione...</option>
                               <option value="AFCC">Caja Cerrada</option>
                               <option value="AFCA">Caja Abierta</option>
                             </select>

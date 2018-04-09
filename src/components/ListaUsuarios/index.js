@@ -6,6 +6,8 @@ import Input from 'react-validation/build/input'
 import Form from 'react-validation/build/form';
 import '../../lib/utils/Validation';
 import {consultaUsuarios} from './actions'
+import SwitchButton from '../../lib/utils/SwitchButton';
+import '../../public/css/switch-button.css';
 
 const required = (value, props) => {
   if (!value || (props.isCheckable && !props.checked)) {
@@ -107,6 +109,7 @@ class Usuarios extends Component{
                   <div className="form-group row">
                     <label className="col-sm-4 col-form-label">Id. Usuario</label>
                     <div className="col-sm-8">
+                      <SwitchButton />
                       <Input className="form-control input-sm" name="idUsuario" placeholder="123125" onChange={this.handleUsuario} type="text" validations={[required]}/>
                     </div>
                   </div>

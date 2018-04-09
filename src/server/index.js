@@ -6,7 +6,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import open from 'open';
 import exphbs from 'express-handlebars';
-import cfenv from 'cfenv'
+import cfenv from 'cfenv';
+import bodyParser from 'body-parser';
 
 
 // Config
@@ -17,6 +18,7 @@ import webpackConfig from '../../webpack.config.babel';
 
 // API
 import usuariosApi from './api/usuarios';
+import fotografiaApi from './api/fotografia';
 
 // Helpers
 import * as hbsHelper from '../lib/handlebars';
@@ -30,6 +32,10 @@ const appEnv = cfenv.getAppEnv();
 
 // Express app
 const app = express();
+
+/* Body Parser */
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Public
 app.use(express.static(path.join(__dirname, '../public')));
@@ -55,6 +61,7 @@ if (isDevelopment) {
 
 // API dispatch
 app.use('/api/usuarios', usuariosApi);
+app.use('/api/fotografia', fotografiaApi);
 
 // Sending all the traffic to React
 app.get('*', (req, res) => {
