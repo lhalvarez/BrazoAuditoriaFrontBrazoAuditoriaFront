@@ -43,6 +43,15 @@ function save(endpoint, params){
 
 }
 
+function update(endpoint, params){
+  return requestApi({
+    url: endpoint,
+    method: 'PUT',
+    params: params
+
+  });
+}
+
 function destroy(endpoint, params){
   return requestApi({
     url: `${endpoint}`,
@@ -53,7 +62,7 @@ function destroy(endpoint, params){
 
 
 const MessageService = {
-  getById, save, getAll, destroy
+  getById, save, update, getAll, destroy
 }
 
 

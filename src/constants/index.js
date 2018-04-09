@@ -23,6 +23,13 @@ export const API = Object.freeze({
         USUARIOS: {
             BUSQUEDA: { endpoint: 'https://jsonplaceholder.typicode.com/users' }
         },
+        GESTION: {
+            SALIDA: {
+              BUSQUEDA: {endpoint: 'http://localhost:8080/auditoria/partida/:rfid/:folio/salida'},
+              PAGINADO: {endpoint: 'http://localhost:8080/auditoria/partida/salida'},
+              EXPORTAR: {endpoint: 'http://localhost:8080/auditoria/partida/salida/pdf'}
+            }
+        },
         AUDITORIA: {
             FOTOGRAFIA: {
                 PARTIDAS: {
@@ -61,7 +68,12 @@ export const API = Object.freeze({
 /* Tiempo para verificar la sesión, y tiempo transcurrido para eliminar la sesión */
 export const NUMERICAS = Object.freeze({
     VERIFICAR_SESION: 300000,
-    CERRAR_SESION: 1800000
+    CERRAR_SESION: 1800000,
+    GESTION: {
+        SALIDA: {
+            TABLE_PAGE_SIZE: 5
+        }
+    }
 });
 
 /* Habilitar o inhabilitar la seguridad con sesión */
@@ -71,6 +83,11 @@ export const CONFIG = Object.freeze({
 
 /* Titulos de las paginas parametrizados mediante componente <ContainerTitle /> */
 export const TITLES = Object.freeze({
+    GESTION: {
+        SALIDA: {
+            TITULO: 'Salida de Prendas del depósito por Auditoría'
+        }
+    },
     AUDITORIA: {
         FOTOGRAFIA: {
             INFO_AUDITORIA: 'Información Auditoría por Fotografía',
