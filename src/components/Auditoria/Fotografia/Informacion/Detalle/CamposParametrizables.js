@@ -18,6 +18,10 @@ class CamposParametrizables extends Component {
             <div className="panel panel-info">
               <div className="panel-heading">
                 <p>Detalle de la Partida</p>
+                <div className="panel-action-icons">
+                  <i className="fa fa-eraser" onClick={this.props.clearForm} title="Limpiar sección"></i>
+                  <i className="fa fa-toggle-up" onClick={this.props.toggleForm}></i>
+                </div>
               </div>
               <div className="panel-body">
                 <div className="row">
@@ -27,7 +31,7 @@ class CamposParametrizables extends Component {
                           const {id, nombreSelect, atributos} = campo;
 
                           return (
-                            <div key={id} className="col-md-4">
+                            <div key={id} className="col-md-4" style={{marginBottom:'20px'}}>
                                 <label htmlFor="metal" className="col-sm-6 col-form-label">{nombreSelect}:</label>
                                 <div className="col-sm-6">
                                   <select name={nombreSelect} id={nombreSelect} className="form-control input-sm" >
