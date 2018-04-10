@@ -6,16 +6,45 @@ import CamposParametrizables  from './CamposParametrizables'
 
 class Formulario extends Component {
 
+  constructor(){
+    super();
+    this.toggleForm = this.toggleForm.bind(this);
+    this.clearForm = this.clearForm.bind(this);
+  }
+
+
+
+
+  toggleForm(e){
+    let $icon = $(e.target);
+    let $panelBody = $icon.parents('.panel').find('.panel-body');
+    let $panelFooter = $icon.parents('.panel').find('.panel-footer');
+
+    $panelBody.toggle(() => $icon.toggleClass('fa-toggle-up fa-toggle-down'));
+    $panelFooter.toggle();
+  }
+
+  clearForm(e){
+    let $icon = $(e.target);
+    let $panelBody = $icon.parents('.panel').find('.panel-body');
+
+    $panelBody.find('input,textarea').each((index,element) => element.value = '');
+  }
+
 
   render(){
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
-          <div className="row">
-            <div className="col-md-6">
-              <div className="panel panel-primary">
+          <div className="row" style={{display:'flex'}}>
+            <div className="col-md-6" style={{alignItems: 'stretch', display: 'flex'}}>
+              <div className="panel panel-primary" style={{width:'100%'}}>
                 <div className="panel-heading">
                   <p>Datos Generales</p>
+                  <div className="panel-action-icons">
+                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
+                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  </div>
                 </div>
                 <div className="panel-body">
                   <div className="row">
@@ -58,10 +87,13 @@ class Formulario extends Component {
               <div className="panel panel-info">
                 <div className="panel-heading">
                   <p>Fotografía de la Partida</p>
+                  <div className="panel-action-icons">
+                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  </div>
                 </div>
                 <div className="panel-body">
-                  <FotoPartida 
-                      src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg" 
+                  <FotoPartida
+                      src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg"
                       crop={{
                         superiorX: 150,
                         superiorY: 35,
@@ -74,7 +106,7 @@ class Formulario extends Component {
             </div>
           </div>
 
-            <CamposParametrizables campos={this.props.campos}/>
+            <CamposParametrizables campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
 
           <div className="row">
             <div className="col-lg-12">
@@ -82,8 +114,8 @@ class Formulario extends Component {
                 <div className="panel-heading">
                   <p>Observaciones de la Partida</p>
                   <div className="panel-action-icons">
-                    <i className="fa fa-eraser"></i>
-                    <i className="fa fa-toggle-up"></i>
+                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
+                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
                   </div>
                 </div>
                 <div className="panel-body">

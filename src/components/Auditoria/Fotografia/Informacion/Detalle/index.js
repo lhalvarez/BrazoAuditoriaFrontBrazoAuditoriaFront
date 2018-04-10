@@ -18,7 +18,9 @@ class Detalle extends Component {
     };
 
   }
+  componentDidMount(){
 
+  }
 
   render() {
     return (
