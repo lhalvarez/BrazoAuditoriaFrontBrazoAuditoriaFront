@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { store } from '../../../../store';
+import { enviarDetallePartida } from './actions';
 import FotoPartida from '../FotoPartida';
 
 class DetallePartidaCajaAbierta extends Component{
@@ -15,14 +16,17 @@ class DetallePartidaCajaAbierta extends Component{
         this.state = {
             partidaCargada: false,
             datos: {},
-            tiposObservacion: []
+            tiposObservacion: [],
+            folio: '',
+            idAuditoria: 0
         };
 
         this.handleStoreChange = this.handleStoreChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
-  		this.clearForm = this.clearForm.bind(this);
+        this.clearForm = this.clearForm.bind(this);
+  		this.stageData = this.stageData.bind(this);
 
         this.unsuscribe = store.subscribe(this.handleStoreChange);
   	}
@@ -33,18 +37,19 @@ class DetallePartidaCajaAbierta extends Component{
         if(storeState.partidaCargada){
             this.setState({ 
                 partidaCargada: true,
-                datos: {
-                    ...storeState.detallePartida,
-                    ...storeState.resultado
-                },
-                tiposObservacion: storeState.tiposObservacion
+                datos: {...storeState.detallePartida},
+                tiposObservacion: storeState.tiposObservacion,
+                folio: Number(storeState.folio),
+                idAuditoria: storeState.llavePartida.idAuditoria
             });
         }
         else{
             this.setState({ 
                 partidaCargada: false,
                 datos: {},
-                tiposObservacion: []
+                tiposObservacion: [],
+                folio: '',
+                idAuditoria: 0
             });
         }
     }
@@ -57,8 +62,36 @@ class DetallePartidaCajaAbierta extends Component{
         });
     }
 
+    stageData(){
+        const { datos, tiposObservacion, folio, idAuditoria } = this.state;
+        const { ['estatus']:estExtract, ['observaciones']:obsExtract, ...resto } = datos;
+
+        const dinamicPropRegex = /^(.+)Din$/;
+
+        for(let key in resto){
+            if(dinamicPropRegex.test(key)){
+                resto[dinamicPropRegex.exec(key)[1]] = resto[key];
+                delete resto[key];
+            }
+        };
+
+        return {
+            cajaCerrada: null,
+            estatus: datos.estatus ? datos.estatus : tiposObservacion[0].descripcionCorta,
+            folio,
+            idAuditoria,
+            idResultado: 0,
+            observaciones: datos.observaciones || '',
+            cajaAbierta: resto
+        };
+    }
+
   	handleSubmit(e){
   		e.preventDefault();
+
+        let stagedData = this.stageData();
+
+        this.props.enviarDetallePartida(stagedData);
   	}
 
     toggleForm(e){
@@ -109,7 +142,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <label htmlFor="sucursal" className="col-sm-4 col-form-label">Número de sucursal:</label>
                                             <div className="col-sm-8">
                                                 <input value={datos.sucursal} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="sucursal" name="sucursal" placeholder="" />
-                                                <i className="fa fa-check-circle"></i>
+                                                {/*<i className="fa fa-check-circle"></i>*/}
                                             </div>
                                         </div>
                                         }
@@ -120,7 +153,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <label htmlFor="nombreCliente" className="col-sm-4 col-form-label">Cliente:</label>
                                             <div className="col-sm-8">
                                                 <input value={datos.nombreCliente} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="nombreCliente" name="nombreCliente" placeholder="" />
-                                                <i className="fa fa-times-circle"></i>
+                                                {/*<i className="fa fa-times-circle"></i>*/}
                                             </div>
                                         </div>
                                         }
@@ -537,8 +570,6 @@ class DetallePartidaCajaAbierta extends Component{
                                 </div>
                             </div>
                             <div className="panel-body">
-                                {
-                                ('estatus' in datos) &&
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group row">
@@ -546,17 +577,14 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="col-sm-8">
                                                 <select value={datos.estatus} onChange={this.handleInputChange} name="estatus" id="estatus" className="form-control input-sm">
                                                 {
-                                                    tiposObservacion.map(obs => <option key={obs.id} value={obs.descripcion}>{obs.descripcion}</option>)
+                                                    tiposObservacion.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
                                                 }
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                }
 
-                                {
-                                ('observaciones' in datos) &&
                                 <div className="row">
                                     <div className="col-lg-12">
                                         <div className="form-group row">
@@ -567,13 +595,12 @@ class DetallePartidaCajaAbierta extends Component{
                                         </div>
                                     </div>
                                 </div>
-                                }
                             </div>
                             <div className="panel-footer">
                                 <div className="row">
                                     <div className="col-sm-12">
                                         <div className="pull-right">
-                                            <button type="button" className="btn btn-primary btn-sm">Guardar</button>
+                                            <button className="btn btn-primary btn-sm">Guardar</button>
                                         </div>
                                     </div>
                                 </div>                                
@@ -591,4 +618,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(DetallePartidaCajaAbierta);
+export default connect(mapStateToProps,{enviarDetallePartida})(DetallePartidaCajaAbierta);

@@ -74,9 +74,9 @@ class FotoPartida extends Component{
   		return (
         <div className="row">
     			<div className="partida-container col-sm-8 col-sm-offset-2">
-            <a href={this.state.croppedImg} data-toggle="lightbox">
+            <a href={croppedImg} data-toggle="lightbox">
     				  <div className="hover-curtain"><i className="fa fa-5x fa-search-plus"></i></div>
-              <img src={this.state.croppedImg} alt="Imagen de la partida" />
+              <img src={croppedImg} alt="Imagen de la partida" />
             </a>
     			</div>
         </div>
