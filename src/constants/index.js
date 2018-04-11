@@ -25,9 +25,9 @@ export const API = Object.freeze({
         },
         GESTION: {
             SALIDA: {
-              BUSQUEDA: {endpoint: 'http://localhost:8080/auditoria/partida/:rfid/:folio/salida'},
-              PAGINADO: {endpoint: 'http://localhost:8080/auditoria/partida/salida'},
-              EXPORTAR: {endpoint: 'http://localhost:8080/auditoria/partida/salida/pdf'}
+              BUSQUEDA: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/:rfid/:folio/salida'},
+              PAGINADO: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida'},
+              EXPORTAR: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida/pdf'}
             }
         },
         AUDITORIA: {
@@ -85,7 +85,8 @@ export const NUMERICAS = Object.freeze({
     CERRAR_SESION: 1800000,
     GESTION: {
         SALIDA: {
-            TABLE_PAGE_SIZE: 5
+            TABLE_PAGE_SIZE: 5,
+            AUTO_ACTUALIZAR: 10000
         }
     }
 });
@@ -99,7 +100,19 @@ export const CONFIG = Object.freeze({
 export const TITLES = Object.freeze({
     GESTION: {
         SALIDA: {
-            TITULO: 'Salida de Prendas del depósito por Auditoría'
+            TITULO: 'Salida de Prendas del depósito por Auditoría',
+            BUSQUEDA: {
+              LEYENDA: 'Criterios de Búsqueda',
+              EJEC_SALIDA: 'Ejecutar salida',
+              NUM_CAJA: 'Número de Caja',
+              NUM_PARTIDA: 'Número de Partida'
+            },
+            LISTA: {
+              LEYENDA: 'Pendientes de salida:',
+              ACTUALIZAR: 'Actualizar',
+              IMPRIMIR_LIST: 'Imprimir Lista',
+              AUTOMATICO: 'Automatico'
+            }
         }
     },
     AUDITORIA: {

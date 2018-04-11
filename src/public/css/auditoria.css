@@ -403,3 +403,22 @@ textarea{
 input{
   padding-right: 28px !important;
 }
+
+.alineacion-btn-ejecutar-salida {
+  float: left !important;
+}
+
+.padding-btn-ejecutar-salida {
+  padding-right: 0 !important;
+  padding-left: 30px !important;
+}
+
+@media (min-width: 1200px) {
+    .alineacion-btn-ejecutar-salida {
+      float: right !important;
+    }
+
+    .padding-btn-ejecutar-salida {
+      padding-right: 0 !important;
+    }
+}

@@ -16,7 +16,7 @@ import SessionInit from './components/Session/init';
 
 import cargaAuditoria from './containers/cargaAuditoria';
 import validacionPartidas from './containers/validacionPartidas';
-import salidaPartidas from './containers/salidaPartidas';
+import SalidaPartidas from './containers/salidaPartidas';
 
 
 import AuditoriaFisicaAbierta from './containers/AuditoriaFisicaAbierta';
@@ -38,7 +38,7 @@ const AppRoutes = () =>
 			<PrivateRoute exact path="/cargar-partidas-fisica" component={cargaAuditoria} title="Carga de Auditoría Física" />
 			<PrivateRoute exact path="/validacion-partidas-fisica" component={validacionPartidas} title="Validación de Auditoría Física" />
 			//Consulta Salida
-			<PrivateRoute exact path="/salida-partidas" component={salidaPartidas} title="Salida de Partidas" />
+			<PrivateRoute exact path="/salida-partidas" component={SalidaPartidas} title="Salida de Partidas" />
 			<PrivateRoute exact path="/auditoria-fisica-caja-abierta" component={AuditoriaFisicaAbierta} title="Auditoría Física de Caja Abierta" />
 			<PrivateRoute exact path="/auditoria-fisica-caja-cerrada" component={AuditoriaFisicaCerrada} title="Auditoría Física de Caja Cerrada" />
 			<PrivateRoute exact path="/auditoria-fotografia" component={AuditoriaFotografia} title="Información Auditoría por Fotografía" />
