@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { store } from '../../../../store';
-import { validarUsuario, requeridos } from './actions';
-import { cargarDetallePartida } from '../CajaCerrada/actions';
+import { validarUsuario, requeridos, dismiss } from './actions';
+import { cargarDetallePartida } from '../CajaAbierta/actions';
 import { history } from '../../../../history';
 import { Button } from 'react-bootstrap';
 
@@ -32,10 +32,6 @@ class FirmaValuador extends Component{
     }
 
   	handleSubmit(){
-      /* PROVISIONAL */
-      this.props.cargarDetallePartida();
-      /******/
-
   		const { valuador, clave } = this.state;
 
   		if(valuador && clave){
@@ -57,12 +53,16 @@ class FirmaValuador extends Component{
 
     renderModal(){
       if(this.props.loadDetail){
-        $('#modalFirmaValuador').modal('hide');
+        this.props.dismiss();
+        this.props.cargarDetallePartida();
       }
     }
 
-  	render(){
+    componentDidUpdate(){
       this.renderModal();
+    }
+
+    render(){
   		const { valuador, clave } = this.state;
 
   		return (
@@ -95,6 +95,7 @@ class FirmaValuador extends Component{
 
             <div className="modal-footer">
               <div className="text-center">
+                <Button bsStyle="default" data-dismiss="modal">Cerrar</Button>
                 <Button bsStyle="warning" data-dismiss="modal" onClick={this.sinValuador}>Sin Valuador</Button>
                 <Button bsStyle="primary" onClick={this.handleSubmit}>Aceptar</Button>
               </div>
@@ -115,4 +116,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps,{ validarUsuario, requeridos, cargarDetallePartida })(FirmaValuador);
+export default connect(mapStateToProps,{ validarUsuario, requeridos, cargarDetallePartida, dismiss })(FirmaValuador);

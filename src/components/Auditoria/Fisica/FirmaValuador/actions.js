@@ -5,6 +5,7 @@ import MessageService from '../../../../lib/utils/MessageService';
 
 export const VALIDAR_USUARIO= 'VALIDAR_USUARIO';
 export const OCULTAR_DETALLE= 'OCULTAR_DETALLE';
+export const CERRAR_MODAL= 'CERRAR_MODAL';
 
 export function validarUsuario(valuador,clave){
 	const params = {
@@ -33,5 +34,12 @@ export function requeridos(mensaje){
 		dispatch( {type: OCULTAR_DETALLE });
 	    dispatch( {type: ADD_NOTIFICATION});
 	    dispatch(addNotification('Se ha generado un error!', mensaje, 'error'));
+	}
+}
+
+export function dismiss(){
+	return dispatch => {
+		$('#modalFirmaValuador').modal('hide');
+		dispatch({ type: CERRAR_MODAL });
 	}
 }

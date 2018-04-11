@@ -11,6 +11,10 @@ export const CARGANDO_DETALLE_PARTIDA= 'CARGANDO_DETALLE_PARTIDA';
 export const DETALLE_PARTIDA_CARGADA= 'DETALLE_PARTIDA_CARGADA';
 export const ERROR_CARGAR_DETALLE_PARTIDA= 'ERROR_CARGAR_DETALLE_PARTIDA';
 
+export const ENVIANDO_DETALLE_PARTIDA = 'ENVIANDO_DETALLE_PARTIDA';
+export const DETALLE_PARTIDA_ENVIADA = 'DETALLE_PARTIDA_ENVIADA';
+export const ERROR_ENVIAR_DETALLE_PARTIDA = 'ERROR_ENVIAR_DETALLE_PARTIDA';
+
 export function cargarDetallePartida(){
 	return dispatch => dispatch({ type: CARGAR_DETALLE_PARTIDA })
 }
@@ -24,17 +28,34 @@ export function obtenerDetallePartida(rfid,folio){
 			MessageService.getAll( API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint.replace(':nombreCatalogo', CATALOGOS.OBSERVACION) )
 			.then(catResponse => {
 				dispatch({ type: DETALLE_PARTIDA_CARGADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
-				dispatch( addNotification(API.AVISOS.USUARIOS.consulta_exito,response.message,'success') );
+				dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
 			})
 			.catch(error => {
 				dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA });
-				dispatch( addNotification(API.AVISOS.USUARIOS.error_consulta,error.data.message,'error') );
+				dispatch( addNotification(API.AVISOS.GLOBAL.error_consulta,error.data.message,'error') );
 			});
 
 		})
 		.catch(error => {
 			dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA });
-			dispatch( addNotification(API.AVISOS.USUARIOS.error_consulta,error.data.message,'error') );
+			dispatch( addNotification(API.AVISOS.GLOBAL.error_consulta,error.data.message,'error') );
 		});
 	}
+}
+
+export function enviarDetallePartida(requestBody){
+	return dispatch => {
+		dispatch({ type: ENVIANDO_DETALLE_PARTIDA, detallePartida: requestBody.cajaAbierta });
+
+		MessageService.save(API.ENDPOINTS.AUDITORIA.RESULTADO.endpoint,requestBody)
+		.then(response => {
+			dispatch({ type: DETALLE_PARTIDA_ENVIADA });
+			dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
+		})
+		.catch(error => {
+			dispatch({ type: ERROR_ENVIAR_DETALLE_PARTIDA, detallePartida: requestBody.cajaAbierta });
+			dispatch( addNotification(error.data.object.descripcionError,error.data.message,'error') );
+		});
+
+	};
 }

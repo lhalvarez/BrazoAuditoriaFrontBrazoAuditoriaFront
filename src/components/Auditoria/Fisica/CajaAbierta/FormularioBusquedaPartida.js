@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { store } from '../../../../store';
 import { obtenerDetallePartida } from './actions';
+import FirmaValuador from '../FirmaValuador';
 
 class FormularioBusquedaPartida extends Component{
 	static propTypes = {
@@ -14,10 +15,14 @@ class FormularioBusquedaPartida extends Component{
 
       let storeState = store.getState().cajaAbierta;
 
+      /*
+      * La propiedad initKey funciona para forzar la montura del modal, y que así siempre se tenga que inicializar
+      */
       this.state = {
         rfid: storeState.rfid,
         folio: storeState.folio,
-        submitted: false
+        submitted: false,
+        initKey: Math.random()
       };
 
       this.search = this.search.bind(this);
@@ -52,20 +57,27 @@ class FormularioBusquedaPartida extends Component{
 
   	search(e){
   		e.preventDefault();
-      this.setState({ submitted: true });
-
-      const { rfid, folio } = this.state;
-
-      if(rfid && folio)
-        $('#modalFirmaValuador').modal('show');
+      this.setState({ 
+        submitted: true,
+        initKey: Math.random()
+      });
   	}
 
     componentWillUnmount(){
       this.unsuscribe();
     }
 
-  	render(){
+    componentDidUpdate(){
       const { rfid, folio, submitted } = this.state;
+
+      if(rfid && folio && submitted){
+        $('#modalFirmaValuador').modal('show');
+        this.setState({ submitted: false });
+      }
+    }
+
+  	render(){
+      const { rfid, folio, submitted, initKey } = this.state;
 
   		return (
             <div className="row">
@@ -112,6 +124,9 @@ class FormularioBusquedaPartida extends Component{
 	                        </div>
 	                    </div>
                     </form>
+                </div>
+                <div key={initKey}>
+                  <FirmaValuador />
                 </div>
             </div>
   		);

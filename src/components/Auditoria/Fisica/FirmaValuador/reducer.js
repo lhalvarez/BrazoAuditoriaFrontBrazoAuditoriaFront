@@ -1,4 +1,4 @@
-import { VALIDAR_USUARIO, OCULTAR_DETALLE } from './actions';
+import { VALIDAR_USUARIO, OCULTAR_DETALLE, CERRAR_MODAL } from './actions';
 
 const initialState = {
 	valuador: '',
@@ -17,6 +17,8 @@ export function firmaValuador(state = initialState,action){
 			}
 		case OCULTAR_DETALLE:
 			return Object.assign({}, state, {valuador: '', clave: '', loadDetail: false})
+		case CERRAR_MODAL:
+			return {...initialState}
 		default:
 			return state;
 	}
