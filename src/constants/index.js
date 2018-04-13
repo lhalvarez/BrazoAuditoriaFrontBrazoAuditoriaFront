@@ -133,6 +133,9 @@ export const TITLES = Object.freeze({
             }
         }
     },
+    CONFIGURACION:{
+        PRINCIPAL: 'Configuración General del Sistema'
+    },
     INICIO: {
         PAGINA_INICIO: 'Bienvenido '
     }

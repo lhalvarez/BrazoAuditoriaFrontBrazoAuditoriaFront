@@ -16,7 +16,7 @@ import SessionInit from './components/Session/init';
 
 import cargaAuditoria from './containers/cargaAuditoria';
 import validacionPartidas from './containers/validacionPartidas';
-import SalidaPartidas from './containers/salidaPartidas';
+import salidaPartidas from './containers/salidaPartidas';
 
 
 import AuditoriaFisicaAbierta from './containers/AuditoriaFisicaAbierta';
@@ -25,6 +25,8 @@ import AuditoriaFotografia from './containers/AuditoriaFotografia';
 import DetalleAuditoriaFotografia from './containers/AuditoriaFotografia/DetalleAuditoriaFotografia';
 import DetallePartidaFotografia from './containers/AuditoriaFotografia/DetallePartidaFotografia';
 import AuditoriaPrendas from './containers/AuditoriaPrendas';
+
+import Configuracion from './containers/Configuracion';
 
 const AppRoutes = () =>
 	<App>
@@ -38,7 +40,7 @@ const AppRoutes = () =>
 			<PrivateRoute exact path="/cargar-partidas-fisica" component={cargaAuditoria} title="Carga de Auditoría Física" />
 			<PrivateRoute exact path="/validacion-partidas-fisica" component={validacionPartidas} title="Validación de Auditoría Física" />
 			//Consulta Salida
-			<PrivateRoute exact path="/salida-partidas" component={SalidaPartidas} title="Salida de Partidas" />
+			<PrivateRoute exact path="/salida-partidas" component={salidaPartidas} title="Salida de Partidas" />
 			<PrivateRoute exact path="/auditoria-fisica-caja-abierta" component={AuditoriaFisicaAbierta} title="Auditoría Física de Caja Abierta" />
 			<PrivateRoute exact path="/auditoria-fisica-caja-cerrada" component={AuditoriaFisicaCerrada} title="Auditoría Física de Caja Cerrada" />
 			<PrivateRoute exact path="/auditoria-fotografia" component={AuditoriaFotografia} title="Información Auditoría por Fotografía" />
@@ -49,6 +51,7 @@ const AppRoutes = () =>
 			<PrivateRoute exact path="/auditoria-salida-prendas" component={AuditoriaPrendas} title="Auditoría Salida Prendas" />
 			<PrivateRoute exact path="/usuarios" component={Usuarios} title="Lista de Usuarios" />
       <Route exact path="/ingreso" component={SessionInit} />
+      		<PrivateRoute exact path="/configuracion" component={Configuracion} title="Configuración del Sistema" />
 			<PrivateRoute component={Page404} />
 		</Switch>
 	</App>;
