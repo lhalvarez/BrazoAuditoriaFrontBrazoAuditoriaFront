@@ -417,6 +417,7 @@ input{
     text-align: center;
     width: 90px;
     z-index: 15;
+}
 
 .alineacion-btn-ejecutar-salida {
   float: left !important;
