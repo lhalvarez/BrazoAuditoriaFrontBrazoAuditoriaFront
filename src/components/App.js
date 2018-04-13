@@ -32,6 +32,9 @@ class App extends Component {
       <div id="wrapper" >
         <Notificacion />
         <nav className="mainnav navbar navbar-default navbar-static-top" role="navigation">
+          <div className="center-block">
+            Ventana modal
+          </div>
           <Header />
           <Menu />
         </nav>

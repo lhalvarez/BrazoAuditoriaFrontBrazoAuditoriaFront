@@ -51,6 +51,7 @@ class Header extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
             </button>
+
             <Link className="navbar-brand" to="/"><img src={logoNMP} alt="" /></Link>
         </div>
         <ul className="nav navbar-top-links navbar-right">

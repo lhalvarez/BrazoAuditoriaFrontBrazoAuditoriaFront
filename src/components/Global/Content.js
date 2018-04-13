@@ -14,6 +14,7 @@ class Content extends Component {
       <div>
         {body}
       </div>
+
     );
   }
 }
