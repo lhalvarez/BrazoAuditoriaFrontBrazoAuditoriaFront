@@ -43,6 +43,15 @@ function save(endpoint, params){
 
 }
 
+function update(endpoint, params){
+  return requestApi({
+    url: endpoint,
+    method: 'PUT',
+    params: params
+
+  });
+}
+
 function destroy(endpoint, params){
   return requestApi({
     url: `${endpoint}`,
@@ -62,7 +71,7 @@ function fetchBuffer(endpoint,body){
 
 
 const MessageService = {
-  getById, save, getAll, destroy, fetchBuffer
+  getById, save, update, getAll, destroy, fetchBuffer
 }
 
 

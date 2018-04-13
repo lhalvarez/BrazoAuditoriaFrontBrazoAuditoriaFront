@@ -23,6 +23,13 @@ export const API = Object.freeze({
         USUARIOS: {
             BUSQUEDA: { endpoint: 'https://jsonplaceholder.typicode.com/users' }
         },
+        GESTION: {
+            SALIDA: {
+              BUSQUEDA: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/:rfid/:folio/salida'},
+              PAGINADO: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida'},
+              EXPORTAR: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida/pdf'}
+            }
+        },
         AUDITORIA: {
             FOTOGRAFIA: {
                 PARTIDAS: {
@@ -76,7 +83,13 @@ export const API = Object.freeze({
 /* Tiempo para verificar la sesión, y tiempo transcurrido para eliminar la sesión */
 export const NUMERICAS = Object.freeze({
     VERIFICAR_SESION: 300000,
-    CERRAR_SESION: 1800000
+    CERRAR_SESION: 1800000,
+    GESTION: {
+        SALIDA: {
+            TABLE_PAGE_SIZE: 5,
+            AUTO_ACTUALIZAR: 10000
+        }
+    }
 });
 
 /* Habilitar o inhabilitar la seguridad con sesión */
@@ -86,6 +99,23 @@ export const CONFIG = Object.freeze({
 
 /* Titulos de las paginas parametrizados mediante componente <ContainerTitle /> */
 export const TITLES = Object.freeze({
+    GESTION: {
+        SALIDA: {
+            TITULO: 'Salida de Prendas del depósito por Auditoría',
+            BUSQUEDA: {
+              LEYENDA: 'Criterios de Búsqueda',
+              EJEC_SALIDA: 'Ejecutar salida',
+              NUM_CAJA: 'Número de Caja',
+              NUM_PARTIDA: 'Número de Partida'
+            },
+            LISTA: {
+              LEYENDA: 'Pendientes de salida:',
+              ACTUALIZAR: 'Actualizar',
+              IMPRIMIR_LIST: 'Imprimir Lista',
+              AUTOMATICO: 'Automatico'
+            }
+        }
+    },
     AUDITORIA: {
         FOTOGRAFIA: {
             INFO_AUDITORIA: 'Información Auditoría por Fotografía',
@@ -102,6 +132,9 @@ export const TITLES = Object.freeze({
               DETALLE_PARTIDA: 'Detalle de Partida'
             }
         }
+    },
+    CONFIGURACION:{
+        PRINCIPAL: 'Configuración General del Sistema'
     },
     INICIO: {
         PAGINA_INICIO: 'Bienvenido '

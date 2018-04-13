@@ -26,6 +26,8 @@ import DetalleAuditoriaFotografia from './containers/AuditoriaFotografia/Detalle
 import DetallePartidaFotografia from './containers/AuditoriaFotografia/DetallePartidaFotografia';
 import AuditoriaPrendas from './containers/AuditoriaPrendas';
 
+import Configuracion from './containers/Configuracion';
+
 const AppRoutes = () =>
 	<App>
 		<Switch>
@@ -49,6 +51,7 @@ const AppRoutes = () =>
 			<PrivateRoute exact path="/auditoria-salida-prendas" component={AuditoriaPrendas} title="Auditoría Salida Prendas" />
 			<PrivateRoute exact path="/usuarios" component={Usuarios} title="Lista de Usuarios" />
       <Route exact path="/ingreso" component={SessionInit} />
+      		<PrivateRoute exact path="/configuracion" component={Configuracion} title="Configuración del Sistema" />
 			<PrivateRoute component={Page404} />
 		</Switch>
 	</App>;

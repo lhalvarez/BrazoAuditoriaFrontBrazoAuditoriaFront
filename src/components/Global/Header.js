@@ -62,7 +62,7 @@ class Header extends Component {
                 <ul className="dropdown-menu dropdown-user">
                     <li><a href="#"><i className="fa fa-user fa-fw"></i> Perfil de Usuario</a>
                     </li>
-                    <li><a href="#"><i className="fa fa-gear fa-fw"></i> Configuraciones</a>
+                    <li><a href="/configuracion"><i className="fa fa-gear fa-fw"></i> Configuraciones</a>
                     </li>
                     <li className="divider"></li>
                     <li><a href="#" onClick={this.logout}><i className="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>

@@ -106,8 +106,13 @@ class DetallePartidaCajaAbierta extends Component{
     clearForm(e){
         let $icon = $(e.target);
         let $panelBody = $icon.parents('.panel').find('.panel-body');
+        var elementsToClear = {};
 
-        $panelBody.find('input,textarea').each((index,element) => element.value = '');
+        $panelBody.find('input,textarea').each((index,element) => elementsToClear[element.name] = '');
+        
+        this.setState(prevState => { 
+            return {datos: Object.assign({},{...prevState.datos},elementsToClear)};
+        });
     }
 
     componentWillUnmount(){
