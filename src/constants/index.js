@@ -71,11 +71,15 @@ export const API = Object.freeze({
             LEER_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/' },
             CARGAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/crear/' },
             AUDITORIA_PENDIENTE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut' },
-            VALIDAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/autorizacion' }
+            VALIDAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/autorizacion' },
+
+            DETALLE:{
+              DETALLE_PARTIDA: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/folio/'}
+            }
 
         },
         CATALOGOS: {
-            BUSCAR_CATALOGO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/catalogo/:nombreCatalogo' }
+            BUSCAR_CATALOGO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/catalogo' }
         }
     }
 });

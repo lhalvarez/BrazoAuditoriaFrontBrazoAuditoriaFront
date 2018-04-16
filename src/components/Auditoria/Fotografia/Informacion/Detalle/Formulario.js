@@ -6,10 +6,13 @@ import CamposParametrizables  from './CamposParametrizables'
 
 class Formulario extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.toggleForm = this.toggleForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.fillForm = this.fillForm.bind(this);
+
+
   }
 
 
@@ -31,8 +34,31 @@ class Formulario extends Component {
     $panelBody.find('input,textarea').each((index,element) => element.value = '');
   }
 
+  fillForm(){
+    let partida = this.props.detallePartida;
+    if(partida){
+      $('#folio').val(partida.llavePartida.folio);
+      $('#ubicacion').val();
+      $('#estadoCaja').val(partida.detallePartida.estadoCaja);
+      $('#sucursal').val(partida.detallePartida.sucursal);
+      $('#estadoPrenda').val(partida.detallePartida.estadoPrenda);
+    }
+
+    let valEstadoAudit = this.props.catEstadoAuditoria.registros;
+    if(valEstadoAudit){
+      valEstadoAudit.map((campo,index)=>{
+        const {id, descripcionCorta, descripcion} = campo;
+        $('#estatus').append($('<option>', {value: id,text: descripcionCorta+' | '+descripcion}));
+      });
+    }
+  }
+
 
   render(){
+    if(typeof this.props.detallePartida.llavePartida !== 'undefined' ){
+      this.fillForm();
+    }
+
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -50,30 +76,31 @@ class Formulario extends Component {
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group row">
-                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">No de prenda:</label>
+                        <label htmlFor="folio" className="col-sm-3 col-form-label">No de prenda:</label>
                         <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="sucursal" placeholder="" />
+
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="folio"/>
                         </div>
-                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">Ubicación:</label>
+                        <label htmlFor="ubicacion" className="col-sm-3 col-form-label">Ubicación:</label>
                         <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="sucursal" placeholder="" />
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="ubicacion" placeholder="" />
                         </div>
                       </div>
 
                       <div className="form-group row">
-                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">Estado Caja:</label>
+                        <label htmlFor="estadoCaja" className="col-sm-3 col-form-label">Estado Caja:</label>
                         <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="sucursal" placeholder="" />
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="estadoCaja" placeholder="" />
                         </div>
-                        <label htmlFor="cliente" className="col-sm-3 col-form-label">No. Sucursal:</label>
+                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">No. Sucursal:</label>
                         <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="cliente" placeholder="" />
+                          <input type="text" className="form-control input-sm" id="sucursal" placeholder="" />
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="cliente" className="col-sm-3 col-form-label">Estado Prenda:</label>
+                        <label htmlFor="estadoPrenda" className="col-sm-3 col-form-label">Estado Prenda:</label>
                         <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="cliente" placeholder="" />
+                          <input type="text" className="form-control input-sm" id="estadoPrenda" placeholder="" />
                         </div>
                       </div>
 
@@ -125,6 +152,7 @@ class Formulario extends Component {
                         <label htmlFor="estatus" className="col-sm-4 col-form-label">Estatus:</label>
                         <div className="col-sm-8">
                           <select name="coincide-descripcion" id="estatus" className="form-control input-sm"></select>
+
                         </div>
                       </div>
                     </div>
