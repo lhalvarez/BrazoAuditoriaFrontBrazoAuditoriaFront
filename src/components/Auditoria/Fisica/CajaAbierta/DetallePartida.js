@@ -18,7 +18,8 @@ class DetallePartidaCajaAbierta extends Component{
             datos: {},
             tiposObservacion: [],
             folio: '',
-            idAuditoria: 0
+            idAuditoria: 0,
+            submitted: false
         };
 
         this.datosDinamicos = {};
@@ -39,13 +40,13 @@ class DetallePartidaCajaAbierta extends Component{
         let storeState = store.getState().cajaAbierta;
 
         if(storeState.partidaCargada){
-            this.setState({ 
+            this.setState(prevState => ({ 
                 partidaCargada: true,
-                datos: {...storeState.detallePartida},
+                datos: Object.assign({},{...storeState.detallePartida},{...prevState.datos}),
                 tiposObservacion: storeState.tiposObservacion,
                 folio: Number(storeState.folio),
                 idAuditoria: storeState.llavePartida.idAuditoria
-            });
+            }));
         }
         else{
             this.setState({ 
@@ -91,9 +92,14 @@ class DetallePartidaCajaAbierta extends Component{
   	handleSubmit(e){
   		e.preventDefault();
 
-        let stagedData = this.stageData();
+        this.setState({ submitted: true });
 
-        this.props.enviarDetallePartida(stagedData);
+        if(this.state.datos.observaciones){        
+            let stagedData = this.stageData();
+            this.setState({ submitted: false });
+
+            this.props.enviarDetallePartida(stagedData);
+        }
   	}
 
     toggleForm(e){
@@ -185,7 +191,7 @@ class DetallePartidaCajaAbierta extends Component{
     }
 
   	render(){
-        const { partidaCargada, datos, tiposObservacion } = this.state;
+        const { partidaCargada, datos, tiposObservacion, submitted } = this.state;
 
         if(!partidaCargada)
             return <div></div>;
@@ -379,10 +385,11 @@ class DetallePartidaCajaAbierta extends Component{
 
                                 <div className="row">
                                     <div className="col-lg-12">
-                                        <div className="form-group row">
+                                        <div className={'form-group row'+( (submitted && !datos.observaciones) ? ' has-error' : '' )}>
                                             <label htmlFor="observaciones" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                                             <div className="col-sm-10">
                                                 <textarea value={datos.observaciones} onChange={this.handleInputChange} name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm"></textarea>
+                                                { (submitted && !datos.observaciones) && <div className="help-block">Las observaciones son requeridas</div> }
                                             </div>
                                         </div>
                                     </div>
