@@ -34,7 +34,7 @@ class FormularioBusquedaPartida extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="caja" className="col-sm-4 col-form-label">Número de caja:</label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control input-sm" id="caja" placeholder="123125" />
+                                                <input type="text" className="form-control input-sm" id="caja"  />
                                             </div>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@ class FormularioBusquedaPartida extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="partida" className="col-sm-4 col-form-label">Número de partida:</label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control input-sm" id="partida" placeholder="6874560982" />
+                                                <input type="text" className="form-control input-sm" id="partida" />
                                             </div>
                                         </div>
                                     </div>
@@ -52,14 +52,14 @@ class FormularioBusquedaPartida extends Component{
 	                        <div className="panel-footer">
 	                            <div className="row">
 	                                <div className="col-sm-6">
-	                                    <p>Pendientes de auditar: 0</p>
+
 	                                </div>
 	                                <div className="col-sm-6">
 	                                    <div className="pull-right">
 	                                        <button className="btn btn-primary btn-sm">Buscar</button>
 	                                    </div>
 	                                </div>
-	                            </div>                            
+	                            </div>
 	                        </div>
 	                    </div>
                     </form>
