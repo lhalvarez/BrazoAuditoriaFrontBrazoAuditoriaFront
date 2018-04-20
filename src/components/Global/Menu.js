@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { store } from '../../store';
+import { showHelpPane } from './GlobalActions';
 
 class Menu extends Component{
 	static propTypes = {
@@ -18,7 +19,8 @@ class Menu extends Component{
         };
 
   		this.handleStoreChanges = this.handleStoreChanges.bind(this);
-  		this.renderMenu = this.renderMenu.bind(this);
+      this.renderMenu = this.renderMenu.bind(this);
+  		this.toggleHelp = this.toggleHelp.bind(this);
 
   		this.unsuscribe = store.subscribe(this.handleStoreChanges);
   	}
@@ -30,6 +32,10 @@ class Menu extends Component{
       if(store.getState().nav.pageTitle != this.state.pageTitle)
           this.setState({ pageTitle: store.getState().nav.pageTitle });
   	}
+
+    toggleHelp(){
+      this.props.showHelpPane();
+    }
 
   	componentWillUnmount(){
 		this.unsuscribe();
@@ -95,20 +101,31 @@ class Menu extends Component{
 	render(){
 		return (
 			<div>
-	            <div className="navbar-default sidebar" role="navigation">
-	                <div className="sidebar-nav navbar-collapse">
-	                    { this.renderMenu() }
-	                </div>
-	            </div>
-	            <div className="downbar">
-	                <div className="downbar-text">
-	                    <h3><b>{this.state.pageTitle}</b></h3>
-	                </div>
-
-	            </div>
+          <div className="navbar-default sidebar" role="navigation">
+              <div className="sidebar-nav navbar-collapse">
+                  { this.renderMenu() }
+              </div>
+          </div>
+          <div className="downbar">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="downbar-text col-sm-11">
+                  <h3><b>{this.state.pageTitle}</b></h3>
+                </div>
+                <div className="help-icon col-sm-1">
+                  <i onClick={this.toggleHelp} data-toggle="tooltip" data-placement="bottom" title="Ayuda" className="fa fa-question-circle fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
 			</div>
 		);
 	}
 }
 
-export default Menu;
+function mapStateToProps(state){
+  return {
+  }
+}
+
+export default connect(mapStateToProps,{showHelpPane})(Menu);

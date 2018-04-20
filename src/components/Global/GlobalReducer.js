@@ -1,4 +1,9 @@
-import { ADD_NOTIFICATION, CAMBIO_PAGINA } from './GlobalActions'
+import { 
+  ADD_NOTIFICATION, 
+  CAMBIO_PAGINA,
+  MUESTRA_AYUDA,
+  OCULTA_AYUDA
+} from './GlobalActions'
 
 
 const initialState = {
@@ -35,4 +40,25 @@ export function nav(state = navInitialState, action){
 		default:
 			return state;
 	}
+}
+
+
+/*
+* Reducer encargado de mostrar actualizaciones de estado 
+* relacionadas con el panel de ayuda del sistema 
+*/
+
+const helpInitialState = {
+  showHelp: false
+};
+
+export function help(state = helpInitialState, action){
+  switch (action.type) {
+    case MUESTRA_AYUDA:
+      return Object.assign({},state,{showHelp: true});
+    case OCULTA_AYUDA:
+      return {...helpInitialState};
+    default:
+      return state;
+  }
 }

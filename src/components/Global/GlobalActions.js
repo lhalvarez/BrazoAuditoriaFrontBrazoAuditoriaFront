@@ -23,3 +23,19 @@ export const CAMBIO_PAGINA = 'CAMBIO_PAGINA';
 export function setPageTitle(pageTitle){
 	return dispatch => dispatch({ type: CAMBIO_PAGINA, pageTitle });
 }
+
+
+/*
+* Acciones relacionadas al panel de ayuda
+*/
+
+export const MUESTRA_AYUDA = 'MUESTRA_AYUDA';
+export const OCULTA_AYUDA = 'OCULTA_AYUDA';
+
+export function showHelpPane(){
+	return dispatch => dispatch({ type: MUESTRA_AYUDA })
+}
+
+export function hideHelpPane(){
+	return dispatch => dispatch({ type: OCULTA_AYUDA })
+}
