@@ -9,6 +9,24 @@ export const API = Object.freeze({
                 consulta_exito: 'Consulta Exitosa'
             }
         },
+        GESTION: {
+            SALIDA: {
+                BUSQUEDA: {
+                    TITULO: 'Ejecutar Salida',
+                    CORRECTO: 'Se ejecutó correctamente el marcado de la partida',
+                    NO_DISPONIBLE: 'Servicio temporalmente no disponible',
+                    NMP_AUD_0003: 'La partida especificada no existe',
+                    NMP_AUD_9999: 'Ocurrió un error al ejecutar la salida de la partida'
+                },
+                LISTA: {
+                    TITULO: 'Actualizar Lista Partidas',
+                    CORRECTO: 'La lista de partidas se actualizo correctamente',
+                    VACIO: 'No se encontraron partidas pendientes de salida',
+                    NO_DISPONIBLE: 'Servicio temporalmente no disponible',
+                    NMP_AUD_9999: 'Ocurrió un error al actualizar la lista de partidas'
+                }
+            }
+        },
         PARTIDAS: {
             AUDITORIA_FOTOGRAFIA: {
                 registros_obtenidos: 'Registros cargados de forma correcta.',
@@ -110,13 +128,24 @@ export const TITLES = Object.freeze({
               LEYENDA: 'Criterios de Búsqueda',
               EJEC_SALIDA: 'Ejecutar salida',
               NUM_CAJA: 'Número de Caja',
-              NUM_PARTIDA: 'Número de Partida'
+              NUM_PARTIDA: 'Número de Partida',
+              RFID: 'Rfid',
+              FOLIO: 'Folio'
             },
             LISTA: {
               LEYENDA: 'Pendientes de salida:',
               ACTUALIZAR: 'Actualizar',
               IMPRIMIR_LIST: 'Imprimir Lista',
-              AUTOMATICO: 'Automatico'
+              AUTOMATICO: 'Automático',
+              TABLA: {
+                ANTERIOR: 'Anterior',
+                SIGUIENTE: 'Siguiente',
+                PAGINA: 'Página',
+                DE: 'de',
+                FILAS: 'Filas',
+                SIN_DATOS: 'No existen partidas pendientes de salida',
+                CARGANDO: 'Actualizando...'
+              }
             }
         }
     },

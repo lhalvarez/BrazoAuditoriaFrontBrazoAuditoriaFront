@@ -17,6 +17,8 @@
  */
 const ENTER_KEY_CODE = 13;
 
+const CLASSE_CSS_ERROR = 'has-error';
+
 
 /**
  * Permite simular 'TAB' al precionar ENTER
@@ -50,16 +52,17 @@ export function cambiarFoco(e) {
  * @returns {string} Cadena de estilo
  */
 export function cssErrorGroup(errorParametros) {
-  const CSS_ERR = errorParametros ? 'has-error' : '';
+  const CSS_ERR = errorParametros ? CLASSE_CSS_ERROR : '';
   return `col-lg-5 form-group ${CSS_ERR}`;
 }
 
 /**
+ * Agrega o elimina la clase CSS de error
  *
  * @param id Identificador del elemento
  */
 export function setCSSErrorGroup(id) {
-  document.getElementById(id).classList.add('has-error');
+  document.getElementById(id).classList.add(CLASSE_CSS_ERROR);
 }
 
 /**
@@ -71,13 +74,15 @@ export function setCSSErrorGroup(id) {
 export function manejadorClickEjecutarSalida (e, props) {
   e.preventDefault();
 
+  e.target.querySelector('input[type="submit"]').disabled = true;
+
   const rfid = e.target.elements['inputCaja'].value;
   const folio = e.target.elements['inputFolio'].value;
 
   props.ejecutarSalida(rfid, folio, props.p, props.t);
 
   e.target.reset();
-  e.target.querySelectorAll('.has-error').forEach( el => el.classList.remove('has-error'));
+  e.target.querySelectorAll(`.${CLASSE_CSS_ERROR}`).forEach( el => el.classList.remove(CLASSE_CSS_ERROR));
 }
 
 /**

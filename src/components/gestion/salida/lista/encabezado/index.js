@@ -15,7 +15,7 @@
 import React from 'react';
 import SwitchButton from '../../../../../lib/utils/SwitchButton';
 
-import {TITLES} from '../../../../../constants';
+import {TITLES, API} from '../../../../../constants';
 
 
 /**
@@ -24,27 +24,47 @@ import {TITLES} from '../../../../../constants';
  * @returns {*} Elementos graficos del componente
  */
 export default function Encabezado(props) {
+  const actualizarLista = (e) => {
+    e.target.disabled = true;
+    props.actualizarLista(props.p, props.t);
+  };
+
   return (
     <div className='panel-heading'>
       <div className='row'>
         <div className='col-sm-6'>
-          <p>{TITLES.GESTION.SALIDA.LISTA.LEYENDA} {props.faltantes}</p>
+          <p>
+            {TITLES.GESTION.SALIDA.LISTA.LEYENDA} {props.faltantes}
+          </p>
         </div>
         <div className='col-sm-6'>
           <div className='pull-right'>
             <div className='btn-group'>
-              <button id='btnActualizar' className='btn btn-sm btn-primary' type='button'
-                      onClick={() => props.actualizarLista(props.p, props.t)} disabled={props.cargando}>
+              <button id='btnActualizar'
+                      className='btn btn-sm btn-primary'
+                      type='button'
+                      disabled={props.cargando}
+                      onClick={actualizarLista}>
                 {TITLES.GESTION.SALIDA.LISTA.ACTUALIZAR}
               </button>
-              <button className='btn btn-sm btn-primary dropdown-toggle' data-toggle='dropdown'><span className='caret'/></button>
-              <ul className='dropdown-menu' role='menu'>
-                <li><SwitchButton id='swtActualizar' labelRight={TITLES.GESTION.SALIDA.LISTA.AUTOMATICO}
-                                  checked={props.automatico} onChange={e => props.autoActualizarLista(e)}/></li>
+              <button data-toggle='dropdown'
+                      className='btn btn-sm btn-primary dropdown-toggle'>
+                <span className='caret'/>
+              </button>
+              <ul role='menu'
+                  className='dropdown-menu'>
+                <li>
+                  <SwitchButton id='swtActualizar'
+                                checked={props.automatico}
+                                onChange={e => props.autoActualizarLista(e)}
+                                labelRight={TITLES.GESTION.SALIDA.LISTA.AUTOMATICO}/>
+                </li>
               </ul>
             </div>
             &nbsp;
-            <button className='btn btn-sm btn-primary' type='button' onClick={manejadorClickImprimirLista}>
+            <button className='btn btn-sm btn-primary'
+                    type='button'
+                    onClick={manejadorClickImprimirLista}>
               {TITLES.GESTION.SALIDA.LISTA.IMPRIMIR_LIST}
             </button>
           </div>
@@ -56,5 +76,5 @@ export default function Encabezado(props) {
 
 
 function manejadorClickImprimirLista() {
-  window.open('http://localhost:8080/auditoria/partida/salida/pdf');
+  window.open(API.ENDPOINTS.GESTION.SALIDA.EXPORTAR.endpoint);
 }

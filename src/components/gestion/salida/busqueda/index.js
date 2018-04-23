@@ -19,7 +19,7 @@ import Rfid from './rfid';
 import Folio from './folio';
 import EjecutarSalida from './ejecutarSalida';
 
-import {manejadorClickEjecutarSalida} from './util';
+import {cssErrorGroup, manejadorClickEjecutarSalida} from './util';
 
 
 /**
@@ -41,9 +41,12 @@ const SalidaPartidasBusqueda = (props) => {
     <div className='panel panel-default'>
       <Encabezado/>
       <div className='panel-body'>
-        <form onSubmit={e => manejadorClickEjecutarSalida(e, props)} autoComplete='off'>
-          <Rfid rfid={props.rfid} errorParametros={props.errorParametros}/>
-          <Folio folio={props.folio} errorParametros={props.errorParametros}/>
+        <form autoComplete='off'
+              onSubmit={e => manejadorClickEjecutarSalida(e, props)}>
+          <Rfid rfid={props.rfid}
+                estilo={cssErrorGroup(props.errorParametros)}/>
+          <Folio folio={props.folio}
+                 estilo={cssErrorGroup(props.errorParametros)}/>
           <EjecutarSalida ejecutando={props.ejecutando}/>
         </form>
       </div>
