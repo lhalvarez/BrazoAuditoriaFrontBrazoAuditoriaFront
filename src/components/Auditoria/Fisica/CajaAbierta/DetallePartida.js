@@ -374,9 +374,10 @@ class DetallePartidaCajaAbierta extends Component{
                                             <label htmlFor="estatus" className="col-sm-4 col-form-label">Tipo de Observación:</label>
                                             <div className="col-sm-8">
                                                 <select value={datos.estatus} onChange={this.handleInputChange} name="estatus" id="estatus" className="form-control input-sm">
-                                                {
-                                                    tiposObservacion.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
-                                                }
+                                                    <option value="">Selecciona un tipo de Observación</option>
+                                                    {
+                                                        tiposObservacion.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
+                                                    }
                                                 </select>
                                             </div>
                                         </div>

@@ -6,55 +6,65 @@ class CamposParametrizables extends Component {
 
   constructor(props) {
     super(props);
+    this.Campos = this.Campos.bind(this)
+ }
+
+ Campos() {
 
  }
   render () {
-    const campos = this.props.campos;
-    return(
-      <div>
+    const detallePartida = this.props.detallePartida.detallePartida;
+    if(detallePartida){
 
-        <div className="row">
-          <div className="col-md-12">
-            <div className="panel panel-info">
-              <div className="panel-heading">
-                <p>Detalle de la Partida</p>
-                <div className="panel-action-icons">
-                  <i className="fa fa-eraser" onClick={this.props.clearForm} title="Limpiar sección"></i>
-                  <i className="fa fa-toggle-up" onClick={this.props.toggleForm}></i>
+
+      return(
+        <div>
+
+          <div className="row">
+            <div className="col-md-12">
+              <div className="panel panel-info">
+                <div className="panel-heading">
+                  <p>Detalle de la Partida</p>
+                  <div className="panel-action-icons">
+                    <i className="fa fa-eraser" onClick={this.props.clearForm} title="Limpiar sección"></i>
+                    <i className="fa fa-toggle-up" onClick={this.props.toggleForm}></i>
+                  </div>
                 </div>
-              </div>
-              <div className="panel-body">
-                <div className="row">
-                  <div className="col-md-12">
+                <div className="panel-body">
+                  <div className="row">
+                    <div className="col-md-12">
 
-                        {campos.map((campo,index)=>{
-                          const {id, nombreSelect, atributos} = campo;
+                      {Object.keys(detallePartida).map(function(key,index) {
 
-                          return (
-                            <div key={id} className="col-md-4" style={{marginBottom:'20px'}}>
-                                <label htmlFor="metal" className="col-sm-6 col-form-label">{nombreSelect}:</label>
-                                <div className="col-sm-6">
-                                  <select name={nombreSelect} id={nombreSelect} className="form-control input-sm" >
-                                    {atributos.map((atributo,i)=>{
-                                      const {value,text} = atributo;
-                                      return(
-                                        <option value={value} key={i}>{text}</option>
-                                      );
-                                    })}
-                                  </select>
-                                </div>
-                              </div>
+                        let Name = key.replace( /([A-Z])/g, " $1" );
+                        let fieldName = Name.charAt(0).toUpperCase() + Name.slice(1);
+                        return (
+                          <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
+                            <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
+                            <div className="col-sm-6">
+                              <input name={key} id={key} className="form-control input-sm" value={detallePartida[key]}/>
+                            </div>
+                          </div>
 
-                          );
-                        })}
+                        );
+                      })}
+
+
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }else{
+      return (
+        <div>
+
+        </div>
+      );
+    }
   }
 }
 

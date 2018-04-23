@@ -8,6 +8,7 @@ import Menu from './Global/Menu';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
 import Notificacion from './Global/Notificacion';
+import HelpPane from './Global/HelpPane';
 
 //Resources
 
@@ -33,7 +34,6 @@ class App extends Component {
         <Notificacion />
         <nav className="mainnav navbar navbar-default navbar-static-top" role="navigation">
           <div className="center-block">
-            Ventana modal
           </div>
           <Header />
           <Menu />
@@ -42,6 +42,7 @@ class App extends Component {
           <Content body = {children} />
         </div>
         <Footer />
+        <HelpPane />
       </div>
     );
   }

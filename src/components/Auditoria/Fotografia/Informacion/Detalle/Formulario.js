@@ -11,12 +11,18 @@ class Formulario extends Component {
     this.toggleForm = this.toggleForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
     this.fillForm = this.fillForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
 
   }
 
 
-
+  handleSubmit(e){
+    e.preventDefault();
+    alert($('#estatus').val());
+    alert($('#observaciones').val());
+    
+  }
 
   toggleForm(e){
     let $icon = $(e.target);
@@ -133,7 +139,7 @@ class Formulario extends Component {
             </div>
           </div>
 
-            <CamposParametrizables campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
+            <CamposParametrizables detallePartida={this.props.detallePartida} campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
 
           <div className="row">
             <div className="col-lg-12">
@@ -151,7 +157,7 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="estatus" className="col-sm-4 col-form-label">Estatus:</label>
                         <div className="col-sm-8">
-                          <select name="coincide-descripcion" id="estatus" className="form-control input-sm"></select>
+                          <select name="estatus" id="estatus" className="form-control input-sm"></select>
 
                         </div>
                       </div>
@@ -163,7 +169,7 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="observacion-auditoria" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                         <div className="col-sm-10">
-                          <textarea name="" id="observacion-auditoria" cols="30" rows="4" className="form-control input-sm"></textarea>
+                          <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm"></textarea>
                         </div>
                       </div>
                     </div>
@@ -173,7 +179,7 @@ class Formulario extends Component {
                   <div className="row">
                     <div className="col-sm-12">
                       <div className="pull-right">
-                        <button type="button" className="btn btn-primary btn-sm">Guardar</button>
+                        <button type="submit" className="btn btn-primary btn-sm">Guardar</button>
                       </div>
                     </div>
                   </div>

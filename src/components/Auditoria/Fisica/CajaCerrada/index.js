@@ -1,8 +1,6 @@
 // Dependencies
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { store } from '../../../../store';
 import ContainerTitle from '../../../Global/ContainerTitle';
 import { TITLES } from '../../../../constants';
@@ -24,7 +22,6 @@ class AuditoriaFisicaCajaCerrada extends Component{
     };
 
     this.handleStoreChange = this.handleStoreChange.bind(this);
-
     this.unsuscribe = store.subscribe(this.handleStoreChange);
   }
 
