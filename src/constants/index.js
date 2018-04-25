@@ -51,7 +51,7 @@ export const API = Object.freeze({
                     DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
                 }
             },
-            RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado2/' }
+            RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado/' }
         },
         SEGURIDAD: {
             INICIAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' },

@@ -80,11 +80,11 @@ class DetallePartidaCajaAbierta extends Component{
 
         return {
             cajaCerrada: null,
-            estatus: datos.estatus ? datos.estatus : tiposObservacion[0].descripcionCorta,
+            estatus: datos.estatus,
             folio,
             idAuditoria,
             idResultado: 0,
-            observaciones: datos.observaciones || '',
+            observaciones: datos.observaciones,
             cajaAbierta: resto
         };
     }
@@ -94,7 +94,7 @@ class DetallePartidaCajaAbierta extends Component{
 
         this.setState({ submitted: true });
 
-        if(this.state.datos.observaciones){        
+        if(this.state.datos.observaciones && this.state.datos.estatus){        
             let stagedData = this.stageData();
             this.setState({ submitted: false });
 
@@ -370,15 +370,16 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-body">
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <div className="form-group row">
+                                        <div className={'form-group row'+( (submitted && !datos.estatus) ? ' has-error' : '' )}>
                                             <label htmlFor="estatus" className="col-sm-4 col-form-label">Tipo de Observación:</label>
                                             <div className="col-sm-8">
                                                 <select value={datos.estatus} onChange={this.handleInputChange} name="estatus" id="estatus" className="form-control input-sm">
-                                                    <option value="">Selecciona un tipo de Observación</option>
+                                                    <option value="">Seleccione un tipo de Observación</option>
                                                     {
                                                         tiposObservacion.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
                                                     }
                                                 </select>
+                                                { (submitted && !datos.estatus) && <div className="help-block">El tipo de observación es requerido</div> }
                                             </div>
                                         </div>
                                     </div>
