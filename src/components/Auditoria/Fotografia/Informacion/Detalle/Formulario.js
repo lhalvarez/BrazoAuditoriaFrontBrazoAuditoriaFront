@@ -6,14 +6,56 @@ import CamposParametrizables  from './CamposParametrizables'
 
 class Formulario extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.toggleForm = this.toggleForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.fillForm = this.fillForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+
   }
 
 
+  handleSubmit(e){
+    e.preventDefault();
 
+    let estatusResultadoAuditoria = $('#estatus').val();
+    let observacionesResultadoAuditoria = $('#observaciones').val();
+    let resultadoAuditoria = {
+      "cajaAbierta": {
+        "condiciones": "string",
+        "descripcon": "string",
+        "desplazamiento": "string",
+        "genero": "string",
+        "gramaje": "string",
+        "incremento": "string",
+        "kilates": 0,
+        "marca": "string",
+        "metal": "string",
+        "modelo": "string",
+        "rango": "string",
+        "serie": "string",
+        "subramo": "string",
+        "tipoCuerda": "string"
+      },
+      "cajaCerrada": {
+        "coincideDescripcion": true,
+        "coincidePeso": true,
+        "descripcion": "string",
+        "peso": "string",
+        "requiereApertura": true
+      },
+      "estatus": "string",
+      "folio": 0,
+      "idAuditoria": 0,
+      "idResultado": 0,
+      "observaciones": "string"
+    };
+    
+
+
+  }
 
   toggleForm(e){
     let $icon = $(e.target);
@@ -31,8 +73,31 @@ class Formulario extends Component {
     $panelBody.find('input,textarea').each((index,element) => element.value = '');
   }
 
+  fillForm(){
+    let partida = this.props.detallePartida;
+    if(partida){
+      $('#folio').val(partida.llavePartida.folio);
+      $('#ubicacion').val();
+      $('#estadoCaja').val(partida.detallePartida.estadoCaja);
+      $('#sucursal').val(partida.detallePartida.sucursal);
+      $('#estadoPrenda').val(partida.detallePartida.estadoPrenda);
+    }
+
+    let valEstadoAudit = this.props.catEstadoAuditoria.registros;
+    if(valEstadoAudit){
+      valEstadoAudit.map((campo,index)=>{
+        const {id, descripcionCorta, descripcion} = campo;
+        $('#estatus').append($('<option>', {value: id,text: descripcionCorta+' | '+descripcion}));
+      });
+    }
+  }
+
 
   render(){
+    if(typeof this.props.detallePartida.llavePartida !== 'undefined' ){
+      this.fillForm();
+    }
+
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -50,30 +115,31 @@ class Formulario extends Component {
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group row">
-                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">No de prenda:</label>
+                        <label htmlFor="folio" className="col-sm-3 col-form-label">No de prenda:</label>
                         <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="sucursal" placeholder="" />
+
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="folio"/>
                         </div>
-                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">Ubicación:</label>
+                        <label htmlFor="ubicacion" className="col-sm-3 col-form-label">Ubicación:</label>
                         <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="sucursal" placeholder="" />
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="ubicacion" placeholder="" />
                         </div>
                       </div>
 
                       <div className="form-group row">
-                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">Estado Caja:</label>
+                        <label htmlFor="estadoCaja" className="col-sm-3 col-form-label">Estado Caja:</label>
                         <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="sucursal" placeholder="" />
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="estadoCaja" placeholder="" />
                         </div>
-                        <label htmlFor="cliente" className="col-sm-3 col-form-label">No. Sucursal:</label>
+                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">No. Sucursal:</label>
                         <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="cliente" placeholder="" />
+                          <input type="text" className="form-control input-sm" id="sucursal" placeholder="" />
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="cliente" className="col-sm-3 col-form-label">Estado Prenda:</label>
+                        <label htmlFor="estadoPrenda" className="col-sm-3 col-form-label">Estado Prenda:</label>
                         <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="cliente" placeholder="" />
+                          <input type="text" className="form-control input-sm" id="estadoPrenda" placeholder="" />
                         </div>
                       </div>
 
@@ -106,7 +172,7 @@ class Formulario extends Component {
             </div>
           </div>
 
-            <CamposParametrizables campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
+            <CamposParametrizables detallePartida={this.props.detallePartida} campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
 
           <div className="row">
             <div className="col-lg-12">
@@ -124,7 +190,8 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="estatus" className="col-sm-4 col-form-label">Estatus:</label>
                         <div className="col-sm-8">
-                          <select name="coincide-descripcion" id="estatus" className="form-control input-sm"></select>
+                          <select name="estatus" id="estatus" className="form-control input-sm"></select>
+
                         </div>
                       </div>
                     </div>
@@ -135,7 +202,7 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="observacion-auditoria" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                         <div className="col-sm-10">
-                          <textarea name="" id="observacion-auditoria" cols="30" rows="4" className="form-control input-sm"></textarea>
+                          <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm"></textarea>
                         </div>
                       </div>
                     </div>
@@ -145,7 +212,7 @@ class Formulario extends Component {
                   <div className="row">
                     <div className="col-sm-12">
                       <div className="pull-right">
-                        <button type="button" className="btn btn-primary btn-sm">Guardar</button>
+                        <button type="submit" className="btn btn-primary btn-sm">Guardar</button>
                       </div>
                     </div>
                   </div>

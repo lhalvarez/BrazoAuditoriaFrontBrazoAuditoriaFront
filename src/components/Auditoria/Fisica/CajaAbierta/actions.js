@@ -25,7 +25,7 @@ export function obtenerDetallePartida(rfid,folio){
 
 		MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA.endpoint}/${rfid}/${folio}`)
 		.then(response => {
-			MessageService.getAll( API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint.replace(':nombreCatalogo', CATALOGOS.OBSERVACION) )
+			MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.OBSERVACION}`)
 			.then(catResponse => {
 				dispatch({ type: DETALLE_PARTIDA_CARGADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
 				dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );

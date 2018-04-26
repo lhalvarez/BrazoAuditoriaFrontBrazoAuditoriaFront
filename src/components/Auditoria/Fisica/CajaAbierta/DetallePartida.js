@@ -18,15 +18,20 @@ class DetallePartidaCajaAbierta extends Component{
             datos: {},
             tiposObservacion: [],
             folio: '',
-            idAuditoria: 0
+            idAuditoria: 0,
+            submitted: false
         };
+
+        this.datosDinamicos = {};
+        this.dinamicPropRegex = /^(.+)Din$/;
 
         this.handleStoreChange = this.handleStoreChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
         this.clearForm = this.clearForm.bind(this);
-  		this.stageData = this.stageData.bind(this);
+        this.stageData = this.stageData.bind(this);
+  		this.renderDinamicForm = this.renderDinamicForm.bind(this);
 
         this.unsuscribe = store.subscribe(this.handleStoreChange);
   	}
@@ -35,13 +40,13 @@ class DetallePartidaCajaAbierta extends Component{
         let storeState = store.getState().cajaAbierta;
 
         if(storeState.partidaCargada){
-            this.setState({ 
+            this.setState(prevState => ({ 
                 partidaCargada: true,
-                datos: {...storeState.detallePartida},
+                datos: Object.assign({},{...storeState.detallePartida},{...prevState.datos}),
                 tiposObservacion: storeState.tiposObservacion,
                 folio: Number(storeState.folio),
                 idAuditoria: storeState.llavePartida.idAuditoria
-            });
+            }));
         }
         else{
             this.setState({ 
@@ -66,22 +71,20 @@ class DetallePartidaCajaAbierta extends Component{
         const { datos, tiposObservacion, folio, idAuditoria } = this.state;
         const { ['estatus']:estExtract, ['observaciones']:obsExtract, ...resto } = datos;
 
-        const dinamicPropRegex = /^(.+)Din$/;
-
         for(let key in resto){
-            if(dinamicPropRegex.test(key)){
-                resto[dinamicPropRegex.exec(key)[1]] = resto[key];
+            if(this.dinamicPropRegex.test(key)){
+                resto[this.dinamicPropRegex.exec(key)[1]] = resto[key];
                 delete resto[key];
             }
         };
 
         return {
             cajaCerrada: null,
-            estatus: datos.estatus ? datos.estatus : tiposObservacion[0].descripcionCorta,
+            estatus: datos.estatus,
             folio,
             idAuditoria,
             idResultado: 0,
-            observaciones: datos.observaciones || '',
+            observaciones: datos.observaciones,
             cajaAbierta: resto
         };
     }
@@ -89,9 +92,14 @@ class DetallePartidaCajaAbierta extends Component{
   	handleSubmit(e){
   		e.preventDefault();
 
-        let stagedData = this.stageData();
+        this.setState({ submitted: true });
 
-        this.props.enviarDetallePartida(stagedData);
+        if(this.state.datos.observaciones && this.state.datos.estatus){        
+            let stagedData = this.stageData();
+            this.setState({ submitted: false });
+
+            this.props.enviarDetallePartida(stagedData);
+        }
   	}
 
     toggleForm(e){
@@ -115,12 +123,75 @@ class DetallePartidaCajaAbierta extends Component{
         });
     }
 
+    renderDinamicForm(readOnly = true){
+        const { datos } = this.state;
+        const { descripcion, ...datosDinamicos } = this.datosDinamicos;
+        let fields = [];
+
+        let labelText;
+        let numericKey = 0;
+
+        if(readOnly){
+            for(let key in datosDinamicos){
+                labelText = key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
+
+                fields.push(
+                    <div key={++numericKey} className="form-group row">
+                        <label htmlFor={key} className="col-sm-4 col-form-label">{labelText.charAt(0).toUpperCase() + labelText.slice(1)}:</label>
+                        <div className="col-sm-8">
+                            <input disabled="disabled" value={datos[key]} type="text" className="form-control input-sm" id={key} name={key} placeholder="" />
+                        </div>
+                    </div>
+                );
+            }
+        }
+        else{
+            for(let key in datosDinamicos){
+                labelText = key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
+
+                fields.push(
+                    <div key={++numericKey} className="form-group row">
+                        <label htmlFor={key+'Din'} className="col-sm-4 col-form-label">{labelText.charAt(0).toUpperCase() + labelText.slice(1)}:</label>
+                        <div className="col-sm-8">
+                            <input value={((key+'Din') in datos) ? datos[key+'Din'] : datos[key]} onChange={this.handleInputChange} type="text" className="form-control input-sm" id={key+'Din'} name={key+'Din'} placeholder="" />
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        return <div>{fields}</div>
+    }
+
     componentWillUnmount(){
       this.unsuscribe();
     }
 
+    componentWillUpdate(){
+        const { datos } = this.state;
+        const { 
+            ['estatus']:estExt, 
+            ['observaciones']:obsExt,
+            ['sucursal']:sucursalExt,
+            ['nombreCliente']:nombreClienteExt,
+            ['numeroValuador']:numeroValuadorExt,
+            ['estadoPrenda']:estadoPrendaExt,
+            ['estadoCaja']:estadoCajaExt,
+            ['fechaIngreso']:fechaIngresoExt,
+            ['fechaCreacion']:fechaCreacionExt,
+            ['fechaModificacion']:fechaModificacionExt,
+            ...resto } = datos;
+
+        for(let key in resto){
+            if(this.dinamicPropRegex.test(key))
+                delete resto[key];
+        }
+
+        this.datosDinamicos = resto;
+    }
+
   	render(){
-        const { partidaCargada, datos, tiposObservacion } = this.state;
+        const { partidaCargada, datos, tiposObservacion, submitted } = this.state;
 
         if(!partidaCargada)
             return <div></div>;
@@ -235,146 +306,7 @@ class DetallePartidaCajaAbierta extends Component{
                             		<div className="col-md-12">
 		                                <div className="row">
 		                                    <div className="col-md-12">
-                                                {
-                                                ('subramo' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="subramo" className="col-sm-4 col-form-label">Subramo:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.subramo} type="text" className="form-control input-sm" id="subramo" name="subramo" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('metal' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="metal" className="col-sm-4 col-form-label">Metal:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.metal} type="text" className="form-control input-sm" id="metal" name="metal" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('kilates' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="kilates" className="col-sm-4 col-form-label">Kilates:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.kilates} type="text" className="form-control input-sm" id="kilates" name="kilates" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('rango' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="rango" className="col-sm-4 col-form-label">Rango:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.rango} type="text" className="form-control input-sm" id="rango" name="rango" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('deposito' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="deposito" className="col-sm-4 col-form-label">Número de depósito:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.deposito} type="text" className="form-control input-sm" id="deposito" name="deposito" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('incremento' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="incremento" className="col-sm-4 col-form-label">Incremento:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.incremento} type="text" className="form-control input-sm" id="incremento" name="incremento" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('desplazamientoComercial' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="desplazamientoComercial" className="col-sm-4 col-form-label">Desplazamiento comercial:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.desplazamientoComercial} type="text" className="form-control input-sm" id="desplazamientoComercial" name="desplazamientoComercial" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('gramaje' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="gramaje" className="col-sm-4 col-form-label">Gramaje:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.gramaje} type="text" className="form-control input-sm" id="gramaje" name="gramaje" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('avaluoComplementario' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="avaluoComplementario" className="col-sm-4 col-form-label">Avalúo complementario:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.avaluoComplementario} type="text" className="form-control input-sm" id="avaluoComplementario" name="avaluoComplementario" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('importeGramo' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="importeGramo" className="col-sm-4 col-form-label">Importe gramo:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.importeGramo} type="text" className="form-control input-sm" id="importeGramo" name="importeGramo" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('prestamo' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="prestamo" className="col-sm-4 col-form-label">Préstamo autorizado:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.prestamo} type="text" className="form-control input-sm" id="prestamo" name="prestamo" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('costoMetal' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="costoMetal" className="col-sm-4 col-form-label">Costo del metal:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.costoMetal} type="text" className="form-control input-sm" id="costoMetal" name="costoMetal" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('valorComercial' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="valorComercial" className="col-sm-4 col-form-label">Valor comercial:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.valorComercial} type="text" className="form-control input-sm" id="valorComercial" name="valorComercial" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
-                                                {
-                                                ('valorMonte' in datos) &&
-		                                        <div className="form-group row">
-		                                            <label htmlFor="valorMonte" className="col-sm-4 col-form-label">Valor monte:</label>
-		                                            <div className="col-sm-8">
-		                                                <input disabled="disabled" value={datos.valorMonte} type="text" className="form-control input-sm" id="valorMonte" name="valorMonte" placeholder="" />
-		                                            </div>
-		                                        </div>
-                                                }
-
+                                                {this.renderDinamicForm()}
                                                 {
                                                 ('descripcion' in datos) &&
                                                 <div className="form-group row">
@@ -406,146 +338,7 @@ class DetallePartidaCajaAbierta extends Component{
                                     <div className="col-md-12">
                                         <div className="row">
                                             <div className="col-md-12">
-                                                {
-                                                ('subramo' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="subramoDin" className="col-sm-4 col-form-label">Subramo:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('subramoDin' in datos) ? datos.subramoDin : datos.subramo} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="subramoDin" name="subramoDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('metal' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="metalDin" className="col-sm-4 col-form-label">Metal:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('metalDin' in datos) ? datos.metalDin : datos.metal} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="metalDin" name="metalDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('kilates' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="kilatesDin" className="col-sm-4 col-form-label">Kilates:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('kilatesDin' in datos) ? datos.kilatesDin : datos.kilates} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="kilatesDin" name="kilatesDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('rango' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="rangoDin" className="col-sm-4 col-form-label">Rango:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('rangoDin' in datos) ? datos.rangoDin : datos.rango} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="rangoDin" name="rangoDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('deposito' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="depositoDin" className="col-sm-4 col-form-label">Número de depósito:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('depositoDin' in datos) ? datos.depositoDin : datos.deposito} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="depositoDin" name="depositoDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('incremento' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="incrementoDin" className="col-sm-4 col-form-label">Incremento:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('incrementoDin' in datos) ? datos.incrementoDin : datos.incremento} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="incrementoDin" name="incrementoDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('desplazamientoComercial' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="desplazamientoComercialDin" className="col-sm-4 col-form-label">Desplazamiento comercial:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('desplazamientoComercialDin' in datos) ? datos.desplazamientoComercialDin : datos.desplazamientoComercial} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="desplazamientoComercialDin" name="desplazamientoComercialDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('gramaje' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="gramajeDin" className="col-sm-4 col-form-label">Gramaje:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('gramajeDin' in datos) ? datos.gramajeDin : datos.gramaje} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="gramajeDin" name="gramajeDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('avaluoComplementario' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="avaluoComplementarioDin" className="col-sm-4 col-form-label">Avalúo complementario:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('avaluoComplementarioDin' in datos) ? datos.avaluoComplementarioDin : datos.avaluoComplementario} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="avaluoComplementarioDin" name="avaluoComplementarioDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('importeGramo' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="importeGramoDin" className="col-sm-4 col-form-label">Importe gramo:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('importeGramoDin' in datos) ? datos.importeGramoDin : datos.importeGramo} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="importeGramoDin" name="importeGramoDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('prestamo' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="prestamoDin" className="col-sm-4 col-form-label">Préstamo autorizado:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('prestamoDin' in datos) ? datos.prestamoDin : datos.prestamo} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="prestamoDin" name="prestamoDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('costoMetal' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="costoMetalDin" className="col-sm-4 col-form-label">Costo del metal:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('costoMetalDin' in datos) ? datos.costoMetalDin : datos.costoMetal} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="costoMetalDin" name="costoMetalDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('valorComercial' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="valorComercialDin" className="col-sm-4 col-form-label">Valor comercial:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('valorComercialDin' in datos) ? datos.valorComercialDin : datos.valorComercial} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="valorComercialDin" name="valorComercialDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
-                                                {
-                                                ('valorMonte' in datos) &&
-                                                <div className="form-group row">
-                                                    <label htmlFor="valorMonteDin" className="col-sm-4 col-form-label">Valor monte:</label>
-                                                    <div className="col-sm-8">
-                                                        <input value={('valorMonteDin' in datos) ? datos.valorMonteDin : datos.valorMonte} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="valorMonteDin" name="valorMonteDin" placeholder="" />
-                                                    </div>
-                                                </div>
-                                                }
-
+                                                {this.renderDinamicForm(false)}
                                                 {
                                                 ('descripcion' in datos) &&
                                                 <div className="form-group row">
@@ -577,14 +370,16 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-body">
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <div className="form-group row">
+                                        <div className={'form-group row'+( (submitted && !datos.estatus) ? ' has-error' : '' )}>
                                             <label htmlFor="estatus" className="col-sm-4 col-form-label">Tipo de Observación:</label>
                                             <div className="col-sm-8">
                                                 <select value={datos.estatus} onChange={this.handleInputChange} name="estatus" id="estatus" className="form-control input-sm">
-                                                {
-                                                    tiposObservacion.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
-                                                }
+                                                    <option value="">Seleccione un tipo de Observación</option>
+                                                    {
+                                                        tiposObservacion.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
+                                                    }
                                                 </select>
+                                                { (submitted && !datos.estatus) && <div className="help-block">El tipo de observación es requerido</div> }
                                             </div>
                                         </div>
                                     </div>
@@ -592,10 +387,11 @@ class DetallePartidaCajaAbierta extends Component{
 
                                 <div className="row">
                                     <div className="col-lg-12">
-                                        <div className="form-group row">
+                                        <div className={'form-group row'+( (submitted && !datos.observaciones) ? ' has-error' : '' )}>
                                             <label htmlFor="observaciones" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                                             <div className="col-sm-10">
                                                 <textarea value={datos.observaciones} onChange={this.handleInputChange} name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm"></textarea>
+                                                { (submitted && !datos.observaciones) && <div className="help-block">Las observaciones son requeridas</div> }
                                             </div>
                                         </div>
                                     </div>

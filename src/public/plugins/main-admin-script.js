@@ -6,6 +6,8 @@ $(function() {
         event.preventDefault();
         $(this).ekkoLightbox();
     });
+
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 //Loads the correct sidebar on window load,

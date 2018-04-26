@@ -293,17 +293,18 @@ nav{
 }
 .downbar{
   width: 100%;
-  height: 40px;
   position: absolute;
   top: 80px;
   background-color: #94142e;
+  padding: 6px 0;
+  color: #fff;
 }
 .downbar-text{
-  margin-left: 5%;
+  padding-left: 3%;
 }
 .downbar-text h3 {
-  color: #fff;
-  margin-top: 5px;
+  margin: 2px 0 0 0;
+  max-width: 100% 
 }
 
 .Footer {
@@ -334,7 +335,7 @@ img{
   max-width: 100%;
 }
 label, p, table, .help-block{
-    font-size: 12px;            
+    font-size: 12px;
 }
 label{
   text-align: right;
@@ -404,6 +405,21 @@ input{
   padding-right: 28px !important;
 }
 
+
+.ventana_flotante {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 6px 6px 6px 6px;
+    bottom: 50px;
+    right: auto;
+    margin-left: -120px;
+    padding: 10px 0 0;
+    position: fixed;
+    text-align: center;
+    width: 90px;
+    z-index: 15;
+}
+
 .alineacion-btn-ejecutar-salida {
   float: left !important;
 }
@@ -421,4 +437,18 @@ input{
     .padding-btn-ejecutar-salida {
       padding-right: 0 !important;
     }
+
+}
+
+.help-icon i{
+  cursor: pointer;
+}
+.slide-pane{
+  margin-top: 120px !important;
+}
+.slide-pane__overlay{
+  z-index: 999999999;
+}
+.slide-pane__overlay.ReactModal__Overlay--after-open{
+  background-color: rgba(0,0,0,0.5) !important;
 }

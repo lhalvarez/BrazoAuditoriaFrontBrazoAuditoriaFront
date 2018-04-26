@@ -8,6 +8,7 @@ import Menu from './Global/Menu';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
 import Notificacion from './Global/Notificacion';
+import HelpPane from './Global/HelpPane';
 
 //Resources
 
@@ -32,6 +33,8 @@ class App extends Component {
       <div id="wrapper" >
         <Notificacion />
         <nav className="mainnav navbar navbar-default navbar-static-top" role="navigation">
+          <div className="center-block">
+          </div>
           <Header />
           <Menu />
         </nav>
@@ -39,6 +42,7 @@ class App extends Component {
           <Content body = {children} />
         </div>
         <Footer />
+        <HelpPane />
       </div>
     );
   }

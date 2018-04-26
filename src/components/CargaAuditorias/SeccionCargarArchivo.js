@@ -94,13 +94,12 @@ class SeccionCargarArchivos extends Component {
 
     let estadoAuditoría = this.props.api.CARGA.ESPERA_REVISION;
     const auditoria = {
-      "estadoAuditoria": estadoAuditoría,
-      "estadoCarga": this.props.api.CARGA.CARGANDO,
       "idSucursal": this.props.detalleUsuario.sucursal,
       "nombreArchivo": file.name,
       "solicitante": this.props.detalleUsuario.usuario,
       "tipoAuditoria": tipoAudit
     };
+
 
     this.props.saveAuditoria(auditoria);
     this.props.saveDoc(formData);

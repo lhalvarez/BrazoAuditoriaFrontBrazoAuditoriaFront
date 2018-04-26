@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import FotoPartida from '../FotoPartida';
-import CamposParametrizables  from '../../Fotografia/Informacion/Detalle/CamposParametrizables'
+import CamposParametrizables  from '../../Fotografia/Informacion/Detalle/CamposParametrizables';
+import SwitchButton from '../../../../lib/utils/SwitchButton.js'
 
 class DetallePartidaCajaAbierta extends Component{
 	static propTypes = {
@@ -104,8 +105,8 @@ class DetallePartidaCajaAbierta extends Component{
                                 </div>
                             </div>
                             <div className="panel-body">
-                                <FotoPartida 
-                                    src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg" 
+                                <FotoPartida
+                                    src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg"
                                     crop={{
                                         superiorX: 150,
                                         superiorY: 35,
@@ -199,6 +200,13 @@ class DetallePartidaCajaAbierta extends Component{
                                                 <select name="coincide-descripcion" id="observacion" className="form-control input-sm"></select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                      <div className="form-group row">
+                                        <label htmlFor="observacion" className="col-sm-4 col-form-label">Requiere apertura:</label>
+                                        <SwitchButton />
+
+                                      </div>
                                     </div>
                                 </div>
 

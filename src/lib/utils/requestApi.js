@@ -14,10 +14,18 @@ const client = axios.create({
   baseURL: config.baseUrlBluemix
 });
 
+client.interceptors.request.use(function (config) {
+  console.log('LANZANDO INTERCEPTOR REQUEST;');
+  return config;
+}, function(err) {
+  return Promise.reject(err);
+});
+
 const requestApi = function(options) {
 
   const onSuccess = function(response) {
     console.debug('Request Successful!', response);
+    console.log('Respuesta correcta, a implementar')
     return response.data;
   }
 
