@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { showUsuers } from '../components/ListaUsuarios/reducer';
-import { notification, nav } from '../components/Global/GlobalReducer';
+import { notification, nav, help } from '../components/Global/GlobalReducer';
 import { auditoriaReducer } from "../components/Auditoria/Fotografia/auditoriaReducer";
 import { sessionReducer } from '../components/Session/reducer';
 import { cargaAuditora } from '../components/CargaAuditorias/reducer';
@@ -22,7 +22,8 @@ const rootReducer = combineReducers({
   cajaAbierta,
   salidaPartidas,
   homeReducer: homeReducer,
-  firmaValuador
+  firmaValuador,
+  help
 
 });
 
