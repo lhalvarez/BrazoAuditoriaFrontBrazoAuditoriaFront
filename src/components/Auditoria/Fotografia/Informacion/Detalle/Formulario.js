@@ -22,38 +22,24 @@ class Formulario extends Component {
 
     let estatusResultadoAuditoria = $('#estatus').val();
     let observacionesResultadoAuditoria = $('#observaciones').val();
+    let partida = this.props.detallePartida;
+    let folio = 0;
+    let idAuditoria = 0;
+    if(partida){
+      folio = partida.llavePartida.folio;
+      idAuditoria = partida.llavePartida.id;
+    }
     let resultadoAuditoria = {
-      "cajaAbierta": {
-        "condiciones": "string",
-        "descripcon": "string",
-        "desplazamiento": "string",
-        "genero": "string",
-        "gramaje": "string",
-        "incremento": "string",
-        "kilates": 0,
-        "marca": "string",
-        "metal": "string",
-        "modelo": "string",
-        "rango": "string",
-        "serie": "string",
-        "subramo": "string",
-        "tipoCuerda": "string"
-      },
-      "cajaCerrada": {
-        "coincideDescripcion": true,
-        "coincidePeso": true,
-        "descripcion": "string",
-        "peso": "string",
-        "requiereApertura": true
-      },
-      "estatus": "string",
-      "folio": 0,
-      "idAuditoria": 0,
+      "cajaAbierta": null,
+      "cajaCerrada": null,
+      "estatus": estatusResultadoAuditoria,
+      "folio": folio,
+      "idAuditoria": idAuditoria,
       "idResultado": 0,
-      "observaciones": "string"
+      "observaciones": observacionesResultadoAuditoria
     };
-    
 
+    this.props.enviarDetallePartida(resultadoAuditoria);
 
   }
 
@@ -87,7 +73,7 @@ class Formulario extends Component {
     if(valEstadoAudit){
       valEstadoAudit.map((campo,index)=>{
         const {id, descripcionCorta, descripcion} = campo;
-        $('#estatus').append($('<option>', {value: id,text: descripcionCorta+' | '+descripcion}));
+        $('#estatus').append($('<option>', {value: descripcionCorta,text: descripcion}));
       });
     }
   }

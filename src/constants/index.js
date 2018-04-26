@@ -49,6 +49,9 @@ export const API = Object.freeze({
             FISICA: {
                 CAJA_ABIERTA: {
                     DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
+                },
+                CAJA_CERRADA: {
+                  DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
                 }
             },
             RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado/' }

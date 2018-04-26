@@ -1,4 +1,7 @@
-import {GET_CAT_ESTADO_AUDITORIA, GET_PARTIDA_DETAIL} from './actions';
+import {GET_CAT_ESTADO_AUDITORIA,
+  DETALLE_PARTIDA_ENVIADA,
+  ENVIANDO_DETALLE_PARTIDA,
+  GET_PARTIDA_DETAIL} from './actions';
 
 
 const initialState = {
@@ -14,6 +17,10 @@ export function detallePartida(state = initialState, action){
       return Object.assign({}, state, {detallePartida: action.payload.object});
     case GET_CAT_ESTADO_AUDITORIA:
       return Object.assign({}, state, {catalogoestadoAuditoria: action.payload.object});
+    case ENVIANDO_DETALLE_PARTIDA:
+      return Object.assign({}, state, {detallePartida: action.detallePartida});
+    case DETALLE_PARTIDA_ENVIADA:
+      return {...initialState};
     default:
       return state
   }

@@ -14,9 +14,9 @@ class FormularioBusquedaPartida extends Component{
 
   	search(e){
   		e.preventDefault();
-
-  		/* Modal Firma de valuador */
-  		$('#modalFirmaValuador').modal('show');
+  		let cajaBusqueda = $('#caja').val();
+  		let partidaBusqueda = $('#partida').val();
+      this.props.obtenerDetallePartida(cajaBusqueda,partidaBusqueda);
   	}
 
   	render(){
@@ -26,7 +26,7 @@ class FormularioBusquedaPartida extends Component{
                 	<form onSubmit={this.search}>
 	                    <div className="panel panel-default">
 	                        <div className="panel-heading">
-	                            <p>Criterios de Búsqueda <i className="fa fa-3x fa-dropbox"></i></p>
+	                            <p>Criterios de Búsqueda <i className="fa fa-3x fa-archive"></i></p>
 	                        </div>
 	                        <div className="panel-body">
                                 <div className="row">
