@@ -17,11 +17,11 @@ const rootReducer = combineReducers({
   auditoriaFotografia: auditoriaReducer,
   session: sessionReducer,
   cargaAuditora,
+  validacionAuditora,
   nav,
   cajaAbierta,
   salidaPartidas,
   homeReducer: homeReducer,
-  validacionAuditora,
   firmaValuador
 
 });
