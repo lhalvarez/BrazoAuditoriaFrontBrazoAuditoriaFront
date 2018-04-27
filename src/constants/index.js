@@ -43,9 +43,9 @@ export const API = Object.freeze({
         },
         GESTION: {
             SALIDA: {
-              BUSQUEDA: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/:rfid/:folio/salida'},
-              PAGINADO: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida'},
-              EXPORTAR: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida/pdf'}
+                BUSQUEDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/:rfid/:folio/salida' },
+                PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida' },
+                EXPORTAR: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida/pdf' }
             }
         },
         AUDITORIA: {
@@ -69,7 +69,7 @@ export const API = Object.freeze({
                     DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
                 }
             },
-            RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado2/' }
+            RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado/' }
         },
         SEGURIDAD: {
             INICIAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' },
@@ -161,12 +161,12 @@ export const TITLES = Object.freeze({
                 DETALLE_PARTIDA: 'Detalle de la Partida'
             },
             CAJA_CERRADA: {
-              BUSQUEDA_PARTIDA: 'Validación de prendas del depósito Automatizado por Auditoría Caja Cerrada',
-              DETALLE_PARTIDA: 'Detalle de Partida'
+                BUSQUEDA_PARTIDA: 'Validación de prendas del depósito Automatizado por Auditoría Caja Cerrada',
+                DETALLE_PARTIDA: 'Detalle de Partida'
             }
         }
     },
-    CONFIGURACION:{
+    CONFIGURACION: {
         PRINCIPAL: 'Configuración General del Sistema'
     },
     INICIO: {
@@ -181,21 +181,26 @@ export const CATALOGOS = Object.freeze({
 
 /* Nombres de los catálogos disponibles */
 export const LEYENDAS = Object.freeze({
-  CARGA: {
-    DD_VACIO:'Arrastre y suelte su archivo en esta área',
-    TAMANO_ARCHIVO: 'El archivo debe tener menos de',
-    TAMANO_NUMERO: 2000, //2 MB,
-    TAMANO_MB : '2 MB',
-    ERROR_ARCHIVO: 'Error en el archivo',
-    FORMATO_ARCHIVO: '.csv',
-    FORMATO_ARCHIVO_LEYENDA: 'El archivo debe de ser en formato',
-    ERROR_ENVIAR_DOC: 'Error al enviar documento',
-    ERROR_DOCUMENTO_VALIDO: 'Debe cargar un documento válido',
-    ERROR_SELECT_AUDIT: 'Debe seleccionar un tipo de auditoría física',
-    ESPERA_REVISION: 'En espera de revisión',
-    CARGANDO:'Cargando...'
+    CARGA: {
+        DD_VACIO: 'Arrastre y suelte su archivo en esta área',
+        TAMANO_ARCHIVO: 'El archivo debe tener menos de',
+        TAMANO_NUMERO: 2000, //2 MB,
+        TAMANO_MB: '2 MB',
+        ERROR_ARCHIVO: 'Error en el archivo',
+        FORMATO_ARCHIVO: '.csv',
+        FORMATO_ARCHIVO_LEYENDA: 'El archivo debe de ser en formato',
+        ERROR_ENVIAR_DOC: 'Error al enviar documento',
+        ERROR_DOCUMENTO_VALIDO: 'Debe cargar un documento válido',
+        ERROR_SELECT_AUDIT: 'Debe seleccionar un tipo de auditoría física',
+        ESPERA_REVISION: 'En espera de revisión',
+        CARGANDO: 'Cargando...'
 
 
-  }
+    }
 });
 
+/* Nombres de los catálogos disponibles */
+export const TIPOS_VALIDACION = Object.freeze({
+    VALIDACION_FOTOGRAFIA: 1,
+    VALIDACION_FISICA: 2
+});

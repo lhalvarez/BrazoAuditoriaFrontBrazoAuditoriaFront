@@ -6,6 +6,7 @@ import Pagination from 'rc-pagination';
 
 import TablasValidacion from './TablasValidacion';
 import { AUDITORIAS } from './cargaAuditoriaFake';
+import { TIPOS_VALIDACION } from '../../constants'
 
 
 class ValidacionAuditorias extends React.Component {
@@ -16,7 +17,7 @@ class ValidacionAuditorias extends React.Component {
         this.onChangePagination = this.onChangePagination.bind(this);
 
         this.state = {
-            detalleUsuario: store.getState().session.detalleUsuario.nombreCompleto,
+            detalleUsuario: store.getState().session.detalleUsuario,
             page: 0,
             pageSize: 10,
             total: 0,
@@ -30,19 +31,19 @@ class ValidacionAuditorias extends React.Component {
         }, this.props.getAuditorias(page - 1, this.state.pageSize));
     };
 
-    render() {
-        const validacionFotografia = 1;
-        const validacionFisica = 2;
 
+    render() {
+        console.log(this.props.auditoriasPendientes)
+        const usuario = this.state.detalleUsuario.usuario;
         switch (this.props.path) {
+
             case '/validacion-partidas-fotografia':
-                this.tipoValidacion = validacionFotografia
+                this.tipoValidacion = TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA;
                 return (
                     <div>
                         <TablasValidacion
                             tipoValidacion={this.tipoValidacion}
                             auditorias={AUDITORIAS}
-                            detalleUsuario={this.state.detalleUsuario}
                             auditoriasList={this.props.auditoriasPendientes}
                             saveAuditoria={this.props.saveAuditoria}
                             sendNotification={this.props.sendNotification}
@@ -55,13 +56,12 @@ class ValidacionAuditorias extends React.Component {
                     </div>
                 );
             case '/validacion-partidas-fisica':
-                this.tipoValidacion = validacionFisica
+                this.tipoValidacion = TIPOS_VALIDACION.VALIDACION_FISICA;
                 return (
                     <div>
                         <TablasValidacion
                             tipoValidacion={this.tipoValidacion}
                             auditorias={AUDITORIAS}
-                            detalleUsuario={this.props.detalleUsuario}
                             auditoriasList={this.props.auditoriasPendientes}
                             saveAuditoria={this.props.saveAuditoria}
                             sendNotification={this.props.sendNotification}

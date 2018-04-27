@@ -9,17 +9,8 @@ export const SAVE_AUDITORIA_PENDIENTE = 'SAVE_AUDITORIA_PENDIENTE'; //Acción pa
 
 
 export function getAuditorias() {
-    const params = {
-        p: page,
-        t: pageSize
-    };
     return (dispatch) => {
-        MessageService.getAll(API.ENDPOINTS.PARTIDAS.AUDITORIA_PENDIENTE.endpoint, params)
-            .then((response) => {
-                dispatch({ type: GET_AUDITORIAS_PENDIENTES, payload: response });
-            }).catch(error => {
-                dispatch(addNotification('Se ha generado un error!', '' + error.data.message, 'error'));
-            });
+        dispatch({ type: GET_AUDITORIAS_PENDIENTES });
     }
 }
 

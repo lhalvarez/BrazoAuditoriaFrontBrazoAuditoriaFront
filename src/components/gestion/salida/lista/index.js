@@ -19,6 +19,8 @@ import Encabezado from './encabezado';
 
 import {TITLES, NUMERICAS} from '../../../../constants';
 
+import "react-table/react-table.css";
+
 
 /**
  * Sección de listado de partidas
@@ -80,21 +82,21 @@ const SalidaPartidasLista = (props) => {
                   cargando={cargando}
                   actualizarLista={actualizarLista}/>
       <div className='panel-body'>
-          <ReactTable columns={columnas}
-                      previousText={TITLES.GESTION.SALIDA.LISTA.TABLA.ANTERIOR}
-                      nextText={TITLES.GESTION.SALIDA.LISTA.TABLA.SIGUIENTE}
-                      pageText={TITLES.GESTION.SALIDA.LISTA.TABLA.PAGINA}
-                      ofText={TITLES.GESTION.SALIDA.LISTA.TABLA.DE}
-                      rowsText={TITLES.GESTION.SALIDA.LISTA.TABLA.FILAS}
-                      loadingText={TITLES.GESTION.SALIDA.LISTA.TABLA.CARGANDO}
-                      noDataText={TITLES.GESTION.SALIDA.LISTA.TABLA.SIN_DATOS}
-                      manual
-                      data={props.partidas.contenido}
-                      pages={props.partidas.totalPaginas}
-                      loading={cargando}
-                      onFetchData={onFetchData}
-                      defaultPageSize={NUMERICAS.GESTION.SALIDA.TABLE_PAGE_SIZE}
-                      className='-striped -highlight'/>
+        <ReactTable columns={columnas}
+                    previousText={TITLES.GESTION.SALIDA.LISTA.TABLA.ANTERIOR}
+                    nextText={TITLES.GESTION.SALIDA.LISTA.TABLA.SIGUIENTE}
+                    pageText={TITLES.GESTION.SALIDA.LISTA.TABLA.PAGINA}
+                    ofText={TITLES.GESTION.SALIDA.LISTA.TABLA.DE}
+                    rowsText={TITLES.GESTION.SALIDA.LISTA.TABLA.FILAS}
+                    loadingText={TITLES.GESTION.SALIDA.LISTA.TABLA.CARGANDO}
+                    noDataText={TITLES.GESTION.SALIDA.LISTA.TABLA.SIN_DATOS}
+                    manual
+                    data={props.partidas.contenido}
+                    pages={props.partidas.totalPaginas}
+                    loading={cargando}
+                    onFetchData={onFetchData}
+                    defaultPageSize={NUMERICAS.GESTION.SALIDA.TABLE_PAGE_SIZE}
+                    className='-striped -highlight'/>
       </div>
     </div>
   );

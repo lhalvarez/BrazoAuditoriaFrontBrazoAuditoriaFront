@@ -19,9 +19,42 @@ class Formulario extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    alert($('#estatus').val());
-    alert($('#observaciones').val());
+
+    let estatusResultadoAuditoria = $('#estatus').val();
+    let observacionesResultadoAuditoria = $('#observaciones').val();
+    let resultadoAuditoria = {
+      "cajaAbierta": {
+        "condiciones": "string",
+        "descripcon": "string",
+        "desplazamiento": "string",
+        "genero": "string",
+        "gramaje": "string",
+        "incremento": "string",
+        "kilates": 0,
+        "marca": "string",
+        "metal": "string",
+        "modelo": "string",
+        "rango": "string",
+        "serie": "string",
+        "subramo": "string",
+        "tipoCuerda": "string"
+      },
+      "cajaCerrada": {
+        "coincideDescripcion": true,
+        "coincidePeso": true,
+        "descripcion": "string",
+        "peso": "string",
+        "requiereApertura": true
+      },
+      "estatus": "string",
+      "folio": 0,
+      "idAuditoria": 0,
+      "idResultado": 0,
+      "observaciones": "string"
+    };
     
+
+
   }
 
   toggleForm(e){

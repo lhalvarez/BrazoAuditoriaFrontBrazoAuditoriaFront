@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ContainerTitle from '../Global/ContainerTitle';
-import "react-table/react-table.css";
-import {
-    Modal,
-    ModalHeader,
-    ModalTitle,
-    ModalClose,
-    ModalBody,
-    ModalFooter
-} from 'react-modal-bootstrap';
 import RechazoList from './rechazolist';
+import ModalRechazo from './modalRechazo';
+import ModalAceptado from './modalAceptado';
 import './style.css';
 import SwitchButton from '../../lib/utils/SwitchButton';
+import { TIPOS_VALIDACION } from '../../constants'
+import { store } from '../../store';
 
 class TablasValidacion extends Component {
 
@@ -25,14 +20,16 @@ class TablasValidacion extends Component {
         this.handleOnSubmitAccept = this.handleOnSubmitAccept.bind(this);
         this.handleOnSubmitReject = this.handleOnSubmitReject.bind(this);
         this.initialState = this.initialState.bind(this);
+        this.onChecked = this.onChecked.bind(this);
 
         this.state = {
 
+            detalleUsuario: store.getState().session.detalleUsuario,
             showAccept: false,
             showReject: false,
             selected: [],
             selectedAccept: [],
-            selectedReject: [],
+            selectedReject: []
 
         };
     }
@@ -47,7 +44,9 @@ class TablasValidacion extends Component {
 
     onChange(carga, id, e) {
 
+
         const selected = this.state.selected
+
         const objAuditor = {
             id: id,
             nombreArchivo: carga.nombreArchivo,
@@ -63,6 +62,19 @@ class TablasValidacion extends Component {
         }
 
         this.state.selected = selected;
+
+    }
+
+    onChecked(id) {
+        if (this.state.selected.length < 0) {
+            return false
+        }
+        else {
+            this.state.selected.filter((select) => {
+                console.log('el id del select:' + select + 'es: ' + id)
+                return select.id === id
+            })
+        }
     }
 
 
@@ -82,7 +94,9 @@ class TablasValidacion extends Component {
             return;
         } else {
             //Se activa el modal
-            this.setState({ showAccept: true });
+            this.setState({
+                showAccept: true,
+            })
         }
     }
 
@@ -162,15 +176,14 @@ class TablasValidacion extends Component {
 
     render = () => {
 
-        const validacionFotografia = 1;
-        const validacionFisica = 2;
-
         const auditorias = this.props.auditorias;
         const validacion = this.props.tipoValidacion;
-        const listaAuditoriasPendientes = this.props.auditoriasList
+        const listaAuditoriasPendientes = this.props.auditoriasList;
+        const solicitante = this.state.detalleUsuario.usuario;
+        const sucursal = this.state.detalleUsuario.sucursal;
 
         switch (validacion) {
-            case validacionFisica:
+            case TIPOS_VALIDACION.VALIDACION_FISICA:
                 return (
                     <div className="row">
                         <ContainerTitle title={'Validación de Auditoría Fisica'} />
@@ -194,8 +207,8 @@ class TablasValidacion extends Component {
                                                 return (
                                                     <tr key={`${index}-${id}`}>
                                                         <td>{carga.nombreArchivo}</td>
-                                                        <td>{carga.idSucursal}</td>
-                                                        <td>{carga.solicitante}</td>
+                                                        <td>{sucursal}</td>
+                                                        <td>{solicitante}</td>
                                                         <td>{carga.noPartidas}</td>
                                                         <td>{carga.tipoAuditoria.descripcion}</td>
                                                         <td>
@@ -203,6 +216,7 @@ class TablasValidacion extends Component {
                                                                 <SwitchButton
                                                                     name={carga.nombreArchivo}
                                                                     onChange={this.onChange.bind(this, carga, id)}
+                                                                //checked={this.state.selected.every(id)}
                                                                 />
                                                             </div>
                                                         </td>
@@ -225,49 +239,23 @@ class TablasValidacion extends Component {
                                 </div>
                             </div>
 
+                            <ModalAceptado
+                                showAccept={this.state.showAccept}
+                                handleClose={this.handleClose}
+                                handleOnSubmitAccept={this.handleOnSubmitAccept}
+                            />
 
-                            <Modal isOpen={this.state.showAccept} onRequestHide={this.handleClose} onSuccess={this.handleClose}>
-                                <ModalHeader>
-                                    <ModalClose onClick={this.handleClose} />
-                                    <ModalTitle>AVISO</ModalTitle>
-                                </ModalHeader>
-                                <ModalBody>
-                                    <label>Se validaran las auditorias seleccionadas, ¿Desea Continuar? </label>
-                                </ModalBody>
-                                <ModalFooter>
-                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
-                                        Cancelar
-				  				</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitAccept}>
-                                        Aceptar
-				  				</button>
-                                </ModalFooter>
-                            </Modal>
-                            <Modal isOpen={this.state.showReject} onRequestHide={this.handleClose} onSuccess={this.handleClose}>
-                                <ModalHeader>
-                                    <ModalClose onClick={this.handleClose} />
-                                    <ModalTitle>Motivo de Rechazo</ModalTitle>
-                                </ModalHeader>
-                                <ModalBody>
-                                    <RechazoList
-                                        checked={this.state.selected}
-                                        selectedReject={this.state.selectedReject}
-                                    />
-                                </ModalBody>
-                                <ModalFooter>
-                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
-                                        Cancelar
-				  			</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitReject}>
-                                        Aceptar
-				  			</button>
-                                </ModalFooter>
-                            </Modal>
-
+                            <ModalRechazo
+                                showReject={this.state.showReject}
+                                handleClose={this.handleClose}
+                                selected={this.state.selected}
+                                selectedReject={this.state.selectedReject}
+                                handleOnSubmitReject={this.handleOnSubmitReject}
+                            />
                         </div>
                     </div>
                 );
-            case validacionFotografia:
+            case TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA:
                 return (
                     <div className="row">
                         <ContainerTitle title={'Validación de Auditoría por Fotografía'} />
@@ -290,8 +278,8 @@ class TablasValidacion extends Component {
                                                 return (
                                                     <tr key={`${index}-${id}`}>
                                                         <td>{carga.nombreArchivo}</td>
-                                                        <td>{carga.idSucursal}</td>
-                                                        <td>{carga.solicitante}</td>
+                                                        <td>{sucursal}</td>
+                                                        <td>{solicitante}</td>
                                                         <td>{carga.noPartidas}</td>
                                                         <td>
                                                             < div >
@@ -321,43 +309,19 @@ class TablasValidacion extends Component {
                             </div>
 
 
-                            <Modal isOpen={this.state.showAccept} onRequestHide={this.handleClose} onSuccess={this.handleClose}>
-                                <ModalHeader>
-                                    <ModalClose onClick={this.handleClose} />
-                                    <ModalTitle>AVISO</ModalTitle>
-                                </ModalHeader>
-                                <ModalBody>
-                                    <label>Se validaran las auditorias seleccionadas, ¿Desea Continuar? </label>
-                                </ModalBody>
-                                <ModalFooter>
-                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
-                                        Cancelar
-				  				</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitAccept}>
-                                        Aceptar
-				  				</button>
-                                </ModalFooter>
-                            </Modal>
-                            <Modal isOpen={this.state.showReject} onRequestHide={this.handleClose} onSuccess={this.handleClose}>
-                                <ModalHeader>
-                                    <ModalClose onClick={this.handleClose} />
-                                    <ModalTitle>Motivo de Rechazo</ModalTitle>
-                                </ModalHeader>
-                                <ModalBody>
-                                    <RechazoList
-                                        checked={this.state.selected}
-                                        selectedReject={this.state.selectedReject}
-                                    />
-                                </ModalBody>
-                                <ModalFooter>
-                                    <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.handleClose}>
-                                        Cancelar
-				  			</button>
-                                    <button className='btn btn-sm btn-primary' onClick={this.handleOnSubmitReject}>
-                                        Aceptar
-				  			</button>
-                                </ModalFooter>
-                            </Modal>
+                            <ModalAceptado
+                                showAccept={this.state.showAccept}
+                                handleClose={this.handleClose}
+                                handleOnSubmitAccept={this.handleOnSubmitAccept}
+                            />
+
+                            <ModalRechazo
+                                showReject={this.state.showReject}
+                                handleClose={this.handleClose}
+                                selected={this.state.selected}
+                                selectedReject={this.state.selectedReject}
+                                handleOnSubmitReject={this.handleOnSubmitReject}
+                            />
 
                         </div>
                     </div>

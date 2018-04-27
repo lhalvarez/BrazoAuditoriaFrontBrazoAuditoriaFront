@@ -9,7 +9,6 @@ import salidaPartidas from '../components/gestion/salida/salida-reducer';
 import { homeReducer } from '../components/Home/homeReducer';
 import { validacionAuditora } from '../components/ValidacionAuditorias/reducer'
 import { firmaValuador } from '../components/Auditoria/Fisica/FirmaValuador/reducer'
-import { detallePartida } from '../components/Auditoria/Fotografia/Informacion/Detalle/reducer';
 
 const rootReducer = combineReducers({
 
@@ -18,13 +17,12 @@ const rootReducer = combineReducers({
   auditoriaFotografia: auditoriaReducer,
   session: sessionReducer,
   cargaAuditora,
+  validacionAuditora,
   nav,
   cajaAbierta,
   salidaPartidas,
   homeReducer: homeReducer,
-  validacionAuditora,
   firmaValuador,
-  detallePartida,
   help
 
 });
