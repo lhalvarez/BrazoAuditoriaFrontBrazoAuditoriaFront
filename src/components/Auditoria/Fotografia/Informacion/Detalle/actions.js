@@ -3,8 +3,11 @@ import { API } from '../../../../../constants/index'
 import {addNotification, ADD_NOTIFICATION} from '../../../../Global/GlobalActions';
 import MessageService from '../../../../../lib/utils/MessageService';
 
+
 export const GET_PARTIDA_DETAIL = 'GET_PARTIDA_DETAIL';
 export const GET_CAT_ESTADO_AUDITORIA = 'GET_CAT_ESTADO_AUDITORIA';
+export const ENVIANDO_DETALLE_PARTIDA = 'ENVIANDO_DETALLE_PARTIDA';
+export const DETALLE_PARTIDA_ENVIADA = 'DETALLE_PARTIDA_ENVIADA';
 
 export function getPartidaDetail(folio){
   return (dispatch)=>{
@@ -28,10 +31,17 @@ export function getCatEstadoAuditoria(){
   }
 }
 
-export function sendNotification(title,message,type){
-  return (dispatch) => {
-    dispatch( {type: ADD_NOTIFICATION});
-    dispatch(addNotification(title,message ,type));
+export function enviarDetallePartida(requestBody){
 
-  }
+  return dispatch => {
+    MessageService.save(API.ENDPOINTS.AUDITORIA.RESULTADO.endpoint,requestBody)
+      .then(response => {
+        dispatch({ type: DETALLE_PARTIDA_ENVIADA });
+        dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
+      })
+      .catch(error => {
+        dispatch( addNotification('Error al guardar',error.data.message,'error') );
+      });
+
+  };
 }

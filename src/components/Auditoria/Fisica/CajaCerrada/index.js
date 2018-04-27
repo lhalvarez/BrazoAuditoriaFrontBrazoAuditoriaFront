@@ -7,6 +7,7 @@ import { TITLES } from '../../../../constants';
 import FormularioBusquedaPartida from './FormularioBusquedaPartida';
 import DetallePartidaCajaAbierta from './DetallePartida';
 import {CAMPOS} from '../../../../data/fakeSelectsParametrizables';
+import { obtenerDetallePartida } from './actions';
 
 class AuditoriaFisicaCajaCerrada extends Component{
   static propTypes = {
@@ -44,7 +45,7 @@ class AuditoriaFisicaCajaCerrada extends Component{
     return (
       <div>
         <ContainerTitle title={title} />
-        <FormularioBusquedaPartida />
+        <FormularioBusquedaPartida obtenerDetallePartida={this.props.obtenerDetallePartida} />
         { loadDetail && <DetallePartidaCajaAbierta campos={CAMPOS} /> }
       </div>
     );
@@ -56,4 +57,5 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(AuditoriaFisicaCajaCerrada);
+export default connect(mapStateToProps, {obtenerDetallePartida} )(AuditoriaFisicaCajaCerrada);
+

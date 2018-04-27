@@ -12,7 +12,7 @@ class AuditoriaFotografiaFormSearch extends Component {
         this.fetchData = this.fetchData.bind(this);
         this.getArchivosByNombre = this.getArchivosByNombre.bind(this);
         this.onSelectArchivo = this.onSelectArchivo.bind(this);
-        
+
         this.state = {
             disableInput: false,
             disableAutocomplete: false,
@@ -20,12 +20,12 @@ class AuditoriaFotografiaFormSearch extends Component {
             nombreArchivo: ''
         }
     }
-  
+
     onFormSubmit = (event) => {
         event.preventDefault();
         this.props.data.buscarAuditoria();
     };
-    
+
     resetForm = () => {
         this.setState({
             nombreArchivo: '',
@@ -36,14 +36,14 @@ class AuditoriaFotografiaFormSearch extends Component {
         this.formBusquedaAuditoriaFotografia.reset();
         this.props.data.limpiar();
     };
-    
+
     handleInputAuditoria = (e) => {
         this.setState({
             disableAutocomplete: e.target.value !== ''
         });
         this.props.data.handleAuditoria(e);
     };
-    
+
     fetchData = (value) => {
         if (value.length >= 3) {
             console.log("Entrando a fetchData...");
@@ -61,7 +61,7 @@ class AuditoriaFotografiaFormSearch extends Component {
             });
         }
     };
-    
+
     getArchivosByNombre = (e) => {
         console.log("Entrada: " + e.target.value);
         this.setState({
@@ -70,21 +70,21 @@ class AuditoriaFotografiaFormSearch extends Component {
         }, this.fetchData(e.target.value));
         this.props.data.handleArchivo(e.target.value);
     };
-    
+
     onSelectArchivo = (val) => {
         this.setState({
             nombreArchivo: val
         });
         this.props.data.handleArchivo(val)
     };
-    
+
     render = () => {
         return (
             <div className="row">
                 <div className="col-lg-12">
                     <div className="panel panel-default">
                         <div className="panel-heading" style={{paddingBottom: '0px'}}>
-                            <p>Búsqueda de Auditoría</p>
+                          <p>Búsqueda de Auditoría <i className="fa fa-2x fa-camera"></i></p>
                         </div>
                         <form ref={(el) => this.formBusquedaAuditoriaFotografia = el} onSubmit={this.onFormSubmit}>
                             <div className="panel-body" style={{paddingTop: '10px'}}>
