@@ -16,10 +16,10 @@ export function validacionAuditora(state = initialState, action) {
     switch (action.type) {
 
         case GET_AUDITORIAS_PENDIENTES:
-            return Object.assign({}, state, { auditoriasPendientes: action.payload.object.contenido })
+            return Object.assign({}, state, { auditorias: action.payload.object.contenido })
         case SAVE_AUDITORIA_PENDIENTE:
             return Object.assign({}, state, { auditoriasPendientes: action.payload })
-        case 'ADD_NOTIFICATION':
+        case ADD_NOTIFICATION:
             return Object.assign({}, state, {})
         default:
             return state

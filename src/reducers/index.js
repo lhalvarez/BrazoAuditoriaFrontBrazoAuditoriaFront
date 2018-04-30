@@ -5,11 +5,11 @@ import { auditoriaReducer } from "../components/Auditoria/Fotografia/auditoriaRe
 import { sessionReducer } from '../components/Session/reducer';
 import { cargaAuditora } from '../components/CargaAuditorias/reducer';
 import { cajaAbierta } from '../components/Auditoria/Fisica/CajaAbierta/reducer';
+import { cajaCerrada } from '../components/Auditoria/Fisica/CajaCerrada/reducer';
 import salidaPartidas from '../components/gestion/salida/salida-reducer';
 import { homeReducer } from '../components/Home/homeReducer';
 import { validacionAuditora } from '../components/ValidacionAuditorias/reducer'
 import { firmaValuador } from '../components/Auditoria/Fisica/FirmaValuador/reducer'
-import { detallePartida } from '../components/Auditoria/Fotografia/Informacion/Detalle/reducer';
 
 const rootReducer = combineReducers({
 
@@ -18,13 +18,13 @@ const rootReducer = combineReducers({
   auditoriaFotografia: auditoriaReducer,
   session: sessionReducer,
   cargaAuditora,
+  validacionAuditora,
   nav,
   cajaAbierta,
+  cajaCerrada,
   salidaPartidas,
   homeReducer: homeReducer,
-  validacionAuditora,
   firmaValuador,
-  detallePartida,
   help
 
 });

@@ -33,6 +33,9 @@ export const ACTUALIZAR_LISTA_AUTOMATICO = 'ACTUALIZAR_LISTA_AUTOMATICO';
  * @author <a href="https://wiki.quarksoft.net/display/~cachavez">Carlos Chávez Melena</a>
  */
 
+const BUSQUEDA = API.AVISOS.GESTION.SALIDA.BUSQUEDA;
+const LISTA = API.AVISOS.GESTION.SALIDA.LISTA;
+
 
 /**
  * Dispara la acción de termino de la solicitud de marcado de partidas
@@ -58,12 +61,12 @@ function ejecutarSalidaRes(dispatch, errorParametros, rfid, folio) {
  */
 export function ejecutarSalida(rfid, folio, p, t) {
   return dispatch => {
-    dispatch({type: EJECUTAR_SALIDA_REQ});
+    dispatch({type: EJECUTAR_SALIDA_REQ, payload: {errorParametros: false, rfid: rfid, folio: folio}});
 
     const URL = API.ENDPOINTS.GESTION.SALIDA.BUSQUEDA.endpoint.replace(':rfid', rfid).replace(':folio', folio);
     MessageService.update(URL, {p, t})
       .then(resultado => {
-        dispatch(addNotification('Ejecutar Saida', 'Se ejecuto correctamente el marcado de la partida', 'info'));
+        dispatch(addNotification(BUSQUEDA.TITULO, BUSQUEDA.CORRECTO, 'success'));
         ejecutarSalidaRes(dispatch, false, '', '');
         actualizarListaRes(dispatch, resultado, p, t);
       })
@@ -73,15 +76,15 @@ export function ejecutarSalida(rfid, folio, p, t) {
         let fo = '';
 
         if (typeof error === 'string') {
-          dispatch(addNotification('Ejecutar Saida', 'Servicio temporalmente no disponible', 'error'));
+          dispatch(addNotification(BUSQUEDA.TITULO, BUSQUEDA.NO_DISPONIBLE, 'error'));
         } else {
           if (error.data.object && error.data.object.codigoError === 'NMP_AUD_0003') {
             ep = true;
             rf = rfid;
             fo = folio;
-            dispatch(addNotification('Ejecutar Saida', 'La partida especificada no existe', 'error'));
+            dispatch(addNotification(BUSQUEDA.TITULO, BUSQUEDA.NMP_AUD_0003, 'error'));
           } else {
-            dispatch(addNotification('Ejecutar Saida', 'Ocurrio un error al ejecutar la salida de la partida', 'error'));
+            dispatch(addNotification(BUSQUEDA.TITULO, BUSQUEDA.NMP_AUD_9999, 'error'));
           }
         }
 
@@ -105,21 +108,27 @@ export function actualizarLista(p, t) {
     MessageService.getAll(API.ENDPOINTS.GESTION.SALIDA.PAGINADO.endpoint, {p, t})
       .then(resultado => {
         if (resultado.object.totalElementos) {
-          dispatch(addNotification('Actualizar Lista Partidas', 'La lista de partidas se actualizo correctamente', 'info'));
+          dispatch(addNotification(LISTA.TITULO, LISTA.CORRECTO, 'success'));
         } else {
-          dispatch(addNotification('Actualizar Lista Partidas', 'No se encontraron partidas pendientes de salida', 'info'));
+          dispatch(addNotification(LISTA.TITULO, LISTA.VACIO, 'info'));
         }
 
         actualizarListaRes(dispatch, resultado, p, t);
       })
       .catch(error => {
         if (typeof error === 'string') {
-          dispatch(addNotification('Actualizar Lista Partidas', 'Servicio temporalmente no disponible', 'error'));
+          dispatch(addNotification(LISTA.TITULO, LISTA.NO_DISPONIBLE, 'error'));
         } else {
-          dispatch(addNotification('Actualizar Lista Partidas', 'Ocurrio un error al actualizar la lista de partidas', 'error'));
+          dispatch(addNotification(LISTA.TITULO, LISTA.NMP_AUD_9999, 'error'));
         }
 
-        dispatch({type: ACTUALIZAR_LISTA_RES, error: true});
+        dispatch({
+          type: ACTUALIZAR_LISTA_RES,
+          payload: {
+            p,
+            t
+          },
+          error: true});
       });
   }
 }

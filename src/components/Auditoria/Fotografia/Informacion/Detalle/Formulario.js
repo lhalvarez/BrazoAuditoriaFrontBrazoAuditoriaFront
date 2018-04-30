@@ -19,9 +19,28 @@ class Formulario extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    alert($('#estatus').val());
-    alert($('#observaciones').val());
-    
+
+    let estatusResultadoAuditoria = $('#estatus').val();
+    let observacionesResultadoAuditoria = $('#observaciones').val();
+    let partida = this.props.detallePartida;
+    let folio = 0;
+    let idAuditoria = 0;
+    if(partida){
+      folio = partida.llavePartida.folio;
+      idAuditoria = partida.llavePartida.id;
+    }
+    let resultadoAuditoria = {
+      "cajaAbierta": null,
+      "cajaCerrada": null,
+      "estatus": estatusResultadoAuditoria,
+      "folio": folio,
+      "idAuditoria": idAuditoria,
+      "idResultado": 0,
+      "observaciones": observacionesResultadoAuditoria
+    };
+
+    this.props.enviarDetallePartida(resultadoAuditoria);
+
   }
 
   toggleForm(e){
@@ -54,7 +73,7 @@ class Formulario extends Component {
     if(valEstadoAudit){
       valEstadoAudit.map((campo,index)=>{
         const {id, descripcionCorta, descripcion} = campo;
-        $('#estatus').append($('<option>', {value: id,text: descripcionCorta+' | '+descripcion}));
+        $('#estatus').append($('<option>', {value: descripcionCorta,text: descripcion}));
       });
     }
   }

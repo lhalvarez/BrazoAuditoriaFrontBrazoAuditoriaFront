@@ -62,7 +62,7 @@ const SALIDA_PARTIDAS_ESTADO_INICIAL = {
 export default function salidaReducer(state = SALIDA_PARTIDAS_ESTADO_INICIAL, action) {
   switch (action.type) {
     case EJECUTAR_SALIDA_REQ:
-      return {...state, ejecutando: true};
+      return {...state, ...action.payload, ejecutando: true};
     case EJECUTAR_SALIDA_RES:
       return {...state, ...action.payload, ejecutando: false};
     case ACTUALIZAR_LISTA_REQ:

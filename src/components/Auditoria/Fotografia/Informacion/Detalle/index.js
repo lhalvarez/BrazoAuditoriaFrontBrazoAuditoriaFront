@@ -4,7 +4,7 @@ import React, { Component , PropTypes} from 'react';
 import ContainerTitle from '../../../../Global/ContainerTitle';
 import Formulario from './Formulario';
 import {TITLES} from '../../../../../constants/index';
-import {getPartidaDetail,getCatEstadoAuditoria} from "./actions";
+import {getPartidaDetail,getCatEstadoAuditoria,enviarDetallePartida} from "./actions";
 import {connect} from "react-redux";
 import {CAMPOS} from '../../../../../data/fakeSelectsParametrizables';
 
@@ -32,7 +32,9 @@ class Detalle extends Component {
         <div>
           <ContainerTitle title={TITLES.AUDITORIA.FOTOGRAFIA.PARTIDAS_DETALLES
             .replace(":idPartida", this.props.idPartida)} />
-          <Formulario campos={CAMPOS} detallePartida={this.props.detallePartida} catEstadoAuditoria={this.props.catEstadoAuditoria}/>
+          <Formulario campos={CAMPOS} detallePartida={this.props.detallePartida}
+                      catEstadoAuditoria={this.props.catEstadoAuditoria}
+                      enviarDetallePartida={this.props.enviarDetallePartida}/>
         </div>
       );
   }
@@ -49,5 +51,5 @@ function mapStateToProps(state) {
     catEstadoAuditoria: state.detallePartida.catalogoestadoAuditoria
   }
 }
-export default connect(mapStateToProps,{getPartidaDetail,getCatEstadoAuditoria})(Detalle);
+export default connect(mapStateToProps,{getPartidaDetail,getCatEstadoAuditoria,enviarDetallePartida})(Detalle);
 

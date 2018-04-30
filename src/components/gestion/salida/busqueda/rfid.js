@@ -15,7 +15,7 @@
 import React from 'react';
 
 import {TITLES} from "../../../../constants";
-import {cambiarFoco, cssErrorGroup, setCSSErrorGroup} from './util';
+import {cambiarFoco, setCSSErrorGroup} from './util';
 
 
 /**
@@ -27,12 +27,30 @@ import {cambiarFoco, cssErrorGroup, setCSSErrorGroup} from './util';
  */
 export default function Rfid(props) {
   return (
-    <div id="groupRfid" className={cssErrorGroup(props.errorParametros)}>
-      <label className='col-lg-4 control-label' htmlFor='inputCaja'>{TITLES.GESTION.SALIDA.BUSQUEDA.NUM_CAJA}</label>
+    <div id="groupRfid"
+         className={props.estilo}>
+      <label htmlFor='inputCaja'
+             className='col-lg-4 control-label'>
+        {TITLES.GESTION.SALIDA.BUSQUEDA.NUM_CAJA}
+      </label>
       <div className='col-lg-8'>
-        <input id='inputCaja' name='inputCaja' className='form-control'
-               placeholder='Rfid' type='number' required min='1' max='999999999'
-               defaultValue={props.rfid} autoFocus onKeyDown={cambiarFoco} onInvalid={() => setCSSErrorGroup('groupRfid')}/>
+        <div className='input-group'>
+          <input id='inputCaja'
+                 name='inputCaja'
+                 className='form-control'
+                 placeholder={TITLES.GESTION.SALIDA.BUSQUEDA.RFID}
+                 type='number'
+                 required={true}
+                 min='1'
+                 max='999999999'
+                 defaultValue={props.rfid}
+                 autoFocus
+                 onKeyDown={cambiarFoco}
+                 onInvalid={() => setCSSErrorGroup('groupRfid')}/>
+          <span className='input-group-addon' style={{color: '#ff0000'}}>
+            <span className="glyphicon glyphicon-asterisk"/>
+          </span>
+        </div>
       </div>
     </div>
   );

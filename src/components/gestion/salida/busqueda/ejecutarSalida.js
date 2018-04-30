@@ -27,7 +27,10 @@ export default function EjecutarSalida(props) {
   return (
     <div className='col-lg-2 form-group padding-btn-ejecutar-salida'>
       <div className='alineacion-btn-ejecutar-salida'>
-      <input id='btnEjecutarSalida' className='btn btn-sm btn-primary' type='submit' disabled={props.ejecutando}
+      <input id='btnEjecutarSalida'
+             className='btn btn-sm btn-primary'
+             type='submit'
+             disabled={props.ejecutando}
              value={TITLES.GESTION.SALIDA.BUSQUEDA.EJEC_SALIDA}/>
       </div>
     </div>
