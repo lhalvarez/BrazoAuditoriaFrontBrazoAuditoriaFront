@@ -3,8 +3,10 @@
 */
 
 import React from 'react';
+import hlp_home from '../HelpPane/seccion/hlp_home'
+
 
 export const helpContent = {
-	'/': (<div>Ayuda de la sección de Inicio</div>),
+	'/': (<hlp_home/>),
 	'/auditoria-fisica-caja-abierta': (<div>Ayuda de la sección Auditoría Física Caja Abierta</div>),
 };

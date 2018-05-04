@@ -1,4 +1,8 @@
 
+import { API } from '../../constants/index'
+import MessageService from '../../lib/utils/MessageService';
+
+
 /*
 * Acciones utilizadas para las notificaciones en redux
 * */
@@ -31,6 +35,7 @@ export function setPageTitle(pageTitle){
 
 export const MUESTRA_AYUDA = 'MUESTRA_AYUDA';
 export const OCULTA_AYUDA = 'OCULTA_AYUDA';
+export const SECCION_AYUDA = 'SECCION_AYUDA';
 
 export function showHelpPane(){
 	return dispatch => dispatch({ type: MUESTRA_AYUDA })
@@ -38,4 +43,23 @@ export function showHelpPane(){
 
 export function hideHelpPane(){
 	return dispatch => dispatch({ type: OCULTA_AYUDA })
+}
+
+
+export function consultaSeccionAyuda(path){
+
+  const params = {
+    nombre: path
+  };
+
+  return(dispatch, getState) => {
+
+    MessageService.getAll(API.ENDPOINTS.CATALOGOS.SECCION_AYUDA.endpoint.replace(':nombreSeccion', path.pathname.replace('/','-')))
+      .then((response) => {
+        console.log("Justo antes de lanzar el dispatch", response);
+        dispatch({ type: SECCION_AYUDA, payload: response });
+      });
+  }
+
+
 }
