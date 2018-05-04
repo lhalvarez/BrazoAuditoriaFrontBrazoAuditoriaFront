@@ -14,6 +14,7 @@ class FormularioBusquedaPartida extends Component{
 
   	search(e){
   		e.preventDefault();
+
   		let cajaBusqueda = $('#caja').val();
   		let partidaBusqueda = $('#partida').val();
       this.props.obtenerDetallePartida(cajaBusqueda,partidaBusqueda);

@@ -5,9 +5,9 @@ import { store } from '../../../../store';
 import ContainerTitle from '../../../Global/ContainerTitle';
 import { TITLES } from '../../../../constants';
 import FormularioBusquedaPartida from './FormularioBusquedaPartida';
-import DetallePartidaCajaAbierta from './DetallePartida';
+import DetallePartidaCajaCerrada from './DetallePartida';
 import {CAMPOS} from '../../../../data/fakeSelectsParametrizables';
-import { obtenerDetallePartida } from './actions';
+import { obtenerDetallePartida ,newTest} from './actions';
 
 class AuditoriaFisicaCajaCerrada extends Component{
   static propTypes = {
@@ -23,6 +23,7 @@ class AuditoriaFisicaCajaCerrada extends Component{
     };
 
     this.handleStoreChange = this.handleStoreChange.bind(this);
+    this.showDetail = this.showDetail.bind(this);
     this.unsuscribe = store.subscribe(this.handleStoreChange);
   }
 
@@ -33,6 +34,18 @@ class AuditoriaFisicaCajaCerrada extends Component{
         loadDetail: store.getState().cajaAbierta.loadDetail
       });
     }
+  }
+
+  showDetail(){
+    if(!this.state.loadDetail){
+      return <DetallePartidaCajaCerrada campos={CAMPOS} />;
+    }
+    return <div> </div>
+  }
+
+  componentDidMount(){
+    this.props.newTest(123456790);
+
   }
 
   componentWillUnmount(){
@@ -46,7 +59,7 @@ class AuditoriaFisicaCajaCerrada extends Component{
       <div>
         <ContainerTitle title={title} />
         <FormularioBusquedaPartida obtenerDetallePartida={this.props.obtenerDetallePartida} />
-        { loadDetail && <DetallePartidaCajaAbierta campos={CAMPOS} /> }
+        <this.showDetail />
       </div>
     );
   }
@@ -57,5 +70,5 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {obtenerDetallePartida} )(AuditoriaFisicaCajaCerrada);
+export default connect(mapStateToProps, {obtenerDetallePartida,newTest} )(AuditoriaFisicaCajaCerrada);
 

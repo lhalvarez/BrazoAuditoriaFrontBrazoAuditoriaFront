@@ -6,6 +6,8 @@ import { sessionReducer } from '../components/Session/reducer';
 import { cargaAuditora } from '../components/CargaAuditorias/reducer';
 import { cajaAbierta } from '../components/Auditoria/Fisica/CajaAbierta/reducer';
 import { cajaCerrada } from '../components/Auditoria/Fisica/CajaCerrada/reducer';
+import { detallePartida } from '../components/Auditoria/Fotografia/Informacion/Detalle/reducer';
+
 import salidaPartidas from '../components/gestion/salida/salida-reducer';
 import { homeReducer } from '../components/Home/homeReducer';
 import { validacionAuditora } from '../components/ValidacionAuditorias/reducer'
@@ -18,6 +20,7 @@ const rootReducer = combineReducers({
   auditoriaFotografia: auditoriaReducer,
   session: sessionReducer,
   cargaAuditora,
+  detallePartida,
   validacionAuditora,
   nav,
   cajaAbierta,

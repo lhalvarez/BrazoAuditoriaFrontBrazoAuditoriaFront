@@ -5,7 +5,7 @@ import FotoPartida from '../FotoPartida';
 import CamposParametrizables  from '../../Fotografia/Informacion/Detalle/CamposParametrizables';
 import SwitchButton from '../../../../lib/utils/SwitchButton.js'
 
-class DetallePartidaCajaAbierta extends Component{
+class DetallePartidaCajaCerrada extends Component{
 	static propTypes = {
 
   	};
@@ -119,7 +119,7 @@ class DetallePartidaCajaAbierta extends Component{
                     </div>
                 </div>
 
-                <CamposParametrizables campos={this.props.campos}/>
+
 
 
 
@@ -243,4 +243,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(DetallePartidaCajaAbierta);
+export default connect(mapStateToProps)(DetallePartidaCajaCerrada);
