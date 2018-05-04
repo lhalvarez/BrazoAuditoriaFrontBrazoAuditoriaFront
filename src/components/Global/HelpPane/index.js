@@ -10,7 +10,7 @@ import { store } from '../../../store';
 import { history } from '../../../history';
 import { hideHelpPane, consultaSeccionAyuda } from '../GlobalActions';
 import { helpContent } from './helpContent';
-import hlp_home from './seccion/hlp_home';
+
 
 class HelpPane extends Component{
 	constructor(){
