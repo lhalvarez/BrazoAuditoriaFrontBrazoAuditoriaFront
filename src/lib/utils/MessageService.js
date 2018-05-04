@@ -69,9 +69,19 @@ function fetchBuffer(endpoint,body){
   });
 }
 
+function fetchBlob(endpoint, body) {
+  return requestApi({
+    url: endpoint,
+    responseType: 'blob',
+    method: 'POST',
+    data: body
+  });
+
+}
+
 
 const MessageService = {
-  getById, save, update, getAll, destroy, fetchBuffer
+  getById, save, update, getAll, destroy, fetchBuffer, fetchBlob
 }
 
 

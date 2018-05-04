@@ -452,3 +452,32 @@ input{
 .slide-pane__overlay.ReactModal__Overlay--after-open{
   background-color: rgba(0,0,0,0.5) !important;
 }
+
+.input-group > .form-control,
+.input-group > .input-group-addon,
+.input-group > .input-group-btn > .btn {
+    height: 33px;
+}
+
+.asterisco-requerido {
+    color: #ff0000 !important;
+}
+
+.icono-formato-reporte {
+    font-size: 18px !important;
+}
+
+.icon-select {
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    z-index: 3;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.visible {
+    visibility: visible;
+}

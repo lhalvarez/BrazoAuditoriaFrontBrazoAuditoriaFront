@@ -127,7 +127,14 @@ const menu = [
 				"submenus": null
 			}
 		]
-	}
+	},
+  {
+    "idMenu": 34,
+    "descripcion": "Reportes",
+    "url": "/reportes",
+    "ico": "fa-bar-chart",
+    "submenus": null
+  }
 ];
 
 export const fake = {

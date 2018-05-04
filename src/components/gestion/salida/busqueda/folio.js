@@ -47,7 +47,7 @@ export default function Folio(props) {
                  onKeyDown={cambiarFoco}
                  onInvalid={() => setCSSErrorGroup('groupFolio')}/>
           <span className='input-group-addon' style={{color: '#ff0000'}}>
-            <span className="glyphicon glyphicon-asterisk"/>
+            <span className="fa fa-asterisk"/>
           </span>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { cargaAuditora } from '../components/CargaAuditorias/reducer';
 import { cajaAbierta } from '../components/Auditoria/Fisica/CajaAbierta/reducer';
 import { cajaCerrada } from '../components/Auditoria/Fisica/CajaCerrada/reducer';
 import salidaPartidas from '../components/gestion/salida/salida-reducer';
+import reportes from '../components/reportes/reducer';
 import { homeReducer } from '../components/Home/homeReducer';
 import { validacionAuditora } from '../components/ValidacionAuditorias/reducer'
 import { firmaValuador } from '../components/Auditoria/Fisica/FirmaValuador/reducer'
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   cajaAbierta,
   cajaCerrada,
   salidaPartidas,
+  reportes,
   homeReducer: homeReducer,
   firmaValuador,
   help

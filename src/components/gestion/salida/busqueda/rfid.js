@@ -48,7 +48,7 @@ export default function Rfid(props) {
                  onKeyDown={cambiarFoco}
                  onInvalid={() => setCSSErrorGroup('groupRfid')}/>
           <span className='input-group-addon' style={{color: '#ff0000'}}>
-            <span className="glyphicon glyphicon-asterisk"/>
+            <span className="fa fa-asterisk"/>
           </span>
         </div>
       </div>

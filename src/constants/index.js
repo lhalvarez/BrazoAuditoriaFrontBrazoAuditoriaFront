@@ -35,6 +35,22 @@ export const API = Object.freeze({
                 registro_no_encontrado: 'El registro no fue encontrado.',
                 error_busqueda: 'Ocurrio un error al procesar la busqueda'
             }
+        },
+        REPORTES: {
+          CATALOGO: {
+            TITULO: 'Recuperar Catálogo',
+            MENSAJE: {
+              ERROR: 'Ocurrió un error al recuperar los elementos del catálogo',
+              EXITO: 'Se recupero correctamente el catálogo'
+            }
+          },
+          REPORTE: {
+            TITULO: 'Generar Reporte',
+            MENSAJE: {
+              ERROR: 'Ocurrió un error al generar el reporte',
+              EXITO: 'Reporte generado correctamente'
+            }
+          }
         }
     },
     ENDPOINTS: {
@@ -101,6 +117,9 @@ export const API = Object.freeze({
         },
         CATALOGOS: {
             BUSCAR_CATALOGO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/catalogo' }
+        },
+        REPORTES: {
+          endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/reporte'
         }
     }
 });
@@ -174,12 +193,23 @@ export const TITLES = Object.freeze({
     },
     INICIO: {
         PAGINA_INICIO: 'Bienvenido '
+    },
+    REPORTES: {
+      TITULO: 'Administración de Reportes',
+      LEYENDA: 'Criterios de Búsqueda',
+      LBL_REPORTE: 'Reporte',
+      DEF_REPORTE: 'Seleccione...',
+      LBL_FECHA: 'Rango de Fechas',
+      LBL_BUTTON: 'Generar Reporte',
+      ERR_FECHA_FUT: 'La fecha no puede ser mayo a la fecha actual'
     }
 });
 
 /* Nombres de los catálogos disponibles */
 export const CATALOGOS = Object.freeze({
-    OBSERVACION: 'tipo_observacion'
+    OBSERVACION: 'tipo_observacion',
+    REPORTES: 'reporte',
+    FORMATO: 'formato'
 });
 
 /* Nombres de los catálogos disponibles */
