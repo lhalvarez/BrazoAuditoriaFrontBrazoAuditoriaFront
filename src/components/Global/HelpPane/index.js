@@ -9,7 +9,6 @@ import 'react-sliding-pane/dist/react-sliding-pane.css';
 import { store } from '../../../store';
 import { history } from '../../../history';
 import { hideHelpPane, consultaSeccionAyuda } from '../GlobalActions';
-import { helpContent } from './helpContent';
 
 
 class HelpPane extends Component{
