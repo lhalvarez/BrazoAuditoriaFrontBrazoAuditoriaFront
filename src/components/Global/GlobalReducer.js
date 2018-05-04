@@ -1,8 +1,8 @@
-import { 
-  ADD_NOTIFICATION, 
+import {
+  ADD_NOTIFICATION,
   CAMBIO_PAGINA,
   MUESTRA_AYUDA,
-  OCULTA_AYUDA
+  OCULTA_AYUDA, SECCION_AYUDA
 } from './GlobalActions'
 
 
@@ -25,8 +25,8 @@ export function notification(state = initialState, action){
 }
 
 /*
-* Reducer encargado de mostrar actualizaciones de estado 
-* relacionadas con la navegación del sistema 
+* Reducer encargado de mostrar actualizaciones de estado
+* relacionadas con la navegación del sistema
 */
 
 const navInitialState = {
@@ -44,20 +44,30 @@ export function nav(state = navInitialState, action){
 
 
 /*
-* Reducer encargado de mostrar actualizaciones de estado 
-* relacionadas con el panel de ayuda del sistema 
+* Reducer encargado de mostrar actualizaciones de estado
+* relacionadas con el panel de ayuda del sistema
 */
 
 const helpInitialState = {
-  showHelp: false
+  showHelp: false,
+  comentarioDTOList: [],
+  nombreSeccion: '',
+
 };
 
 export function help(state = helpInitialState, action){
+
+  let result = null;
   switch (action.type) {
     case MUESTRA_AYUDA:
       return Object.assign({},state,{showHelp: true});
     case OCULTA_AYUDA:
-      return {...helpInitialState};
+      return Object.assign({},state,{showHelp: false});
+    case SECCION_AYUDA:
+      result = action.payload ? { list: action.payload.object.comentarioDTOList,
+        nombreSeccion: action.payload.object.seccion } : initialState;
+      console.log("Se va a regregsar el result", result);
+      return Object.assign({}, state, result);
     default:
       return state;
   }

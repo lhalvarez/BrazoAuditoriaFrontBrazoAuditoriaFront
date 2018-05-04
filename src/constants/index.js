@@ -100,7 +100,8 @@ export const API = Object.freeze({
 
         },
         CATALOGOS: {
-            BUSCAR_CATALOGO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/catalogo' }
+            BUSCAR_CATALOGO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/catalogo' },
+            SECCION_AYUDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seccionayuda/:nombreSeccion' }
         }
     }
 });
