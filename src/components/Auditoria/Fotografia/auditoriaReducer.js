@@ -1,5 +1,4 @@
 import {PAGINAR_PARTIDAS, BUSQUEDA_PARTIDAS, PAGINAR_AUDITORIAS, BUSQUEDA_AUDITORIAS} from "./actions";
-import {AUDITORIAS} from './../../../data/fakeAuditorias';
 
 const initialState = {
     list: [],
@@ -23,11 +22,16 @@ export function auditoriaReducer(state = initialState, action) {
             });
         case PAGINAR_AUDITORIAS:
             result = action.payload ? { list: action.payload.object.contenido, // todo: verificar en que estructura llegara el contenido del paginado
-                                        total: action.payload.object.totalElementos } : {list: AUDITORIAS, total: AUDITORIAS.length};
+                                        total: action.payload.object.totalElementos } : initialState;
             return Object.assign({}, state, result);
         case BUSQUEDA_AUDITORIAS:
-            result = action.payload ? [{ id: action.payload.object.id, totalPartidas: 23, // todo: falta verificar de donde se obtiene el total de partidas
-                                         nombreArchivo: action.payload.object.carga.nombreArchivo }] : [];
+            let nombreArchivo = ('carga' in action.payload.object) ? action.payload.object.carga.nombreArchivo : action.payload.object.nombreArchivo;
+
+            result = action.payload ? [{ 
+                id: action.payload.object.id, 
+                totalPartidas: '', // todo: falta verificar de donde se obtiene el total de partidas
+                nombreArchivo
+            }] : [];
             return Object.assign({}, state, {
               list: result,
               total: action.payload ? result.length : initialState.total
