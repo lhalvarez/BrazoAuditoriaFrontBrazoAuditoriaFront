@@ -28,25 +28,22 @@ class AuditoriaFisicaCajaCerrada extends Component{
   }
 
   handleStoreChange(){
-    if(store.getState().cajaAbierta.loadDetail){
+    if(store.getState().cajaCerrada.loadDetail){
       this.setState({
         title: TITLES.AUDITORIA.FISICA.CAJA_CERRADA.DETALLE_PARTIDA,
-        loadDetail: store.getState().cajaAbierta.loadDetail
+        loadDetail: store.getState().cajaCerrada.loadDetail
       });
+
     }
   }
 
   showDetail(){
-    if(!this.state.loadDetail){
+    if(this.state.loadDetail){
       return <DetallePartidaCajaCerrada campos={CAMPOS} />;
     }
     return <div> </div>
   }
 
-  componentDidMount(){
-    this.props.newTest(123456790);
-
-  }
 
   componentWillUnmount(){
     this.unsuscribe();
@@ -59,7 +56,7 @@ class AuditoriaFisicaCajaCerrada extends Component{
       <div>
         <ContainerTitle title={title} />
         <FormularioBusquedaPartida obtenerDetallePartida={this.props.obtenerDetallePartida} />
-        <this.showDetail />
+        {loadDetail && <DetallePartidaCajaCerrada cajaCerrada={store.getState().cajaCerrada} />}
       </div>
     );
   }
