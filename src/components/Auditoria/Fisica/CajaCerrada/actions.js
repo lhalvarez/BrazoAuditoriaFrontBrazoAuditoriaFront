@@ -9,11 +9,11 @@ export const DETALLE_PARTIDA_ENVIADA = 'DETALLE_PARTIDA_ENVIADA';
 export const ERROR_ENVIAR_DETALLE_PARTIDA = 'ERROR_ENVIAR_DETALLE_PARTIDA';
 
 
-export const GAT_DETALLE_PARTIDA_CAJA_CERRADA = 'GAT_DETALLE_PARTIDA_CAJA_CERRADA';
+export const GET_DETALLE_PARTIDA_CAJA_CERRADA = 'GAT_DETALLE_PARTIDA_CAJA_CERRADA';
 export const GAT_CATALOGO_OBSERVACIONES = 'GAT_CATALOGO_OBSERVACIONES';
 
 export function cargarDetallePartida(){
-	return dispatch => dispatch({ type: CARGAR_DETALLE_PARTIDA })
+  return dispatch => dispatch({ type: CARGAR_DETALLE_PARTIDA })
 }
 
 export function obtenerDetallePartida(rfid,folio){
@@ -22,7 +22,7 @@ export function obtenerDetallePartida(rfid,folio){
       .then(response => {
         MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.OBSERVACION}`)
           .then(catResponse => {
-            dispatch({ type: GAT_DETALLE_PARTIDA_CAJA_CERRADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
+            dispatch({ type: GET_DETALLE_PARTIDA_CAJA_CERRADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
             dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
           })
           .catch(error => {
