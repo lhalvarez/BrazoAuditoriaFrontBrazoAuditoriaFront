@@ -173,7 +173,7 @@ class Formulario extends Component {
             </div>
           </div>
 
-          <CamposParametrizables detallePartida={this.props.detallePartida} campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
+          <CamposParametrizables detallePartida={this.props.detallePartida.detallePartida} campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
 
           <div className="row">
             <div className="col-lg-12">
