@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const AuditoriaFotografiaList = ({auditorias}) => {
+    if(!auditorias.length)
+        return <div></div>;
+
     return (
         <div className="row">
             <div className="col-lg-12">

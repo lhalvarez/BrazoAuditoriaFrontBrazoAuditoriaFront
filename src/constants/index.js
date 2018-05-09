@@ -234,8 +234,9 @@ export const LEYENDAS = Object.freeze({
         ERROR_SELECT_AUDIT: 'Debe seleccionar un tipo de auditoría física',
         ESPERA_REVISION: 'En espera de revisión',
         CARGANDO: 'Cargando...'
-
-
+    },
+    VALIDACION :{
+        AUDITORIA_EFECTUADA: 'La partida que esta visualizando ya tiene un resultado de auditoría registrado. Esta información es sólo de consulta'
     }
 });
 

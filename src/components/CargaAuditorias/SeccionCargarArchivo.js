@@ -39,14 +39,14 @@ class SeccionCargarArchivos extends Component {
       }
       console.log(file.name.split('.').pop());
 
-        if(file.name.split('.').pop() !== 'csv'){
-          file.error = this.props.api.CARGA.FORMATO_ARCHIVO_LEYENDA+' '+this.props.api.CARGA.FORMATO_ARCHIVO;
-          this.setState({fileError:file.error});
-          this.setState({file:null});
-          this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
-        }else{
-          this.setState({fileError:null});
-        }
+      if(file.name.split('.').pop() !== 'csv'){
+        file.error = this.props.api.CARGA.FORMATO_ARCHIVO_LEYENDA+' '+this.props.api.CARGA.FORMATO_ARCHIVO;
+        this.setState({fileError:file.error});
+        this.setState({file:null});
+        this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
+      }else{
+        this.setState({fileError:null});
+      }
 
 
 
@@ -147,18 +147,18 @@ class SeccionCargarArchivos extends Component {
                         <label htmlFor="documento" className="col-sm-2 control-label"></label>
                         <div className="col-sm-12">
 
-                            <Receiver
-                              isOpen={true}
-                              onDragEnter={this.onDragEnter}
-                              onDragOver={this.onDragOver}
-                              onDragLeave={this.onDragLeave}
-                              onFileDrop={this.onChangeFile}
-                            >
-                              <div className="form-control-file text-primary" id="inputDrop" data-title={this.state.nameFile}>
-                              </div>
+                          <Receiver
+                            isOpen={true}
+                            onDragEnter={this.onDragEnter}
+                            onDragOver={this.onDragOver}
+                            onDragLeave={this.onDragLeave}
+                            onFileDrop={this.onChangeFile}
+                          >
+                            <div className="form-control-file text-primary" id="inputDrop" data-title={this.state.nameFile}>
+                            </div>
 
-                            </Receiver>
-                            <div className="msgError text-danger">{this.state.fileError}</div>
+                          </Receiver>
+                          <div className="msgError text-danger">{this.state.fileError}</div>
 
                         </div>
                       </div>

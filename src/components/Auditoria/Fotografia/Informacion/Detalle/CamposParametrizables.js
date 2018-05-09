@@ -7,13 +7,13 @@ class CamposParametrizables extends Component {
   constructor(props) {
     super(props);
     this.Campos = this.Campos.bind(this)
- }
+  }
 
- Campos() {
+  Campos() {
 
- }
+  }
   render () {
-    const detallePartida = this.props.detallePartida.detallePartida;
+    const detallePartida = this.props.detallePartida;
     if(detallePartida){
 
 

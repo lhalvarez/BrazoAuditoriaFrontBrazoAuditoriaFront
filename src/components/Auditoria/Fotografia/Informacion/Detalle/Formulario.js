@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 
 import FotoPartida from '../../../Fisica/FotoPartida';
-import CamposParametrizables  from './CamposParametrizables'
+import CamposParametrizables  from './CamposParametrizables';
+
+import {LEYENDAS} from '../../../../../constants/index.js'
+import {connect} from "react-redux";
+import {enviarDetallePartida, getCatEstadoAuditoria, getPartidaDetail} from "./actions";
+
 
 
 class Formulario extends Component {
@@ -10,8 +15,13 @@ class Formulario extends Component {
     super(props);
     this.toggleForm = this.toggleForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
-    this.fillForm = this.fillForm.bind(this);
+    this.SelectObservaciones = this.SelectObservaciones.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+      detallePartida:this.props.detallePartida,
+      resultadoAuditoria:this.props.detallePartida.resultado
+    }
 
 
   }
@@ -20,7 +30,7 @@ class Formulario extends Component {
   handleSubmit(e){
     e.preventDefault();
 
-    let estatusResultadoAuditoria = $('#estatus').val();
+    var estatusResultadoAuditoria = $('#estatus').val();
     let observacionesResultadoAuditoria = $('#observaciones').val();
     let partida = this.props.detallePartida;
     let folio = 0;
@@ -59,33 +69,31 @@ class Formulario extends Component {
     $panelBody.find('input,textarea').each((index,element) => element.value = '');
   }
 
-  fillForm(){
-    let partida = this.props.detallePartida;
-    if(partida){
-      $('#folio').val(partida.llavePartida.folio);
-      $('#ubicacion').val();
-      $('#estadoCaja').val(partida.detallePartida.estadoCaja);
-      $('#sucursal').val(partida.detallePartida.sucursal);
-      $('#estadoPrenda').val(partida.detallePartida.estadoPrenda);
+  SelectObservaciones(){
+    let cataologoEstadoAuditoria = this.props.cataologoEstadoAuditoria.registros;
+    if(cataologoEstadoAuditoria){
+      return <select name="estatus" id="estatus" className="form-control input-sm">
+        <option value="">Seleccione un tipo de Observación</option>
+        {
+          cataologoEstadoAuditoria.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
+        }
+      </select>;
+    }else{
+      return <div></div>
     }
 
-    let valEstadoAudit = this.props.catEstadoAuditoria.registros;
-    if(valEstadoAudit){
-      valEstadoAudit.map((campo,index)=>{
-        const {id, descripcionCorta, descripcion} = campo;
-        $('#estatus').append($('<option>', {value: descripcionCorta,text: descripcion}));
-      });
-    }
   }
 
 
   render(){
-    if(typeof this.props.detallePartida.llavePartida !== 'undefined' ){
-      this.fillForm();
-    }
-
+    const llavePartida = this.props.objetoPartida.llavePartida;
+    const detallePartida = this.props.objetoPartida.detallePartida;
+    const resultadoAuditoria = this.props.objetoPartida.resultado;
     return(
       <div>
+        { resultadoAuditoria ? <div className="alert alert-warning auditoriaEfectuada">
+          <b>{LEYENDAS.VALIDACION.AUDITORIA_EFECTUADA}</b>
+        </div> : null}
         <form onSubmit={this.handleSubmit}>
           <div className="row" style={{display:'flex'}}>
             <div className="col-md-6" style={{alignItems: 'stretch', display: 'flex'}}>
@@ -104,7 +112,7 @@ class Formulario extends Component {
                         <label htmlFor="folio" className="col-sm-3 col-form-label">No de prenda:</label>
                         <div className="col-sm-3">
 
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="folio"/>
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="folio" value={llavePartida? llavePartida.folio : ''}/>
                         </div>
                         <label htmlFor="ubicacion" className="col-sm-3 col-form-label">Ubicación:</label>
                         <div className="col-sm-3">
@@ -115,17 +123,17 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="estadoCaja" className="col-sm-3 col-form-label">Estado Caja:</label>
                         <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="estadoCaja" placeholder="" />
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="estadoCaja" value={detallePartida? detallePartida.estadoCaja:''} />
                         </div>
                         <label htmlFor="sucursal" className="col-sm-3 col-form-label">No. Sucursal:</label>
                         <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="sucursal" placeholder="" />
+                          <input type="text" className="form-control input-sm" id="sucursal" value={detallePartida? detallePartida.sucursal : ''} />
                         </div>
                       </div>
                       <div className="form-group row">
                         <label htmlFor="estadoPrenda" className="col-sm-3 col-form-label">Estado Prenda:</label>
                         <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="estadoPrenda" placeholder="" />
+                          <input type="text" className="form-control input-sm" id="estadoPrenda" value={detallePartida? detallePartida.estadoPrenda : ''} />
                         </div>
                       </div>
 
@@ -145,20 +153,20 @@ class Formulario extends Component {
                 </div>
                 <div className="panel-body">
                   <FotoPartida
-                      src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg"
-                      crop={{
-                        superiorX: 150,
-                        superiorY: 35,
-                        inferiorX: 650,
-                        inferiorY: 335
-                      }}
+                    src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg"
+                    crop={{
+                      superiorX: 150,
+                      superiorY: 35,
+                      inferiorX: 650,
+                      inferiorY: 335
+                    }}
                   />
                 </div>
               </div>
             </div>
           </div>
 
-            <CamposParametrizables detallePartida={this.props.detallePartida} campos={this.props.campos} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
+          <CamposParametrizables detallePartida={this.props.detallePartida.detallePartida} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
 
           <div className="row">
             <div className="col-lg-12">
@@ -176,8 +184,7 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="estatus" className="col-sm-4 col-form-label">Estatus:</label>
                         <div className="col-sm-8">
-                          <select name="estatus" id="estatus" className="form-control input-sm"></select>
-
+                          {resultadoAuditoria? <b className="estatusText">{resultadoAuditoria.estatus}</b> : <this.SelectObservaciones /> }
                         </div>
                       </div>
                     </div>
@@ -188,7 +195,8 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="observacion-auditoria" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                         <div className="col-sm-10">
-                          <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm"></textarea>
+                          {resultadoAuditoria? <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm " value={resultadoAuditoria.observaciones}></textarea> :
+                            <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm "></textarea>}
                         </div>
                       </div>
                     </div>
@@ -197,9 +205,9 @@ class Formulario extends Component {
                 <div className="panel-footer">
                   <div className="row">
                     <div className="col-sm-12">
-                      <div className="pull-right">
-                        <button type="submit" className="btn btn-primary btn-sm">Guardar</button>
-                      </div>
+                      { resultadoAuditoria ? null : <div className="pull-right">
+                        <button type="submit" className="btn btn-primary btn-sm" >Guardar</button>
+                      </div> }
                     </div>
                   </div>
                 </div>
@@ -213,4 +221,10 @@ class Formulario extends Component {
 }
 
 
-export default Formulario;
+function mapStateToProps(state) {
+  return {
+    objetoPartida: state.detallePartida.detallePartida,
+    cataologoEstadoAuditoria: state.detallePartida.catalogoestadoAuditoria
+  }
+}
+export default connect(mapStateToProps)(Formulario);

@@ -1,11 +1,9 @@
 import {
-  CARGAR_DETALLE_PARTIDA,
-  CARGANDO_DETALLE_PARTIDA,
-  DETALLE_PARTIDA_CARGADA,
   ERROR_CARGAR_DETALLE_PARTIDA,
   ENVIANDO_DETALLE_PARTIDA,
   DETALLE_PARTIDA_ENVIADA,
-  ERROR_ENVIAR_DETALLE_PARTIDA
+  ERROR_ENVIAR_DETALLE_PARTIDA,
+  GET_DETALLE_PARTIDA_CAJA_CERRADA
 } from './actions';
 
 const initialState = {
@@ -17,16 +15,13 @@ const initialState = {
 
 export function cajaCerrada(state = initialState,action){
   switch(action.type){
-    case CARGAR_DETALLE_PARTIDA:
-      return { ...state, loadDetail: true };
-    case CARGANDO_DETALLE_PARTIDA:
-      return {...initialState};
-    case DETALLE_PARTIDA_CARGADA:
+    case GET_DETALLE_PARTIDA_CAJA_CERRADA:
       return {
         ...state,
         rfid: action.rfid,
         folio: action.folio,
         partidaCargada: true,
+        loadDetail: true,
         llavePartida: action.llavePartida,
         detallePartida: action.detallePartida,
         foto: action.foto,
