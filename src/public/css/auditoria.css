@@ -481,3 +481,23 @@ input{
 .visible {
     visibility: visible;
 }
+
+.progress-bar-back {
+    width: 100%;
+    margin-top: 2px;
+    background-color: #dddddd;
+}
+
+.progress-bar-loader {
+    width: 30%;
+    height: 6px;
+    background-color: #2980b9;
+    position: relative;
+    animation: loader 2s infinite;
+}
+
+@-webkit-keyframes loader {
+    0%   {background-color:#2980b9; left:0; top:0;}
+    25%  {background-color:#2980b9; left:70%; top:0;}
+    100% {background-color:#2980b9; left:0; top:0;}
+}

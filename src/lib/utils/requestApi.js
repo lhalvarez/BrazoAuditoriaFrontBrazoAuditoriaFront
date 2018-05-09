@@ -21,13 +21,13 @@ client.interceptors.request.use(function (config) {
   return Promise.reject(err);
 });
 
-const requestApi = function(options) {
+const requestApi = function(options, wHeaders = false) {
 
   const onSuccess = function(response) {
     console.debug('Request Successful!', response);
-    console.log('Respuesta correcta, a implementar')
-    return response.data;
-  }
+    console.log('Respuesta correcta, a implementar');
+    return wHeaders ? response : response.data;
+  };
 
   const onError = function(error) {
     console.error('Request Failed:', error.config);

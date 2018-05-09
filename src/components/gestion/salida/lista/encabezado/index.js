@@ -15,7 +15,7 @@
 import React from 'react';
 import SwitchButton from '../../../../../lib/utils/SwitchButton';
 
-import {TITLES, API} from '../../../../../constants';
+import {TITLES} from '../../../../../constants';
 
 
 /**
@@ -64,7 +64,8 @@ export default function Encabezado(props) {
             &nbsp;
             <button className='btn btn-sm btn-primary'
                     type='button'
-                    onClick={manejadorClickImprimirLista}>
+                    disabled={props.descargando}
+                    onClick={(event) => manejadorClickImprimirLista(event, props)}>
               {TITLES.GESTION.SALIDA.LISTA.IMPRIMIR_LIST}
             </button>
           </div>
@@ -74,7 +75,7 @@ export default function Encabezado(props) {
   );
 }
 
-
-function manejadorClickImprimirLista() {
-  window.open(API.ENDPOINTS.GESTION.SALIDA.EXPORTAR.endpoint);
+function manejadorClickImprimirLista(event, props) {
+  event.target.disabled = true;
+  props.generarReporte(TITLES.GESTION.SALIDA.LISTA.TABLA.REPORTE);
 }

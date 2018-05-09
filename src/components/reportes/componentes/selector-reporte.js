@@ -35,13 +35,13 @@ function opcionesReportes(elemento, indice) {
 /**
  *
  * @param event
- * @param onChange
+ * @param props
  */
-function manejadorCambioReporte(event, onChange) {
+function manejadorCambio(event, props) {
   let valor = event.target.value;
   let indice = parseInt(valor);
 
-  onChange(isNaN(indice) ? -1 : indice);
+  props.onChange(isNaN(indice) ? -1 : indice, props.nombre);
 }
 
 /**
@@ -52,11 +52,11 @@ function manejadorCambioReporte(event, onChange) {
 function getSelect(props) {
   return (
     <select id='slcReporte'
-            name='reporte'
+            name={props.nombre}
             autoFocus
             required={true}
             className='form-control'
-            onChange={event => manejadorCambioReporte(event, props.onChange)}>
+            onChange={event => manejadorCambio(event, props)}>
       <option value=''>{TITLES.REPORTES.DEF_REPORTE}</option>
       {
         props.elementos.map(opcionesReportes)
@@ -73,7 +73,7 @@ function getLoaderSelect() {
   return (
     <div className='wrapper icono-formato-reporte'>
       <span className='fa fa-refresh fa-spin icon-select'/>
-      <select className='form-control' disabled={true}>
+      <select className='form-control' required={true} disabled={true}>
       </select>
     </div>
   );

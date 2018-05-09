@@ -80,7 +80,9 @@ const SalidaPartidasLista = (props) => {
                   automatico={props.automatico}
                   faltantes={props.partidas.totalElementos}
                   cargando={cargando}
-                  actualizarLista={actualizarLista}/>
+                  actualizarLista={actualizarLista}
+                  generarReporte={props.generarReporte}
+                  descargando={props.descargando}/>
       <div className='panel-body'>
         <ReactTable columns={columnas}
                     previousText={TITLES.GESTION.SALIDA.LISTA.TABLA.ANTERIOR}

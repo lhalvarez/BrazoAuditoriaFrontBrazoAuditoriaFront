@@ -12,14 +12,36 @@
  */
 
 
-
-import {API} from "../../../constants";
 import MessageService from "../../../lib/utils/MessageService";
+
 import {addNotification} from "../../Global/GlobalActions";
+
+import {API, TITLES} from "../../../constants";
 
 
 export const GENERAR_REPORTE_REQ = 'GENERAR_REPORTE_REQ';
 export const GENERAR_REPORTE_RES = 'GENERAR_REPORTE_RES';
+
+const AV_CAT = API.AVISOS.REPORTES.REPORTE;
+
+
+function recuperarNombreArchivo(resultado, formato) {
+  let filename = TITLES.REPORTES.DEF_FIL_NAME + formato;
+  let contentDisposition = resultado.headers['content-disposition'];
+  if (contentDisposition && contentDisposition.indexOf('attachment') !== -1) {
+    let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+    let matches = filenameRegex.exec(contentDisposition);
+    if (matches != null && matches[1]) {
+      filename = matches[1].replace(/['"]/g, '');
+    }
+  }
+
+  return filename;
+}
+
+function recuperarContentType(resultado) {
+  return resultado.headers['content-type'] ? resultado.headers['content-type'] : 'application/octet-stream';
+}
 
 
 /**
@@ -33,12 +55,13 @@ export function generarReporte(data) {
 
     MessageService.fetchBlob(API.ENDPOINTS.REPORTES.endpoint, data)
       .then(resultado => {
-        let filename = 'reporte.pdf';
-        let blob = new Blob([resultado], {type: 'application/octet-stream'});
+        let filename = recuperarNombreArchivo(resultado, data.formato);
+        let contentType = recuperarContentType(resultado);
+        let blob = new Blob([resultado.data], {type: contentType});
 
         if (typeof File === 'function') {
           try {
-            blob = new File([resultado], filename, {type: 'application/octet-stream'})
+            blob = new File([resultado.data], filename, {type: contentType})
           } catch (error) {
             console.log('Error al crear el objeto File([blob], filename, {type})', error)
           }
@@ -49,21 +72,16 @@ export function generarReporte(data) {
         } else {
           let URL = window.URL || window.webkitURL;
           let downloadUrl = URL.createObjectURL(blob);
+          let a = document.createElement("a");
 
-          if (filename) {
-            let a = document.createElement("a");
-
-            if (typeof a.download === 'undefined') {
-              window.location = downloadUrl;
-            } else {
-              a.href = downloadUrl;
-              a.download = filename;
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-            }
-          } else {
+          if (typeof a.download === 'undefined') {
             window.location = downloadUrl;
+          } else {
+            a.href = downloadUrl;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
           }
 
           setTimeout(function () {
@@ -72,12 +90,12 @@ export function generarReporte(data) {
         }
 
         dispatch({type: GENERAR_REPORTE_RES});
-        dispatch(addNotification('Generar Reporte', 'Reporte generado correctamente', 'success'));
+        dispatch(addNotification(AV_CAT.TITULO, AV_CAT.MENSAJE.EXITO, 'success'));
       })
       .catch(error => {
         console.log('Ocurrio un error al descargar el reporte', error);
         dispatch({type: GENERAR_REPORTE_RES});
-        dispatch(addNotification('Generar Reporte', 'Ocurrio un error al generar el reporte', 'error'));
+        dispatch(addNotification(AV_CAT.TITULO, AV_CAT.MENSAJE.ERROR, 'error'));
       });
   };
 }

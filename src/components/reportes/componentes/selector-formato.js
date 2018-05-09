@@ -23,14 +23,14 @@ const CLS_NAME = 'icono-formato-reporte fa fa-fw ';
  *
  * @param elemento Elemento
  * @param indice Indice del elemento
- * @param onChange Metodo que manejara los eventos de cambio de seleccion
+ * @param props Metodo que manejara los eventos de cambio de seleccion
  *
  * @returns {*}
  */
-function opcionesFormato(elemento, indice, onChange) {
+function opcionesFormato(elemento, indice, props) {
   return (
     <li key={indice}>
-      <a style={{cursor: 'pointer'}} onClick={() => onChange(indice)}>
+      <a style={{cursor: 'pointer'}} onClick={() => props.onChange(indice, props.nombre)}>
         <span className={CLS_NAME + elemento.descripcion}/> {elemento.descripcionCorta}
       </a>
     </li>
@@ -49,7 +49,7 @@ export default function SelectorFormato(props) {
   return (
     <span className='input-group-btn'>
       <button id='dropdownMenu1'
-              name='formato'
+              name={props.nombre}
               type='button'
               data-toggle='dropdown'
               disabled={!props.elementos.length}
@@ -65,7 +65,7 @@ export default function SelectorFormato(props) {
       <ul className='dropdown-menu'
           aria-labelledby='dropdownMenu1'>
         {
-          props.elementos.map((elemento, indice) => opcionesFormato(elemento, indice, props.onChange))
+          props.elementos.map((elemento, indice) => opcionesFormato(elemento, indice, props))
         }
       </ul>
     </span>

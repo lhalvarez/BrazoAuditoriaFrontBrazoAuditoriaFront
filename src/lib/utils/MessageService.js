@@ -31,7 +31,7 @@ function getAll(endpoint, params){
 
 function save(endpoint, params){
 
-  
+
   var obj = toObject(params);
 
   return requestApi({
@@ -69,13 +69,13 @@ function fetchBuffer(endpoint,body){
   });
 }
 
-function fetchBlob(endpoint, body) {
+function fetchBlob(endpoint, body, wHeaders = true) {
   return requestApi({
     url: endpoint,
     responseType: 'blob',
     method: 'POST',
     data: body
-  });
+  }, wHeaders);
 
 }
 

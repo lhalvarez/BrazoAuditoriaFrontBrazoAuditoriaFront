@@ -60,8 +60,7 @@ export const API = Object.freeze({
         GESTION: {
             SALIDA: {
                 BUSQUEDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/:rfid/:folio/salida' },
-                PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida' },
-                EXPORTAR: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida/pdf' }
+                PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/salida' }
             }
         },
         AUDITORIA: {
@@ -167,7 +166,12 @@ export const TITLES = Object.freeze({
                 DE: 'de',
                 FILAS: 'Filas',
                 SIN_DATOS: 'No existen partidas pendientes de salida',
-                CARGANDO: 'Actualizando...'
+                CARGANDO: 'Actualizando...',
+                REPORTE: {
+                  clave: 'RAUPS001',
+                  descripcion: 'Partidas Pendientes de Salida por Auditoría',
+                  formato: '.pdf'
+                }
               }
             }
         }
@@ -202,7 +206,9 @@ export const TITLES = Object.freeze({
       DEF_REPORTE: 'Seleccione...',
       LBL_FECHA: 'Rango de Fechas',
       LBL_BUTTON: 'Generar Reporte',
-      ERR_FECHA_FUT: 'La fecha no puede ser mayo a la fecha actual'
+      ERR_FECHA_FUT: 'La fecha no puede ser mayo a la fecha actual',
+      ERR_FECHA_INI: 'La fecha no puede ser mayo a la fecha fin',
+      DEF_FIL_NAME: 'reporte'
     }
 });
 

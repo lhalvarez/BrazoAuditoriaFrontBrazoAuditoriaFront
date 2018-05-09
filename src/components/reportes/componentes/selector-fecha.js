@@ -22,7 +22,7 @@ import {TITLES} from "../../../constants/index";
  * @param event
  * @param props
  */
-function manejadorCambioFecha(event, props) {
+function manejadorCambio(event, props) {
   const HOY = new Date();
   const SELECCION = new Date(event.target.value);
 
@@ -58,6 +58,6 @@ export default function SelectorFecha(props) {
            className='form-control'
            required={true}
            style={STYLE}
-           onChange={(event) => manejadorCambioFecha(event, props)}/>
+           onChange={(event) => manejadorCambio(event, props)}/>
   );
 }

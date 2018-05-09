@@ -21,6 +21,7 @@ import SalidaPartidasLista from '../../components/gestion/salida/lista';
 
 import {TITLES} from '../../constants';
 import {ejecutarSalida, actualizarLista, autoActualizarLista} from '../../components/gestion/salida/actions';
+import {generarReporte} from "../../components/reportes/actions/reporte";
 
 
 /**
@@ -63,9 +64,10 @@ function mapStateToProps(state) {
     rfid: state.salidaPartidas.rfid,
     automatico: state.salidaPartidas.automatico,
     p: state.salidaPartidas.p,
-    t: state.salidaPartidas.t
+    t: state.salidaPartidas.t,
+    descargando: state.reportes.descargando
   };
 }
 
 
-export default connect(mapStateToProps, {ejecutarSalida, actualizarLista, autoActualizarLista})(SalidaPartidas);
+export default connect(mapStateToProps, {ejecutarSalida, actualizarLista, autoActualizarLista, generarReporte})(SalidaPartidas);

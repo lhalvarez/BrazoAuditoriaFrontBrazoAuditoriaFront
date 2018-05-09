@@ -15,34 +15,41 @@
 import React, {Component} from 'react';
 
 import Encabezado from './componentes/encabezado';
-import SelectorReporte from './componentes/selector-reporte';
-import SelectorFormato from './componentes/selector-formato';
-import SelectorFecha from  './componentes/selector-fecha';
+import GrupoReporte from './componentes/grupo-reporte';
+import GrupoFecha from './componentes/grupo-fecha';
+import GrupoGenerar from './componentes/grupo-generar';
 
 import {TITLES} from '../../constants/index';
 
 
-// function eventSubmit(e, props) {
-//   e.preventDefault();
-//   let element = e.target.elements;
-//
-//   let reporteIx = element['reporte'].value;
-//   let reporte = props.reporte[reporteIx];
-//
-//   let body = {
-//     clave: reporte.descripcionCorta,
-//     descripcion: reporte.descripcion,
-//     formato: element['formato'].value,
-//     parametros: {
-//       RANGO_FECHA: {
-//         fechaInicio: element['fechaInicio'].value,
-//         fechaFin: element['fechaFin'].value
-//       }
-//     }
-//   };
-//
-//   props.generarReporte(body);
-// }
+const CLASSE_CSS_ERROR = 'has-error';
+
+function armarCuerpo(state) {
+  return {
+    clave: state.reporte.descripcionCorta,
+    descripcion: state.reporte.descripcion,
+    formato: state.formato.descripcionCorta,
+    parametros: {
+      RANGO_FECHA: {
+        fechaInicio: state.fechaInicio,
+        fechaFin: state.fechaFin
+      }
+    }
+  };
+}
+
+function mostrarErrorFechaInicio() {
+  const F_INI = document.getElementById('fechaInicio');
+
+  F_INI.focus();
+  F_INI.value = '';
+  F_INI.setCustomValidity(TITLES.REPORTES.ERR_FECHA_INI);
+
+  if (F_INI.reportValidity) {
+    F_INI.reportValidity();
+  }
+}
+
 
 class Reportes extends Component {
   constructor(props) {
@@ -52,34 +59,36 @@ class Reportes extends Component {
       formato: undefined,
       reporte: undefined,
       fechaInicio: undefined,
-      fechaFin: undefined
+      fechaFin: undefined,
+      progress: false,
+      invalidRep: '',
+      invalidFec: ''
     };
 
-    this.manejarCambioFormato = this.manejarCambioFormato.bind(this);
-    this.manejadorCambioReporte = this.manejadorCambioReporte.bind(this);
+    this.manejadorInvalido = this.manejadorInvalido.bind(this);
     this.manejadorCambioFecha = this.manejadorCambioFecha.bind(this);
+    this.manejadorCambioReporte = this.manejadorCambioReporte.bind(this);
     this.manejadorEnvioFormulario = this.manejadorEnvioFormulario.bind(this);
   }
 
-  manejarCambioFormato(indice) {
-    let formato = this.props.formato[indice];
+  manejadorCambioReporte(indice, nombre) {
+    let elemento = this.props[nombre][indice];
 
     this.setState({
-      formato
-    });
-  }
-
-  manejadorCambioReporte(indice) {
-    let reporte = this.props.reporte[indice];
-
-    this.setState({
-      reporte
+      [nombre]: elemento
     });
   }
 
   manejadorCambioFecha(fecha, nombre) {
     this.setState({
       [nombre]: fecha
+    });
+  }
+
+  manejadorInvalido(event) {
+    this.setState({
+      invalidRep: event.target instanceof HTMLSelectElement ? CLASSE_CSS_ERROR : this.state.invalidRep,
+      invalidFec: event.target instanceof HTMLInputElement ? CLASSE_CSS_ERROR : this.state.invalidFec
     });
   }
 
@@ -90,43 +99,36 @@ class Reportes extends Component {
     const FIN = new Date(this.state.fechaFin);
 
     if (INICIO > FIN) {
-      const F_INI = document.getElementById('fechaInicio');
-
-      F_INI.focus();
-      F_INI.value = '';
-      F_INI.setCustomValidity(TITLES.REPORTES.ERR_FECHA_FUT);
-
-      if (F_INI.reportValidity) {
-        F_INI.reportValidity();
-      }
+      this.setState({
+        invalidFec: CLASSE_CSS_ERROR
+      }, mostrarErrorFechaInicio);
     } else {
-      console.log(event.target, event.currentTarget, event.currentTarget);
-      document.getElementById('btnDescargar').disabled = true;
-      const BODY = {
-        clave: this.state.reporte.descripcionCorta,
-        descripcion: this.state.reporte.descripcion,
-        formato: this.state.formato.descripcionCorta,
-        parametros: {
-          RANGO_FECHA: {
-            fechaInicio: this.state.fechaInicio,
-            fechaFin: this.state.fechaFin
-          }
-        }
-      };
+      document.getElementById('fechaInicio').setCustomValidity('');
 
-      this.props.generarReporte(BODY);
+      this.setState({
+        invalidRep: '',
+        invalidFec: '',
+        progress: true,
+      }, () => this.props.generarReporte(armarCuerpo(this.state)));
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      progress: (this.state.progress !== nextProps.descargando ? nextProps.descargando : this.state.progress),
+      formato: (this.state.formato !== nextProps.formato[0] ? nextProps.formato[0] : this.state.formato)
+    });
+  }
+
   componentDidMount() {
-    setTimeout(
-    this.props.recuperarCatalogos, 3000);
+    if (!(this.props.reporte.length && this.props.formato.length)) {
+      this.props.recuperarCatalogos();
+    }
   }
 
   render() {
     const VACIO = !(this.props.reporte.length && this.props.formato.length);
     const DISABLED_BUTTON = VACIO || this.props.descargando;
-    this.state.formato = this.props.formato[0];
 
     return (
       <div className='panel panel-default'>
@@ -134,56 +136,17 @@ class Reportes extends Component {
         <div className='panel-body'>
           <form id='frmReportes'
                 autoComplete='off'
+                onInvalid={this.manejadorInvalido}
                 onSubmit={event => {this.manejadorEnvioFormulario(event)}}>
-            <div className='col-lg-9 form-group'>
-              <label htmlFor='slcReporte'
-                     className='col-lg-3 control-label'>{TITLES.REPORTES.LBL_REPORTE}</label>
-              <div className='col-lg-9'>
-                <div className='input-group'>
-                  <span className='input-group-addon'>
-                    <span className='fa fa-bar-chart'/>
-                  </span>
-                  <SelectorReporte elementos={this.props.reporte}
-                                   onChange={this.manejadorCambioReporte}/>
-                  <SelectorFormato elementos={this.props.formato}
-                                   seleccionado={this.state.formato || this.props.formato[0]}
-                                   onChange={this.manejarCambioFormato}/>
-                  <span className='input-group-addon asterisco-requerido'>
-                    <span className='fa fa-asterisk'/>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className='col-lg-9 form-group'>
-              <label htmlFor='fechaInicio'
-                     className='col-lg-3 control-label'>{TITLES.REPORTES.LBL_FECHA}</label>
-              <div className='col-lg-9'>
-                <div className='input-group'>
-                  <span className='input-group-addon'>
-                    <span className='fa fa-calendar'/>
-                  </span>
-                  <SelectorFecha nombre='fechaInicio'
-                                 ancho='50%'
-                                 onChange={this.manejadorCambioFecha}/>
-                  <SelectorFecha nombre='fechaFin'
-                                 ancho='50%'
-                                 onChange={this.manejadorCambioFecha}/>
-                  <span className='input-group-addon asterisco-requerido'>
-                    <span className='fa fa-asterisk'/>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className='col-lg-9 form-group'>
-              <div className='pull-right'
-                   style={{paddingRight: '15px'}}>
-                <input id='btnDescargar'
-                       className='btn btn-primary'
-                       type='submit'
-                       value={TITLES.REPORTES.LBL_BUTTON}
-                       disabled={DISABLED_BUTTON}/>
-              </div>
-            </div>
+            <GrupoReporte cssErr={this.state.invalidRep}
+                          reportes={this.props.reporte}
+                          formatos={this.props.formato}
+                          seleccionado={this.state.formato}
+                          manejadorCambioReporte={this.manejadorCambioReporte}/>
+            <GrupoFecha cssErr={this.state.invalidFec}
+                        manejadorCambioFecha={this.manejadorCambioFecha}/>
+            <GrupoGenerar activo={DISABLED_BUTTON}
+                          progress={this.state.progress}/>
           </form>
         </div>
       </div>
