@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import NumberFormat from 'react-number-format';
 
 import { store } from '../../../../store';
 import { enviarDetallePartida } from './actions';
@@ -28,6 +29,7 @@ class DetallePartidaCajaAbierta extends Component{
         this.handleStoreChange = this.handleStoreChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleNumberChange = this.handleNumberChange.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
         this.clearForm = this.clearForm.bind(this);
         this.stageData = this.stageData.bind(this);
@@ -64,6 +66,16 @@ class DetallePartidaCajaAbierta extends Component{
 
         this.setState(prevState => { 
             return {datos: Object.assign({},{...prevState.datos},{[name]:value})};
+        });
+    }
+
+    handleNumberChange(e){
+        const { name, value } = e.target;
+
+        let castValue = Number(value.replace(/\,/g,''));
+
+        this.setState(prevState => { 
+            return {datos: Object.assign({},{...prevState.datos},{[name]:castValue})};
         });
     }
 
@@ -128,18 +140,36 @@ class DetallePartidaCajaAbierta extends Component{
         const { descripcion, ...datosDinamicos } = this.datosDinamicos;
         let fields = [];
 
+        let moneyFields = [
+            'prestamo',
+            'prestamoMaximoSugerido',
+            'prestamoSugerido',
+            'valorComercial',
+            'valorMonte'
+        ];
+        let isMoneyField = false;
+
         let labelText;
         let numericKey = 0;
 
         if(readOnly){
             for(let key in datosDinamicos){
+                isMoneyField = moneyFields.includes(key);
                 labelText = key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
 
                 fields.push(
                     <div key={++numericKey} className="form-group row">
                         <label htmlFor={key} className="col-sm-4 col-form-label">{labelText.charAt(0).toUpperCase() + labelText.slice(1)}:</label>
                         <div className="col-sm-8">
-                            <input disabled="disabled" value={datos[key]} type="text" className="form-control input-sm" id={key} name={key} placeholder="" />
+                            {
+                                isMoneyField ?
+                                <div className="input-group">
+                                    <span className="input-group-addon">$</span>
+                                    <NumberFormat disabled="disabled" value={datos[key]} className="form-control input-sm" id={key} name={key} thousandSeparator={true} />
+                                </div>
+                                :
+                                <input disabled="disabled" value={datos[key]} type="text" className="form-control input-sm" id={key} name={key} />
+                            }
                         </div>
                     </div>
                 );
@@ -147,13 +177,22 @@ class DetallePartidaCajaAbierta extends Component{
         }
         else{
             for(let key in datosDinamicos){
+                isMoneyField = moneyFields.includes(key);
                 labelText = key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
 
                 fields.push(
                     <div key={++numericKey} className="form-group row">
                         <label htmlFor={key+'Din'} className="col-sm-4 col-form-label">{labelText.charAt(0).toUpperCase() + labelText.slice(1)}:</label>
                         <div className="col-sm-8">
-                            <input value={((key+'Din') in datos) ? datos[key+'Din'] : datos[key]} onChange={this.handleInputChange} type="text" className="form-control input-sm" id={key+'Din'} name={key+'Din'} placeholder="" />
+                            {
+                                isMoneyField ?
+                                <div className="input-group">
+                                    <span className="input-group-addon">$</span>
+                                    <NumberFormat value={((key+'Din') in datos) ? datos[key+'Din'] : datos[key]} onChange={this.handleNumberChange} className="form-control input-sm" id={key+'Din'} name={key+'Din'} thousandSeparator={true} />
+                                </div>
+                                :
+                                <input value={((key+'Din') in datos) ? datos[key+'Din'] : datos[key]} onChange={this.handleInputChange} type="text" className="form-control input-sm" id={key+'Din'} name={key+'Din'} />
+                            }
                         </div>
                     </div>
                 );

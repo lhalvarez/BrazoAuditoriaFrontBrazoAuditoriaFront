@@ -2,7 +2,7 @@ const userData = {
 	"token":"sadfdsafdsafsdfsadfsadfasdfsad",
 	"detalleUsuario": {
 		"correo": "email@fakesession.com",
-		"nombreCompleto": "Sesión Inhabilitada",
+		"nombreCompleto": "Usuario",
 		"sucursal": 0,
 		"usuario": "fakeSession",
 		"rol": 1
