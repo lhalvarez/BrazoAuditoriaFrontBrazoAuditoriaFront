@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import NumberFormat from 'react-number-format';
 
 
 
@@ -36,17 +37,61 @@ class CamposParametrizables extends Component {
 
                       {Object.keys(detallePartida).map(function(key,index) {
 
+                        let moneyFields = [
+                            'prestamo',
+                            'prestamoMaximoSugerido',
+                            'prestamoSugerido',
+                            'valorComercial',
+                            'valorMonte',
+                            'costoMetal',
+                            'importeGramo'
+                        ];
+                        let dateFields = [
+                            'fechaCreacion',
+                            'fechaIngreso',
+                            'fechaModificacion'
+                        ];
+                        let isMoneyField = false;
+                        let isDateField = false;
+                        isMoneyField = moneyFields.includes(key);
+                        isDateField = dateFields.includes(key);
+
                         let Name = key.replace( /([A-Z])/g, " $1" );
                         let fieldName = Name.charAt(0).toUpperCase() + Name.slice(1);
-                        return (
-                          <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
-                            <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
-                            <div className="col-sm-6">
-                              <input name={key} id={key} className="form-control input-sm" value={detallePartida[key]}/>
-                            </div>
-                          </div>
 
-                        );
+                        if(isMoneyField){
+                          return (
+                            <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
+                              <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
+                              <div className="col-sm-6">
+                                  <NumberFormat disabled="disabled" value={detallePartida[key]} className="form-control input-sm" id={key} name={key} thousandSeparator={true} prefix={'$ '}/>
+                              </div>
+                            </div>
+                          );
+                        }else if (isDateField) {
+                          var b = detallePartida[key].split(/\D+/);
+                          let dat =  new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+                          let date = new Intl.DateTimeFormat('en-US').format(dat);
+                          return (
+                            <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
+                              <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
+                              <div className="col-sm-6">
+                                  <input disabled="disabled" value={date} className="form-control input-sm" id={key} name={key} />
+                              </div>
+                            </div>
+                          );
+                        }else{
+                          return (
+                            <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
+                              <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
+                              <div className="col-sm-6">
+                                <input disabled="disabled" name={key} id={key} className="form-control input-sm" value={detallePartida[key]}/>
+                              </div>
+                            </div>
+
+                          );
+                        }
+
                       })}
 
 
