@@ -7,7 +7,7 @@ const initialState = {
 
 export function auditoriaReducer(state = initialState, action) {
     let result = null;
-    
+
     switch (action.type) {
         case PAGINAR_PARTIDAS:
             result = action.payload ? { list: action.payload.object.contenido,
@@ -25,10 +25,14 @@ export function auditoriaReducer(state = initialState, action) {
                                         total: action.payload.object.totalElementos } : initialState;
             return Object.assign({}, state, result);
         case BUSQUEDA_AUDITORIAS:
+            if(!action.payload){
+              return state;
+            }
+
             let nombreArchivo = ('carga' in action.payload.object) ? action.payload.object.carga.nombreArchivo : action.payload.object.nombreArchivo;
 
-            result = action.payload ? [{ 
-                id: action.payload.object.id, 
+            result = action.payload ? [{
+                id: action.payload.object.id,
                 totalPartidas: 10, // todo: falta verificar de donde se obtiene el total de partidas
                 nombreArchivo
             }] : [];

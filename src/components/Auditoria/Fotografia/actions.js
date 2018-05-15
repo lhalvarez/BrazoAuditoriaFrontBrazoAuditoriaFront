@@ -14,12 +14,13 @@ const handleResponse = (dispatch, response, type) => {
 
 const handleError = (dispatch, err, type) => {
     console.log(`Error al procesar la peticion`);
-    dispatch({type: type, payload: null});
     if (err.data) {
         dispatch(addNotification(API.AVISOS.GLOBAL.error_consulta, err.data.message, 'error'));
     } else {
         dispatch(addNotification(API.AVISOS.GLOBAL.error_consulta, err, 'error'));
     }
+    dispatch({type: type, payload: null});
+
 };
 
 export function paginarResultados (idAuditoria, page, pageSize) {
@@ -57,7 +58,7 @@ export function paginarAuditorias(page, pageSize) {
         p: page,
         t: pageSize
     };
-    
+
     return (dispatch) => {
         MessageService.getAll(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.AUDITORIAS.PAGINADO.endpoint, params)
         .then((response) => {
@@ -72,7 +73,7 @@ export function paginarAuditorias(page, pageSize) {
 export function buscarAuditoria(idAuditoria, nombreArchivo) {
     const endpoints = API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.AUDITORIAS.BUSQUEDA;
     let endpoint = null, param = null;
-    
+
     if (idAuditoria) {
         endpoint = endpoints.ID.endpoint;
         param = idAuditoria;
@@ -80,7 +81,7 @@ export function buscarAuditoria(idAuditoria, nombreArchivo) {
         endpoint = endpoints.ARCHIVO.endpoint;
         param = nombreArchivo;
     }
-    
+
     return (dispatch) => {
         MessageService.getById(endpoint, param)
         .then((response) => {
