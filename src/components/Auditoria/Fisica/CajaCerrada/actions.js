@@ -2,19 +2,12 @@ import { API, CATALOGOS } from '../../../../constants';
 import MessageService from '../../../../lib/utils/MessageService';
 import { addNotification } from '../../../Global/GlobalActions';
 
-export const ERROR_CARGAR_DETALLE_PARTIDA= 'ERROR_CARGAR_DETALLE_PARTIDA';
-
-export const ENVIANDO_DETALLE_PARTIDA = 'ENVIANDO_DETALLE_PARTIDA';
-export const DETALLE_PARTIDA_ENVIADA = 'DETALLE_PARTIDA_ENVIADA';
-export const ERROR_ENVIAR_DETALLE_PARTIDA = 'ERROR_ENVIAR_DETALLE_PARTIDA';
-
-
+export const ERROR_CARGAR_DETALLE_PARTIDA_CAJA_CERRADA= 'ERROR_CARGAR_DETALLE_PARTIDA_CAJA_CERRADA';
 export const GET_DETALLE_PARTIDA_CAJA_CERRADA = 'GAT_DETALLE_PARTIDA_CAJA_CERRADA';
-export const GAT_CATALOGO_OBSERVACIONES = 'GAT_CATALOGO_OBSERVACIONES';
+export const FLUSH_DETALLE_PARTIDA = 'FLUSH_DETALLE_PARTIDA';
+export const DETALLE_PARTIDA_CC_ENVIADA = 'DETALLE_PARTIDA_CC_ENVIADA';
 
-export function cargarDetallePartida(){
-  return dispatch => dispatch({ type: CARGAR_DETALLE_PARTIDA })
-}
+
 
 export function obtenerDetallePartida(rfid,folio){
   return dispatch => {
@@ -26,13 +19,32 @@ export function obtenerDetallePartida(rfid,folio){
             dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
           })
           .catch(error => {
-            dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA });
+            dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA_CAJA_CERRADA });
             dispatch( addNotification(API.AVISOS.GLOBAL.error_consulta,error.data.message,'error') );
           });
       })
       .catch(error => {
-        dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA });
+        dispatch({ type: ERROR_CARGAR_DETALLE_PARTIDA_CAJA_CERRADA });
         dispatch( addNotification(API.AVISOS.GLOBAL.error_consulta,error.data.message,'error') );
+      });
+  }
+}
+
+export function flushdetallePartida(){
+  return dispatch => {
+    dispatch({type:FLUSH_DETALLE_PARTIDA});
+  }
+}
+
+export function enviarResultado(requestBody){
+  return dispatch => {
+    MessageService.save(API.ENDPOINTS.AUDITORIA.RESULTADO.endpoint,requestBody)
+      .then(response => {
+        dispatch({ type: DETALLE_PARTIDA_CC_ENVIADA });
+        dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
+      })
+      .catch(error => {
+        dispatch( addNotification('Error al guardar',error.data.message,'error') );
       });
   }
 }

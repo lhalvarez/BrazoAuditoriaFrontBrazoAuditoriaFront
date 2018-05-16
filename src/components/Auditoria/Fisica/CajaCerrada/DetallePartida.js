@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import FotoPartida from '../FotoPartida';
 import CamposParametrizables  from '../../Fotografia/Informacion/Detalle/CamposParametrizables';
-import SwitchButton from '../../../../lib/utils/SwitchButton.js'
+import SwitchButton from '../../../../lib/utils/SwitchButton.js';
 
 class DetallePartidaCajaCerrada extends Component{
   static propTypes = {
@@ -13,29 +13,58 @@ class DetallePartidaCajaCerrada extends Component{
   constructor(){
     super();
 
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSwitchChange = this.handleSwitchChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.state = {
+      coincideDescripcion:'',
+      coincidePeso:'',
+      descripcion:'',
+      estatus:'',
+      observaciones:'',
+      peso:'',
+      requiereApertura:false
+    };
+  }
+
+  handleInputChange(e){
+      const { name, value } = e.target;
+
+      this.setState({[name]:value});
+  }
+
+  handleSwitchChange(e){
+    this.setState({requiereApertura:e});
   }
 
   handleSubmit(e){
     e.preventDefault();
-    let coincideDescripcion = $('#coincideDescripcion').val();
-    let pesoCoincide = $('#pesoCoincide').val();
-    let descripcionPartida = $('#descripcionPartida').val();
-    let peso = $('#peso').val();
-    let estatus = $('#estatus').val();
-    let observacion = $('#observacion').val();
-    let requiereApertura = $('#requiereApertura').val();
+    console.log(this.state);
+    let coincideDescripcion = this.state.coincideDescripcion === '1' ? true : false;
+    let coincidePeso = this.state.coincidePeso === '1' ? true : false;
 
-    console.log(coincideDescripcion);
-    console.log(pesoCoincide);
-    console.log(descripcionPartida);
-    console.log(peso);
-    console.log(estatus);
-    console.log(observacion);
-    console.log(requiereApertura);
+    let resultadoAuditoria = {
+                "cajaAbierta": null,
+                "cajaCerrada": {
+                  "coincideDescripcion": coincideDescripcion,
+                  "coincidePeso": coincidePeso,
+                  "descripcion": this.state.descripcion,
+                  "peso": this.state.peso,
+                  "requiereApertura": this.state.requiereApertura
+                },
+                "estatus": this.state.estatus,
+                "folio": this.props.cajaCerrada.llavePartida.folio,
+                "idAuditoria": this.props.cajaCerrada.llavePartida.idAuditoria,
+                "idResultado": null,
+                "observaciones": this.state.observaciones
+              }
+
+    console.log(resultadoAuditoria);
+    this.props.enviarResultado(resultadoAuditoria);
   }
+
 
   toggleForm(e){
     let $icon = $(e.target);
@@ -54,6 +83,7 @@ class DetallePartidaCajaCerrada extends Component{
   }
 
   render(){
+    let {requiereApertura} = this.state;
     return (
       <form onSubmit={this.handleSubmit} ref={el => this.el = el}>
         <div className="row">
@@ -72,7 +102,7 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="sucursal" className="col-sm-4 col-form-label">Número de sucursal:</label>
                       <div className="col-sm-8">
-                        <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="sucursal" value={this.props.cajaCerrada.detallePartida.sucursal} />
+                        <input autoFocus="autoFocus" type="text" className="form-control input-sm" defaultValue={this.props.cajaCerrada.detallePartida.sucursal} />
 
                       </div>
                     </div>
@@ -80,7 +110,7 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="cliente" className="col-sm-4 col-form-label">Cliente:</label>
                       <div className="col-sm-8">
-                        <input type="text" className="form-control input-sm" id="cliente" value={this.props.cajaCerrada.detallePartida.nombreCliente} />
+                        <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.nombreCliente} />
 
                       </div>
                     </div>
@@ -88,21 +118,21 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="valuador" className="col-sm-4 col-form-label">Valuador:</label>
                       <div className="col-sm-8">
-                        <input type="text" className="form-control input-sm" id="valuador" value={this.props.cajaCerrada.detallePartida.nombrePV}/>
+                        <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.nombrePV}/>
                       </div>
                     </div>
 
                     <div className="form-group row">
                       <label htmlFor="estado-prenda" className="col-sm-4 col-form-label">Estado de la prenda:</label>
                       <div className="col-sm-8">
-                        <input type="text" className="form-control input-sm" id="estado-prenda" value={this.props.cajaCerrada.detallePartida.estadoPrenda} />
+                        <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.estadoPrenda} />
                       </div>
                     </div>
 
                     <div className="form-group row">
                       <label htmlFor="caja" className="col-sm-4 col-form-label">Estado de la caja:</label>
                       <div className="col-sm-8">
-                        <input type="text" className="form-control input-sm" id="caja" value={this.props.cajaCerrada.detallePartida.estadoCaja} />
+                        <input type="text" className="form-control input-sm" defaultValue={this.props.cajaCerrada.detallePartida.estadoCaja} />
                       </div>
                     </div>
                   </div>
@@ -154,16 +184,18 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="coincideDescripcion" className="col-sm-4 col-form-label">Coincide descripción:</label>
                       <div className="col-sm-8">
-                        <select name="coincide-descripcion" id="coincideDescripcion" className="form-control input-sm">
+                        <select name="coincideDescripcion" id="coincideDescripcion" onChange={this.handleInputChange} className="form-control input-sm" required>
+                          <option value="">Seleccione una opción</option>
                           <option value="0">No</option>
                           <option value="1">Si</option>
                         </select>
                       </div>
                     </div>
                     <div className="form-group row">
-                      <label htmlFor="pesoCoincide" className="col-sm-4 col-form-label">Peso coincide:</label>
+                      <label htmlFor="coincidePeso" className="col-sm-4 col-form-label">Peso coincide:</label>
                       <div className="col-sm-8">
-                        <select name="pesoCoincide" id="pesoCoincide" className="form-control input-sm">
+                        <select name="coincidePeso" id="coincidePeso" onChange={this.handleInputChange} className="form-control input-sm" required>
+                          <option value="">Seleccione una opción</option>
                           <option value="0">No</option>
                           <option value="1">Si</option>
                         </select>
@@ -175,13 +207,13 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="descripcion" className="col-sm-4 col-form-label">Descripción:</label>
                       <div className="col-sm-8">
-                        <input  type="text" className="form-control input-sm" id="descripcionPartida"  />
+                        <input  type="text" name="descripcion" className="form-control input-sm" onChange={this.handleInputChange} id="descripcion2" required />
                       </div>
                     </div>
                     <div className="form-group row">
                       <label htmlFor="peso" className="col-sm-4 col-form-label">Peso:</label>
                       <div className="col-sm-8">
-                        <input  type="text" className="form-control input-sm" id="peso"  />
+                        <input  type="text" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="peso" required />
                       </div>
                     </div>
                   </div>
@@ -212,11 +244,13 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="estatus" className="col-sm-4 col-form-label">Estatus:</label>
                       <div className="col-sm-8">
-                        <select name="coincide-descripcion" id="estatus" className="form-control input-sm">
+                        <select name="estatus" id="estatus" defaultValue="0" className="form-control input-sm" onChange={this.handleInputChange} required>
+                        <option value="0">Seleccione un estatus</option>
                           {this.props.cajaCerrada.tiposObservacion.map((campo,index)=>{
                             const {id, descripcionCorta, descripcion} = campo;
-                            console.log(campo)
-                            return <option value={descripcionCorta}> {descripcion}</option>;
+                            return <option value={descripcionCorta} key={id}> {descripcion}</option>;
+
+
                           })}
                         </select>
                       </div>
@@ -225,17 +259,18 @@ class DetallePartidaCajaCerrada extends Component{
                   <div className="col-md-6">
                     <div className="form-group row">
                       <label htmlFor="observacion" className="col-sm-4 col-form-label">Requiere apertura:</label>
-                      <SwitchButton id="requiereApertura"/>
+                      <SwitchButton name="requiereApertura" checked={requiereApertura} onChange={this.handleSwitchChange}/>
                     </div>
+
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="form-group row">
-                      <label htmlFor="observacion" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
+                      <label htmlFor="observaciones" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                       <div className="col-sm-10">
-                        <textarea name="" id="observacion" cols="30" rows="4" className="form-control input-sm"></textarea>
+                        <textarea name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm" onChange={this.handleInputChange}></textarea>
                       </div>
                     </div>
                   </div>
@@ -258,9 +293,4 @@ class DetallePartidaCajaCerrada extends Component{
   }
 }
 
-function mapStateToProps(state){
-  return {
-  }
-}
-
-export default connect(mapStateToProps)(DetallePartidaCajaCerrada);
+export default (DetallePartidaCajaCerrada);

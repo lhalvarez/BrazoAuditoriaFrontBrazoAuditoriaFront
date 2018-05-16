@@ -64,7 +64,7 @@ class CamposParametrizables extends Component {
                             <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
                               <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
                               <div className="col-sm-6">
-                                  <NumberFormat disabled="disabled" value={detallePartida[key]} className="form-control input-sm" id={key} name={key} thousandSeparator={true} prefix={'$ '}/>
+                                  <NumberFormat disabled="disabled" value={detallePartida[key]?detallePartida[key]:''} className="form-control input-sm" id={key} name={key} thousandSeparator={true} prefix={'$ '}/>
                               </div>
                             </div>
                           );
@@ -76,7 +76,7 @@ class CamposParametrizables extends Component {
                             <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
                               <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
                               <div className="col-sm-6">
-                                  <input disabled="disabled" value={date} className="form-control input-sm" id={key} name={key} />
+                                  <input disabled="disabled" value={date?date:''} className="form-control input-sm" id={key} name={key} />
                               </div>
                             </div>
                           );
@@ -85,7 +85,7 @@ class CamposParametrizables extends Component {
                             <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
                               <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
                               <div className="col-sm-6">
-                                <input disabled="disabled" name={key} id={key} className="form-control input-sm" value={detallePartida[key]}/>
+                                <input disabled="disabled" name={key} id={key} className="form-control input-sm" value={detallePartida[key]?detallePartida[key]:''}/>
                               </div>
                             </div>
 

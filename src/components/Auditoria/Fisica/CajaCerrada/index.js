@@ -7,12 +7,9 @@ import { TITLES } from '../../../../constants';
 import FormularioBusquedaPartida from './FormularioBusquedaPartida';
 import DetallePartidaCajaCerrada from './DetallePartida';
 import {CAMPOS} from '../../../../data/fakeSelectsParametrizables';
-import { obtenerDetallePartida ,newTest} from './actions';
+import { obtenerDetallePartida ,flushdetallePartida,enviarResultado} from './actions';
 
 class AuditoriaFisicaCajaCerrada extends Component{
-  static propTypes = {
-
-  };
 
   constructor(){
     super();
@@ -22,41 +19,25 @@ class AuditoriaFisicaCajaCerrada extends Component{
       loadDetail: false
     };
 
-    this.handleStoreChange = this.handleStoreChange.bind(this);
-    this.showDetail = this.showDetail.bind(this);
-    this.unsuscribe = store.subscribe(this.handleStoreChange);
   }
-
-  handleStoreChange(){
-    if(store.getState().cajaCerrada.loadDetail){
-      this.setState({
-        title: TITLES.AUDITORIA.FISICA.CAJA_CERRADA.DETALLE_PARTIDA,
-        loadDetail: store.getState().cajaCerrada.loadDetail
-      });
-
-    }
-  }
-
-  showDetail(){
-    if(this.state.loadDetail){
-      return <DetallePartidaCajaCerrada campos={CAMPOS} />;
-    }
-    return <div> </div>
-  }
-
 
   componentWillUnmount(){
-    this.unsuscribe();
+    this.props.flushdetallePartida();
   }
 
+
+
+
+
   render(){
-    const { title, loadDetail } = this.state;
+    const { title } = this.state;
+    const {loadDetail} = this.props
 
     return (
       <div>
         <ContainerTitle title={title} />
         <FormularioBusquedaPartida obtenerDetallePartida={this.props.obtenerDetallePartida} />
-        {loadDetail && <DetallePartidaCajaCerrada cajaCerrada={store.getState().cajaCerrada} />}
+        {loadDetail && <DetallePartidaCajaCerrada cajaCerrada={this.props.cajaCerrada} enviarResultado={this.props.enviarResultado}/>}
       </div>
     );
   }
@@ -64,8 +45,9 @@ class AuditoriaFisicaCajaCerrada extends Component{
 
 function mapStateToProps(state){
   return {
+    cajaCerrada: state.cajaCerrada,
+    loadDetail: state.cajaCerrada.loadDetail
   }
 }
 
-export default connect(mapStateToProps, {obtenerDetallePartida,newTest} )(AuditoriaFisicaCajaCerrada);
-
+export default connect(mapStateToProps, {obtenerDetallePartida,flushdetallePartida,enviarResultado} )(AuditoriaFisicaCajaCerrada);
