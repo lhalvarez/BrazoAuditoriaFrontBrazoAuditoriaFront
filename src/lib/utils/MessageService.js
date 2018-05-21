@@ -79,9 +79,18 @@ function fetchBlob(endpoint, body, wHeaders = true) {
 
 }
 
+function upload(endpoint,params,onUploadProgress){
+  return requestApi({
+    url: `${endpoint}`,
+    method: 'POST',
+    data: params,
+    onUploadProgress
+  });
+}
+
 
 const MessageService = {
-  getById, save, update, getAll, destroy, fetchBuffer, fetchBlob
+  getById, save, update, getAll, destroy, fetchBuffer, fetchBlob, upload
 }
 
 

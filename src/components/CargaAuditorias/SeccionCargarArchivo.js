@@ -18,11 +18,13 @@ class SeccionCargarArchivos extends Component {
     this.onDragEnter = this.onDragEnter.bind(this);
     this.onDragOver = this.onDragOver.bind(this);
     this.onDragLeave = this.onDragLeave.bind(this);
+    this.onUploadProgress = this.onUploadProgress.bind(this);
     this.state = {
       tipoCarga: '',
       file:null,
       nameFile: this.props.api.CARGA.DD_VACIO,
-      fileError: null
+      fileError: null,
+      percentage: 0
     };
 
   };
@@ -75,10 +77,14 @@ class SeccionCargarArchivos extends Component {
     this.fileUpload(this.state.file);
   }
   resetForm = () => {
+    let newState = {
+      fileError: null,
+      file: null,
+      nameFile: this.props.api.CARGA.DD_VACIO,
+      percentage: 0
+    };
 
-    this.setState({fileError:null});
-    this.setState({file:null});
-    this.setState({nameFile:this.props.api.CARGA.DD_VACIO});
+    this.setState(newState);
     $('#documento').val(0);
   };
   fileUpload(file){
@@ -102,7 +108,12 @@ class SeccionCargarArchivos extends Component {
 
 
     this.props.saveAuditoria(auditoria);
-    this.props.saveDoc(formData);
+    this.props.saveDoc(formData,this.onUploadProgress);
+  }
+
+  onUploadProgress(progressEvent){
+    let percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+    this.setState({ percentage });
   }
 
 
@@ -126,6 +137,8 @@ class SeccionCargarArchivos extends Component {
 
 
   render = () => {
+
+    const {percentage} = this.state;
 
     if(this.props.tipoAuditoria === 1){
       return(
@@ -159,6 +172,16 @@ class SeccionCargarArchivos extends Component {
 
                           </Receiver>
                           <div className="msgError text-danger">{this.state.fileError}</div>
+
+                          {
+                            (percentage > 0)
+                            &&
+                            <div className="progress">
+                              <div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={{ width: `${percentage}%` }}>
+                                {percentage}%
+                              </div>
+                            </div>
+                          }
 
                         </div>
                       </div>
@@ -225,6 +248,17 @@ class SeccionCargarArchivos extends Component {
                               </div>
                             </Receiver>
                             <div className="msgError text-danger">{this.state.fileError}</div>
+  
+                            {
+                              (percentage > 0)
+                              &&
+                              <div className="progress">
+                                <div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={{ width: `${percentage}%` }}>
+                                  {percentage}%
+                                </div>
+                              </div>
+                            }
+
                           </div>
                         </div>
                       </div>

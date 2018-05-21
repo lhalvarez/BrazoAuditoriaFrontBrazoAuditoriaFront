@@ -39,17 +39,19 @@ export function getDoc(nombreArchivo){
       });
   }
 }
-export function saveDoc(formData){
+export function saveDoc(formData,onUploadProgress){
+
   return(dispatch, getState) => {
-    MessageService.save(API.ENDPOINTS.PARTIDAS.CARGAR_DOCUMENTO.endpoint,formData)
+    MessageService.upload(API.ENDPOINTS.PARTIDAS.CARGAR_DOCUMENTO.endpoint,formData,onUploadProgress)
       .then((response) => {
         dispatch( {type: SAVE_DOC, payload: response });
-        dispatch(addNotification('Se ha cargado el documento exitósamente', 'success'));
+        dispatch(addNotification('Carga exitosa','Se ha cargado el documento exitósamente', 'success'));
       }).catch(error => {
         console.log(error);
-        dispatch(addNotification('Se ha generado un error!',''+ error.data.message + '. Código:'+error.data.object.codigoError, 'error'));
+        dispatch(addNotification('Se ha generado un error!',error, 'error'));
       });
   }
+
 }
 
 export function deleteDoc(nombreDocumento){
@@ -82,7 +84,7 @@ export function saveAuditoria(formData){
     MessageService.save(API.ENDPOINTS.PARTIDAS.CARGAR_AUDITORIA.endpoint,formData)
       .then((response) => {
         dispatch( {type: SAVE_AUDITORIA, payload: response });
-        dispatch(addNotification('Se ha guardado el registro exitósamente', 'success'));
+        dispatch(addNotification('Se ha guardado el registro exitósamente','', 'success'));
       }).catch(error => {
         dispatch(addNotification('Error',''+ error.data.message + '. Código:'+error.data.object.codigoError, 'error'));
       });
