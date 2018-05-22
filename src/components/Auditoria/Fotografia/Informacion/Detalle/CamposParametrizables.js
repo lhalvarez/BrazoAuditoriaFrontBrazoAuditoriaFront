@@ -69,17 +69,30 @@ class CamposParametrizables extends Component {
                             </div>
                           );
                         }else if (isDateField) {
-                          var b = detallePartida[key].split(/\D+/);
-                          let dat =  new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
-                          let date = new Intl.DateTimeFormat('en-US').format(dat);
-                          return (
-                            <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
-                              <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
-                              <div className="col-sm-6">
-                                  <input disabled="disabled" value={date?date:''} className="form-control input-sm" id={key} name={key} />
+                          try {
+                            var b = detallePartida[key].split(/\D+/);
+                            let dat =  new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+                            let date = new Intl.DateTimeFormat('en-US').format(dat);
+                            return (
+                              <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
+                                <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
+                                <div className="col-sm-6">
+                                    <input disabled="disabled" value={date?date:''} className="form-control input-sm" id={key} name={key} />
+                                </div>
                               </div>
-                            </div>
-                          );
+                            );
+                          } catch (e) {
+                            return (
+                              <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
+                                <label htmlFor={fieldName} className="col-sm-6 col-form-label">{fieldName}:</label>
+                                <div className="col-sm-6">
+                                  <input disabled="disabled" name={key} id={key} className="form-control input-sm" value={detallePartida[key]?detallePartida[key]:''}/>
+                                </div>
+                              </div>
+
+                            );
+                          } 
+
                         }else{
                           return (
                             <div key={index} className="col-md-4" style={{marginBottom:'20px'}}>
