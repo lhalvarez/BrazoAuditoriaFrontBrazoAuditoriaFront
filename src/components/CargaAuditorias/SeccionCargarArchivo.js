@@ -3,7 +3,7 @@ import { Receiver } from 'react-file-uploader';
 import './style.css';
 import ContainerTitle from '../Global/ContainerTitle';
 import { PropTypes } from 'react';
-//import {addNotification} from '../../components/Global/GlobalActions'
+import { store } from '../../store';
 
 
 class SeccionCargarArchivos extends Component {
@@ -11,7 +11,7 @@ class SeccionCargarArchivos extends Component {
     super(props);
     this.resetForm = this.resetForm.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.fileUpload = this.fileUpload.bind(this);
+    this.crearAuditoria = this.crearAuditoria.bind(this);
     this.onChangeFile = this.onChangeFile.bind(this);
     this.onChangeTipoAuditoria = this.onChangeTipoAuditoria.bind(this);
 
@@ -19,6 +19,7 @@ class SeccionCargarArchivos extends Component {
     this.onDragOver = this.onDragOver.bind(this);
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onUploadProgress = this.onUploadProgress.bind(this);
+    this.handleStoreChange = this.handleStoreChange.bind(this);
     this.state = {
       tipoCarga: '',
       file:null,
@@ -27,7 +28,9 @@ class SeccionCargarArchivos extends Component {
       percentage: 0
     };
 
+    this.unsuscribe = store.subscribe(this.handleStoreChange);
   };
+
   onChangeFile(e,files) {
 
     files.forEach(file => {
@@ -59,6 +62,7 @@ class SeccionCargarArchivos extends Component {
   onChangeTipoAuditoria(e){
     this.setState({tipoCarga:e.target.value});
   }
+
   onFormSubmit(e,dispatch){
     e.preventDefault();
 
@@ -74,8 +78,9 @@ class SeccionCargarArchivos extends Component {
       }
     }
 
-    this.fileUpload(this.state.file);
+    this.crearAuditoria();
   }
+
   resetForm = () => {
     let newState = {
       fileError: null,
@@ -87,16 +92,15 @@ class SeccionCargarArchivos extends Component {
     this.setState(newState);
     $('#documento').val(0);
   };
-  fileUpload(file){
-    var formData = new FormData();
-    formData.append('file',file);
+
+  crearAuditoria(){
+    const file = this.state.file;
 
     if(this.props.tipoAuditoria === 1){
       var tipoAudit = 'AIM';
     }else{
       var tipoAudit = this.state.tipoCarga;
     }
-
 
     let estadoAuditoría = this.props.api.CARGA.ESPERA_REVISION;
     const auditoria = {
@@ -106,16 +110,13 @@ class SeccionCargarArchivos extends Component {
       "tipoAuditoria": tipoAudit
     };
 
-
     this.props.saveAuditoria(auditoria);
-    this.props.saveDoc(formData,this.onUploadProgress);
   }
 
   onUploadProgress(progressEvent){
-    let percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+    let percentage = Math.round((progressEvent.loaded * 99) / progressEvent.total);
     this.setState({ percentage });
   }
-
 
   onDragEnter(e) {
     this.setState({ isReceiverOpen: true });
@@ -123,7 +124,6 @@ class SeccionCargarArchivos extends Component {
   }
 
   onDragOver(e) {
-    // your codes here
     console.log('onDragOver');
   }
 
@@ -132,8 +132,21 @@ class SeccionCargarArchivos extends Component {
     console.log('onDragLeave');
   }
 
+  handleStoreChange(){
+    if(store.getState().cargaAuditora.auditoriaCreada){
+      var formData = new FormData();
+      formData.append('file',this.state.file);
 
+      this.props.saveDoc(formData,this.onUploadProgress);
+    }
 
+    if(store.getState().cargaAuditora.archivoCargado)
+      this.setState({ percentage: 100 });
+  }
+
+  componentWillUnmount(){
+    this.unsuscribe();
+  }
 
 
   render = () => {
@@ -177,7 +190,7 @@ class SeccionCargarArchivos extends Component {
                             (percentage > 0)
                             &&
                             <div className="progress">
-                              <div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={{ width: `${percentage}%` }}>
+                              <div className={'progress-bar progress-bar-striped active' + ( (percentage == 100) ? ' progress-bar-success' : '' )} role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={{ width: `${percentage}%` }}>
                                 {percentage}%
                               </div>
                             </div>
@@ -253,7 +266,7 @@ class SeccionCargarArchivos extends Component {
                               (percentage > 0)
                               &&
                               <div className="progress">
-                                <div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={{ width: `${percentage}%` }}>
+                                <div className={'progress-bar progress-bar-striped active' + ( (percentage == 100) ? ' progress-bar-success' : '' )} role="progressbar" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100" style={{ width: `${percentage}%` }}>
                                   {percentage}%
                                 </div>
                               </div>
