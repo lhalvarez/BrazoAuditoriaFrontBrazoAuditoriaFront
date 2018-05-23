@@ -8,9 +8,18 @@ export const GET_AUDITORIAS_PENDIENTES = 'GET_AUDITORIAS_PENDIENTES'; // Acción
 export const SAVE_AUDITORIA_PENDIENTE = 'SAVE_AUDITORIA_PENDIENTE'; //Acción para guardar los datos cuando se acepta un auditoria
 
 
-export function getAuditorias() {
+export function getAuditorias(page, pageSize) {
+    const params = {
+        p: page,
+        t: pageSize
+    };
     return (dispatch) => {
-        dispatch({ type: GET_AUDITORIAS_PENDIENTES });
+        MessageService.getAll(API.ENDPOINTS.PARTIDAS.AUDITORIA_PENDIENTE.endpoint, params)
+            .then((response) => {
+                dispatch({ type: GET_AUDITORIAS_PENDIENTES, payload: response });
+            }).catch(error => {
+                dispatch(addNotification('Error', '' + error.data.message + '. Código:' + error.data.object.codigoError, 'error'));
+            });
     }
 }
 

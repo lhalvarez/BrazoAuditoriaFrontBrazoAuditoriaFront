@@ -29,6 +29,7 @@ class ModalRechazo extends Component {
                     <RechazoList
                         checked={this.props.selected}
                         selectedReject={this.props.selectedReject}
+                        usuario={this.props.usuario}
                     />
                 </ModalBody>
                 <ModalFooter>

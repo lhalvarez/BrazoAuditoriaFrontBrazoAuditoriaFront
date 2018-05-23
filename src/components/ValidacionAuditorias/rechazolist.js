@@ -16,14 +16,14 @@ class RechazoList extends Component {
         let objRechazo = {
 
             "autorizada": false,
-            "autorizador": carga.validador,
+            "autorizador": this.props.usuario,
             "idAuditoria": carga.id,
             "observaciones": e.target.value
 
         }
 
         this.props.selectedReject.push(objRechazo)
-
+        // console.log(objRechazo);
     }
 
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ContainerTitle from '../Global/ContainerTitle';
 import RechazoList from './rechazolist';
 import ModalRechazo from './modalRechazo';
 import ModalAceptado from './modalAceptado';
@@ -44,13 +43,11 @@ class TablasValidacion extends Component {
 
     onChange(carga, id, e) {
 
-
         const selected = this.state.selected
-
+        //console.log("este es el id", id)
         const objAuditor = {
             id: id,
             nombreArchivo: carga.nombreArchivo,
-            validador: carga.solicitante
         }
         let index
 
@@ -71,7 +68,7 @@ class TablasValidacion extends Component {
         }
         else {
             this.state.selected.filter((select) => {
-                console.log('el id del select:' + select + 'es: ' + id)
+
                 return select.id === id
             })
         }
@@ -115,7 +112,7 @@ class TablasValidacion extends Component {
 
             let accpt = {
                 "autorizada": true,
-                "autorizador": aceptada.validador,
+                "autorizador": this.props.usuario,
                 "idAuditoria": aceptada.id,
                 "observaciones": "Fue Aceptada"
             }
@@ -124,15 +121,14 @@ class TablasValidacion extends Component {
         });
 
         try {
-            //console.log(aceptadas)
             this.props.saveAuditoria(aceptadas);
-            this.props.sendNotification('Aviso', 'Se aceptaron correctamente', 'success');
             this.handleClose();
             this.initialState();
         } catch (error) {
             this.props.sendNotification('Aviso', 'Ocurrrio un error ' + error, 'error');
             return;
         }
+        this.props.sendNotification('Aviso', 'Se aceptaron correctamente', 'success');
 
     }
 
@@ -151,7 +147,6 @@ class TablasValidacion extends Component {
             return;
         }
 
-        //console.log(this.state.selectedReject)
         this.props.saveAuditoria(this.state.selectedReject);
         this.props.sendNotification('Aviso', 'Se acepto el rechazo correctamente', 'success');
         this.handleClose();
@@ -179,152 +174,167 @@ class TablasValidacion extends Component {
         const auditorias = this.props.auditorias;
         const validacion = this.props.tipoValidacion;
         const listaAuditoriasPendientes = this.props.auditoriasList;
-        const solicitante = this.state.detalleUsuario.usuario;
         const sucursal = this.state.detalleUsuario.sucursal;
 
         switch (validacion) {
             case TIPOS_VALIDACION.VALIDACION_FISICA:
                 return (
                     <div className="row">
-                        <ContainerTitle title={'Validación de Auditoría Fisica'} />
                         <div className="col-lg-12">
-                            <div className="table-responsive">
-                                <table className="table table-striped table-bordered table-hover table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre Archivo</th>
-                                            <th>Sucursal</th>
-                                            <th>Creador</th>
-                                            <th>Total Partidas</th>
-                                            <th>Tipo Auditoria</th>
-                                            <th>Aceptar/Rechazar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {auditorias.map((auditoria, index) => {
-                                            const { id, carga } = auditoria;
-                                            if (carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3) {
-                                                return (
-                                                    <tr key={`${index}-${id}`}>
-                                                        <td>{carga.nombreArchivo}</td>
-                                                        <td>{sucursal}</td>
-                                                        <td>{solicitante}</td>
-                                                        <td>{carga.noPartidas}</td>
-                                                        <td>{carga.tipoAuditoria.descripcion}</td>
-                                                        <td>
-                                                            < div >
-                                                                <SwitchButton
-                                                                    name={carga.nombreArchivo}
-                                                                    onChange={this.onChange.bind(this, carga, id)}
-                                                                //checked={this.state.selected.every(id)}
-                                                                />
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            }
-                                        })}
-                                    </tbody>
-                                </table>
+                            <div className="panel panel-default">
+                                <div className="panel-heading" >
+                                    <i className="fa fa-2x fa-table pull-right"></i>
+                                    <p>Tabla de validación de auditorías pendientes de aceptar o rechazar</p>
+                                </div>
+                                <div className="table-responsive">
+                                    <table className="table table-striped table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre Archivo</th>
+                                                <th>Sucursal</th>
+                                                <th>Creador</th>
+                                                <th>Total Partidas</th>
+                                                <th>Tipo Auditoria</th>
+                                                <th>Aceptar/Rechazar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {listaAuditoriasPendientes.map((auditoria, index) => {
+                                                const { id, carga } = auditoria;
+                                                if (carga.tipoAuditoria.id != 1) {
+                                                    return (
+                                                        <tr key={`${index}-${id}`}>
+                                                            <td>{carga.nombreArchivo}</td>
+                                                            <td>{sucursal}</td>
+                                                            <td>{carga.solicitante}</td>
+                                                            <td>{carga.noPartidas}</td>
+                                                            <td>{carga.tipoAuditoria.descripcion}</td>
+                                                            <td>
+                                                                < div >
+                                                                    <SwitchButton
+                                                                        name={carga.nombreArchivo}
+                                                                        onChange={this.onChange.bind(this, carga, id)}
+                                                                    //checked={this.state.selected.every(id)}
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                }
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+                        </div>
 
-                            <div className="panel-footer">
-                                <div className="row">
-                                    <div className="col-sm-12">
-                                        <div className="pull-right">
-                                            <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
-                                            <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
-                                        </div>
+
+                        <div className="panel-footer">
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="pull-right">
+                                        <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
+                                        <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
                                     </div>
                                 </div>
                             </div>
-
-                            <ModalAceptado
-                                showAccept={this.state.showAccept}
-                                handleClose={this.handleClose}
-                                handleOnSubmitAccept={this.handleOnSubmitAccept}
-                            />
-
-                            <ModalRechazo
-                                showReject={this.state.showReject}
-                                handleClose={this.handleClose}
-                                selected={this.state.selected}
-                                selectedReject={this.state.selectedReject}
-                                handleOnSubmitReject={this.handleOnSubmitReject}
-                            />
                         </div>
-                    </div>
+
+                        <ModalAceptado
+                            showAccept={this.state.showAccept}
+                            handleClose={this.handleClose}
+                            handleOnSubmitAccept={this.handleOnSubmitAccept}
+                        />
+
+                        <ModalRechazo
+                            showReject={this.state.showReject}
+                            usuario={this.props.usuario}
+                            handleClose={this.handleClose}
+                            selected={this.state.selected}
+                            selectedReject={this.state.selectedReject}
+                            handleOnSubmitReject={this.handleOnSubmitReject}
+                        />
+
+                    </div >
                 );
             case TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA:
                 return (
                     <div className="row">
-                        <ContainerTitle title={'Validación de Auditoría por Fotografía'} />
                         <div className="col-lg-12">
-                            <div className="table-responsive">
-                                <table className="table table-striped table-bordered table-hover table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre Archivo</th>
-                                            <th>Sucursal</th>
-                                            <th>Creador</th>
-                                            <th>Total Partidas</th>
-                                            <th>Aceptar/Rechazar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {auditorias.map((auditoria, index) => {
-                                            const { id, carga } = auditoria;
-                                            if (carga.tipoAuditoria.id === 1) {
-                                                return (
-                                                    <tr key={`${index}-${id}`}>
-                                                        <td>{carga.nombreArchivo}</td>
-                                                        <td>{sucursal}</td>
-                                                        <td>{solicitante}</td>
-                                                        <td>{carga.noPartidas}</td>
-                                                        <td>
-                                                            < div >
-                                                                <SwitchButton
-                                                                    name={carga.nombreArchivo}
-                                                                    onChange={this.onChange.bind(this, carga, id)}
-                                                                />
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            }
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div className="panel panel-default">
+                                <div className="panel-heading" >
+                                    <i className="fa fa-2x fa-table pull-right"></i>
+                                    <p>Tabla de validación de auditorías pendientes de aceptar o rechazar</p>
 
-                            <div className="panel-footer">
-                                <div className="row">
-                                    <div className="col-sm-12">
-                                        <div className="pull-right">
-                                            <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
-                                            <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
-                                        </div>
+                                </div>
+                                <div className="table-responsive">
+                                    <table className="table table-striped table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre Archivo</th>
+                                                <th>Sucursal</th>
+                                                <th>Creador</th>
+                                                <th>Total Partidas</th>
+                                                <th>Aceptar/Rechazar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {listaAuditoriasPendientes.map((auditoria, index) => {
+                                                const { id, carga } = auditoria;
+                                                if (carga.tipoAuditoria.id === 1) {
+                                                    return (
+                                                        <tr key={`${index}-${id}`}>
+                                                            <td>{carga.nombreArchivo}</td>
+                                                            <td>{sucursal}</td>
+                                                            <td>{carga.solicitante}</td>
+                                                            <td>{carga.noPartidas}</td>
+                                                            <td>
+                                                                < div >
+                                                                    <SwitchButton
+                                                                        name={carga.nombreArchivo}
+                                                                        onChange={this.onChange.bind(this, carga, id)}
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                }
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="panel-footer">
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="pull-right">
+                                        <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
+                                        <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <ModalAceptado
-                                showAccept={this.state.showAccept}
-                                handleClose={this.handleClose}
-                                handleOnSubmitAccept={this.handleOnSubmitAccept}
-                            />
-
-                            <ModalRechazo
-                                showReject={this.state.showReject}
-                                handleClose={this.handleClose}
-                                selected={this.state.selected}
-                                selectedReject={this.state.selectedReject}
-                                handleOnSubmitReject={this.handleOnSubmitReject}
-                            />
-
                         </div>
+
+
+                        <ModalAceptado
+                            showAccept={this.state.showAccept}
+                            handleClose={this.handleClose}
+                            handleOnSubmitAccept={this.handleOnSubmitAccept}
+                        />
+
+                        <ModalRechazo
+                            showReject={this.state.showReject}
+                            usuario={this.props.usuario}
+                            handleClose={this.handleClose}
+                            selected={this.state.selected}
+                            selectedReject={this.state.selectedReject}
+                            handleOnSubmitReject={this.handleOnSubmitReject}
+                        />
+
                     </div>
+
                 );
         }
     }

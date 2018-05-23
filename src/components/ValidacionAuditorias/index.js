@@ -3,6 +3,7 @@ import { getAuditorias, saveAuditoria, sendNotification } from './actions'
 import { connect } from 'react-redux';
 import { store } from '../../store';
 import Pagination from 'rc-pagination';
+import ContainerTitle from '../Global/ContainerTitle';
 
 import TablasValidacion from './TablasValidacion';
 import { AUDITORIAS } from './cargaAuditoriaFake';
@@ -21,8 +22,13 @@ class ValidacionAuditorias extends React.Component {
             page: 0,
             pageSize: 10,
             total: 0,
+            auditoriasPendientes: [],
         };
         this.tipoValidacion = 0;
+    }
+
+    componentDidMount() {
+        auditoriasPendientes: this.props.getAuditorias(this.state.page, this.state.pageSize)
     }
 
     onChangePagination = (page, pageSize) => {
@@ -33,17 +39,20 @@ class ValidacionAuditorias extends React.Component {
 
 
     render() {
-        console.log(this.props.auditoriasPendientes)
+        //console.log("esto tienen las auditorias", this.props.auditoriasPendientes)
         const usuario = this.state.detalleUsuario.usuario;
+
         switch (this.props.path) {
 
             case '/validacion-partidas-fotografia':
                 this.tipoValidacion = TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA;
                 return (
                     <div>
+                        <ContainerTitle title={'Validación de Auditoría por Fotografía'} />
                         <TablasValidacion
                             tipoValidacion={this.tipoValidacion}
                             auditorias={AUDITORIAS}
+                            usuario={usuario}
                             auditoriasList={this.props.auditoriasPendientes}
                             saveAuditoria={this.props.saveAuditoria}
                             sendNotification={this.props.sendNotification}
@@ -59,9 +68,11 @@ class ValidacionAuditorias extends React.Component {
                 this.tipoValidacion = TIPOS_VALIDACION.VALIDACION_FISICA;
                 return (
                     <div>
+                        <ContainerTitle title={'Validación de Auditoría Fisica'} />
                         <TablasValidacion
                             tipoValidacion={this.tipoValidacion}
                             auditorias={AUDITORIAS}
+                            usuario={usuario}
                             auditoriasList={this.props.auditoriasPendientes}
                             saveAuditoria={this.props.saveAuditoria}
                             sendNotification={this.props.sendNotification}
