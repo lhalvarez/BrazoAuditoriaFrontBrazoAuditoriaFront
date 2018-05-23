@@ -46,7 +46,7 @@ const AppRoutes = () =>
 			<PrivateRoute exact path="/auditoria-fotografia" component={AuditoriaFotografia} title="Información Auditoría por Fotografía" />
       <PrivateRoute exact path="/detalle-auditoria-fotografia/:idAuditoria" component={DetalleAuditoriaFotografia} title="Información Auditoría por Fotografía" />
 
-      <PrivateRoute exact path="/detalle-partida-fotografia/:idPartida" component={DetallePartidaFotografia} title="Detalle de partida" />
+      <PrivateRoute exact path="/detalle-partida-fotografia/:idAuditoria/:idPartida" component={DetallePartidaFotografia} title="Detalle de partida" />
 
 			<PrivateRoute exact path="/auditoria-salida-prendas" component={AuditoriaPrendas} title="Auditoría Salida Prendas" />
 			<PrivateRoute exact path="/usuarios" component={Usuarios} title="Lista de Usuarios" />

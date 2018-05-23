@@ -8,10 +8,12 @@ export const GET_PARTIDA_DETAIL = 'GET_PARTIDA_DETAIL';
 export const GET_CAT_ESTADO_AUDITORIA = 'GET_CAT_ESTADO_AUDITORIA';
 export const ENVIANDO_DETALLE_PARTIDA = 'ENVIANDO_DETALLE_PARTIDA';
 export const DETALLE_PARTIDA_ENVIADA = 'DETALLE_PARTIDA_ENVIADA';
+export const FLUSH_DETALLE_PART = 'FLUSH_DETALLE_PART';
 
-export function getPartidaDetail(folio){
+export function getPartidaDetail(folio,idAuditoria){
+
   return (dispatch)=>{
-    MessageService.getById(API.ENDPOINTS.PARTIDAS.DETALLE.DETALLE_PARTIDA.endpoint,folio)
+    MessageService.getById(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.PARTIDAS.BUSQUEDA.endpoint.replace(":idAuditoria", idAuditoria.toString()),folio)
       .then((response) => {
         dispatch( {type: GET_PARTIDA_DETAIL, payload: response });
       }).catch(error => {
@@ -44,4 +46,9 @@ export function enviarDetallePartida(requestBody){
       });
 
   };
+}
+export function flushdetallePartida(){
+  return dispatch => {
+    dispatch({type:FLUSH_DETALLE_PART});
+  }
 }

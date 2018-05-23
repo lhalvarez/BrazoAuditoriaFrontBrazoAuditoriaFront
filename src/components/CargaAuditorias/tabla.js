@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ModalConfirmacion from './modalConfirmacion'
 
 class SeccionTabla extends Component {
 
@@ -9,6 +10,8 @@ class SeccionTabla extends Component {
     this.getDoc =this.getDoc.bind(this);
     this.deleteDoc =this.deleteDoc.bind(this);
     this.state = {
+      idAuditoria: 0,
+      showConfirm:false
     };
 
   };
@@ -16,8 +19,17 @@ class SeccionTabla extends Component {
   getDoc(nombreArchivo){
     this.props.getDoc(nombreArchivo);
   }
-  deleteDoc(nombreArchivo){
-    this.props.deleteDoc(nombreArchivo);
+  deleteDoc(carga,id){
+    this.setState({ idAuditoria: id, showConfirm: true });
+
+  }
+
+  componentDidUpdate(){
+    const { showConfirm } = this.state;
+
+    if(showConfirm){
+      $('#modalConfirmacion').modal('show');
+    }
   }
   render = () => {
 
@@ -61,7 +73,7 @@ class SeccionTabla extends Component {
                               <td>{carga.noPartidas}</td>
                               <td>Pendiente de autorización</td>
                               <td>
-                                <Link to="#" onClick={() => {this.deleteDoc(carga.nombreArchivo)} }>
+                                <Link to="#" onClick={() => {this.deleteDoc(carga,id)} }>
                                   Eliminar
                                 </Link>
                               </td>
@@ -74,6 +86,7 @@ class SeccionTabla extends Component {
                   </div>
                 </div>
             </div>
+            <ModalConfirmacion idAuditoria={this.state.idAuditoria} />
           </div>
       );
     }
@@ -100,8 +113,10 @@ class SeccionTabla extends Component {
               </tr>
               </thead>
               <tbody>
+
               {listaDeAuditorias.map((auditoria, index) => {
                 const {id, carga} = auditoria;
+
                 if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
                   return (
                     <tr key={`${index}-${id}`}>
@@ -113,8 +128,7 @@ class SeccionTabla extends Component {
                       <td>Pendiente de autorización</td>
                       <td>{carga.tipoAuditoria.descripcion}</td>
                       <td>
-                        <Link to={{ pathname: `/detalle-auditoria-fotografia/${id}`,
-                          query: { nombreArchivo: carga.nombreArchivo }}}>
+                        <Link to="#" onClick={() => {this.deleteDoc(carga,id)} }>
                           Eliminar
                         </Link>
                       </td>
@@ -127,6 +141,7 @@ class SeccionTabla extends Component {
             </table>
           </div>
         </div>
+        <ModalConfirmacion idAuditoria={this.state.idAuditoria} />
       </div>
     );
   }

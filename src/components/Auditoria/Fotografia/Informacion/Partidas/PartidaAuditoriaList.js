@@ -1,9 +1,12 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import PropTypes from 'prop-types';
 import 'rc-pagination/assets/index.css';
 import { Link } from 'react-router-dom';
 
-const PartidaAuditoriaList = ({partidas}) => {
+  class PartidaAuditoriaList extends Component {
+    render(){
+      const { partidas,idAuditoria} = this.props;
+
     return (
         <div className="row">
             <div className="col-lg-12">
@@ -20,7 +23,7 @@ const PartidaAuditoriaList = ({partidas}) => {
                             const {folio, sucursal} = partida;
                             return (
                                 <tr key={`${index}-${folio}`}>
-                                    <td><Link to={`/detalle-partida-fotografia/${folio}`}>{folio}</Link></td>
+                                    <td><Link to={`/detalle-partida-fotografia/${idAuditoria}/${folio}`}>{folio}</Link></td>
                                     <td>Sucursal {sucursal}</td>
                                 </tr>
                             );
@@ -31,6 +34,7 @@ const PartidaAuditoriaList = ({partidas}) => {
             </div>
         </div>
     );
+    }
 };
 
 PartidaAuditoriaList.propTypes = {

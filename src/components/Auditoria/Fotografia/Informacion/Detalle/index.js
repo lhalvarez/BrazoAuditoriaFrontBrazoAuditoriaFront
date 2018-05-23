@@ -4,7 +4,7 @@ import React, { Component , PropTypes} from 'react';
 import ContainerTitle from '../../../../Global/ContainerTitle';
 import Formulario from './Formulario';
 import {TITLES} from '../../../../../constants/index';
-import {getPartidaDetail,getCatEstadoAuditoria,enviarDetallePartida} from "./actions";
+import {getPartidaDetail,getCatEstadoAuditoria,enviarDetallePartida,flushdetallePartida} from "./actions";
 import {connect} from "react-redux";
 import {CAMPOS} from '../../../../../data/fakeSelectsParametrizables';
 
@@ -16,7 +16,7 @@ class Detalle extends Component {
 
 
   componentWillMount(){
-    this.props.getPartidaDetail(this.props.idPartida);
+    this.props.getPartidaDetail(this.props.idPartida,this.props.idAuditoria);
     this.props.getCatEstadoAuditoria();
   }
 
@@ -24,6 +24,10 @@ class Detalle extends Component {
     if (this.props.detallePartida != nextProps.detallePartida) {
       this.setState({detallePartida: Object.assign({}, nextProps.detallePartida)});
     }
+  }
+
+  componentWillUnmount(){
+    this.props.flushdetallePartida();
   }
 
 
@@ -51,5 +55,4 @@ function mapStateToProps(state) {
     catEstadoAuditoria: state.detallePartida.catalogoestadoAuditoria
   }
 }
-export default connect(mapStateToProps,{getPartidaDetail,getCatEstadoAuditoria,enviarDetallePartida})(Detalle);
-
+export default connect(mapStateToProps,{getPartidaDetail,getCatEstadoAuditoria,enviarDetallePartida,flushdetallePartida})(Detalle);
