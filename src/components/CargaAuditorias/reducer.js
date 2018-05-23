@@ -6,7 +6,8 @@ import {
   GET_AUDITORIAS,
   GET_AUDITORIA,
   SAVE_AUDITORIA,
-  DELETE_AUDITORIA
+  DELETE_AUDITORIA,
+  CLOSE_MODAL
   } from './actions'
 import {ADD_NOTIFICATION} from "../Global/GlobalActions";
 
@@ -78,6 +79,9 @@ export function cargaAuditora(state = initialState, action){
         auditoriaCreada: false,
         archivoCargado: false
       })
+    case CLOSE_MODAL:
+      $('#modalConfirmacion').modal('hide');
+      return Object.assign({}, state, {})
     default:
       return state
 

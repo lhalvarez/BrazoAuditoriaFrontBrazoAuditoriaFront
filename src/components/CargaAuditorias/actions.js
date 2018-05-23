@@ -12,6 +12,7 @@ export const GET_AUDITORIAS = 'GET_AUDITORIAS'; // Acción para obtener la carga
 export const GET_AUDITORIA = 'GET_AUDITORIA'; // Acción para obtener la carga correspondiente al id pasado
 export const SAVE_AUDITORIA = 'SAVE_AUDITORIA'; //Acción para guardar los datos de la autitoría
 export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la auditoría
+export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
 
 export function getDocs(page, pageSize){
   const params = {
@@ -55,7 +56,6 @@ export function saveDoc(formData,onUploadProgress){
 }
 
 export function deleteDoc(nombreDocumento){
-  console.log('Se ha activado el método para eliminar documento');
   return(dispatch, getState) => {
     dispatch( {type: DELETE_DOC, payload: nombreDocumento });
   }
@@ -90,13 +90,19 @@ export function saveAuditoria(formData){
       });
   }
 }
-export function deleteAuditorias(formData){
-
-
+export function deleteAuditoria(idAuditoria){
+  return(dispatch, getState) => {
+    dispatch( {type: DELETE_DOC, payload: idAuditoria });
+  }
 }
 export function sendNotification(title,message,type){
   return (dispatch) => {
     dispatch( {type: ADD_NOTIFICATION});
     dispatch(addNotification(title,message ,type));
+  }
+}
+export function closeModal(){
+  return (dispatch) => {
+		dispatch({ type: CLOSE_MODAL });
   }
 }

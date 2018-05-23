@@ -7,7 +7,7 @@ class DetallePartidaFotografia extends Component {
       return (
 
           <div>
-            <Detalle idPartida={this.props.computedMatch.params.idPartida} />
+            <Detalle idPartida={this.props.computedMatch.params.idPartida} idAuditoria={this.props.computedMatch.params.idAuditoria} />
           </div>
       )
     }
