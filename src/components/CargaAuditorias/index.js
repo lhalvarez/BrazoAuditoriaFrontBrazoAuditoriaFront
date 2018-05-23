@@ -68,6 +68,7 @@ class CargarAuditorias extends React.Component {
       deleteDoc={this.props.deleteDoc}
       sendNotification={this.props.sendNotification}
       api={LEYENDAS}
+      total={this.props.total}
     />
 
   }
@@ -118,6 +119,7 @@ class CargarAuditorias extends React.Component {
             saveAuditoria={this.props.saveAuditoria}
             sendNotification={this.props.sendNotification}
             api={LEYENDAS}
+            getDocs={this.props.getDocs}
 
           />
           <this.CargaFisica />
@@ -136,7 +138,8 @@ class CargarAuditorias extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auditorias: state.cargaAuditora.auditorias
+    auditorias: state.cargaAuditora.auditorias,
+    total: state.cargaAuditora.totalAuditorias
   }
 }
 export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification,getDocs})(CargarAuditorias);

@@ -140,8 +140,10 @@ class SeccionCargarArchivos extends Component {
       this.props.saveDoc(formData,this.onUploadProgress);
     }
 
-    if(store.getState().cargaAuditora.archivoCargado)
+    if(store.getState().cargaAuditora.archivoCargado){
       this.setState({ percentage: 100 });
+      this.props.getDocs(0, 10);
+    }
   }
 
   componentWillUnmount(){

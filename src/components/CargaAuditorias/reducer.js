@@ -15,7 +15,8 @@ const initialState = {
   auditorias: [],
   documentos: [],
   auditoriaCreada: false,
-  archivoCargado: false
+  archivoCargado: false,
+  totalAuditorias: 0
 }
 
 
@@ -51,7 +52,8 @@ export function cargaAuditora(state = initialState, action){
       return Object.assign({}, state, {
         auditorias: action.payload.object.contenido,
         auditoriaCreada: false,
-        archivoCargado: false
+        archivoCargado: false,
+        totalAuditorias: action.payload.object.totalElementos
       })
     case GET_AUDITORIA:
       return Object.assign({}, state, {
