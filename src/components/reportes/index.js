@@ -47,6 +47,13 @@ function mostrarErrorFechaInicio() {
 
   if (F_INI.reportValidity) {
     F_INI.reportValidity();
+  } else {
+    console.log('>>>>>>>', F_INI.form);
+    let formulario = F_INI.form;
+    const tmpSubmit = document.createElement('button');
+    formulario.appendChild(tmpSubmit);
+    tmpSubmit.click();
+    formulario.removeChild(tmpSubmit);
   }
 }
 
@@ -121,9 +128,7 @@ class Reportes extends Component {
   }
 
   componentDidMount() {
-    if (!(this.props.reporte.length && this.props.formato.length)) {
-      this.props.recuperarCatalogos();
-    }
+    this.props.recuperarCatalogos();
   }
 
   render() {

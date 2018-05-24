@@ -20,7 +20,7 @@ import SalidaPartidasBusqueda from '../../components/gestion/salida/busqueda';
 import SalidaPartidasLista from '../../components/gestion/salida/lista';
 
 import {TITLES} from '../../constants';
-import {ejecutarSalida, actualizarLista, autoActualizarLista} from '../../components/gestion/salida/actions';
+import {ejecutarSalida, actualizarLista, autoActualizarLista, desmontarComponente} from '../../components/gestion/salida/actions';
 import {generarReporte} from "../../components/reportes/actions/reporte";
 
 
@@ -30,12 +30,15 @@ import {generarReporte} from "../../components/reportes/actions/reporte";
  * @author <a href="https://wiki.quarksoft.net/display/~cachavez">Carlos Chávez Melena</a>
  */
 class SalidaPartidas extends Component{
+  componentWillUnmount() {
+    this.props.desmontarComponente();
+  }
   /**
    * Se encarga de construir el componente
    *
    * @returns Elementos graficos del componente
    */
-  render(){
+  render() {
 		return (
 			<div>
 				<ContainerTitle title={TITLES.GESTION.SALIDA.TITULO}/>
@@ -70,4 +73,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, {ejecutarSalida, actualizarLista, autoActualizarLista, generarReporte})(SalidaPartidas);
+export default connect(mapStateToProps, {ejecutarSalida, actualizarLista, autoActualizarLista, generarReporte, desmontarComponente})(SalidaPartidas);

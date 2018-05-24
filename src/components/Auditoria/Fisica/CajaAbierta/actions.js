@@ -23,7 +23,7 @@ export function obtenerDetallePartida(rfid,folio){
 	return dispatch => {
 		dispatch({ type: CARGANDO_DETALLE_PARTIDA });
 
-		MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA.endpoint}/${rfid}/${folio}`)
+		MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA.endpoint}/${rfid}/${folio}/3`)
 		.then(response => {
 			MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.OBSERVACION}`)
 			.then(catResponse => {
