@@ -24,7 +24,7 @@ export function getDocs(page, pageSize){
       .then((response) => {
         dispatch( {type: GET_AUDITORIAS, payload: response });
       }).catch(error => {
-      dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
+      dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
     });
   }
 }
@@ -75,7 +75,7 @@ export function getAuditoria(id){
         dispatch( {type: GET_AUDITORIA, payload: response });
         dispatch(addNotification('La consulta de la auditoría fué exitosa', 'success'));
       }).catch(error => {
-        dispatch(addNotification('Se ha generado un error'+error, 'error'));
+        dispatch(addNotification('Se ha generado un error'+error,'', 'error'));
       });
   }
 }
@@ -84,7 +84,7 @@ export function saveAuditoria(formData){
     MessageService.save(API.ENDPOINTS.PARTIDAS.CARGAR_AUDITORIA.endpoint,formData)
       .then((response) => {
         dispatch( {type: SAVE_AUDITORIA, payload: response });
-        dispatch(addNotification('Se ha guardado el registro exitósamente','', 'success'));
+        dispatch(addNotification('Se ha iniciado un nuevo proceso de Auditoría','', 'info'));
       }).catch(error => {
         dispatch(addNotification('Error',''+ error.data.message + '. Código:'+error.data.object.codigoError, 'error'));
       });
