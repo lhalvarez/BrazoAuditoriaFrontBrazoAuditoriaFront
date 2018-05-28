@@ -129,6 +129,7 @@ class TablasValidacion extends Component {
             return;
         }
         this.props.sendNotification('Aviso', 'Se aceptaron correctamente', 'success');
+        this.props.getAuditorias(0, 10);
 
     }
 
@@ -151,6 +152,7 @@ class TablasValidacion extends Component {
         this.props.sendNotification('Aviso', 'Se acepto el rechazo correctamente', 'success');
         this.handleClose();
         this.initialState();
+        this.props.getAuditorias(0, 10);
 
 
     }
@@ -195,7 +197,7 @@ class TablasValidacion extends Component {
                                                 <th>Creador</th>
                                                 <th>Total Partidas</th>
                                                 <th>Tipo Auditoria</th>
-                                                <th>Aceptar/Rechazar</th>
+                                                <th>Rechazar/Validar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -234,7 +236,7 @@ class TablasValidacion extends Component {
                                 <div className="col-sm-12">
                                     <div className="pull-right">
                                         <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
-                                        <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
+                                        <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Validar</button>
                                     </div>
                                 </div>
                             </div>
@@ -253,6 +255,7 @@ class TablasValidacion extends Component {
                             selected={this.state.selected}
                             selectedReject={this.state.selectedReject}
                             handleOnSubmitReject={this.handleOnSubmitReject}
+                            getAuditorias={this.props.getAuditorias}
                         />
 
                     </div >
@@ -275,7 +278,7 @@ class TablasValidacion extends Component {
                                                 <th>Sucursal</th>
                                                 <th>Creador</th>
                                                 <th>Total Partidas</th>
-                                                <th>Aceptar/Rechazar</th>
+                                                <th>Rechazar/Validar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -311,7 +314,7 @@ class TablasValidacion extends Component {
                                 <div className="col-sm-12">
                                     <div className="pull-right">
                                         <button style={{ marginRight: '5px' }} className="btn btn-sm btn-primary" onClick={this.handleShowReject}>Rechazar</button>
-                                        <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Aceptar</button>
+                                        <button className="btn btn-sm btn-primary" onClick={this.handleShowAccept}>Validar</button>
                                     </div>
                                 </div>
                             </div>
@@ -331,6 +334,7 @@ class TablasValidacion extends Component {
                             selected={this.state.selected}
                             selectedReject={this.state.selectedReject}
                             handleOnSubmitReject={this.handleOnSubmitReject}
+                            getAuditoria={this.props.getAuditorias}
                         />
 
                     </div>
