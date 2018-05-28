@@ -13,7 +13,7 @@ export function obtenerDetallePartida(rfid,folio){
   return dispatch => {
     MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_CERRADA.DETALLE_PARTIDA.endpoint}${rfid}/${folio}/2`)
       .then(response => {
-        MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.OBSERVACION}`)
+        MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.ESTATUS}`)
           .then(catResponse => {
             dispatch({ type: GET_DETALLE_PARTIDA_CAJA_CERRADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
             dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );

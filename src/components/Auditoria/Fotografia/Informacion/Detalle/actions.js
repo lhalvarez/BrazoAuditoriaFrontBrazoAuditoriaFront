@@ -1,5 +1,5 @@
 
-import { API } from '../../../../../constants/index'
+import { API, CATALOGOS } from '../../../../../constants/index'
 import {addNotification, ADD_NOTIFICATION} from '../../../../Global/GlobalActions';
 import MessageService from '../../../../../lib/utils/MessageService';
 
@@ -24,7 +24,7 @@ export function getPartidaDetail(folio,idAuditoria){
 export function getCatEstadoAuditoria(){
   const Nombre_Cat = 'tipo_observacion';
   return (dispatch)=>{
-    MessageService.getById(API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint,Nombre_Cat)
+    MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.OBSERVACION}`)
       .then((response) => {
         dispatch( {type: GET_CAT_ESTADO_AUDITORIA, payload: response });
       }).catch(error => {

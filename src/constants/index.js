@@ -87,7 +87,8 @@ export const API = Object.freeze({
                   DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
                 }
             },
-            RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado/' }
+            RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado/' },
+            BORRAR: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/borrararchivo' }
         },
         SEGURIDAD: {
             INICIAR_SESION: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seguridad/' },
@@ -215,6 +216,7 @@ export const TITLES = Object.freeze({
 /* Nombres de los catálogos disponibles */
 export const CATALOGOS = Object.freeze({
     OBSERVACION: 'tipo_observacion',
+    ESTATUS: 'estatus_resultado',
     REPORTES: 'reporte',
     FORMATO: 'formato'
 });

@@ -23,7 +23,6 @@ class ModalConfirmacion extends Component{
 
   	handleSubmit(){
   		const { valuador, clave } = this.state;
-			this.props.deleteAuditoria(this.props.idAuditoria);
 			this.props.deleteDoc(this.props.idAuditoria);
 			this.props.closeModal();
 
@@ -41,10 +40,7 @@ class ModalConfirmacion extends Component{
     }
 
     render(){
-
 			const idAuditroia = this.props.idAuditoria;
-
-
   		return (
 			<div className="modal fade" id="modalConfirmacion" tabIndex="-1" role="dialog" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
 			  <div className="modal-dialog" role="document">
