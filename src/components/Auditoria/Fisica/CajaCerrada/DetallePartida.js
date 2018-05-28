@@ -33,6 +33,30 @@ class DetallePartidaCajaCerrada extends Component{
       const { name, value } = e.target;
 
       this.setState({[name]:value});
+      let selectsEnable = [
+        'coincideDescripcion',
+        'coincidePeso'
+      ];
+
+      let isSelectEnable = false;
+
+      isSelectEnable = selectsEnable.includes(e.target.name);
+      if(isSelectEnable){
+        if(e.target.value === '0')
+          document.getElementById(`${e.target.name}-input`).disabled = false;
+        else{
+          document.getElementById(`${e.target.name}-input`).disabled = true;
+        }
+      }
+      let switchInput = document.getElementById('requiereAperturaInput');
+      if(e.target.name === 'estatus'){
+        if(e.target.value !== 'C'){
+          switchInput.style.display = "block";
+        }else{
+          switchInput.style.display = "none";
+        }
+      }
+
   }
 
   handleSwitchChange(e){
@@ -207,13 +231,13 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="descripcion" className="col-sm-4 col-form-label">Descripción:</label>
                       <div className="col-sm-8">
-                        <input  type="text" name="descripcion" className="form-control input-sm" onChange={this.handleInputChange} id="descripcion2" required />
+                        <input  type="text" name="descripcion" className="form-control input-sm" onChange={this.handleInputChange} id="coincideDescripcion-input" required disabled/>
                       </div>
                     </div>
                     <div className="form-group row">
                       <label htmlFor="peso" className="col-sm-4 col-form-label">Peso:</label>
                       <div className="col-sm-8">
-                        <input  type="text" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="peso" required />
+                        <input  type="text" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
                       </div>
                     </div>
                   </div>
@@ -249,19 +273,16 @@ class DetallePartidaCajaCerrada extends Component{
                           {this.props.cajaCerrada.tiposObservacion.map((campo,index)=>{
                             const {id, descripcionCorta, descripcion} = campo;
                             return <option value={descripcionCorta} key={id}> {descripcion}</option>;
-
-
                           })}
                         </select>
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-6" id="requiereAperturaInput" hidden>
                     <div className="form-group row">
                       <label htmlFor="observacion" className="col-sm-4 col-form-label">Requiere apertura:</label>
                       <SwitchButton name="requiereApertura" checked={requiereApertura} onChange={this.handleSwitchChange}/>
                     </div>
-
                   </div>
                 </div>
 
