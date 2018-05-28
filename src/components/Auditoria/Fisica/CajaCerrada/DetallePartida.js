@@ -63,9 +63,22 @@ class DetallePartidaCajaCerrada extends Component{
     this.setState({requiereApertura:e});
   }
 
+  componentDidUpdate(){
+    const { observaciones } = this.state;
+    if(observaciones.length > 5){
+      document.getElementById("saveButton").disabled = true;
+      document.getElementById("labelObservacionesLenght").style.display = "block";
+
+    }else{
+      document.getElementById("saveButton").disabled = false;
+      document.getElementById("labelObservacionesLenght").style.display = "none";
+
+    }
+  }
+
   handleSubmit(e){
     e.preventDefault();
-    console.log(this.state);
+
     let coincideDescripcion = this.state.coincideDescripcion === '1' ? true : false;
     let coincidePeso = this.state.coincidePeso === '1' ? true : false;
 
@@ -85,7 +98,6 @@ class DetallePartidaCajaCerrada extends Component{
                 "observaciones": this.state.observaciones
               }
 
-    console.log(resultadoAuditoria);
     this.props.enviarResultado(resultadoAuditoria);
   }
 
@@ -269,7 +281,7 @@ class DetallePartidaCajaCerrada extends Component{
                       <label htmlFor="estatus" className="col-sm-4 col-form-label">Estatus:</label>
                       <div className="col-sm-8">
                         <select name="estatus" id="estatus" defaultValue="0" className="form-control input-sm" onChange={this.handleInputChange} required>
-                        <option value="0">Seleccione un estatus</option>
+                        <option value="">Seleccione un estatus</option>
                           {this.props.cajaCerrada.tiposObservacion.map((campo,index)=>{
                             const {id, descripcionCorta, descripcion} = campo;
                             return <option value={descripcionCorta} key={id}> {descripcion}</option>;
@@ -291,7 +303,8 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="observaciones" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                       <div className="col-sm-10">
-                        <textarea name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm" onChange={this.handleInputChange}></textarea>
+                        <textarea  name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm" onChange={this.handleInputChange} ></textarea>
+                        <p className="text-danger" id="labelObservacionesLenght" hidden>Introduzca menos de 500 caracteres</p>
                       </div>
                     </div>
                   </div>
@@ -301,7 +314,7 @@ class DetallePartidaCajaCerrada extends Component{
                 <div className="row">
                   <div className="col-sm-12">
                     <div className="pull-right">
-                      <button type="submit" className="btn btn-primary btn-sm">Guardar</button>
+                      <button type="submit" className="btn btn-primary btn-sm" id="saveButton">Guardar</button>
                     </div>
                   </div>
                 </div>
