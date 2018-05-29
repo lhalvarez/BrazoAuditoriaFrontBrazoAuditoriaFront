@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { store } from '../../../../store';
 
 class FormularioBusquedaPartida extends Component{
 	static propTypes = {
@@ -14,11 +15,14 @@ class FormularioBusquedaPartida extends Component{
 
   	search(e){
   		e.preventDefault();
-
   		let cajaBusqueda = $('#caja').val();
   		let partidaBusqueda = $('#partida').val();
       this.props.obtenerDetallePartida(cajaBusqueda,partidaBusqueda);
   	}
+
+		componentWillUnmount(){
+			store.fromCaToCc = false;
+		}
 
   	render(){
   		return (
@@ -35,7 +39,7 @@ class FormularioBusquedaPartida extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="caja" className="col-sm-4 col-form-label">Número de caja:</label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control input-sm" id="caja"  />
+                                                <input type="text" className="form-control input-sm" id="caja" defaultValue={store.fromCaToCc? store.fromCaToCc.rfid : ''} required/>
                                             </div>
                                         </div>
                                     </div>
@@ -44,7 +48,7 @@ class FormularioBusquedaPartida extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="partida" className="col-sm-4 col-form-label">Número de partida:</label>
                                             <div className="col-sm-8">
-                                                <input type="text" className="form-control input-sm" id="partida" />
+                                                <input type="text" className="form-control input-sm" id="partida" defaultValue={store.fromCaToCc? store.fromCaToCc.folio : ''} required/>
                                             </div>
                                         </div>
                                     </div>
