@@ -109,7 +109,7 @@ class SeccionCargarArchivos extends Component {
       "solicitante": this.props.detalleUsuario.usuario,
       "tipoAuditoria": tipoAudit
     };
-
+    //console.log(file);
     this.props.saveAuditoria(auditoria);
   }
 
@@ -263,7 +263,7 @@ class SeccionCargarArchivos extends Component {
                               </div>
                             </Receiver>
                             <div className="msgError text-danger">{this.state.fileError}</div>
-  
+
                             {
                               (percentage > 0)
                               &&

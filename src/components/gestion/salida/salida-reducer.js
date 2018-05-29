@@ -19,6 +19,7 @@ import {
   EJECUTAR_SALIDA_RES,
   ACTUALIZAR_LISTA_REQ,
   ACTUALIZAR_LISTA_RES,
+  DESMONTAR_COMPONENTE,
   ACTUALIZAR_LISTA_AUTOMATICO
 } from './actions';
 
@@ -71,6 +72,8 @@ export default function salidaReducer(state = SALIDA_PARTIDAS_ESTADO_INICIAL, ac
       return {...state, ...action.payload, actualizando: false};
     case ACTUALIZAR_LISTA_AUTOMATICO:
       return {...state, ...action.payload};
+    case DESMONTAR_COMPONENTE:
+      return {...state, ...SALIDA_PARTIDAS_ESTADO_INICIAL};
     default:
       return state;
   }

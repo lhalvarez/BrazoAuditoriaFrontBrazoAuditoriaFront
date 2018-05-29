@@ -56,6 +56,7 @@ class ValidacionAuditorias extends React.Component {
                             auditoriasList={this.props.auditoriasPendientes}
                             saveAuditoria={this.props.saveAuditoria}
                             sendNotification={this.props.sendNotification}
+                            getAuditorias={this.props.getAuditorias}
                         />
                         <Pagination current={this.state.page + 1}
                             pageSize={this.state.pageSize}
@@ -76,6 +77,7 @@ class ValidacionAuditorias extends React.Component {
                             auditoriasList={this.props.auditoriasPendientes}
                             saveAuditoria={this.props.saveAuditoria}
                             sendNotification={this.props.sendNotification}
+                            getAuditorias={this.props.getAuditorias}
                         />
                         <Pagination current={this.state.page + 1}
                             pageSize={this.state.pageSize}

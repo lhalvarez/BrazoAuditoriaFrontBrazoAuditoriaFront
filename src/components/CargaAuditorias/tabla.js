@@ -20,7 +20,7 @@ class SeccionTabla extends Component {
     this.props.getDoc(nombreArchivo);
   }
   deleteDoc(carga,id){
-    this.setState({ idAuditoria: id, showConfirm: true });
+    this.setState({ idAuditoria: carga.id, showConfirm: true });
 
   }
 
@@ -29,6 +29,7 @@ class SeccionTabla extends Component {
 
     if(showConfirm){
       $('#modalConfirmacion').modal('show');
+      this.setState({ showConfirm: false });
     }
   }
   render = () => {
@@ -66,7 +67,7 @@ class SeccionTabla extends Component {
                         if(carga.tipoAuditoria.id === 1){
                           return (
                             <tr key={`${index}-${id}`}>
-                              <td>{id}</td>
+                              <td>{carga.id}</td>
                               <td><Link to="#" onClick={() => {this.getDoc(carga.nombreArchivo)} }>{carga.nombreArchivo}</Link></td>
                               <td>{carga.idSucursal}</td>
                               <td>{carga.solicitante}</td>

@@ -57,7 +57,7 @@ class FormularioBusquedaPartida extends Component{
 
   	search(e){
   		e.preventDefault();
-      this.setState({ 
+      this.setState({
         submitted: true,
         initKey: Math.random()
       });
@@ -73,6 +73,7 @@ class FormularioBusquedaPartida extends Component{
       if(rfid && folio && submitted){
         $('#modalFirmaValuador').modal('show');
         this.setState({ submitted: false });
+				store.fromCaToCc = {rfid:rfid , folio:folio};
       }
     }
 
@@ -112,15 +113,12 @@ class FormularioBusquedaPartida extends Component{
 	                        </div>
 	                        <div className="panel-footer">
 	                            <div className="row">
-	                                <div className="col-sm-6">
-	                                    <p>Pendientes de auditar: 0</p>
-	                                </div>
-	                                <div className="col-sm-6">
+	                                <div className="col-sm-offset-6 col-sm-6">
 	                                    <div className="pull-right">
 	                                        <button className="btn btn-primary btn-sm">Buscar</button>
 	                                    </div>
 	                                </div>
-	                            </div>                            
+	                            </div>
 	                        </div>
 	                    </div>
                     </form>

@@ -24,6 +24,7 @@ export const EJECUTAR_SALIDA_RES = 'EJECUTAR_SALIDA_RES';
 export const ACTUALIZAR_LISTA_REQ = 'ACTUALIZAR_LISTA_REQ';
 export const ACTUALIZAR_LISTA_RES = 'ACTUALIZAR_LISTA_RES';
 export const ACTUALIZAR_LISTA_AUTOMATICO = 'ACTUALIZAR_LISTA_AUTOMATICO';
+export const DESMONTAR_COMPONENTE = 'DESMONTAR_COMPONENTE';
 
 
 
@@ -90,7 +91,7 @@ export function ejecutarSalida(rfid, folio, p, t) {
 
         ejecutarSalidaRes(dispatch, ep, rf, fo);
       });
-  }
+  };
 }
 
 /**
@@ -130,7 +131,7 @@ export function actualizarLista(p, t) {
           },
           error: true});
       });
-  }
+  };
 }
 
 /**
@@ -169,7 +170,17 @@ export function autoActualizarLista(automatico) {
     } else {
       autoActualizarListaRes(dispatch, undefined, automatico);
     }
-  }
+  };
+}
+
+export function desmontarComponente() {
+  clearInterval(store.getState().salidaPartidas.intervalId);
+
+  return dispatch => {
+    dispatch({
+      type: DESMONTAR_COMPONENTE,
+    });
+  };
 }
 
 

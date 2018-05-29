@@ -24,7 +24,12 @@ export function getDocs(page, pageSize){
       .then((response) => {
         dispatch( {type: GET_AUDITORIAS, payload: response });
       }).catch(error => {
-      dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
+        if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
+          dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
+        }else{
+          dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
+        }
+
     });
   }
 }
@@ -55,11 +60,21 @@ export function saveDoc(formData,onUploadProgress){
 
 }
 
-export function deleteDoc(nombreDocumento){
-  return(dispatch, getState) => {
-    dispatch( {type: DELETE_DOC, payload: nombreDocumento });
-  }
+export function deleteDoc(idCarga){
+  const params = {
+    idAuditoria: idCarga
+  };
+  return (dispatch)=>{
 
+    MessageService.destroy(`${API.ENDPOINTS.AUDITORIA.BORRAR.endpoint}/${idCarga}`)
+      .then((response) => {
+        dispatch( {type: DELETE_DOC });
+        dispatch(addNotification('Documento eliminado exitósamente', 'success'));
+        getDocs(1, 10);
+      }).catch(error => {
+        dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
+      });
+  }
 }
 
 export function getAuditorias(){
@@ -75,7 +90,7 @@ export function getAuditoria(id){
         dispatch( {type: GET_AUDITORIA, payload: response });
         dispatch(addNotification('La consulta de la auditoría fué exitosa', 'success'));
       }).catch(error => {
-        dispatch(addNotification('Se ha generado un error'+error, 'error'));
+        dispatch(addNotification('Se ha generado un error'+error,'', 'error'));
       });
   }
 }
@@ -84,7 +99,7 @@ export function saveAuditoria(formData){
     MessageService.save(API.ENDPOINTS.PARTIDAS.CARGAR_AUDITORIA.endpoint,formData)
       .then((response) => {
         dispatch( {type: SAVE_AUDITORIA, payload: response });
-        dispatch(addNotification('Se ha guardado el registro exitósamente','', 'success'));
+        dispatch(addNotification('Se ha iniciado un nuevo proceso de Auditoría','', 'info'));
       }).catch(error => {
         dispatch(addNotification('Error',''+ error.data.message + '. Código:'+error.data.object.codigoError, 'error'));
       });
