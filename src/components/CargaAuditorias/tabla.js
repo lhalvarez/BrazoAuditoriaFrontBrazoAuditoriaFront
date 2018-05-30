@@ -20,7 +20,8 @@ class SeccionTabla extends Component {
     this.props.getDoc(nombreArchivo);
   }
   deleteDoc(carga,id){
-    this.setState({ idAuditoria: carga.id, showConfirm: true });
+    // variables que se deben de mandar para eliminar la carga de la auditoria
+    this.setState({ idAuditoria: id, showConfirm: true });
 
   }
 

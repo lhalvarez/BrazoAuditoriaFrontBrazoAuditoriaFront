@@ -69,7 +69,9 @@ export function deleteDoc(idCarga){
     MessageService.destroy(`${API.ENDPOINTS.AUDITORIA.BORRAR.endpoint}/${idCarga}`)
       .then((response) => {
         dispatch( {type: DELETE_DOC });
-        dispatch(addNotification('Documento eliminado exitósamente', 'success'));
+
+        console.log(response);
+        dispatch(addNotification('Respuesta', response.message ,'success'));
         getDocs(1, 10);
       }).catch(error => {
         dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
@@ -110,10 +112,10 @@ export function deleteAuditoria(idAuditoria){
     dispatch( {type: DELETE_DOC, payload: idAuditoria });
   }
 }
-export function sendNotification(title,message,type){
+export function sendNotification(title,message,level){
   return (dispatch) => {
     dispatch( {type: ADD_NOTIFICATION});
-    dispatch(addNotification(title,message ,type));
+    dispatch(addNotification(title,message ,level));
   }
 }
 export function closeModal(){

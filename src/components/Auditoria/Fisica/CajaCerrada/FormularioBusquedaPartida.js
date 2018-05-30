@@ -23,12 +23,17 @@ class FormularioBusquedaPartida extends Component{
 		componentWillUnmount(){
 			store.fromCaToCc = false;
 		}
+		componentWillMount(){
+			if(store.fromCaToCc){
+				this.props.obtenerDetallePartida(store.fromCaToCc.rfid,store.fromCaToCc.folio);
+			}
+		}
 
   	render(){
   		return (
             <div className="row">
                 <div className="col-lg-12">
-                	<form onSubmit={this.search}>
+                	<form onSubmit={this.search} id="formSearchCc">
 	                    <div className="panel panel-default">
 	                        <div className="panel-heading">
 	                            <p>Criterios de Búsqueda <i className="fa fa-3x fa-archive"></i></p>

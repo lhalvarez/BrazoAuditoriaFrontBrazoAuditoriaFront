@@ -37,7 +37,7 @@ class Formulario extends Component {
     let idAuditoria = 0;
     if(partida){
       folio = partida.llavePartida.folio;
-      idAuditoria = partida.llavePartida.id;
+      idAuditoria = partida.llavePartida.idAuditoria;
     }
     let resultadoAuditoria = {
       "cajaAbierta": null,
@@ -49,7 +49,7 @@ class Formulario extends Component {
       "observaciones": observacionesResultadoAuditoria
     };
 
-    this.props.enviarDetallePartida(resultadoAuditoria);
+    this.props.enviarDetallePartida(resultadoAuditoria);  
 
   }
 
