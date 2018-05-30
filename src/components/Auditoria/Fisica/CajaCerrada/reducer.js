@@ -5,6 +5,8 @@ import {
   DETALLE_PARTIDA_CC_ENVIADA
 } from './actions';
 
+import { store } from '../../../../store';
+
 const initialState = {
   rfid: '',
   folio: '',
@@ -32,6 +34,7 @@ export function cajaCerrada(state = initialState,action){
     case FLUSH_DETALLE_PARTIDA:
       return {...initialState};
     case DETALLE_PARTIDA_CC_ENVIADA:
+      store.fromCaToCc = false;
       return {...initialState};
     default:
       return state;
