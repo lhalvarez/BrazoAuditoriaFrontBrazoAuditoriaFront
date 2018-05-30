@@ -53,7 +53,7 @@ class ModalConfirmacion extends Component{
 
 			      <div className="modal-body">
 
-                    <h3>¿Seguro que desea eliminar la auditoria {idAuditroia}?</h3>
+                    <h3>¿Seguro que desea eliminar la carga {idAuditroia}?</h3>
 
 			      </div>
 

@@ -21,7 +21,7 @@ class SeccionTabla extends Component {
   }
   deleteDoc(carga,id){
     // variables que se deben de mandar para eliminar la carga de la auditoria
-    this.setState({ idAuditoria: id, showConfirm: true });
+    this.setState({ idAuditoria: carga.id, showConfirm: true });
 
   }
 
@@ -122,7 +122,7 @@ class SeccionTabla extends Component {
                 if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
                   return (
                     <tr key={`${index}-${id}`}>
-                      <td>{id}</td>
+                      <td>{carga.id}</td>
                       <td><Link to="#" onClick={() => {this.getDoc(carga.nombreArchivo)} }>{carga.nombreArchivo}</Link></td>
                       <td>{carga.idSucursal}</td>
                       <td>{carga.solicitante}</td>
