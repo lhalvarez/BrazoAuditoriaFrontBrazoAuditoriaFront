@@ -13,7 +13,7 @@ function getById(endpoint, id){
     url: `${endpoint}/${id}` ,
     method: 'GET',
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     }
 
   });
@@ -28,7 +28,7 @@ function getAll(endpoint, params){
     method: 'GET',
     params: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     }
 
   });
@@ -45,7 +45,7 @@ function save(endpoint, params){
     method: 'POST',
     data: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     }
 
   });
@@ -58,7 +58,7 @@ function update(endpoint, params){
     method: 'PUT',
     params: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     }
 
   });
@@ -70,7 +70,7 @@ function destroy(endpoint, params){
     method: 'DELETE',
     data: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     }
   });
 }
@@ -82,7 +82,7 @@ function fetchBuffer(endpoint,body){
     method: 'POST',
     data: body,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     }
   });
 }
@@ -93,7 +93,7 @@ function fetchBlob(endpoint, body, wHeaders = true) {
     responseType: 'blob',
     method: 'POST',
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     },
     data: body
   }, wHeaders);
@@ -105,7 +105,7 @@ function upload(endpoint,params,onUploadProgress){
     url: `${endpoint}`,
     method: 'POST',
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.usuario
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
     },
     data: params,
     onUploadProgress
