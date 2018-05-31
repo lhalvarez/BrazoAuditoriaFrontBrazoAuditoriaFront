@@ -40,7 +40,6 @@ class CargarAuditorias extends React.Component {
 
 
   onChangePagination = (page, pageSize) => {
-    console.log('IUFEIUHJE');
     this.setState({
       page: page - 1
     }, this.props.getDocs(page - 1, this.state.pageSize, this.state.tipoAuditoria));

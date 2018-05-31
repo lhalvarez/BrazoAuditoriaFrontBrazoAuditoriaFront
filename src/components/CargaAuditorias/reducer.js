@@ -63,7 +63,7 @@ export function cargaAuditora(state = initialState, action){
         auditoriasfisicas: action.auditoriasfisicas.object.contenido,
         auditoriaCreada: false,
         archivoCargado: false,
-        totalAuditorias: action.payload.object.totalElementos
+        totalAuditorias: action.payload.object.totalElementos + action.auditoriasfisicas.object.totalElementos
       })
     case GET_AUDITORIA:
       return Object.assign({}, state, {

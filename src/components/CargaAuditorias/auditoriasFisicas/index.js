@@ -23,7 +23,7 @@ class AuditoriasFisicas extends React.Component {
       auditorias: [],
       page: 0,
       pageSize: 10,
-      total: 0
+      total: this.props.total
     };
     this.tipoAuditoria = 0;
   }
@@ -31,6 +31,7 @@ class AuditoriasFisicas extends React.Component {
     if(this.props.path === '/cargar-partidas-fotografia') this.tipoAuditoria = 1;
     if(this.props.path === '/cargar-partidas-fisica') this.tipoAuditoria = 2;
     this.props.getDocs(this.state.page, this.state.pageSize, this.tipoAuditoria);
+    console.log(this.props.total);
   }
 
 
@@ -64,6 +65,9 @@ class AuditoriasFisicas extends React.Component {
     }
 
     if(newStateAudits.length > 0){
+      newStateAudits.sort(function (a, b){
+          return (b.id - a.id)
+      })
       return <SeccionTabla
         auditoriasList={newStateAudits}
         detalleUsuario={this.state.detalleUsuario}
