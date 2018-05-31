@@ -5,6 +5,7 @@ import NumberFormat from 'react-number-format';
 import { store } from '../../../../store';
 import { enviarDetallePartida } from './actions';
 import FotoPartida from '../FotoPartida';
+import { PALABRAS_ACENTOS } from '../../../../constants';
 
 class DetallePartidaCajaAbierta extends Component{
 	static propTypes = {
@@ -106,7 +107,7 @@ class DetallePartidaCajaAbierta extends Component{
 
         this.setState({ submitted: true });
 
-        if(this.state.datos.observaciones && this.state.datos.estatus){        
+        if(Boolean(this.state.datos.observaciones) && Boolean(this.state.datos.estatus) && (this.state.datos.observaciones.length <= 500)){        
             let stagedData = this.stageData();
             this.setState({ submitted: false });
 
@@ -149,17 +150,21 @@ class DetallePartidaCajaAbierta extends Component{
         ];
         let isMoneyField = false;
 
-        let labelText;
+        let labelText,formatText,finalText;
         let numericKey = 0;
 
         if(readOnly){
             for(let key in datosDinamicos){
+                finalText = '';
                 isMoneyField = moneyFields.includes(key);
                 labelText = key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
+                formatText = labelText.charAt(0).toUpperCase() + labelText.slice(1);
+
+                (formatText.split(' ')).forEach(element => finalText += ((finalText ? ' ' : '') + ( (element in PALABRAS_ACENTOS) ? PALABRAS_ACENTOS[element] : element )));
 
                 fields.push(
                     <div key={++numericKey} className="form-group row">
-                        <label htmlFor={key} className="col-sm-4 col-form-label">{labelText.charAt(0).toUpperCase() + labelText.slice(1)}:</label>
+                        <label htmlFor={key} className="col-sm-4 col-form-label">{finalText}:</label>
                         <div className="col-sm-8">
                             {
                                 isMoneyField ?
@@ -177,12 +182,16 @@ class DetallePartidaCajaAbierta extends Component{
         }
         else{
             for(let key in datosDinamicos){
+                finalText = '';
                 isMoneyField = moneyFields.includes(key);
                 labelText = key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
+                formatText = labelText.charAt(0).toUpperCase() + labelText.slice(1);
+
+                (formatText.split(' ')).forEach(element => finalText += ((finalText ? ' ' : '') + ( (element in PALABRAS_ACENTOS) ? PALABRAS_ACENTOS[element] : element )));
 
                 fields.push(
                     <div key={++numericKey} className="form-group row">
-                        <label htmlFor={key+'Din'} className="col-sm-4 col-form-label">{labelText.charAt(0).toUpperCase() + labelText.slice(1)}:</label>
+                        <label htmlFor={key+'Din'} className="col-sm-4 col-form-label">{finalText}:</label>
                         <div className="col-sm-8">
                             {
                                 isMoneyField ?
@@ -426,11 +435,12 @@ class DetallePartidaCajaAbierta extends Component{
 
                                 <div className="row">
                                     <div className="col-lg-12">
-                                        <div className={'form-group row'+( (submitted && !datos.observaciones) ? ' has-error' : '' )}>
+                                        <div className={'form-group row'+( (submitted && (!datos.observaciones || (datos.observaciones.length > 500))) ? ' has-error' : '' )}>
                                             <label htmlFor="observaciones" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                                             <div className="col-sm-10">
                                                 <textarea value={datos.observaciones} onChange={this.handleInputChange} name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm"></textarea>
                                                 { (submitted && !datos.observaciones) && <div className="help-block">Las observaciones son requeridas</div> }
+                                                { (submitted && datos.observaciones && (datos.observaciones.length > 500)) && <div className="help-block">Las observaciones no pueden ser mayores a 500 caracteres</div> }
                                             </div>
                                         </div>
                                     </div>
