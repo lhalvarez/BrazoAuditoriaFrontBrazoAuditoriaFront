@@ -88,7 +88,7 @@ class SeccionTabla extends Component {
                   </div>
                 </div>
             </div>
-            <ModalConfirmacion idAuditoria={this.state.idAuditoria} />
+            <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria}/>
           </div>
       );
     }
@@ -143,7 +143,7 @@ class SeccionTabla extends Component {
             </table>
           </div>
         </div>
-        <ModalConfirmacion idAuditoria={this.state.idAuditoria} />
+        <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria}/>
       </div>
     );
   }

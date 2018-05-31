@@ -13,25 +13,59 @@ export const GET_AUDITORIA = 'GET_AUDITORIA'; // Acción para obtener la carga c
 export const SAVE_AUDITORIA = 'SAVE_AUDITORIA'; //Acción para guardar los datos de la autitoría
 export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la auditoría
 export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
+export const GET_AUDITORIAS_FISICAS = 'GET_AUDITORIAS_FISICAS'; //Acción para eliminar la auditoría
 
-export function getDocs(page, pageSize){
+export function getDocs(page, pageSize,tipoAuditoria){
+  console.log(page, pageSize,tipoAuditoria);
   const params = {
     p: page,
-    t: pageSize
+    t: pageSize,
+    tipoAuditoria:tipoAuditoria
   };
-  return (dispatch)=>{
-    MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
-      .then((response) => {
-        dispatch( {type: GET_AUDITORIAS, payload: response });
-      }).catch(error => {
-        if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
-          dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
-        }else{
-          dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
-        }
+  if(tipoAuditoria === 1){
+    return (dispatch)=>{
+      MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
+        .then((response) => {
+          dispatch( {type: GET_AUDITORIAS, payload: response });
+        }).catch(error => {
+          if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
+            dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
+          }else{
+            dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
+          }
 
-    });
+      });
+    }
+  }else{
+    return (dispatch)=>{
+      MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
+        .then((response) => {
+          const params = {
+            p: page,
+            t: pageSize,
+            tipoAuditoria:3
+          };
+          MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
+            .then((caResponse) => {
+              dispatch( {type: GET_AUDITORIAS_FISICAS, payload: response, auditoriasfisicas: caResponse});
+            }).catch(error => {
+              if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
+                dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
+              }else{
+                dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
+              }
+          });
+        }).catch(error => {
+          if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
+            dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
+          }else{
+            dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
+          }
+
+      });
+    }
   }
+
 }
 
 export function getDoc(nombreArchivo){
@@ -60,7 +94,7 @@ export function saveDoc(formData,onUploadProgress){
 
 }
 
-export function deleteDoc(idCarga){
+export function deleteDoc(idCarga,tipoAuditoria){
   const params = {
     idAuditoria: idCarga
   };
@@ -69,10 +103,9 @@ export function deleteDoc(idCarga){
     MessageService.destroy(`${API.ENDPOINTS.AUDITORIA.BORRAR.endpoint}/${idCarga}`)
       .then((response) => {
         dispatch( {type: DELETE_DOC });
-
-        console.log(response);
         dispatch(addNotification('Respuesta', response.message ,'success'));
-        getDocs(1, 10);
+        dispatch(getDocs(0, 10,tipoAuditoria));
+
       }).catch(error => {
         dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
       });

@@ -23,7 +23,7 @@ class ModalConfirmacion extends Component{
 
   	handleSubmit(){
   		const { valuador, clave } = this.state;
-			this.props.deleteDoc(this.props.idAuditoria);
+			this.props.deleteDoc(this.props.idAuditoria,this.props.tipoAuditoria);
 			this.props.closeModal();
 
   	}

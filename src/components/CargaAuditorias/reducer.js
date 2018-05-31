@@ -7,7 +7,8 @@ import {
   GET_AUDITORIA,
   SAVE_AUDITORIA,
   DELETE_AUDITORIA,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  GET_AUDITORIAS_FISICAS
   } from './actions'
 import {ADD_NOTIFICATION} from "../Global/GlobalActions";
 
@@ -52,6 +53,14 @@ export function cargaAuditora(state = initialState, action){
     case GET_AUDITORIAS:
       return Object.assign({}, state, {
         auditorias: action.payload.object.contenido,
+        auditoriaCreada: false,
+        archivoCargado: false,
+        totalAuditorias: action.payload.object.totalElementos
+      })
+    case GET_AUDITORIAS_FISICAS:
+      return Object.assign({}, state, {
+        auditorias: action.payload.object.contenido,
+        auditoriasfisicas: action.auditoriasfisicas.object.contenido,
         auditoriaCreada: false,
         archivoCargado: false,
         totalAuditorias: action.payload.object.totalElementos
