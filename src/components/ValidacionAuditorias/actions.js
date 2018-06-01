@@ -6,10 +6,12 @@ import MessageService from '../../lib/utils/MessageService';
 
 export const GET_AUDITORIAS_PENDIENTES = 'GET_AUDITORIAS_PENDIENTES'; // Acción para obtener las auditorias pendientes
 export const SAVE_AUDITORIA_PENDIENTE = 'SAVE_AUDITORIA_PENDIENTE'; //Acción para guardar los datos cuando se acepta un auditoria
+export const GET_AUDITORIAS_PENDIENTES_CAJA = 'GET_AUDITORIAS_PENDIENTES_CAJA'; // Acción para obtener las auditorias pendientes
 
 
-export function getAuditorias(page, pageSize) {
+export function getAuditorias(idAuditoria, page, pageSize) {
     const params = {
+        tipoAuditoria: idAuditoria,
         p: page,
         t: pageSize
     };
@@ -23,13 +25,30 @@ export function getAuditorias(page, pageSize) {
     }
 }
 
+export function getAuditoriasFisica(idAuditoria, page, pageSize) {
+    const params = {
+        tipoAuditoria: idAuditoria,
+        p: page,
+        t: pageSize
+    };
+    return (dispatch) => {
+        MessageService.getAll(API.ENDPOINTS.PARTIDAS.AUDITORIA_PENDIENTE.endpoint, params)
+            .then((response) => {
+                dispatch({ type: GET_AUDITORIAS_PENDIENTES_CAJA, payload: response });
+            }).catch(error => {
+                dispatch(addNotification('Error', '' + error.data.message + '. Código:' + error.data.object.codigoError, 'error'));
+            });
+    }
+}
 
 export function saveAuditoria(data) {
     return (dispatch) => {
         MessageService.save(API.ENDPOINTS.PARTIDAS.VALIDAR_AUDITORIA.endpoint, data)
             .then((response) => {
                 dispatch({ type: SAVE_AUDITORIA_PENDIENTE, payload: response });
-                dispatch(addNotification('Se ha guardado el registro exitósamente', 'success'));
+                dispatch(addNotification('', 'Se ha guardado el registro exitósamente', 'success'));
+
+
             }).catch(error => {
                 dispatch(addNotification('Error', '' + error.data.message + '. Código:' + error.data.object.codigoError, 'error'));
             });

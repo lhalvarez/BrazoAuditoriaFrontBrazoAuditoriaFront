@@ -37,20 +37,20 @@ export const API = Object.freeze({
             }
         },
         REPORTES: {
-          CATALOGO: {
-            TITULO: 'Recuperar Catálogo',
-            MENSAJE: {
-              ERROR: 'Ocurrió un error al recuperar los elementos del catálogo',
-              EXITO: 'Se recupero correctamente el catálogo'
+            CATALOGO: {
+                TITULO: 'Recuperar Catálogo',
+                MENSAJE: {
+                    ERROR: 'Ocurrió un error al recuperar los elementos del catálogo',
+                    EXITO: 'Se recupero correctamente el catálogo'
+                }
+            },
+            REPORTE: {
+                TITULO: 'Generar Reporte',
+                MENSAJE: {
+                    ERROR: 'Ocurrió un error al generar el reporte',
+                    EXITO: 'Reporte generado correctamente'
+                }
             }
-          },
-          REPORTE: {
-            TITULO: 'Generar Reporte',
-            MENSAJE: {
-              ERROR: 'Ocurrió un error al generar el reporte',
-              EXITO: 'Reporte generado correctamente'
-            }
-          }
         }
     },
     ENDPOINTS: {
@@ -84,7 +84,7 @@ export const API = Object.freeze({
                     DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
                 },
                 CAJA_CERRADA: {
-                  DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
+                    DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/' }
                 }
             },
             RESULTADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/resultado/' },
@@ -107,11 +107,11 @@ export const API = Object.freeze({
             LEER_AUDITORIAS: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut/' },
             LEER_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/' },
             CARGAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/crear/' },
-            AUDITORIA_PENDIENTE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut' },
+            AUDITORIA_PENDIENTE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/pendientesaut/' },
             VALIDAR_AUDITORIA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/autorizacion' },
 
-            DETALLE:{
-              DETALLE_PARTIDA: {endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/folio/'}
+            DETALLE: {
+                DETALLE_PARTIDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/partida/folio/' }
             }
 
         },
@@ -120,7 +120,7 @@ export const API = Object.freeze({
             SECCION_AYUDA: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/seccionayuda/:nombreSeccion' }
         },
         REPORTES: {
-          endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/reporte'
+            endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/reporte'
         }
     }
 });
@@ -148,32 +148,32 @@ export const TITLES = Object.freeze({
         SALIDA: {
             TITULO: 'Salida de Prendas del depósito por Auditoría',
             BUSQUEDA: {
-              LEYENDA: 'Criterios de Búsqueda',
-              EJEC_SALIDA: 'Ejecutar salida',
-              NUM_CAJA: 'Número de Caja',
-              NUM_PARTIDA: 'Número de Partida',
-              RFID: 'Rfid',
-              FOLIO: 'Folio'
+                LEYENDA: 'Criterios de Búsqueda',
+                EJEC_SALIDA: 'Ejecutar salida',
+                NUM_CAJA: 'Número de Caja',
+                NUM_PARTIDA: 'Número de Partida',
+                RFID: 'Rfid',
+                FOLIO: 'Folio'
             },
             LISTA: {
-              LEYENDA: 'Pendientes de salida:',
-              ACTUALIZAR: 'Actualizar',
-              IMPRIMIR_LIST: 'Imprimir Lista',
-              AUTOMATICO: 'Automático',
-              TABLA: {
-                ANTERIOR: 'Anterior',
-                SIGUIENTE: 'Siguiente',
-                PAGINA: 'Página',
-                DE: 'de',
-                FILAS: 'Filas',
-                SIN_DATOS: 'No existen partidas pendientes de salida',
-                CARGANDO: 'Actualizando...',
-                REPORTE: {
-                  clave: 'RAUPS001',
-                  descripcion: 'Partidas Pendientes de Salida por Auditoría',
-                  formato: '.pdf'
+                LEYENDA: 'Pendientes de salida:',
+                ACTUALIZAR: 'Actualizar',
+                IMPRIMIR_LIST: 'Imprimir Lista',
+                AUTOMATICO: 'Automático',
+                TABLA: {
+                    ANTERIOR: 'Anterior',
+                    SIGUIENTE: 'Siguiente',
+                    PAGINA: 'Página',
+                    DE: 'de',
+                    FILAS: 'Filas',
+                    SIN_DATOS: 'No existen partidas pendientes de salida',
+                    CARGANDO: 'Actualizando...',
+                    REPORTE: {
+                        clave: 'RAUPS001',
+                        descripcion: 'Partidas Pendientes de Salida por Auditoría',
+                        formato: '.pdf'
+                    }
                 }
-              }
             }
         }
     },
@@ -201,15 +201,15 @@ export const TITLES = Object.freeze({
         PAGINA_INICIO: 'Bienvenido '
     },
     REPORTES: {
-      TITULO: 'Administración de Reportes',
-      LEYENDA: 'Criterios de Búsqueda',
-      LBL_REPORTE: 'Reporte',
-      DEF_REPORTE: 'Seleccione...',
-      LBL_FECHA: 'Rango de Fechas',
-      LBL_BUTTON: 'Generar Reporte',
-      ERR_FECHA_FUT: 'La fecha no puede ser mayo a la fecha actual',
-      ERR_FECHA_INI: 'La fecha no puede ser mayo a la fecha fin',
-      DEF_FIL_NAME: 'reporte'
+        TITULO: 'Administración de Reportes',
+        LEYENDA: 'Criterios de Búsqueda',
+        LBL_REPORTE: 'Reporte',
+        DEF_REPORTE: 'Seleccione...',
+        LBL_FECHA: 'Rango de Fechas',
+        LBL_BUTTON: 'Generar Reporte',
+        ERR_FECHA_FUT: 'La fecha no puede ser mayo a la fecha actual',
+        ERR_FECHA_INI: 'La fecha no puede ser mayo a la fecha fin',
+        DEF_FIL_NAME: 'reporte'
     }
 });
 
@@ -237,7 +237,7 @@ export const LEYENDAS = Object.freeze({
         ESPERA_REVISION: 'En espera de revisión',
         CARGANDO: 'Cargando...'
     },
-    VALIDACION :{
+    VALIDACION: {
         AUDITORIA_EFECTUADA: 'La partida que esta visualizando ya tiene un resultado de auditoría registrado. Esta información es sólo de consulta'
     }
 });

@@ -6,7 +6,6 @@ import ModalAceptado from './modalAceptado';
 import './style.css';
 import SwitchButton from '../../lib/utils/SwitchButton';
 import { TIPOS_VALIDACION } from '../../constants'
-import { store } from '../../store';
 
 class TablasValidacion extends Component {
 
@@ -23,7 +22,6 @@ class TablasValidacion extends Component {
 
         this.state = {
 
-            detalleUsuario: store.getState().session.detalleUsuario,
             showAccept: false,
             showReject: false,
             selected: [],
@@ -122,14 +120,16 @@ class TablasValidacion extends Component {
 
         try {
             this.props.saveAuditoria(aceptadas);
-            this.handleClose();
-            this.initialState();
+
         } catch (error) {
             this.props.sendNotification('Aviso', 'Ocurrrio un error ' + error, 'error');
             return;
         }
-        this.props.sendNotification('Aviso', 'Se aceptaron correctamente', 'success');
-        this.props.getAuditorias(0, 10);
+        this.handleClose();
+        this.initialState();
+        this.props.sendNotification('Aviso', 'Se envia la solicitud', 'info');
+        this.props.getAuditoriasFisica(0, 0, 10);
+        this.props.getAuditorias(1, 0, 10);
 
     }
 
@@ -148,11 +148,17 @@ class TablasValidacion extends Component {
             return;
         }
 
-        this.props.saveAuditoria(this.state.selectedReject);
+        try {
+            this.props.saveAuditoria(this.state.selectedReject);
+            this.handleClose();
+            this.initialState();
+        } catch (error) {
+            this.props.sendNotification('Aviso', 'Ocurrrio un error ' + error, 'error');
+            return;
+        }
         this.props.sendNotification('Aviso', 'Se acepto el rechazo correctamente', 'success');
-        this.handleClose();
-        this.initialState();
-        this.props.getAuditorias(0, 10);
+        this.props.getAuditoriasFisica(0, 0, 10);
+        this.props.getAuditorias(1, 0, 10);
 
 
     }
@@ -170,13 +176,14 @@ class TablasValidacion extends Component {
 
     }
 
+    refreshTable() {
+
+    }
 
     render = () => {
 
         const auditorias = this.props.auditorias;
         const validacion = this.props.tipoValidacion;
-        const listaAuditoriasPendientes = this.props.auditoriasList;
-        const sucursal = this.state.detalleUsuario.sucursal;
 
         switch (validacion) {
             case TIPOS_VALIDACION.VALIDACION_FISICA:
@@ -189,7 +196,7 @@ class TablasValidacion extends Component {
                                     <p>Tabla de validación de auditorías pendientes de aceptar o rechazar</p>
                                 </div>
                                 <div className="table-responsive">
-                                    <table className="table table-striped table-bordered table-hover table-condensed">
+                                    <table className="table table-striped table-bordered table-hover table-condensed" id="tablaFisica">
                                         <thead>
                                             <tr>
                                                 <th>Nombre Archivo</th>
@@ -201,28 +208,25 @@ class TablasValidacion extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {listaAuditoriasPendientes.map((auditoria, index) => {
+                                            {this.props.auditoriaFisica.map((auditoria, index) => {
                                                 const { id, carga } = auditoria;
-                                                if (carga.tipoAuditoria.id != 1) {
-                                                    return (
-                                                        <tr key={`${index}-${id}`}>
-                                                            <td>{carga.nombreArchivo}</td>
-                                                            <td>{sucursal}</td>
-                                                            <td>{carga.solicitante}</td>
-                                                            <td>{carga.noPartidas}</td>
-                                                            <td>{carga.tipoAuditoria.descripcion}</td>
-                                                            <td>
-                                                                < div >
-                                                                    <SwitchButton
-                                                                        name={carga.nombreArchivo}
-                                                                        onChange={this.onChange.bind(this, carga, id)}
-                                                                    //checked={this.state.selected.every(id)}
-                                                                    />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                }
+                                                return (
+                                                    <tr key={`${index}-${id}`}>
+                                                        <td>{carga.nombreArchivo}</td>
+                                                        <td>{carga.idSucursal}</td>
+                                                        <td>{carga.solicitante}</td>
+                                                        <td>{carga.noPartidas}</td>
+                                                        <td>{carga.tipoAuditoria.descripcion}</td>
+                                                        <td>
+                                                            < div >
+                                                                <SwitchButton
+                                                                    name={carga.nombreArchivo}
+                                                                    onChange={this.onChange.bind(this, carga, id)}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                );
                                             })}
                                         </tbody>
                                     </table>
@@ -246,6 +250,7 @@ class TablasValidacion extends Component {
                             showAccept={this.state.showAccept}
                             handleClose={this.handleClose}
                             handleOnSubmitAccept={this.handleOnSubmitAccept}
+                            getAuditoriaFisica={this.props.getAuditoriaFisica}
                         />
 
                         <ModalRechazo
@@ -255,7 +260,7 @@ class TablasValidacion extends Component {
                             selected={this.state.selected}
                             selectedReject={this.state.selectedReject}
                             handleOnSubmitReject={this.handleOnSubmitReject}
-                            getAuditorias={this.props.getAuditorias}
+                            getAuditoriaFisica={this.props.getAuditoriaFisica}
                         />
 
                     </div >
@@ -271,7 +276,7 @@ class TablasValidacion extends Component {
 
                                 </div>
                                 <div className="table-responsive">
-                                    <table className="table table-striped table-bordered table-hover table-condensed">
+                                    <table className="table table-striped table-bordered table-hover table-condensed" id="tablaFotografica">
                                         <thead>
                                             <tr>
                                                 <th>Nombre Archivo</th>
@@ -282,26 +287,24 @@ class TablasValidacion extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {listaAuditoriasPendientes.map((auditoria, index) => {
+                                            {this.props.auditoriasPendientes.map((auditoria, index) => {
                                                 const { id, carga } = auditoria;
-                                                if (carga.tipoAuditoria.id === 1) {
-                                                    return (
-                                                        <tr key={`${index}-${id}`}>
-                                                            <td>{carga.nombreArchivo}</td>
-                                                            <td>{sucursal}</td>
-                                                            <td>{carga.solicitante}</td>
-                                                            <td>{carga.noPartidas}</td>
-                                                            <td>
-                                                                < div >
-                                                                    <SwitchButton
-                                                                        name={carga.nombreArchivo}
-                                                                        onChange={this.onChange.bind(this, carga, id)}
-                                                                    />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                }
+                                                return (
+                                                    <tr key={`${index}-${id}`}>
+                                                        <td>{carga.nombreArchivo}</td>
+                                                        <td>{carga.idSucursal}</td>
+                                                        <td>{carga.solicitante}</td>
+                                                        <td>{carga.noPartidas}</td>
+                                                        <td>
+                                                            < div >
+                                                                <SwitchButton
+                                                                    name={carga.nombreArchivo}
+                                                                    onChange={this.onChange.bind(this, carga, id)}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                );
                                             })}
                                         </tbody>
                                     </table>
@@ -325,6 +328,7 @@ class TablasValidacion extends Component {
                             showAccept={this.state.showAccept}
                             handleClose={this.handleClose}
                             handleOnSubmitAccept={this.handleOnSubmitAccept}
+                            getAuditoriaFotografica={this.props.getAuditorias}
                         />
 
                         <ModalRechazo
@@ -334,7 +338,7 @@ class TablasValidacion extends Component {
                             selected={this.state.selected}
                             selectedReject={this.state.selectedReject}
                             handleOnSubmitReject={this.handleOnSubmitReject}
-                            getAuditoria={this.props.getAuditorias}
+                            getAuditoriaFotografica={this.props.getAuditorias}
                         />
 
                     </div>
