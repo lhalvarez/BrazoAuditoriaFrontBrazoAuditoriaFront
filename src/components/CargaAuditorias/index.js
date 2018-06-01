@@ -23,18 +23,12 @@ class CargarAuditorias extends React.Component {
       auditorias: [],
       page: 0,
       pageSize: 10,
-      total: 0,
-      tipoAuditoria : 0
+      total: 0
     };
-    this.tipoAuditoria = 0;
+    this.tipoAuditoria = 1;
   }
   componentDidMount () {
-    if(this.props.path === '/cargar-partidas-fotografia') this.tipoAuditoria = 1;
-    if(this.props.path === '/cargar-partidas-fisica') this.tipoAuditoria = 2;
     this.props.getDocs(this.state.page, this.state.pageSize, this.tipoAuditoria);
-    this.setState({
-      tipoAuditoria: this.tipoAuditoria
-    });
   }
 
 
@@ -42,7 +36,7 @@ class CargarAuditorias extends React.Component {
   onChangePagination = (page, pageSize) => {
     this.setState({
       page: page - 1
-    }, this.props.getDocs(page - 1, this.state.pageSize, this.state.tipoAuditoria));
+    }, this.props.getDocs(page - 1, this.state.pageSize, this.tipoAuditoria));
   };
 
 

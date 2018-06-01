@@ -16,54 +16,27 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
 export const GET_AUDITORIAS_FISICAS = 'GET_AUDITORIAS_FISICAS'; //Acción para eliminar la auditoría
 
 export function getDocs(page, pageSize,tipoAuditoria){
+  if(tipoAuditoria === 2){
+    tipoAuditoria = 0;
+  }
   console.log(page, pageSize,tipoAuditoria);
   const params = {
     p: page,
     t: pageSize,
     tipoAuditoria:tipoAuditoria
   };
-  if(tipoAuditoria === 1){
-    return (dispatch)=>{
-      MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
-        .then((response) => {
-          dispatch( {type: GET_AUDITORIAS, payload: response });
-        }).catch(error => {
-          if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
-            dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
-          }else{
-            dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
-          }
+  return (dispatch)=>{
+    MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
+      .then((response) => {
+        dispatch( {type: GET_AUDITORIAS, payload: response });
+      }).catch(error => {
+        if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
+          dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
+        }else{
+          dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
+        }
 
-      });
-    }
-  }else{
-    return (dispatch)=>{
-      MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
-        .then((response) => {
-          const params = {
-            p: page,
-            t: pageSize,
-            tipoAuditoria:3
-          };
-          MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
-            .then((caResponse) => {
-              dispatch( {type: GET_AUDITORIAS_FISICAS, payload: response, auditoriasfisicas: caResponse});
-            }).catch(error => {
-              if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
-                dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
-              }else{
-                dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
-              }
-          });
-        }).catch(error => {
-          if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
-            dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
-          }else{
-            dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
-          }
-
-      });
-    }
+    });
   }
 
 }

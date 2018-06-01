@@ -23,15 +23,12 @@ class AuditoriasFisicas extends React.Component {
       auditorias: [],
       page: 0,
       pageSize: 10,
-      total: this.props.total
+      total: 0
     };
-    this.tipoAuditoria = 0;
+    this.tipoAuditoria = 2;
   }
   componentDidMount () {
-    if(this.props.path === '/cargar-partidas-fotografia') this.tipoAuditoria = 1;
-    if(this.props.path === '/cargar-partidas-fisica') this.tipoAuditoria = 2;
     this.props.getDocs(this.state.page, this.state.pageSize, this.tipoAuditoria);
-    console.log(this.props.total);
   }
 
 
@@ -103,7 +100,7 @@ class AuditoriasFisicas extends React.Component {
           <Pagination current={this.state.page + 1}
                       pageSize={this.state.pageSize}
                       hideOnSinglePage={true}
-                      total={this.state.total}
+                      total={this.props.total}
                       onChange={this.onChangePagination} />
 
         </div>
