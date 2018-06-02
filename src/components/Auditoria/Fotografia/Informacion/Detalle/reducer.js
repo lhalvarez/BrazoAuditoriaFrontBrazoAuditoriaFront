@@ -5,6 +5,7 @@ import {GET_CAT_ESTADO_AUDITORIA,
   FLUSH_DETALLE_PART} from './actions';
 
 
+
 const initialState = {
   detallePartida: [],
   catalogoestadoAuditoria: []
@@ -21,6 +22,7 @@ export function detallePartida(state = initialState, action){
     case ENVIANDO_DETALLE_PARTIDA:
       return Object.assign({}, state, {detallePartida: action.detallePartida});
     case DETALLE_PARTIDA_ENVIADA:
+
       return {...initialState};
     case FLUSH_DETALLE_PART:
       return {...initialState};

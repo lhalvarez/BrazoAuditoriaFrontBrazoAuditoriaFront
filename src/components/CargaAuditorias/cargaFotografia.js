@@ -20,7 +20,7 @@ class CargaFotografia extends Component {
   onChangePagination = (page, pageSize) => {
     this.setState({
       page: page - 1
-    }, this.props.getDocs(page - 1, this.state.pageSize));
+    }, this.props.getDocs(page - 1, this.state.pageSize,this.props.tipoAuditoria));
   };
 
 

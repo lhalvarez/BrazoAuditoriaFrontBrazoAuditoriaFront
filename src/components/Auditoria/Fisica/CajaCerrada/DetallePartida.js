@@ -46,6 +46,7 @@ class DetallePartidaCajaCerrada extends Component{
           document.getElementById(`${e.target.name}-input`).disabled = false;
         else{
           document.getElementById(`${e.target.name}-input`).disabled = true;
+          document.getElementById(`${e.target.name}-input`).value = '';
         }
       }
       let switchInput = document.getElementById('requiereAperturaInput');
@@ -54,6 +55,7 @@ class DetallePartidaCajaCerrada extends Component{
           switchInput.style.display = "block";
         }else{
           switchInput.style.display = "none";
+          this.setState({requiereApertura:false});
         }
       }
 
@@ -65,7 +67,7 @@ class DetallePartidaCajaCerrada extends Component{
 
   componentDidUpdate(){
     const { observaciones } = this.state;
-    if(observaciones.length > 5){
+    if(observaciones.length > 500){
       document.getElementById("saveButton").disabled = true;
       document.getElementById("labelObservacionesLenght").style.display = "block";
 

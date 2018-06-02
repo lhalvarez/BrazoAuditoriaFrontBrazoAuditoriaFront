@@ -4,14 +4,17 @@
 * */
 
 import requestApi from './requestApi';
-
+import { store } from '../../store';
 
 function getById(endpoint, id){
 
   return requestApi({
 
     url: `${endpoint}/${id}` ,
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    }
 
   });
 
@@ -23,7 +26,10 @@ function getAll(endpoint, params){
 
     url: `${endpoint}` ,
     method: 'GET',
-    params: params
+    params: params,
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    }
 
   });
 
@@ -37,7 +43,10 @@ function save(endpoint, params){
   return requestApi({
     url: `${endpoint}`,
     method: 'POST',
-    data: params
+    data: params,
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    }
 
   });
 
@@ -47,7 +56,10 @@ function update(endpoint, params){
   return requestApi({
     url: endpoint,
     method: 'PUT',
-    params: params
+    params: params,
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    }
 
   });
 }
@@ -56,7 +68,10 @@ function destroy(endpoint, params){
   return requestApi({
     url: `${endpoint}`,
     method: 'DELETE',
-    data: params
+    data: params,
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    }
   });
 }
 
@@ -65,7 +80,10 @@ function fetchBuffer(endpoint,body){
     url: `${endpoint}`,
     responseType: 'arraybuffer',
     method: 'POST',
-    data: body
+    data: body,
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    }
   });
 }
 
@@ -74,6 +92,9 @@ function fetchBlob(endpoint, body, wHeaders = true) {
     url: endpoint,
     responseType: 'blob',
     method: 'POST',
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    },
     data: body
   }, wHeaders);
 
@@ -83,6 +104,9 @@ function upload(endpoint,params,onUploadProgress){
   return requestApi({
     url: `${endpoint}`,
     method: 'POST',
+    headers: {
+      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+    },
     data: params,
     onUploadProgress
   });

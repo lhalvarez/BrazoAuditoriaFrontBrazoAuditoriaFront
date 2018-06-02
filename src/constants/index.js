@@ -247,3 +247,14 @@ export const TIPOS_VALIDACION = Object.freeze({
     VALIDACION_FOTOGRAFIA: 1,
     VALIDACION_FISICA: 2
 });
+
+/* Palabras a colocar acentos en formulario dinámico */
+export const PALABRAS_ACENTOS = Object.freeze({
+    Numero: 'Número',
+    Deposito: 'Depósito',
+    Avaluo: 'Avalúo',
+    Prestamo: 'Préstamo',
+    Maximo: 'Máximo',
+    Genero: 'Género',
+    Catidad: 'Cantidad'
+});

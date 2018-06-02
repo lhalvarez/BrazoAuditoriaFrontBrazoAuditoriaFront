@@ -56,7 +56,8 @@ export function paginarAuditorias(page, pageSize) {
     // todo: verificar con que nombre se esperan cada uno de los parametros en el endpoint de paginado
     const params = {
         p: page,
-        t: pageSize
+        t: pageSize,
+        tipoAudit: 1
     };
 
     return (dispatch) => {

@@ -120,16 +120,13 @@ class SeccionCargarArchivos extends Component {
 
   onDragEnter(e) {
     this.setState({ isReceiverOpen: true });
-    console.log('onDragEnter');
   }
 
   onDragOver(e) {
-    console.log('onDragOver');
   }
 
   onDragLeave(e) {
     this.setState({ isReceiverOpen: false });
-    console.log('onDragLeave');
   }
 
   handleStoreChange(){
@@ -142,7 +139,7 @@ class SeccionCargarArchivos extends Component {
 
     if(store.getState().cargaAuditora.archivoCargado){
       this.setState({ percentage: 100 });
-      this.props.getDocs(0, 10);
+      this.props.getDocs(0, 10,this.props.tipoAuditoria);
     }
   }
 

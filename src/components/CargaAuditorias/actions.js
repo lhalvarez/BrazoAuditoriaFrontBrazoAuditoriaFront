@@ -13,11 +13,17 @@ export const GET_AUDITORIA = 'GET_AUDITORIA'; // Acción para obtener la carga c
 export const SAVE_AUDITORIA = 'SAVE_AUDITORIA'; //Acción para guardar los datos de la autitoría
 export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la auditoría
 export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
+export const GET_AUDITORIAS_FISICAS = 'GET_AUDITORIAS_FISICAS'; //Acción para eliminar la auditoría
 
-export function getDocs(page, pageSize){
+export function getDocs(page, pageSize,tipoAuditoria){
+  if(tipoAuditoria === 2){
+    tipoAuditoria = 0;
+  }
+  console.log(page, pageSize,tipoAuditoria);
   const params = {
     p: page,
-    t: pageSize
+    t: pageSize,
+    tipoAuditoria:tipoAuditoria
   };
   return (dispatch)=>{
     MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
@@ -32,6 +38,7 @@ export function getDocs(page, pageSize){
 
     });
   }
+
 }
 
 export function getDoc(nombreArchivo){
@@ -60,7 +67,7 @@ export function saveDoc(formData,onUploadProgress){
 
 }
 
-export function deleteDoc(idCarga){
+export function deleteDoc(idCarga,tipoAuditoria){
   const params = {
     idAuditoria: idCarga
   };
@@ -69,8 +76,9 @@ export function deleteDoc(idCarga){
     MessageService.destroy(`${API.ENDPOINTS.AUDITORIA.BORRAR.endpoint}/${idCarga}`)
       .then((response) => {
         dispatch( {type: DELETE_DOC });
-        dispatch(addNotification('Documento eliminado exitósamente', 'success'));
-        getDocs(1, 10);
+        dispatch(addNotification('Respuesta', response.message ,'success'));
+        dispatch(getDocs(0, 10,tipoAuditoria));
+
       }).catch(error => {
         dispatch(addNotification('Se ha generado un error!',''+ error.data.message , 'error'));
       });
@@ -110,10 +118,10 @@ export function deleteAuditoria(idAuditoria){
     dispatch( {type: DELETE_DOC, payload: idAuditoria });
   }
 }
-export function sendNotification(title,message,type){
+export function sendNotification(title,message,level){
   return (dispatch) => {
     dispatch( {type: ADD_NOTIFICATION});
-    dispatch(addNotification(title,message ,type));
+    dispatch(addNotification(title,message ,level));
   }
 }
 export function closeModal(){
