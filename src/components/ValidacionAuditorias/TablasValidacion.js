@@ -128,8 +128,6 @@ class TablasValidacion extends Component {
         this.handleClose();
         this.initialState();
         this.props.sendNotification('Aviso', 'Se envia la solicitud', 'info');
-        this.props.getAuditoriasFisica(0, 0, 10);
-        this.props.getAuditorias(1, 0, 10);
 
     }
 
@@ -157,9 +155,6 @@ class TablasValidacion extends Component {
             return;
         }
         this.props.sendNotification('Aviso', 'Se acepto el rechazo correctamente', 'success');
-        this.props.getAuditoriasFisica(0, 0, 10);
-        this.props.getAuditorias(1, 0, 10);
-
 
     }
 

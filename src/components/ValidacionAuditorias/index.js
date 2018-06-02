@@ -44,7 +44,7 @@ class ValidacionAuditorias extends React.Component {
         let aFisica = [];
 
         aFisica: this.props.getAuditoriasFisica(0, this.state.page, this.state.pageSize);
-        console.log(aFisica, "ESTO TIENE LA AFISICA");
+        //console.log(aFisica, "ESTO TIENE LA AFISICA");
         this.setState({
             auditoriasPendientesCaja: aFisica.length < 0 ? new Array() : aFisica
         })

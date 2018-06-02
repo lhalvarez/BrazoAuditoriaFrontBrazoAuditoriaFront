@@ -45,9 +45,9 @@ export function saveAuditoria(data) {
     return (dispatch) => {
         MessageService.save(API.ENDPOINTS.PARTIDAS.VALIDAR_AUDITORIA.endpoint, data)
             .then((response) => {
-                dispatch({ type: SAVE_AUDITORIA_PENDIENTE, payload: response });
+                getAuditoriasFisica(0, 0, 10)(dispatch);
+                getAuditorias(1, 0, 10)(dispatch);
                 dispatch(addNotification('', 'Se ha guardado el registro exitósamente', 'success'));
-
 
             }).catch(error => {
                 dispatch(addNotification('Error', '' + error.data.message + '. Código:' + error.data.object.codigoError, 'error'));
