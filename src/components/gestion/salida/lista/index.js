@@ -19,7 +19,7 @@ import Encabezado from './encabezado';
 
 import {TITLES, NUMERICAS} from '../../../../constants';
 
-import "react-table/react-table.css";
+import 'react-table/react-table.css';
 
 
 /**
@@ -38,12 +38,17 @@ const columnas = [
   {
     Header: 'Caja',
     accessor: 'rfid',
-    maxWidth: 150
+    maxWidth: 110
   },
   {
     Header: 'Partida',
     accessor: 'folio',
-    maxWidth: 150
+    maxWidth: 110
+  },
+  {
+    Header: 'Tipo Auditoría',
+    accessor: 'tipoAuditoria',
+    maxWidth: 230
   },
   {
     Header: 'Descripción',
@@ -52,7 +57,7 @@ const columnas = [
   {
     Header: 'Fecha de salida',
     accessor: 'fechaSalida',
-    maxWidth: 150
+    maxWidth: 125
   }
 ];
 
@@ -98,7 +103,17 @@ const SalidaPartidasLista = (props) => {
                     loading={cargando}
                     onFetchData={onFetchData}
                     defaultPageSize={NUMERICAS.GESTION.SALIDA.TABLE_PAGE_SIZE}
-                    className='-striped -highlight'/>
+                    className='-striped -highlight'
+                    getTrProps={(state, rowInfo, column, instance) => {
+                      return {
+                        onClick: (e, h) => {
+                          document.getElementById('inputCaja').value = rowInfo.original.rfid;
+                          document.getElementById('inputFolio').value = rowInfo.original.folio;
+
+                          h && h();
+                        }
+                      };
+                    }}/>
       </div>
     </div>
   );

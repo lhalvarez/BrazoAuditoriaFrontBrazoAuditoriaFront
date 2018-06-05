@@ -207,8 +207,8 @@ export const TITLES = Object.freeze({
         DEF_REPORTE: 'Seleccione...',
         LBL_FECHA: 'Rango de Fechas',
         LBL_BUTTON: 'Generar Reporte',
-        ERR_FECHA_FUT: 'La fecha no puede ser mayo a la fecha actual',
-        ERR_FECHA_INI: 'La fecha no puede ser mayo a la fecha fin',
+        ERR_FECHA_FUT: 'La fecha no puede ser mayor a la fecha actual',
+        ERR_FECHA_INI: 'La fecha no puede ser mayor a la fecha fin',
         DEF_FIL_NAME: 'reporte'
     }
 });

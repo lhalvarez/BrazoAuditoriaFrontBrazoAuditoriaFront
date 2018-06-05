@@ -14,6 +14,7 @@
 
 import React from 'react';
 import SwitchButton from '../../../../../lib/utils/SwitchButton';
+import ProgressBar from '../../../../reportes/componentes/progress-bar';
 
 import {TITLES} from '../../../../../constants';
 
@@ -68,6 +69,9 @@ export default function Encabezado(props) {
                     onClick={(event) => manejadorClickImprimirLista(event, props)}>
               {TITLES.GESTION.SALIDA.LISTA.IMPRIMIR_LIST}
             </button>
+            <div id='pgbPartidasPendientes' style={{visibility: props.descargando ? 'visible' : 'hidden'}}>
+              <ProgressBar/>
+            </div>
           </div>
         </div>
       </div>
@@ -77,5 +81,6 @@ export default function Encabezado(props) {
 
 function manejadorClickImprimirLista(event, props) {
   event.target.disabled = true;
+  document.getElementById('pgbPartidasPendientes').style.visibility = 'visible';
   props.generarReporte(TITLES.GESTION.SALIDA.LISTA.TABLA.REPORTE);
 }

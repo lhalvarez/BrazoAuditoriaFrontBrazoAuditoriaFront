@@ -20,9 +20,12 @@ import GrupoFecha from './componentes/grupo-fecha';
 import GrupoGenerar from './componentes/grupo-generar';
 
 import {TITLES} from '../../constants/index';
+import {addNotification} from "../Global/GlobalActions";
 
 
 const CLASSE_CSS_ERROR = 'has-error';
+
+const TYPE = 'date';
 
 function armarCuerpo(state) {
   return {
@@ -41,20 +44,33 @@ function armarCuerpo(state) {
 function mostrarErrorFechaInicio() {
   const F_INI = document.getElementById('fechaInicio');
 
-  F_INI.focus();
-  F_INI.value = '';
   F_INI.setCustomValidity(TITLES.REPORTES.ERR_FECHA_INI);
+
+  this.props.addNotification('Validación Fecha', TITLES.REPORTES.ERR_FECHA_INI, 'error');
 
   if (F_INI.reportValidity) {
     F_INI.reportValidity();
   } else {
-    console.log('>>>>>>>', F_INI.form);
     let formulario = F_INI.form;
     const tmpSubmit = document.createElement('button');
     formulario.appendChild(tmpSubmit);
     tmpSubmit.click();
     formulario.removeChild(tmpSubmit);
   }
+}
+
+function soportaInputDate() {
+  let soporta;
+  const TST = document.createElement('input');
+
+  try {
+    TST.type = TYPE;
+    soporta = TST.type === TYPE;
+  } catch (e) {
+    soporta = false;
+  }
+
+  return soporta;
 }
 
 
@@ -69,7 +85,8 @@ class Reportes extends Component {
       fechaFin: undefined,
       progress: false,
       invalidRep: '',
-      invalidFec: ''
+      invalidFec: '',
+      inputDate: soportaInputDate()
     };
 
     this.manejadorInvalido = this.manejadorInvalido.bind(this);
@@ -110,8 +127,6 @@ class Reportes extends Component {
         invalidFec: CLASSE_CSS_ERROR
       }, mostrarErrorFechaInicio);
     } else {
-      document.getElementById('fechaInicio').setCustomValidity('');
-
       this.setState({
         invalidRep: '',
         invalidFec: '',
@@ -123,7 +138,7 @@ class Reportes extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       progress: (this.state.progress !== nextProps.descargando ? nextProps.descargando : this.state.progress),
-      formato: (this.state.formato !== nextProps.formato[0] ? nextProps.formato[0] : this.state.formato)
+      formato: (this.state.formato || nextProps.formato[0])
     });
   }
 
@@ -149,6 +164,7 @@ class Reportes extends Component {
                           seleccionado={this.state.formato}
                           manejadorCambioReporte={this.manejadorCambioReporte}/>
             <GrupoFecha cssErr={this.state.invalidFec}
+                        inputDate={this.state.inputDate}
                         manejadorCambioFecha={this.manejadorCambioFecha}/>
             <GrupoGenerar activo={DISABLED_BUTTON}
                           progress={this.state.progress}/>

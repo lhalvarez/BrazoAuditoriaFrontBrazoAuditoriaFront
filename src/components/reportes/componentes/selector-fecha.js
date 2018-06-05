@@ -14,8 +14,6 @@
 
 import React from 'react';
 
-import {TITLES} from "../../../constants/index";
-
 
 /**
  *
@@ -23,31 +21,21 @@ import {TITLES} from "../../../constants/index";
  * @param props
  */
 function manejadorCambio(event, props) {
-  const HOY = new Date();
-  let seleccion = new Date(event.target.value);
-  const T_Z_OFFSET = seleccion.getTimezoneOffset() * 60000;
-  seleccion = new Date(seleccion.getTime() + T_Z_OFFSET);
+  props.onChange(event.target.value, props.nombre);
+  document.getElementById(props.nombre).setCustomValidity('');
+}
 
-  event.target.setCustomValidity('');
+function zeroTime(local) {
+  return local && new Date(local.getFullYear(), local.getMonth(), local.getDate());
+}
 
-  if (seleccion > HOY) {
-    event.preventDefault();
-    event.target.value = '';
-    event.target.setCustomValidity(TITLES.REPORTES.ERR_FECHA_FUT);
+function toUTC(local) {
+  return local && new Date(local.getTime() - (local.getTimezoneOffset()*60000));
+}
 
-    if (event.target.reportValidity) {
-      event.target.reportValidity();
-    } else {
-      console.log('>>>>>>>>>>', event.target.form);
-      let formulario = event.target.form;
-      const tmpSubmit = document.createElement('button');
-      formulario.appendChild(tmpSubmit);
-      tmpSubmit.click();
-      formulario.removeChild(tmpSubmit);
-    }
-  } else {
-    props.onChange(event.target.value, props.nombre);
-  }
+function maxDate() {
+  let fecha = zeroTime(new Date());
+  return toUTC(fecha).toISOString().split('T')[0];
 }
 
 
@@ -67,6 +55,7 @@ export default function SelectorFecha(props) {
            className='form-control'
            required={true}
            style={STYLE}
+           max={maxDate()}
            onChange={(event) => manejadorCambio(event, props)}/>
   );
 }

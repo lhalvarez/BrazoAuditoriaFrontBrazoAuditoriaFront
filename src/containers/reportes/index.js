@@ -20,6 +20,8 @@ import Reportes from '../../components/reportes';
 
 import {TITLES} from '../../constants';
 
+import {addNotification} from "../../components/Global/GlobalActions";
+
 import {recuperarCatalogos} from '../../components/reportes/actions/catalogo';
 import {generarReporte} from '../../components/reportes/actions/reporte';
 
@@ -64,4 +66,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, {recuperarCatalogos, generarReporte})(ReportesContainer);
+export default connect(mapStateToProps, {recuperarCatalogos, generarReporte, addNotification})(ReportesContainer);

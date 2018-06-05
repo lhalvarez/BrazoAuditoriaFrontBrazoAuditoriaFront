@@ -6,6 +6,12 @@
 import requestApi from './requestApi';
 import { store } from '../../store';
 
+function getAuthorization() {
+  const DU = store.getState().session.detalleUsuario;
+  let tokens = `${DU.usuario}:${DU.nombreCompleto}`;
+  return `Basic ${window.btoa(tokens)}`;
+}
+
 function getById(endpoint, id){
 
   return requestApi({
@@ -13,7 +19,7 @@ function getById(endpoint, id){
     url: `${endpoint}/${id}` ,
     method: 'GET',
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     }
 
   });
@@ -28,7 +34,7 @@ function getAll(endpoint, params){
     method: 'GET',
     params: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     }
 
   });
@@ -45,7 +51,7 @@ function save(endpoint, params){
     method: 'POST',
     data: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     }
 
   });
@@ -58,7 +64,7 @@ function update(endpoint, params){
     method: 'PUT',
     params: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     }
 
   });
@@ -70,7 +76,7 @@ function destroy(endpoint, params){
     method: 'DELETE',
     data: params,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     }
   });
 }
@@ -82,7 +88,7 @@ function fetchBuffer(endpoint,body){
     method: 'POST',
     data: body,
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     }
   });
 }
@@ -93,7 +99,7 @@ function fetchBlob(endpoint, body, wHeaders = true) {
     responseType: 'blob',
     method: 'POST',
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     },
     data: body
   }, wHeaders);
@@ -105,7 +111,7 @@ function upload(endpoint,params,onUploadProgress){
     url: `${endpoint}`,
     method: 'POST',
     headers: {
-      'Authorization': 'user ' + store.getState().session.detalleUsuario.nombreCompleto
+      'Authorization': getAuthorization()
     },
     data: params,
     onUploadProgress

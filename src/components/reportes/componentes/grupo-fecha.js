@@ -15,6 +15,7 @@
 import React from 'react';
 
 import SelectorFecha from  './selector-fecha';
+import SelectorFechaPlugin from "./selector-fecha-plugin";
 
 import {TITLES} from "../../../constants";
 
@@ -36,12 +37,26 @@ export default function GrupoFecha(props) {
           <span className='input-group-addon'>
             <span className='fa fa-calendar'/>
           </span>
-          <SelectorFecha nombre='fechaInicio'
-                         ancho='50%'
-                         onChange={props.manejadorCambioFecha}/>
-          <SelectorFecha nombre='fechaFin'
-                         ancho='50%'
-                         onChange={props.manejadorCambioFecha}/>
+          {
+            props.inputDate ?
+              <SelectorFecha nombre='fechaInicio'
+                             ancho='50%'
+                             onChange={props.manejadorCambioFecha}/>
+              :
+              <SelectorFechaPlugin nombre='fechaInicio'
+                                   ancho='50%'
+                                   onChange={props.manejadorCambioFecha}/>
+          }
+          {
+            props.inputDate ?
+              <SelectorFecha nombre='fechaFin'
+                             ancho='50%'
+                             onChange={props.manejadorCambioFecha}/>
+              :
+              <SelectorFechaPlugin nombre='fechaFin'
+                                   ancho='50%'
+                                   onChange={props.manejadorCambioFecha}/>
+          }
           <span className='input-group-addon asterisco-requerido'>
             <span className='fa fa-asterisk'/>
           </span>
