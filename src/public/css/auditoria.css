@@ -501,3 +501,7 @@ input{
     25%  {background-color:#2980b9; left:70%; top:0;}
     100% {background-color:#2980b9; left:0; top:0;}
 }
+
+legend{
+  font-size: 12px !important;
+}
