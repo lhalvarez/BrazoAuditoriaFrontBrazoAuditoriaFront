@@ -20,7 +20,6 @@ import GrupoFecha from './componentes/grupo-fecha';
 import GrupoGenerar from './componentes/grupo-generar';
 
 import {TITLES} from '../../constants/index';
-import {addNotification} from "../Global/GlobalActions";
 
 
 const CLASSE_CSS_ERROR = 'has-error';
