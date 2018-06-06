@@ -256,7 +256,6 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Datos Generales</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
                                     <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
@@ -268,7 +267,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="sucursal" className="col-sm-4 col-form-label">Sucursal:</label>
                                             <div className="col-sm-8">
-                                                <input value={datos.sucursal} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="sucursal" name="sucursal" placeholder="" />
+                                                <input disabled="disabled" value={datos.sucursal} type="text" className="form-control input-sm" id="sucursal" name="sucursal" placeholder="" />
                                             </div>
                                         </div>
                                         }
@@ -278,7 +277,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="nombreCliente" className="col-sm-4 col-form-label">Nombre de cliente:</label>
                                             <div className="col-sm-8">
-                                                <input value={datos.nombreCliente} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="nombreCliente" name="nombreCliente" placeholder="" />
+                                                <input value={datos.nombreCliente} disabled="disabled" type="text" className="form-control input-sm" id="nombreCliente" name="nombreCliente" placeholder="" />
                                             </div>
                                         </div>
                                         }
@@ -288,7 +287,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="numeroCliente" className="col-sm-4 col-form-label">Número de cliente:</label>
                                             <div className="col-sm-8">
-                                                <input value={datos.numeroCliente} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="numeroCliente" name="numeroCliente" placeholder="" />
+                                                <input value={datos.numeroCliente} disabled="disabled" type="text" className="form-control input-sm" id="numeroCliente" name="numeroCliente" placeholder="" />
                                             </div>
                                         </div>
                                         }
@@ -298,7 +297,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="nombrePV" className="col-sm-4 col-form-label">Nombre PV:</label>
                                             <div className="col-sm-8">
-                                                <input value={datos.nombrePV} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="nombrePV" name="nombrePV" placeholder="" />
+                                                <input value={datos.nombrePV} disabled="disabled" type="text" className="form-control input-sm" id="nombrePV" name="nombrePV" placeholder="" />
                                             </div>
                                         </div>
                                         }
@@ -308,7 +307,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         <div className="form-group row">
                                             <label htmlFor="numeroValuador" className="col-sm-4 col-form-label">Número de valuador:</label>
                                             <div className="col-sm-8">
-                                                <input value={datos.numeroValuador} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="numeroValuador" name="numeroValuador" placeholder="" />
+                                                <input value={datos.numeroValuador} disabled="disabled" type="text" className="form-control input-sm" id="numeroValuador" name="numeroValuador" placeholder="" />
                                             </div>
                                         </div>
                                         }
@@ -318,7 +317,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="form-group row">
                                                 <label htmlFor="estadoCaja" className="col-sm-5 col-form-label">Edo caja:</label>
                                                 <div className="col-sm-7">
-                                                    <input value={datos.estadoCaja} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="estadoCaja" name="estadoCaja" placeholder="" />
+                                                    <input value={datos.estadoCaja} disabled="disabled" type="text" className="form-control input-sm" id="estadoCaja" name="estadoCaja" placeholder="" />
                                                 </div>
                                             </div>
                                             }
@@ -327,7 +326,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="form-group row">
                                                 <label htmlFor="estadoPrenda" className="col-sm-5 col-form-label">Edo prenda:</label>
                                                 <div className="col-sm-7">
-                                                    <input value={datos.estadoPrenda} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="estadoPrenda" name="estadoPrenda" placeholder="" />
+                                                    <input value={datos.estadoPrenda} disabled="disabled" type="text" className="form-control input-sm" id="estadoPrenda" name="estadoPrenda" placeholder="" />
                                                 </div>
                                             </div>
                                             }
@@ -336,7 +335,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="form-group row">
                                                 <label htmlFor="tipoContrato" className="col-sm-5 col-form-label">Tipo contrato:</label>
                                                 <div className="col-sm-7">
-                                                    <input value={datos.tipoContrato} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="tipoContrato" name="tipoContrato" placeholder="" />
+                                                    <input value={datos.tipoContrato} disabled="disabled" type="text" className="form-control input-sm" id="tipoContrato" name="tipoContrato" placeholder="" />
                                                 </div>
                                             </div>
                                             }
@@ -345,7 +344,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="form-group row">
                                                 <label htmlFor="fechaCreacion" className="col-sm-5 col-form-label">Fecha empeño:</label>
                                                 <div className="col-sm-7">
-                                                    <input value={datos.fechaCreacion} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="fechaCreacion" name="fechaCreacion" placeholder="" />
+                                                    <input value={datos.fechaCreacion} disabled="disabled" type="text" className="form-control input-sm" id="fechaCreacion" name="fechaCreacion" placeholder="" />
                                                 </div>
                                             </div>
                                             }
@@ -355,7 +354,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="form-group row">
                                                 <label htmlFor="this.state.rfid" className="col-sm-5 col-form-label">RFID:</label>
                                                 <div className="col-sm-7">
-                                                    <input value={this.state.rfid} type="text" className="form-control input-sm" id="rfid" name="rfid" placeholder="" />
+                                                    <input value={this.state.rfid} disabled="disabled" type="text" className="form-control input-sm" id="rfid" name="rfid" placeholder="" />
                                                 </div>
                                             </div>
                                             }
@@ -364,7 +363,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="form-group row">
                                                 <label htmlFor="noRefrendos" className="col-sm-5 col-form-label">Refrendos:</label>
                                                 <div className="col-sm-7">
-                                                    <input value={datos.noRefrendos} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="noRefrendos" name="noRefrendos" placeholder="" />
+                                                    <input value={datos.noRefrendos} disabled="disabled" type="text" className="form-control input-sm" id="noRefrendos" name="noRefrendos" placeholder="" />
                                                 </div>
                                             </div>
                                             }
@@ -373,7 +372,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="form-group row">
                                                 <label htmlFor="fechaIngreso" className="col-sm-5 col-form-label">Fecha ingreso:</label>
                                                 <div className="col-sm-7">
-                                                    <input value={datos.fechaIngreso} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="fechaIngreso" name="fechaIngreso" placeholder="" />
+                                                    <input value={datos.fechaIngreso} disabled="disabled" type="text" className="form-control input-sm" id="fechaIngreso" name="fechaIngreso" placeholder="" />
                                                 </div>
                                             </div>
                                             }
@@ -385,7 +384,7 @@ class DetallePartidaCajaAbierta extends Component{
                     </div>
 
                     <div className="col-md-6">
-                        <div className="panel panel-info">
+                        <div className="panel panel-info panel-photo">
                             <div className="panel-heading">
                                 <p>Fotografía de la Partida</p>
                                 <div className="panel-action-icons">
@@ -419,7 +418,7 @@ class DetallePartidaCajaAbierta extends Component{
                             </div>
                             <div className="panel-body">
                                 <div className="row">
-                                    <div className="col-md-offset-1 col-md-10">
+                                    <div className="col-md-12">
                                         {
                                         ('descripcion' in datos) &&
                                         <div className="form-group">

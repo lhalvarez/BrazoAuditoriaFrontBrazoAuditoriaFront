@@ -504,4 +504,21 @@ input{
 
 legend{
   font-size: 12px !important;
+  font-weight: bold;
+}
+
+.panel-body legend{
+  padding-top: 25px;
+  padding-bottom: 6px;
+}
+
+.panel-body fieldset:first-child legend{
+  padding-top: 0;
+}
+
+.panel-photo .panel-body{
+  min-height: 477px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
