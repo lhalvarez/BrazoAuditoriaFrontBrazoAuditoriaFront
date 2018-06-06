@@ -22,7 +22,6 @@ import React from 'react';
  */
 function manejadorCambio(event, props) {
   props.onChange(event.target.value, props.nombre);
-  document.getElementById(props.nombre).setCustomValidity('');
 }
 
 function zeroTime(local) {

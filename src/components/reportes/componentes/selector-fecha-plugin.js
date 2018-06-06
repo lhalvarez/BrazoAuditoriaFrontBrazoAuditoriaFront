@@ -46,7 +46,6 @@ class SelectorFechaPlugin extends Component {
       if (e.date && e.date.toISOString) {
         this.props.onChange(e.date.toISOString().split('T')[0], this.props.nombre);
         let IN = document.getElementById(this.props.nombre);
-        IN.setCustomValidity('');
         cambiarFoco(IN);
       }
     });

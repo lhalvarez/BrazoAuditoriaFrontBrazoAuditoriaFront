@@ -27,6 +27,13 @@ import {TITLES} from "../../../constants";
  * @constructor
  */
 export default function GrupoFecha(props) {
+  let manejadorCambio = (valor, nombre) => {
+    props.manejadorCambioFecha(valor, nombre);
+
+    document.getElementById('fechaInicio').setCustomValidity('');
+    document.getElementById('fechaFin').setCustomValidity('');
+  };
+
   return (
     <div id='grpFechas'
          className={'col-lg-9 form-group ' + props.cssErr}>
@@ -41,21 +48,21 @@ export default function GrupoFecha(props) {
             props.inputDate ?
               <SelectorFecha nombre='fechaInicio'
                              ancho='50%'
-                             onChange={props.manejadorCambioFecha}/>
+                             onChange={manejadorCambio}/>
               :
               <SelectorFechaPlugin nombre='fechaInicio'
                                    ancho='50%'
-                                   onChange={props.manejadorCambioFecha}/>
+                                   onChange={manejadorCambio}/>
           }
           {
             props.inputDate ?
               <SelectorFecha nombre='fechaFin'
                              ancho='50%'
-                             onChange={props.manejadorCambioFecha}/>
+                             onChange={manejadorCambio}/>
               :
               <SelectorFechaPlugin nombre='fechaFin'
                                    ancho='50%'
-                                   onChange={props.manejadorCambioFecha}/>
+                                   onChange={manejadorCambio}/>
           }
           <span className='input-group-addon asterisco-requerido'>
             <span className='fa fa-asterisk'/>
