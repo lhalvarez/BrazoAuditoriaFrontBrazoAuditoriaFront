@@ -294,8 +294,8 @@ class Formulario extends Component {
                       <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
-                          <label htmlFor="ramo" className="col-sm-4 col-form-label">Ramo:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="ramo" className="col-sm-3 col-form-label">Ramo:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.ramo:''}  disabled />
                           </div>
                           <label htmlFor="deposito" className="col-sm-2 col-form-label">Depósito:</label>
@@ -304,29 +304,29 @@ class Formulario extends Component {
                           </div>
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="subramo" className="col-sm-4 col-form-label">Sub-ramo:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="subramo" className="col-sm-3 col-form-label">Sub-ramo:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.subramo:''}  disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="genero" className="col-sm-4 col-form-label">Género:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="genero" className="col-sm-3 col-form-label">Género:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.genero:''}  disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="noserie" className="col-sm-4 col-form-label">No. Serie:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="noserie" className="col-sm-3 col-form-label">No. Serie:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.noSerie:''}  disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="tipomoneda" className="col-sm-4 col-form-label">Tipo de Moneda:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="tipomoneda" className="col-sm-3 col-form-label">Tipo de Moneda:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.tipoMoneda:''}  disabled />
                           </div>
                           <label htmlFor="cantidad" className="col-sm-2 col-form-label">Cantidad:</label>
@@ -347,8 +347,8 @@ class Formulario extends Component {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
-                          <label htmlFor="metal" className="col-sm-4 col-form-label">Metal:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="metal" className="col-sm-3 col-form-label">Metal:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.metal:''}  disabled />
                           </div>
                           <label htmlFor="peso" className="col-sm-2 col-form-label">Peso (grs):</label>
@@ -357,8 +357,8 @@ class Formulario extends Component {
                           </div>
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="kilataje" className="col-sm-4 col-form-label">Kilataje:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="kilataje" className="col-sm-3 col-form-label">Kilataje:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.kilates:''}  disabled />
                           </div>
                           <label htmlFor="calidad" className="col-sm-2 col-form-label">Calidad:</label>
@@ -386,43 +386,47 @@ class Formulario extends Component {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
-                          <label htmlFor="prestamo" className="col-sm-4 col-form-label">Préstamo:</label>
+                          <label htmlFor="prestamo" className="col-sm-3 col-form-label">Préstamo:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamo:''} disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="prestamoMaximo" className="col-sm-4 col-form-label">Préstamo máximo:</label>
+                          <label htmlFor="prestamoMaximo" className="col-sm-3 col-form-label">Préstamo máximo:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoMaximoSugerido:''} disabled />
                           </div>
-                          <label htmlFor="prestamoSugerido" className="col-sm-2 col-form-label">Préstamo Sugerido:</label>
+                          <label htmlFor="prestamoSugerido" className="col-sm-3 col-form-label">Préstamo Sugerido:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoSugerido:''} disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="valorMonte" className="col-sm-4 col-form-label">Valor Monte:</label>
+                          <label htmlFor="valorMonte" className="col-sm-3 col-form-label">Valor Monte:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorMonte:''} disabled />
                           </div>
-                          <label htmlFor="valorComercial" className="col-sm-2 col-form-label">Valor comercial:</label>
+                          <label htmlFor="valorComercial" className="col-sm-3 col-form-label">Valor comercial:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorComercial:''} disabled />
                           </div>
-                          <label htmlFor="avComp" className="col-sm-4 col-form-label">Av. Comp.:</label>
+
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="avComp" className="col-sm-3 col-form-label">Av. Comp.:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.avaluoComplementario:''} disabled />
                           </div>
+
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="costoMetal" className="col-sm-4 col-form-label">Costo de Metal:</label>
+                          <label htmlFor="costoMetal" className="col-sm-3 col-form-label">Costo de Metal:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.costoMetal:''} disabled />
                           </div>
-                          <label htmlFor="importeGramo" className="col-sm-2 col-form-label">Importe Gramo:</label>
+                          <label htmlFor="importeGramo" className="col-sm-3 col-form-label">Importe Gramo:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.importeGramo:''} disabled />
                           </div>
@@ -440,22 +444,22 @@ class Formulario extends Component {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
-                          <label htmlFor="rango" className="col-sm-4 col-form-label">Rango:</label>
+                          <label htmlFor="rango" className="col-sm-3 col-form-label">Rango:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.rango:''} disabled />
                           </div>
-                          <label htmlFor="condicionesGenerales" className="col-sm-2 col-form-label">Condiciones Generales:</label>
+                          <label htmlFor="condicionesGenerales" className="col-sm-3 col-form-label">Condiciones Generales:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.condicionesGenerales:''} disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="incremento" className="col-sm-4 col-form-label">Incremento:</label>
+                          <label htmlFor="incremento" className="col-sm-3 col-form-label">Incremento:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.incremento:''} disabled />
                           </div>
-                          <label htmlFor="desplazamiento" className="col-sm-2 col-form-label">Desplazamiento:</label>
+                          <label htmlFor="desplazamiento" className="col-sm-3 col-form-label">Desplazamiento:</label>
                           <div className="col-sm-3">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.desplazamientoComercial:''} disabled />
                           </div>

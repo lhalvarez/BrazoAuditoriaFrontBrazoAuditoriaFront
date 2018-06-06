@@ -531,7 +531,7 @@ legend{
 }
 
 .panel-tipo .panel-body{
-    min-height: 455px;
+    min-height: 445px;
     display: flex;
     flex-direction: column;
     justify-content: center;
