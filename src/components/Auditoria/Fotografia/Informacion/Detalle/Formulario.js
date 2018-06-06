@@ -95,9 +95,9 @@ class Formulario extends Component {
           <b>{LEYENDAS.VALIDACION.AUDITORIA_EFECTUADA}</b>
         </div> : null}
         <form onSubmit={this.handleSubmit}>
-          <div className="row" style={{display:'flex'}}>
-            <div className="col-md-6" style={{alignItems: 'stretch', display: 'flex'}}>
-              <div className="panel panel-primary" style={{width:'100%'}}>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="panel panel-primary">
                 <div className="panel-heading">
                   <p>Datos Generales</p>
                   <div className="panel-action-icons">
@@ -193,18 +193,12 @@ class Formulario extends Component {
                         <div className="col-sm-3">
                           <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.fechaIngreso:''}  disabled/>
                         </div>
-                        <label htmlFor="fecha-modificacion" className="col-sm-4 col-form-label">Fecha empeño</label>
+                        <label htmlFor="fecha-modificacion" className="col-sm-4 col-form-label">Fecha Modificación</label>
                         <div className="col-sm-3">
                           <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.fechaModificacion:''}  disabled/>
                         </div>
                       </div>
 
-                      <div className="form-group row">
-                        <label htmlFor="caja" className="col-sm-4 col-form-label">Estado de la caja</label>
-                        <div className="col-sm-8">
-                          <input type="text" className="form-control input-sm" value={detallePartida? detallePartida.estadoCaja:''}  disabled/>
-                        </div>
-                      </div>
                     </div>
                   </div>
 
@@ -220,7 +214,7 @@ class Formulario extends Component {
             </div>
 
             <div className="col-md-6">
-              <div className="panel panel-info">
+              <div className="panel panel-info panel-photo">
                 <div className="panel-heading">
                   <p>Fotografía de la Partida</p>
                   <div className="panel-action-icons">
@@ -288,8 +282,16 @@ class Formulario extends Component {
                 </div>
                 <div className="panel-body">
                   <div className="col-md-6">
-                    <h5>Clasificación por tipo</h5>
-                    <div className="row">
+                    <div className="panel panel-primary panel-tipo">
+                      <div className="panel-heading">
+                        <p>Clasificación por tipo</p>
+                        <div className="panel-action-icons">
+                        </div>
+                      </div>
+                      <div className="panel-body">
+
+
+                      <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
                           <label htmlFor="ramo" className="col-sm-4 col-form-label">Ramo:</label>
@@ -335,7 +337,13 @@ class Formulario extends Component {
 
                       </div>
                     </div>
-                    <h5>Calidad de metal y peso</h5>
+                        <div className="panel panel-primary">
+                          <div className="panel-heading">
+                            <p>Calidad de metal y peso</p>
+                            <div className="panel-action-icons">
+                            </div>
+                          </div>
+                        </div>
                     <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
@@ -364,9 +372,17 @@ class Formulario extends Component {
                       </div>
                     </div>
                   </div>
+                  </div>
+                  </div>
 
                   <div className="col-md-6">
-                    <h5>Valores asignados</h5>
+                    <div className="panel panel-primary">
+                      <div className="panel-heading">
+                        <p>Valores asignados</p>
+                        <div className="panel-action-icons">
+                        </div>
+                      </div>
+                      <div className="panel-body">
                     <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
@@ -414,7 +430,13 @@ class Formulario extends Component {
                       </div>
                     </div>
 
-                    <h5>Estado físico</h5>
+                        <div className="panel panel-primary">
+                          <div className="panel-heading">
+                            <p>Estado físico</p>
+                            <div className="panel-action-icons">
+                            </div>
+                          </div>
+                        </div>
                     <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
@@ -443,6 +465,8 @@ class Formulario extends Component {
                     </div>
 
 
+                  </div>
+                  </div>
                   </div>
 
 

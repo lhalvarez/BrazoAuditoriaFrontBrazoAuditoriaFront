@@ -304,7 +304,7 @@ nav{
 }
 .downbar-text h3 {
   margin: 2px 0 0 0;
-  max-width: 100% 
+  max-width: 100%
 }
 
 .Footer {
@@ -522,3 +522,18 @@ legend{
   flex-direction: column;
   justify-content: center;
 }
+
+.panel-descripcion .panel-body{
+    min-height: 505px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.panel-tipo .panel-body{
+    min-height: 455px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+

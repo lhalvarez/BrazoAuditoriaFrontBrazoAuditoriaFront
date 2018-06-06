@@ -219,18 +219,12 @@ class DetallePartidaCajaCerrada extends Component{
                       <div className="col-sm-3">
                         <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.fechaIngreso}  disabled/>
                       </div>
-                      <label htmlFor="fecha-modificacion" className="col-sm-4 col-form-label">Fecha empeño</label>
+                      <label htmlFor="fecha-modificacion" className="col-sm-4 col-form-label">Fecha Modificación</label>
                       <div className="col-sm-3">
                         <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.fechaModificacion}  disabled/>
                       </div>
                     </div>
 
-                    <div className="form-group row">
-                      <label htmlFor="caja" className="col-sm-4 col-form-label">Estado de la caja</label>
-                      <div className="col-sm-8">
-                        <input type="text" className="form-control input-sm" defaultValue={this.props.cajaCerrada.detallePartida.estadoCaja}  disabled/>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -238,7 +232,7 @@ class DetallePartidaCajaCerrada extends Component{
           </div>
 
           <div className="col-md-6">
-            <div className="panel panel-info">
+            <div className="panel panel-info panel-photo">
               <div className="panel-heading">
                 <p>Fotografía de la Partida</p>
                 <div className="panel-action-icons">
@@ -320,8 +314,8 @@ class DetallePartidaCajaCerrada extends Component{
 
 
         <div className="row">
-          <div className="col-md-12">
-            <div className="panel panel-primary">
+          <div className="col-md-12" >
+            <div className="panel panel-primary" >
               <div className="panel-heading">
                 <p>Detalle de la partida</p>
                 <div className="panel-action-icons">
@@ -330,13 +324,20 @@ class DetallePartidaCajaCerrada extends Component{
                 </div>
               </div>
               <div className="panel-body">
-                <div className="col-md-6">
-                  <h5>Clasificación por tipo</h5>
+                <div className="col-md-6" >
+                  <div className="panel panel-primary">
+                    <div className="panel-heading">
+                      <p>Clasificación por tipo</p>
+                      <div className="panel-action-icons">
+                      </div>
+                    </div>
+                    <div className="panel-body">
+
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group row">
-                        <label htmlFor="ramo" className="col-sm-4 col-form-label">Ramo:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="ramo" className="col-sm-3 col-form-label">Ramo:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.ramo}  disabled />
                         </div>
                         <label htmlFor="deposito" className="col-sm-2 col-form-label">Depósito:</label>
@@ -345,29 +346,29 @@ class DetallePartidaCajaCerrada extends Component{
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="subramo" className="col-sm-4 col-form-label">Sub-ramo:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="subramo" className="col-sm-3 col-form-label">Sub-ramo:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.subramo}  disabled />
                         </div>
 
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="genero" className="col-sm-4 col-form-label">Género:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="genero" className="col-sm-3 col-form-label">Género:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.genero}  disabled />
                         </div>
 
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="noserie" className="col-sm-4 col-form-label">No. Serie:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="noserie" className="col-sm-3 col-form-label">No. Serie:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.noSerie}  disabled />
                         </div>
 
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="tipomoneda" className="col-sm-4 col-form-label">Tipo de Moneda:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="tipomoneda" className="col-sm-3 col-form-label">Tipo de Moneda:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.tipoMoneda}  disabled />
                         </div>
                         <label htmlFor="cantidad" className="col-sm-2 col-form-label">Cantidad:</label>
@@ -378,12 +379,18 @@ class DetallePartidaCajaCerrada extends Component{
 
                     </div>
                   </div>
-                  <h5>Calidad de metal y peso</h5>
+                      <div className="panel panel-primary">
+                      <div className="panel-heading">
+                        <p>Calidad de metal y peso</p>
+                        <div className="panel-action-icons">
+                        </div>
+                      </div>
+                      </div>
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group row">
-                        <label htmlFor="metal" className="col-sm-4 col-form-label">Metal:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="metal" className="col-sm-3 col-form-label">Metal:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.metal}  disabled />
                         </div>
                         <label htmlFor="peso" className="col-sm-2 col-form-label">Peso (grs):</label>
@@ -392,8 +399,8 @@ class DetallePartidaCajaCerrada extends Component{
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="kilataje" className="col-sm-4 col-form-label">Kilataje:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="kilataje" className="col-sm-3 col-form-label">Kilataje:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.kilates}  disabled />
                         </div>
                         <label htmlFor="calidad" className="col-sm-2 col-form-label">Calidad:</label>
@@ -402,8 +409,8 @@ class DetallePartidaCajaCerrada extends Component{
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="pesoRfid" className="col-sm-4 col-form-label">Peso RFID:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="pesoRfid" className="col-sm-3 col-form-label">Peso RFID:</label>
+                        <div className="col-sm-4">
                           <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.pesoRfid}  disabled />
                         </div>
                         <label htmlFor="pesoTotal" className="col-sm-2 col-form-label">Peso total:</label>
@@ -412,8 +419,8 @@ class DetallePartidaCajaCerrada extends Component{
                         </div>
                       </div>
                       <div className="form-group row">
-                        <label htmlFor="coincidePeso" className="col-sm-4 col-form-label">Coincide peso:</label>
-                        <div className="col-sm-8">
+                        <label htmlFor="coincidePeso" className="col-sm-3 col-form-label">Coincide peso:</label>
+                        <div className="col-sm-9">
                           <select name="coincidePeso" id="coincidePeso" onChange={this.handleInputChange} className="form-control input-sm" required>
                             <option value="">Seleccione una opción</option>
                             <option value="0">No</option>
@@ -423,8 +430,8 @@ class DetallePartidaCajaCerrada extends Component{
                       </div>
 
                       <div className="form-group row" id="coincidePeso-label" hidden>
-                        <label htmlFor="peso" className="col-sm-4 col-form-label">Peso:</label>
-                        <div className="col-sm-8">
+                        <label htmlFor="peso" className="col-sm-3 col-form-label">Peso:</label>
+                        <div className="col-sm-9">
                           <input  type="text" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
                         </div>
                       </div>
@@ -432,85 +439,102 @@ class DetallePartidaCajaCerrada extends Component{
 
                     </div>
                   </div>
+
+                    </div>
+                  </div>
                 </div>
-
                 <div className="col-md-6">
-                  <h5>Valores asignados</h5>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="form-group row">
-                        <label htmlFor="prestamo" className="col-sm-4 col-form-label">Préstamo:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.prestamo} disabled />
-                        </div>
+                  <div className="panel panel-primary panel-descripcion">
+                    <div className="panel-heading">
+                      <p>Valores asignados</p>
+                      <div className="panel-action-icons">
+                      </div>
+                    </div>
+                    <div className="panel-body">
 
-                      </div>
-                      <div className="form-group row">
-                        <label htmlFor="prestamoMaximo" className="col-sm-4 col-form-label">Préstamo máximo:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.prestamoMaximoSugerido} disabled />
-                        </div>
-                        <label htmlFor="prestamoSugerido" className="col-sm-2 col-form-label">Préstamo Sugerido:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.prestamoSugerido} disabled />
-                        </div>
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="form-group row">
+                            <label htmlFor="prestamo" className="col-sm-3 col-form-label">Préstamo:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.prestamo} disabled />
+                            </div>
 
+                          </div>
+                          <div className="form-group row">
+                            <label htmlFor="prestamoMaximo" className="col-sm-3 col-form-label">Préstamo máximo:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.prestamoMaximoSugerido} disabled />
+                            </div>
+                            <label htmlFor="prestamoSugerido" className="col-sm-3 col-form-label">Préstamo Sugerido:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.prestamoSugerido} disabled />
+                            </div>
+
+                          </div>
+                          <div className="form-group row">
+                            <label htmlFor="valorMonte" className="col-sm-3 col-form-label">Valor Monte:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.valorMonte} disabled />
+                            </div>
+                            <label htmlFor="valorComercial" className="col-sm-3 col-form-label">Valor comercial:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.valorComercial} disabled />
+                            </div>
+                          </div>
+                          <div className="form-group row">
+                            <label htmlFor="avComp" className="col-sm-3 col-form-label">Av. Comp.:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.avaluoComplementario} disabled />
+                            </div>
+                          </div>
+                          <div className="form-group row">
+                            <label htmlFor="costoMetal" className="col-sm-3 col-form-label">Costo de Metal:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.costoMetal} disabled />
+                            </div>
+                            <label htmlFor="importeGramo" className="col-sm-3 col-form-label">Importe Gramo:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.importeGramo} disabled />
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="form-group row">
-                        <label htmlFor="valorMonte" className="col-sm-4 col-form-label">Valor Monte:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.valorMonte} disabled />
-                        </div>
-                        <label htmlFor="valorComercial" className="col-sm-2 col-form-label">Valor comercial:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.valorComercial} disabled />
-                        </div>
-                        <label htmlFor="avComp" className="col-sm-4 col-form-label">Av. Comp.:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.avaluoComplementario} disabled />
+                      <div className="panel panel-primary">
+                        <div className="panel-heading">
+                          <p>Estado físico</p>
+                          <div className="panel-action-icons">
+                          </div>
                         </div>
                       </div>
-                      <div className="form-group row">
-                        <label htmlFor="costoMetal" className="col-sm-4 col-form-label">Costo de Metal:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.costoMetal} disabled />
-                        </div>
-                        <label htmlFor="importeGramo" className="col-sm-2 col-form-label">Importe Gramo:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={'$ '+this.props.cajaCerrada.detallePartida.importeGramo} disabled />
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="form-group row">
+                            <label htmlFor="rango" className="col-sm-3 col-form-label">Rango:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.rango} disabled />
+                            </div>
+                            <label htmlFor="condicionesGenerales" className="col-sm-3 col-form-label">Condiciones Generales:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.condicionesGenerales} disabled />
+                            </div>
+
+                          </div>
+                          <div className="form-group row">
+                            <label htmlFor="incremento" className="col-sm-3 col-form-label">Incremento:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.incremento} disabled />
+                            </div>
+                            <label htmlFor="desplazamiento" className="col-sm-3 col-form-label">Desplazamiento:</label>
+                            <div className="col-sm-3">
+                              <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.desplazamientoComercial} disabled />
+                            </div>
+
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <h5>Estado físico</h5>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="form-group row">
-                        <label htmlFor="rango" className="col-sm-4 col-form-label">Rango:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.rango} disabled />
-                        </div>
-                        <label htmlFor="condicionesGenerales" className="col-sm-2 col-form-label">Condiciones Generales:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.condicionesGenerales} disabled />
-                        </div>
-
-                      </div>
-                      <div className="form-group row">
-                        <label htmlFor="incremento" className="col-sm-4 col-form-label">Incremento:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.incremento} disabled />
-                        </div>
-                        <label htmlFor="desplazamiento" className="col-sm-2 col-form-label">Desplazamiento:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.desplazamientoComercial} disabled />
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-
 
                 </div>
 
