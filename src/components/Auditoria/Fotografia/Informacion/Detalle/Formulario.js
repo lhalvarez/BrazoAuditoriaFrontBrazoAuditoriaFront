@@ -49,7 +49,7 @@ class Formulario extends Component {
       "observaciones": observacionesResultadoAuditoria
     };
 
-    this.props.enviarDetallePartida(resultadoAuditoria);  
+    this.props.enviarDetallePartida(resultadoAuditoria);
 
   }
 
@@ -106,39 +106,115 @@ class Formulario extends Component {
                   </div>
                 </div>
                 <div className="panel-body">
+
+
+
+
+
+
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group row">
-                        <label htmlFor="folio" className="col-sm-3 col-form-label">No de prenda:</label>
-                        <div className="col-sm-3">
+                        <label htmlFor="sucursal" className="col-sm-4 col-form-label">Sucursal</label>
+                        <div className="col-sm-8">
+                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" value={detallePartida? detallePartida.sucursal : '' } disabled />
 
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="folio" value={llavePartida? llavePartida.folio : ''}/>
-                        </div>
-                        <label htmlFor="ubicacion" className="col-sm-3 col-form-label">Ubicación:</label>
-                        <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="ubicacion" placeholder="" />
                         </div>
                       </div>
 
                       <div className="form-group row">
-                        <label htmlFor="estadoCaja" className="col-sm-3 col-form-label">Estado Caja:</label>
-                        <div className="col-sm-3">
-                          <input autoFocus="autoFocus" type="text" className="form-control input-sm" id="estadoCaja" value={detallePartida? detallePartida.estadoCaja:''} />
-                        </div>
-                        <label htmlFor="sucursal" className="col-sm-3 col-form-label">No. Sucursal:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="sucursal" value={detallePartida? detallePartida.sucursal : ''} />
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <label htmlFor="estadoPrenda" className="col-sm-3 col-form-label">Estado Prenda:</label>
-                        <div className="col-sm-3">
-                          <input type="text" className="form-control input-sm" id="estadoPrenda" value={detallePartida? detallePartida.estadoPrenda : ''} />
+                        <label htmlFor="cliente" className="col-sm-4 col-form-label">Nombre de cliente</label>
+                        <div className="col-sm-8">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.nombreCliente:''} disabled />
+
                         </div>
                       </div>
 
+                      <div className="form-group row">
+                        <label htmlFor="noCliente" className="col-sm-4 col-form-label">No cliente</label>
+                        <div className="col-sm-8">
+                          <input type="text" className="form-control input-sm" value={detallePartida? detallePartida.numeroCliente:''} disabled  />
+
+                        </div>
+                      </div>
+
+                      <div className="form-group row">
+                        <label htmlFor="nombrePv" className="col-sm-4 col-form-label">Nombre PV</label>
+                        <div className="col-sm-8">
+                          <input type="text" className="form-control input-sm" value={detallePartida? detallePartida.nombrePV:''} disabled  />
+
+                        </div>
+                      </div>
+
+                      <div className="form-group row">
+                        <label htmlFor="nopv" className="col-sm-4 col-form-label">No. PV</label>
+                        <div className="col-sm-8">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.numeroValuador:''} disabled/>
+                        </div>
+                      </div>
+
+                      <div className="form-group row">
+                        <label htmlFor="edocaja" className="col-sm-4 col-form-label">Edo caja</label>
+                        <div className="col-sm-3">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.estadoCaja:''} disabled/>
+                        </div>
+
+                        <label htmlFor="rfid" className="col-sm-2 col-form-label">RFID</label>
+                        <div className="col-sm-3">
+                          <input type="text" className="form-control input-sm"  value={llavePartida? llavePartida.rfid:''} disabled/>
+                        </div>
+                      </div>
+
+                      <div className="form-group row">
+                        <label htmlFor="estado-prenda" className="col-sm-4 col-form-label">Edo Prenda</label>
+                        <div className="col-sm-8">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.estadoPrenda:''}  disabled/>
+                        </div>
+                      </div>
+
+
+                      <div className="form-group row">
+                        <label htmlFor="tipo-contrato" className="col-sm-4 col-form-label">Tipo contrato</label>
+                        <div className="col-sm-3">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.tipoContrato:''}  disabled/>
+                        </div>
+                        <label htmlFor="refrendos" className="col-sm-2 col-form-label">Refrendos</label>
+                        <div className="col-sm-3">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.noRefrendos:''}  disabled/>
+                        </div>
+                      </div>
+
+                      <div className="form-group row">
+                        <label htmlFor="fecha-empeño" className="col-sm-4 col-form-label">Fecha empeño</label>
+                        <div className="col-sm-3">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.fechaCreacion:''}  disabled/>
+                        </div>
+                        <label htmlFor="fecha-ingreso" className="col-sm-2 col-form-label">Fecha Ingreso</label>
+                        <div className="col-sm-3">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.fechaIngreso:''}  disabled/>
+                        </div>
+                        <label htmlFor="fecha-modificacion" className="col-sm-4 col-form-label">Fecha empeño</label>
+                        <div className="col-sm-3">
+                          <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.fechaModificacion:''}  disabled/>
+                        </div>
+                      </div>
+
+                      <div className="form-group row">
+                        <label htmlFor="caja" className="col-sm-4 col-form-label">Estado de la caja</label>
+                        <div className="col-sm-8">
+                          <input type="text" className="form-control input-sm" value={detallePartida? detallePartida.estadoCaja:''}  disabled/>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+
+
+
+
+
+
+
                 </div>
               </div>
             </div>
@@ -166,7 +242,224 @@ class Formulario extends Component {
             </div>
           </div>
 
-          <CamposParametrizables detallePartida={this.props.detallePartida.detallePartida} toggleForm={this.toggleForm} clearForm={this.clearForm}/>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="panel panel-primary">
+                <div className="panel-heading">
+                  <p>Descripción de la partida</p>
+                  <div className="panel-action-icons">
+                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
+                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  </div>
+                </div>
+                <div className="panel-body">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group row">
+                        <div className="col-sm-12">
+                          <textarea disabled name="descripcion" id="descripcion" cols="30" rows="4" className="form-control input-sm"   >{detallePartida? detallePartida.descripcion:''}</textarea>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div className="row">
+            <div className="col-md-12">
+              <div className="panel panel-primary">
+                <div className="panel-heading">
+                  <p>Detalle de la partida</p>
+                  <div className="panel-action-icons">
+                    <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
+                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  </div>
+                </div>
+                <div className="panel-body">
+                  <div className="col-md-6">
+                    <h5>Clasificación por tipo</h5>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="form-group row">
+                          <label htmlFor="ramo" className="col-sm-4 col-form-label">Ramo:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.ramo:''}  disabled />
+                          </div>
+                          <label htmlFor="deposito" className="col-sm-2 col-form-label">Depósito:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.deposito:''}  disabled />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="subramo" className="col-sm-4 col-form-label">Sub-ramo:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.subramo:''}  disabled />
+                          </div>
+
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="genero" className="col-sm-4 col-form-label">Género:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.genero:''}  disabled />
+                          </div>
+
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="noserie" className="col-sm-4 col-form-label">No. Serie:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.noSerie:''}  disabled />
+                          </div>
+
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="tipomoneda" className="col-sm-4 col-form-label">Tipo de Moneda:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.tipoMoneda:''}  disabled />
+                          </div>
+                          <label htmlFor="cantidad" className="col-sm-2 col-form-label">Cantidad:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.cantidad:''}  disabled />
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <h5>Calidad de metal y peso</h5>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="form-group row">
+                          <label htmlFor="metal" className="col-sm-4 col-form-label">Metal:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.metal:''}  disabled />
+                          </div>
+                          <label htmlFor="peso" className="col-sm-2 col-form-label">Peso (grs):</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.gramaje:''}  disabled />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="kilataje" className="col-sm-4 col-form-label">Kilataje:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.kilates:''}  disabled />
+                          </div>
+                          <label htmlFor="calidad" className="col-sm-2 col-form-label">Calidad:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.calidad:''}  disabled />
+                          </div>
+                        </div>
+
+
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <h5>Valores asignados</h5>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="form-group row">
+                          <label htmlFor="prestamo" className="col-sm-4 col-form-label">Préstamo:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamo:''} disabled />
+                          </div>
+
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="prestamoMaximo" className="col-sm-4 col-form-label">Préstamo máximo:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoMaximoSugerido:''} disabled />
+                          </div>
+                          <label htmlFor="prestamoSugerido" className="col-sm-2 col-form-label">Préstamo Sugerido:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoSugerido:''} disabled />
+                          </div>
+
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="valorMonte" className="col-sm-4 col-form-label">Valor Monte:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorMonte:''} disabled />
+                          </div>
+                          <label htmlFor="valorComercial" className="col-sm-2 col-form-label">Valor comercial:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorComercial:''} disabled />
+                          </div>
+                          <label htmlFor="avComp" className="col-sm-4 col-form-label">Av. Comp.:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.avaluoComplementario:''} disabled />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="costoMetal" className="col-sm-4 col-form-label">Costo de Metal:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.costoMetal:''} disabled />
+                          </div>
+                          <label htmlFor="importeGramo" className="col-sm-2 col-form-label">Importe Gramo:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.importeGramo:''} disabled />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h5>Estado físico</h5>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="form-group row">
+                          <label htmlFor="rango" className="col-sm-4 col-form-label">Rango:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.rango:''} disabled />
+                          </div>
+                          <label htmlFor="condicionesGenerales" className="col-sm-2 col-form-label">Condiciones Generales:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.condicionesGenerales:''} disabled />
+                          </div>
+
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="incremento" className="col-sm-4 col-form-label">Incremento:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.incremento:''} disabled />
+                          </div>
+                          <label htmlFor="desplazamiento" className="col-sm-2 col-form-label">Desplazamiento:</label>
+                          <div className="col-sm-3">
+                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.desplazamientoComercial:''} disabled />
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
 
           <div className="row">
             <div className="col-lg-12">
