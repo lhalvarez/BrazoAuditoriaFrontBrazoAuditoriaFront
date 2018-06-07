@@ -132,7 +132,7 @@ class SeccionCargarArchivos extends Component {
   handleStoreChange(){
     if(store.getState().cargaAuditora.auditoriaCreada){
       var formData = new FormData();
-      formData.append('file',this.state.file);
+      formData.append('file',this.state.file,this.state.file.name);
 
       this.props.saveDoc(formData,this.onUploadProgress);
     }
