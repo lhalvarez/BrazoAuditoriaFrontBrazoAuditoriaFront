@@ -304,7 +304,7 @@ nav{
 }
 .downbar-text h3 {
   margin: 2px 0 0 0;
-  max-width: 100% 
+  max-width: 100%
 }
 
 .Footer {
@@ -508,3 +508,39 @@ input{
     25%  {left:70%;}
     100% {left:0;}
 }
+
+legend{
+  font-size: 12px !important;
+  font-weight: bold;
+}
+
+.panel-body legend{
+  padding-top: 25px;
+  padding-bottom: 6px;
+}
+
+.panel-body fieldset:first-child legend{
+  padding-top: 0;
+}
+
+.panel-photo .panel-body{
+  min-height: 477px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.panel-descripcion .panel-body{
+    min-height: 505px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.panel-tipo .panel-body{
+    min-height: 445px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
