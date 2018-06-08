@@ -530,17 +530,11 @@ legend{
   justify-content: center;
 }
 
-.panel-descripcion .panel-body{
-    min-height: 505px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.margin-left{
+    margin-left: 25px   ;
+}
+.margin-right{
+    margin-right: 25px;
 }
 
-.panel-tipo .panel-body{
-    min-height: 445px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 

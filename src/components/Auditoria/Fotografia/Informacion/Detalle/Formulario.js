@@ -93,7 +93,7 @@ class Formulario extends Component {
       <div>
         { resultadoAuditoria ? <div className="alert alert-warning auditoriaEfectuada">
           <b>{LEYENDAS.VALIDACION.AUDITORIA_EFECTUADA}</b>
-        </div> : null}
+        </div> : null}{resultadoAuditoria}
         <form onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="col-md-6">
@@ -282,19 +282,14 @@ class Formulario extends Component {
                 </div>
                 <div className="panel-body">
                   <div className="col-md-6">
-                    <div className="panel panel-primary panel-tipo">
-                      <div className="panel-heading">
-                        <p>Clasificación por tipo</p>
-                        <div className="panel-action-icons">
-                        </div>
-                      </div>
-                      <div className="panel-body">
+                    <fieldset className="margin-right">
+                      <legend>Clasificación por tipo</legend>
 
 
                       <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
-                          <label htmlFor="ramo" className="col-sm-3 col-form-label">Ramo:</label>
+                          <label htmlFor="ramo" className="col-sm-2 col-form-label">Ramo:</label>
                           <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.ramo:''}  disabled />
                           </div>
@@ -304,28 +299,28 @@ class Formulario extends Component {
                           </div>
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="subramo" className="col-sm-3 col-form-label">Sub-ramo:</label>
+                          <label htmlFor="subramo" className="col-sm-2 col-form-label">Sub-ramo:</label>
                           <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.subramo:''}  disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="genero" className="col-sm-3 col-form-label">Género:</label>
+                          <label htmlFor="genero" className="col-sm-2 col-form-label">Género:</label>
                           <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.genero:''}  disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="noserie" className="col-sm-3 col-form-label">No. Serie:</label>
+                          <label htmlFor="noserie" className="col-sm-2 col-form-label">No. Serie:</label>
                           <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.noSerie:''}  disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="tipomoneda" className="col-sm-3 col-form-label">Tipo de Moneda:</label>
+                          <label htmlFor="tipomoneda" className="col-sm-2 col-form-label">Tipo de Moneda:</label>
                           <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.tipoMoneda:''}  disabled />
                           </div>
@@ -337,136 +332,122 @@ class Formulario extends Component {
 
                       </div>
                     </div>
-                        <div className="panel panel-primary">
-                          <div className="panel-heading">
-                            <p>Calidad de metal y peso</p>
-                            <div className="panel-action-icons">
+                    </fieldset>
+                    <fieldset className="margin-right">
+                      <legend>Calidad de metal y peso</legend>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="form-group row">
+                              <label htmlFor="metal" className="col-sm-2 col-form-label">Metal:</label>
+                              <div className="col-sm-4">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.metal:''}  disabled />
+                              </div>
+                              <label htmlFor="peso" className="col-sm-2 col-form-label">Peso (grs):</label>
+                              <div className="col-sm-3">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.gramaje:''}  disabled />
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group row">
-                          <label htmlFor="metal" className="col-sm-3 col-form-label">Metal:</label>
-                          <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.metal:''}  disabled />
-                          </div>
-                          <label htmlFor="peso" className="col-sm-2 col-form-label">Peso (grs):</label>
-                          <div className="col-sm-3">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.gramaje:''}  disabled />
-                          </div>
-                        </div>
-                        <div className="form-group row">
-                          <label htmlFor="kilataje" className="col-sm-3 col-form-label">Kilataje:</label>
-                          <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.kilates:''}  disabled />
-                          </div>
-                          <label htmlFor="calidad" className="col-sm-2 col-form-label">Calidad:</label>
-                          <div className="col-sm-3">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.calidad:''}  disabled />
-                          </div>
-                        </div>
+                            <div className="form-group row">
+                              <label htmlFor="kilataje" className="col-sm-2 col-form-label">Kilataje:</label>
+                              <div className="col-sm-4">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.kilates:''}  disabled />
+                              </div>
+                              <label htmlFor="calidad" className="col-sm-2 col-form-label">Calidad:</label>
+                              <div className="col-sm-3">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.calidad:''}  disabled />
+                              </div>
+                            </div>
 
 
 
-                      </div>
-                    </div>
-                  </div>
-                  </div>
+                          </div>
+                        </div>
+                    </fieldset>
                   </div>
 
                   <div className="col-md-6">
-                    <div className="panel panel-primary">
-                      <div className="panel-heading">
-                        <p>Valores asignados</p>
-                        <div className="panel-action-icons">
-                        </div>
-                      </div>
-                      <div className="panel-body">
-                    <div className="row">
+                    <fieldset className="margin-left">
+                      <legend>Valores asignados</legend>
+                        <div className="row">
                       <div className="col-md-12">
                         <div className="form-group row">
-                          <label htmlFor="prestamo" className="col-sm-3 col-form-label">Préstamo:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="prestamo" className="col-sm-2 col-form-label">Préstamo:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamo:''} disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="prestamoMaximo" className="col-sm-3 col-form-label">Préstamo máximo:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="prestamoMaximo" className="col-sm-2 col-form-label">Préstamo máximo:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoMaximoSugerido:''} disabled />
                           </div>
-                          <label htmlFor="prestamoSugerido" className="col-sm-3 col-form-label">Préstamo Sugerido:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="prestamoSugerido" className="col-sm-2 col-form-label">Préstamo Sugerido:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoSugerido:''} disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="valorMonte" className="col-sm-3 col-form-label">Valor Monte:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="valorMonte" className="col-sm-2 col-form-label">Valor Monte:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorMonte:''} disabled />
                           </div>
-                          <label htmlFor="valorComercial" className="col-sm-3 col-form-label">Valor comercial:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="valorComercial" className="col-sm-2 col-form-label">Valor comercial:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorComercial:''} disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="avComp" className="col-sm-3 col-form-label">Av. Comp.:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="avComp" className="col-sm-2 col-form-label">Av. Comp.:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.avaluoComplementario:''} disabled />
                           </div>
 
                         </div>
                         <div className="form-group row">
-                          <label htmlFor="costoMetal" className="col-sm-3 col-form-label">Costo de Metal:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="costoMetal" className="col-sm-2 col-form-label">Costo de Metal:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.costoMetal:''} disabled />
                           </div>
-                          <label htmlFor="importeGramo" className="col-sm-3 col-form-label">Importe Gramo:</label>
-                          <div className="col-sm-3">
+                          <label htmlFor="importeGramo" className="col-sm-2 col-form-label">Importe Gramo:</label>
+                          <div className="col-sm-4">
                             <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.importeGramo:''} disabled />
                           </div>
                         </div>
                       </div>
                     </div>
+                    </fieldset>
+                    <fieldset className="margin-left">
+                      <legend>Estado físico</legend>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="form-group row">
+                              <label htmlFor="rango" className="col-sm-2 col-form-label">Rango:</label>
+                              <div className="col-sm-4">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.rango:''} disabled />
+                              </div>
+                              <label htmlFor="condicionesGenerales" className="col-sm-2 col-form-label">Condiciones Generales:</label>
+                              <div className="col-sm-4">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.condicionesGenerales:''} disabled />
+                              </div>
 
-                        <div className="panel panel-primary">
-                          <div className="panel-heading">
-                            <p>Estado físico</p>
-                            <div className="panel-action-icons">
+                            </div>
+                            <div className="form-group row">
+                              <label htmlFor="incremento" className="col-sm-2 col-form-label">Incremento:</label>
+                              <div className="col-sm-4">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.incremento:''} disabled />
+                              </div>
+                              <label htmlFor="desplazamiento" className="col-sm-3 col-form-label">Desplazamiento:</label>
+                              <div className="col-sm-3">
+                                <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.desplazamientoComercial:''} disabled />
+                              </div>
+
                             </div>
                           </div>
                         </div>
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group row">
-                          <label htmlFor="rango" className="col-sm-3 col-form-label">Rango:</label>
-                          <div className="col-sm-3">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.rango:''} disabled />
-                          </div>
-                          <label htmlFor="condicionesGenerales" className="col-sm-3 col-form-label">Condiciones Generales:</label>
-                          <div className="col-sm-3">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.condicionesGenerales:''} disabled />
-                          </div>
-
-                        </div>
-                        <div className="form-group row">
-                          <label htmlFor="incremento" className="col-sm-3 col-form-label">Incremento:</label>
-                          <div className="col-sm-3">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.incremento:''} disabled />
-                          </div>
-                          <label htmlFor="desplazamiento" className="col-sm-3 col-form-label">Desplazamiento:</label>
-                          <div className="col-sm-3">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? detallePartida.desplazamientoComercial:''} disabled />
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
+                    </fieldset>
 
 
                   </div>
@@ -479,10 +460,8 @@ class Formulario extends Component {
 
 
                 </div>
-              </div>
             </div>
 
-          </div>
 
 
 
