@@ -331,7 +331,7 @@ class DetallePartidaCajaCerrada extends Component{
                       <div className="row">
                         <div className="col-md-12">
                           <div className="form-group row">
-                            <label htmlFor="ramo" className="col-sm-2 col-form-label">Ramo:</label>
+                            <label htmlFor="ramo" className="col-sm-3 col-form-label">Ramo:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.ramo}  disabled />
                             </div>
@@ -341,28 +341,28 @@ class DetallePartidaCajaCerrada extends Component{
                             </div>
                           </div>
                           <div className="form-group row">
-                            <label htmlFor="subramo" className="col-sm-2 col-form-label">Sub-ramo:</label>
+                            <label htmlFor="subramo" className="col-sm-3 col-form-label">Sub-ramo:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.subramo}  disabled />
                             </div>
 
                           </div>
                           <div className="form-group row">
-                            <label htmlFor="genero" className="col-sm-2 col-form-label">Género:</label>
+                            <label htmlFor="genero" className="col-sm-3 col-form-label">Género:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.genero}  disabled />
                             </div>
 
                           </div>
                           <div className="form-group row">
-                            <label htmlFor="noserie" className="col-sm-2 col-form-label">No. Serie:</label>
+                            <label htmlFor="noserie" className="col-sm-3 col-form-label">No. Serie:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.noSerie}  disabled />
                             </div>
 
                           </div>
                           <div className="form-group row">
-                            <label htmlFor="tipomoneda" className="col-sm-2 col-form-label">Tipo de Moneda:</label>
+                            <label htmlFor="tipomoneda" className="col-sm-3 col-form-label">Tipo de Moneda:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.tipoMoneda}  disabled />
                             </div>
@@ -375,12 +375,17 @@ class DetallePartidaCajaCerrada extends Component{
                         </div>
                       </div>
                   </fieldset>
+                  <div className="row">
+                    <br/>
+                    <br/>
+                    <br/>
+                  </div>
                   <fieldset>
                     <legend>Calidad de metal y peso</legend>
                       <div className="row">
                         <div className="col-md-12">
                           <div className="form-group row">
-                            <label htmlFor="metal" className="col-sm-2 col-form-label">Metal:</label>
+                            <label htmlFor="metal" className="col-sm-3 col-form-label">Metal:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.metal}  disabled />
                             </div>
@@ -390,7 +395,7 @@ class DetallePartidaCajaCerrada extends Component{
                             </div>
                           </div>
                           <div className="form-group row">
-                            <label htmlFor="kilataje" className="col-sm-2 col-form-label">Kilataje:</label>
+                            <label htmlFor="kilataje" className="col-sm-3 col-form-label">Kilataje:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.kilates}  disabled />
                             </div>
@@ -400,7 +405,7 @@ class DetallePartidaCajaCerrada extends Component{
                             </div>
                           </div>
                           <div className="form-group row">
-                            <label htmlFor="pesoRfid" className="col-sm-2 col-form-label">Peso RFID:</label>
+                            <label htmlFor="pesoRfid" className="col-sm-3 col-form-label">Peso RFID:</label>
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.pesoRfid}  disabled />
                             </div>
@@ -410,7 +415,7 @@ class DetallePartidaCajaCerrada extends Component{
                             </div>
                           </div>
                           <div className="form-group row">
-                            <label htmlFor="coincidePeso" className="col-sm-2 col-form-label">Coincide peso:</label>
+                            <label htmlFor="coincidePeso" className="col-sm-3 col-form-label">Coincide peso:</label>
                             <div className="col-sm-9">
                               <select name="coincidePeso" id="coincidePeso" onChange={this.handleInputChange} className="form-control input-sm" required>
                                 <option value="">Seleccione una opción</option>
@@ -421,7 +426,7 @@ class DetallePartidaCajaCerrada extends Component{
                           </div>
 
                           <div className="form-group row" id="coincidePeso-label" hidden>
-                            <label htmlFor="peso" className="col-sm-2 col-form-label">Peso:</label>
+                            <label htmlFor="peso" className="col-sm-3 col-form-label">Peso:</label>
                             <div className="col-sm-9">
                               <input  type="text" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
                             </div>
@@ -505,8 +510,8 @@ class DetallePartidaCajaCerrada extends Component{
                             <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.incremento} disabled />
                             </div>
-                            <label htmlFor="desplazamiento" className="col-sm-3 col-form-label">Desplazamiento:</label>
-                            <div className="col-sm-3">
+                            <label htmlFor="desplazamiento" className="col-sm-2 col-form-label">Desplaza.:</label>
+                            <div className="col-sm-4">
                               <input type="text" className="form-control input-sm"  defaultValue={this.props.cajaCerrada.detallePartida.desplazamientoComercial} disabled />
                             </div>
 
