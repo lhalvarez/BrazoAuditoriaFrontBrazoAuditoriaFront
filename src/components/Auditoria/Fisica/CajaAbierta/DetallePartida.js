@@ -728,7 +728,10 @@ class DetallePartidaCajaAbierta extends Component{
                                                 <div className="form-group row">
                                                     <label htmlFor="costoMetal" className="col-sm-4 col-form-label">Costo de metal:</label>
                                                     <div className="col-sm-8">
-                                                        <input value={datos.costoMetal} disabled="disabled" type="text" className="form-control input-sm" id="costoMetal" name="costoMetal" />
+                                                        <div className="input-group">
+                                                            <span className="input-group-addon">$</span>
+                                                            <NumberFormat disabled="disabled" value={datos.costoMetal} className="form-control input-sm" id="costoMetal" name="costoMetal" thousandSeparator={true} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 }
@@ -739,7 +742,10 @@ class DetallePartidaCajaAbierta extends Component{
                                                 <div className="form-group row">
                                                     <label htmlFor="importeGramo" className="col-sm-4 col-form-label">Importe Gramo:</label>
                                                     <div className="col-sm-8">
-                                                        <input value={datos.importeGramo} disabled="disabled" type="text" className="form-control input-sm" id="importeGramo" name="importeGramo" />
+                                                        <div className="input-group">
+                                                            <span className="input-group-addon">$</span>
+                                                            <NumberFormat disabled="disabled" value={datos.importeGramo} className="form-control input-sm" id="importeGramo" name="importeGramo" thousandSeparator={true} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 }
@@ -1048,7 +1054,10 @@ class DetallePartidaCajaAbierta extends Component{
                                                 <div className="form-group row">
                                                     <label htmlFor="costoMetalDin" className="col-sm-4 col-form-label">Costo de metal:</label>
                                                     <div className="col-sm-8">
-                                                        <input value={('costoMetalDin' in datos) ? datos['costoMetalDin'] : datos['costoMetal']} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="costoMetalDin" name="costoMetalDin" />
+                                                        <div className="input-group">
+                                                            <span className="input-group-addon">$</span>
+                                                            <NumberFormat value={(('costoMetalDin') in datos) ? datos['costoMetalDin'] : datos['costoMetal']} onChange={this.handleNumberChange} className="form-control input-sm" id="costoMetalDin" name="costoMetalDin" thousandSeparator={true} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 }
@@ -1059,7 +1068,10 @@ class DetallePartidaCajaAbierta extends Component{
                                                 <div className="form-group row">
                                                     <label htmlFor="importeGramoDin" className="col-sm-4 col-form-label">Importe Gramo:</label>
                                                     <div className="col-sm-8">
-                                                        <input value={('importeGramoDin' in datos) ? datos['importeGramoDin'] : datos['importeGramo']} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="importeGramoDin" name="importeGramoDin" />
+                                                        <div className="input-group">
+                                                            <span className="input-group-addon">$</span>
+                                                            <NumberFormat value={(('importeGramoDin') in datos) ? datos['importeGramoDin'] : datos['importeGramo']} onChange={this.handleNumberChange} className="form-control input-sm" id="importeGramoDin" name="importeGramoDin" thousandSeparator={true} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 }
