@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 
 import FotoPartida from '../../../Fisica/FotoPartida';
-import CamposParametrizables  from './CamposParametrizables';
-
+import NumberFormat from 'react-number-format';
 import {LEYENDAS} from '../../../../../constants/index.js'
 import {connect} from "react-redux";
 import {enviarDetallePartida, getCatEstadoAuditoria, getPartidaDetail} from "./actions";
@@ -373,47 +372,49 @@ class Formulario extends Component {
                         <div className="form-group row">
                           <label htmlFor="prestamo" className="col-sm-2 col-form-label">Préstamo:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamo:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? detallePartida.prestamo:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
                           </div>
 
                         </div>
                         <div className="form-group row">
                           <label htmlFor="prestamoMaximo" className="col-sm-2 col-form-label">Préstamo máximo:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoMaximoSugerido:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? '$ '+detallePartida.prestamoMaximoSugerido:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+
                           </div>
                           <label htmlFor="prestamoSugerido" className="col-sm-2 col-form-label">Préstamo Sugerido:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.prestamoSugerido:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? '$ '+detallePartida.prestamoSugerido:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+
                           </div>
 
                         </div>
                         <div className="form-group row">
                           <label htmlFor="valorMonte" className="col-sm-2 col-form-label">Valor Monte:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorMonte:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? '$ '+detallePartida.valorMonte:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
                           </div>
                           <label htmlFor="valorComercial" className="col-sm-2 col-form-label">Valor comercial:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.valorComercial:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? '$ '+detallePartida.valorComercial:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
                           </div>
 
                         </div>
                         <div className="form-group row">
                           <label htmlFor="avComp" className="col-sm-2 col-form-label">Av. Comp.:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.avaluoComplementario:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? '$ '+detallePartida.avaluoComplementario:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
                           </div>
 
                         </div>
                         <div className="form-group row">
                           <label htmlFor="costoMetal" className="col-sm-2 col-form-label">Costo de Metal:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.costoMetal:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? '$ '+detallePartida.costoMetal:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
                           </div>
                           <label htmlFor="importeGramo" className="col-sm-2 col-form-label">Importe Gramo:</label>
                           <div className="col-sm-4">
-                            <input type="text" className="form-control input-sm"  value={detallePartida? '$ '+detallePartida.importeGramo:''} disabled />
+                            <NumberFormat disabled="disabled" value={detallePartida? '$ '+detallePartida.importeGramo:''} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
                           </div>
                         </div>
                       </div>
