@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { history } from '../../history';
 import { store } from '../../store';
 import { showHelpPane } from './GlobalActions';
 
@@ -20,7 +21,7 @@ class Menu extends Component{
 
   		this.handleStoreChanges = this.handleStoreChanges.bind(this);
       this.renderMenu = this.renderMenu.bind(this);
-  		this.toggleHelp = this.toggleHelp.bind(this);
+      this.toggleHelp = this.toggleHelp.bind(this);
 
   		this.unsuscribe = store.subscribe(this.handleStoreChanges);
   	}
@@ -55,7 +56,7 @@ class Menu extends Component{
             				{
             					(option.url != '#')
             					?
-            					<NavLink exact to={option.url}><i className={"fa fa-fw" + (option.ico != 'ico' ? (' '+option.ico) : '')}></i> {option.descripcion}</NavLink>
+            					<NavLink exact location={history.location} to={option.url}><i className={"fa fa-fw" + (option.ico != 'ico' ? (' '+option.ico) : '')}></i> {option.descripcion}</NavLink>
             					:
             					<a href={option.url}><i className={"fa fa-fw" + (option.ico != 'ico' ? (' '+option.ico) : '')}></i> {option.descripcion}{(option.submenus) && <span className="fa arrow"></span>}</a>
             				}
@@ -69,7 +70,7 @@ class Menu extends Component{
             									{
             										(secondOption.url != '#')
             										?
-            										<NavLink exact to={secondOption.url}><i className={"fa fa-fw" + (secondOption.ico != 'ico' ? (' '+secondOption.ico) : '')}></i> {secondOption.descripcion}</NavLink>
+            										<NavLink exact location={history.location} to={secondOption.url}><i className={"fa fa-fw" + (secondOption.ico != 'ico' ? (' '+secondOption.ico) : '')}></i> {secondOption.descripcion}</NavLink>
             										:
             										<a href={secondOption.url}><i className={"fa fa-fw" + (secondOption.ico != 'ico' ? (' '+secondOption.ico) : '')}></i> {secondOption.descripcion}{(secondOption.submenus) && <span className="fa arrow"></span>}</a>
             									}
@@ -80,7 +81,7 @@ class Menu extends Component{
             											{
             												secondOption.submenus.map(thirdOption => (
             													<li key={thirdOption.idMenu}>
-            														<NavLink exact to={thirdOption.url}><i className={"fa fa-fw" + (thirdOption.ico != 'ico' ? (' '+thirdOption.ico) : '')}></i> {thirdOption.descripcion}</NavLink>
+            														<NavLink exact location={history.location} to={thirdOption.url}><i className={"fa fa-fw" + (thirdOption.ico != 'ico' ? (' '+thirdOption.ico) : '')}></i> {thirdOption.descripcion}</NavLink>
             													</li>
             												))
             											}
