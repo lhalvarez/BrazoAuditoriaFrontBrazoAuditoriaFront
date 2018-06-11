@@ -8,6 +8,7 @@ import ContainerTitle from '../../../Global/ContainerTitle';
 import { TITLES } from '../../../../constants';
 import FormularioBusquedaPartida from './FormularioBusquedaPartida';
 import DetallePartidaCajaAbierta from './DetallePartida';
+import { limpiarPartida } from './actions';
 
 class AuditoriaFisicaCajaAbierta extends Component{
 	static propTypes = {
@@ -38,6 +39,7 @@ class AuditoriaFisicaCajaAbierta extends Component{
 
   	componentWillUnmount(){
   		this.unsuscribe();
+      this.props.limpiarPartida();
   	}
 
   	render(){
@@ -58,4 +60,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(AuditoriaFisicaCajaAbierta);
+export default connect(mapStateToProps,{ limpiarPartida })(AuditoriaFisicaCajaAbierta);

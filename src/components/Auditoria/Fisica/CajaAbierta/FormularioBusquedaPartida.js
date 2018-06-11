@@ -12,15 +12,12 @@ class FormularioBusquedaPartida extends Component{
 
   	constructor(){
   		super();
-
-      let storeState = store.getState().cajaAbierta;
-
       /*
       * La propiedad initKey funciona para forzar la montura del modal, y que así siempre se tenga que inicializar
       */
       this.state = {
-        rfid: storeState.rfid,
-        folio: storeState.folio,
+        rfid: '',
+        folio: '',
         submitted: false,
         initKey: Math.random()
       };

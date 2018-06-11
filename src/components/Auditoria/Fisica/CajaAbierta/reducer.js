@@ -5,7 +5,8 @@ import {
 	ERROR_CARGAR_DETALLE_PARTIDA,
 	ENVIANDO_DETALLE_PARTIDA,
 	DETALLE_PARTIDA_ENVIADA,
-	ERROR_ENVIAR_DETALLE_PARTIDA
+	ERROR_ENVIAR_DETALLE_PARTIDA,
+	LIMPIAR_PARTIDA
 } from './actions';
 
 const initialState = {
@@ -40,6 +41,8 @@ export function cajaAbierta(state = initialState,action){
 		case ERROR_ENVIAR_DETALLE_PARTIDA:
 			return {...state, detallePartida: action.detallePartida};
 		case DETALLE_PARTIDA_ENVIADA:
+			return {...initialState};
+		case LIMPIAR_PARTIDA:
 			return {...initialState};
 		default:
 			return state;

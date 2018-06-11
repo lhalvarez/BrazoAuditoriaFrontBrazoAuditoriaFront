@@ -15,6 +15,8 @@ export const ENVIANDO_DETALLE_PARTIDA = 'ENVIANDO_DETALLE_PARTIDA';
 export const DETALLE_PARTIDA_ENVIADA = 'DETALLE_PARTIDA_ENVIADA';
 export const ERROR_ENVIAR_DETALLE_PARTIDA = 'ERROR_ENVIAR_DETALLE_PARTIDA';
 
+export const LIMPIAR_PARTIDA = 'LIMPIAR_PARTIDA';
+
 export function cargarDetallePartida(){
 	return dispatch => dispatch({ type: CARGAR_DETALLE_PARTIDA })
 }
@@ -58,4 +60,8 @@ export function enviarDetallePartida(requestBody){
 		});
 
 	};
+}
+
+export function limpiarPartida(){
+	return dispatch => dispatch({ type: LIMPIAR_PARTIDA })
 }
