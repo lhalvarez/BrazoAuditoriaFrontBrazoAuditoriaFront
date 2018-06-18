@@ -74,15 +74,42 @@ export function setCSSErrorGroup(id) {
 export function manejadorClickEjecutarSalida (e, props) {
   e.preventDefault();
 
+  let inputCaja = e.target.elements['inputCaja'];
+  let inputFolio = e.target.elements['inputFolio'];
+
+  if (!(validarInputNumber(inputCaja) && validarInputNumber(inputFolio))) {
+    return;
+  }
+
   e.target.querySelector('input[type="submit"]').disabled = true;
 
-  const rfid = e.target.elements['inputCaja'].value;
-  const folio = e.target.elements['inputFolio'].value;
+  const rfid = inputCaja.value;
+  const folio = inputFolio.value;
 
   props.ejecutarSalida(rfid, folio, props.p, props.t);
 
   e.target.reset();
   e.target.querySelectorAll(`.${CLASSE_CSS_ERROR}`).forEach( el => el.classList.remove(CLASSE_CSS_ERROR));
+}
+
+function validarInputNumber(elem) {
+  if (isNaN(elem.value)) {
+    elem.setCustomValidity('Debes introducir un número.');
+
+    if (elem.reportValidity) {
+      elem.reportValidity();
+    } else {
+      let formulario = elem.form;
+      const tmpSubmit = document.createElement('button');
+      formulario.appendChild(tmpSubmit);
+      tmpSubmit.click();
+      formulario.removeChild(tmpSubmit);
+    }
+
+    return false;
+  }
+
+  return true;
 }
 
 /**

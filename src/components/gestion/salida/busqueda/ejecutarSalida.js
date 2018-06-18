@@ -16,6 +16,11 @@ import React from 'react';
 import {TITLES} from "../../../../constants";
 
 
+function resetValidation() {
+  document.getElementById('inputCaja').setCustomValidity('');
+  document.getElementById('inputFolio').setCustomValidity('');
+}
+
 /**
  * Se encarga de renderizar la parte para capturar el Folio de la sección de busqueda
  *
@@ -31,6 +36,7 @@ export default function EjecutarSalida(props) {
              className='btn btn-sm btn-primary'
              type='submit'
              disabled={props.ejecutando}
+             onClick={resetValidation}
              value={TITLES.GESTION.SALIDA.BUSQUEDA.EJEC_SALIDA}/>
       </div>
     </div>

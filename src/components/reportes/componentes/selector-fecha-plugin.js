@@ -32,6 +32,8 @@ function cambiarFoco(IN) {
 class SelectorFechaPlugin extends Component {
   constructor(props) {
     super(props);
+
+    this.capturaFecha = false;
   }
 
   componentDidMount() {
@@ -45,9 +47,15 @@ class SelectorFechaPlugin extends Component {
     }).on('changeDate', e => {
       if (e.date && e.date.toISOString) {
         this.props.onChange(e.date.toISOString().split('T')[0], this.props.nombre);
+        this.capturaFecha = true;
+      }
+    }).on('hide', () => {
+      if (this.capturaFecha) {
         let IN = document.getElementById(this.props.nombre);
         cambiarFoco(IN);
       }
+
+      this.capturaFecha = false;
     });
   }
 

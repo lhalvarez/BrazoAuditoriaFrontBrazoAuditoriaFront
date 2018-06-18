@@ -30,9 +30,15 @@ import {generarReporte} from "../../components/reportes/actions/reporte";
  * @author <a href="https://wiki.quarksoft.net/display/~cachavez">Carlos Chávez Melena</a>
  */
 class SalidaPartidas extends Component{
+
+  componentWillMount() {
+    setForEachPolyfill();
+  }
+
   componentWillUnmount() {
     this.props.desmontarComponente();
   }
+
   /**
    * Se encarga de construir el componente
    *
@@ -47,6 +53,17 @@ class SalidaPartidas extends Component{
 			</div>
 		);
 	}
+}
+
+function setForEachPolyfill() {
+  if (window.NodeList && !NodeList.prototype.forEach) {
+    NodeList.prototype.forEach = function (callback, thisArg) {
+      thisArg = thisArg || window;
+      for (let i = 0; i < this.length; i++) {
+        callback.call(thisArg, this[i], i, this);
+      }
+    };
+  }
 }
 
 /**

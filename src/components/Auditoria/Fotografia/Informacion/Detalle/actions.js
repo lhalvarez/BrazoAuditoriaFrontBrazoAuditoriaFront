@@ -12,6 +12,11 @@ export const ENVIANDO_DETALLE_PARTIDA = 'ENVIANDO_DETALLE_PARTIDA';
 export const DETALLE_PARTIDA_ENVIADA = 'DETALLE_PARTIDA_ENVIADA';
 export const FLUSH_DETALLE_PART = 'FLUSH_DETALLE_PART';
 
+const PARAM_FILTRO_CAT_EST = {
+  f: 'ESTATUS_RESULTADO_TIPO_AUDITORIA',
+  p: 1
+};
+
 export function getPartidaDetail(folio,idAuditoria){
 
   return (dispatch)=>{
@@ -26,7 +31,7 @@ export function getPartidaDetail(folio,idAuditoria){
 export function getCatEstadoAuditoria(){
   const Nombre_Cat = 'tipo_observacion';
   return (dispatch)=>{
-    MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.OBSERVACION}`)
+    MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.ESTATUS}`, PARAM_FILTRO_CAT_EST)
       .then((response) => {
         dispatch( {type: GET_CAT_ESTADO_AUDITORIA, payload: response });
       }).catch(error => {

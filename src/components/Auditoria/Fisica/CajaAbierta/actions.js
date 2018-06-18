@@ -17,6 +17,11 @@ export const ERROR_ENVIAR_DETALLE_PARTIDA = 'ERROR_ENVIAR_DETALLE_PARTIDA';
 
 export const LIMPIAR_PARTIDA = 'LIMPIAR_PARTIDA';
 
+const PARAM_FILTRO_CAT_EST = {
+  f: 'ESTATUS_RESULTADO_TIPO_AUDITORIA',
+  p: 3
+};
+
 export function cargarDetallePartida(){
 	return dispatch => dispatch({ type: CARGAR_DETALLE_PARTIDA })
 }
@@ -27,7 +32,7 @@ export function obtenerDetallePartida(rfid,folio){
 
 		MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA.endpoint}/${rfid}/${folio}/3`)
 		.then(response => {
-			MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.OBSERVACION}`)
+			MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.ESTATUS}`, PARAM_FILTRO_CAT_EST)
 			.then(catResponse => {
 				dispatch({ type: DETALLE_PARTIDA_CARGADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
 				dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
