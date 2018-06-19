@@ -69,7 +69,7 @@ class SeccionTabla extends Component {
                           return (
                             <tr key={`${index}-${id}`}>
                               <td>{carga.id}</td>
-                              <td><Link to="#" onClick={() => {this.getDoc(carga.nombreArchivo)} }>{carga.nombreArchivo}</Link></td>
+                              <td>{carga.nombreArchivo}</td>
                               <td>{carga.idSucursal}</td>
                               <td>{carga.solicitante}</td>
                               <td>{carga.noPartidas}</td>
@@ -123,7 +123,7 @@ class SeccionTabla extends Component {
                   return (
                     <tr key={`${index}-${id}`}>
                       <td>{carga.id}</td>
-                      <td><Link to="#" onClick={() => {this.getDoc(carga.nombreArchivo)} }>{carga.nombreArchivo}</Link></td>
+                      <td>{carga.nombreArchivo}</td>
                       <td>{carga.idSucursal}</td>
                       <td>{carga.solicitante}</td>
                       <td>{carga.noPartidas}</td>

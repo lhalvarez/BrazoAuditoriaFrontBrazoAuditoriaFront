@@ -2,8 +2,8 @@ const userData = {
 	"token":"sadfdsafdsafsdfsadfsadfasdfsad",
 	"detalleUsuario": {
 		"correo": "email@fakesession.com",
-		"nombreCompleto": "Usuario",
-		"sucursal": 0,
+		"nombreCompleto": "Sesión Simulada",
+		"sucursal": 303,
 		"usuario": "fakeSession",
 		"rol": 1
 	}
@@ -110,21 +110,6 @@ const menu = [
 						"submenus": null
 					}
 				]
-			}
-		]
-	},
-	{
-		"idMenu": 12,
-		"descripcion": "Lista Usuarios",
-		"url": "#",
-		"ico": "fa-user",
-		"submenus": [
-			{
-				"idMenu": 13,
-				"descripcion": "Consulta Usuarios",
-				"url": "/usuarios",
-				"ico": "fa-users",
-				"submenus": null
 			}
 		]
 	},
