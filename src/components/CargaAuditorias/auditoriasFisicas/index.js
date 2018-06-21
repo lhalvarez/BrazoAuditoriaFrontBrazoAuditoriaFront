@@ -27,6 +27,7 @@ class AuditoriasFisicas extends React.Component {
     };
     this.tipoAuditoria = 2;
   }
+
   componentDidMount () {
     this.props.getDocs(this.state.page, this.state.pageSize, this.tipoAuditoria);
   }
@@ -97,11 +98,11 @@ class AuditoriasFisicas extends React.Component {
 
           />
           <this.CargaFisica />
-          <Pagination current={this.state.page + 1}
+          {this.props.total > 0 && <Pagination current={this.state.page + 1}
                       pageSize={this.state.pageSize}
                       hideOnSinglePage={true}
                       total={this.props.total}
-                      onChange={this.onChangePagination} />
+                      onChange={this.onChangePagination} /> }
 
         </div>
       );

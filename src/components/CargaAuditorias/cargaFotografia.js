@@ -54,12 +54,12 @@ class CargaFotografia extends Component {
         getDocs={this.props.getDocs}
       />
 
-      <this.ShowTable />
-      <Pagination current={this.state.page + 1}
+        <this.ShowTable />
+        {this.props.total > 0 &&  <Pagination current={this.state.page + 1}
                   pageSize={this.state.pageSize}
                   hideOnSinglePage={true}
                   total={this.props.total}
-                  onChange={this.onChangePagination} />
+                  onChange={this.onChangePagination} /> }
 
 
       </div>

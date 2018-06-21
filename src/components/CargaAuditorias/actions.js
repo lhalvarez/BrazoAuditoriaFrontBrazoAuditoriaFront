@@ -13,24 +13,26 @@ export const GET_AUDITORIA = 'GET_AUDITORIA'; // Acción para obtener la carga c
 export const SAVE_AUDITORIA = 'SAVE_AUDITORIA'; //Acción para guardar los datos de la autitoría
 export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la auditoría
 export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
-export const GET_AUDITORIAS_FISICAS = 'GET_AUDITORIAS_FISICAS'; //Acción para eliminar la auditoría
+export const NO_PARTIDAS = 'NO_PARTIDAS'; //Acción para regresar un estado sin auditorias encontradas
 
 export function getDocs(page, pageSize,tipoAuditoria){
   if(tipoAuditoria === 2){
     tipoAuditoria = 0;
   }
-  console.log(page, pageSize,tipoAuditoria);
   const params = {
     p: page,
     t: pageSize,
     tipoAuditoria:tipoAuditoria
   };
+
   return (dispatch)=>{
     MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
       .then((response) => {
+        console.log(response);
         dispatch( {type: GET_AUDITORIAS, payload: response });
       }).catch(error => {
         if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
+          dispatch( {type: NO_PARTIDAS });
           dispatch(addNotification('Carga de registros','Sin auditorías por autorizar' , 'info'));
         }else{
           dispatch(addNotification('Carga de registros',''+ error.data.message , 'info'));
@@ -85,23 +87,6 @@ export function deleteDoc(idCarga,tipoAuditoria){
   }
 }
 
-export function getAuditorias(){
-  return(dispatch) => {
-    dispatch( {type: GET_AUDITORIAS });
-  }
-}
-
-export function getAuditoria(id){
-  return(dispatch) => {
-    MessageService.getById(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIA.endpoint,id)
-      .then((response) => {
-        dispatch( {type: GET_AUDITORIA, payload: response });
-        dispatch(addNotification('La consulta de la auditoría fué exitosa', 'success'));
-      }).catch(error => {
-        dispatch(addNotification('Se ha generado un error'+error,'', 'error'));
-      });
-  }
-}
 export function saveAuditoria(formData){
   return(dispatch) => {
     MessageService.save(API.ENDPOINTS.PARTIDAS.CARGAR_AUDITORIA.endpoint,formData)
