@@ -8,7 +8,8 @@ import {
   SAVE_AUDITORIA,
   DELETE_AUDITORIA,
   CLOSE_MODAL,
-  NO_PARTIDAS
+  NO_PARTIDAS,
+  UPDATE_PAGE
   } from './actions'
 import {ADD_NOTIFICATION} from "../Global/GlobalActions";
 
@@ -18,6 +19,7 @@ const initialState = {
   documentos: [],
   auditoriaCreada: false,
   archivoCargado: false,
+  resetTable: false,
   totalAuditorias: 0
 }
 
@@ -42,13 +44,15 @@ export function cargaAuditora(state = initialState, action){
       return Object.assign({}, state, {
         // documentos: action.payload,
         auditoriaCreada: false,
-        archivoCargado: true
+        archivoCargado: true,
+        resetTable: true
       })
     case DELETE_DOC:
       return Object.assign({}, state, {
         documentos: action.payload,
         auditoriaCreada: false,
-        archivoCargado: false
+        archivoCargado: false,
+        resetTable: true
       })
     case GET_AUDITORIAS:
       return Object.assign({}, state, {
@@ -68,13 +72,14 @@ export function cargaAuditora(state = initialState, action){
       return Object.assign({}, state, {
         // auditorias: action.payload,
         auditoriaCreada: true,
-        archivoCargado: false
+        archivoCargado: false,
       })
     case DELETE_AUDITORIA:
       return Object.assign({}, state, {
         auditorias: action.payload,
         auditoriaCreada: false,
-        archivoCargado: false
+        archivoCargado: false,
+        resetTable: true,
       })
     case 'ADD_NOTIFICATION':
       return Object.assign({}, state, {
@@ -83,9 +88,15 @@ export function cargaAuditora(state = initialState, action){
       });
     case CLOSE_MODAL:
       $('#modalConfirmacion').modal('hide');
-      return Object.assign({}, state, {});
+      return Object.assign({}, state, {
+
+      });
     case NO_PARTIDAS:
       return {...initialState};
+    case UPDATE_PAGE:
+      return Object.assign({}, state, {
+        resetTable: false
+      });
     default:
       return state
 

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ModalConfirmacion from './modalConfirmacion'
+import ModalConfirmacion from './modalConfirmacion';
+import Pagination from 'rc-pagination';
+import { store } from '../../store';
+import {updatePage} from './actions';
+import {connect} from "react-redux";
 
 class SeccionTabla extends Component {
 
@@ -11,9 +15,14 @@ class SeccionTabla extends Component {
     this.deleteDoc =this.deleteDoc.bind(this);
     this.state = {
       idAuditoria: 0,
-      showConfirm:false
+      showConfirm:false,
+      page: 0,
+      pageSize: 10,
+      total: 0,
     };
 
+    this.onChangePagination = this.onChangePagination.bind(this);
+    this.onDeleteElement = this.onDeleteElement.bind(this);
   };
 
   getDoc(nombreArchivo){
@@ -24,6 +33,11 @@ class SeccionTabla extends Component {
     this.setState({ idAuditoria: carga.id, showConfirm: true });
 
   }
+  onChangePagination = (page, pageSize) => {
+    this.setState({
+      page: page - 1
+    }, this.props.getDocs(page - 1, this.state.pageSize, this.props.tipoAuditoria));
+  };
 
   componentDidUpdate(){
     const { showConfirm } = this.state;
@@ -32,6 +46,18 @@ class SeccionTabla extends Component {
       $('#modalConfirmacion').modal('show');
       this.setState({ showConfirm: false });
     }
+    if(this.props.resetTable === true){
+      console.log(this.props.resetTable);
+      this.setState({page: 0});
+      this.props.updatePage();
+    }
+
+
+  }
+
+  onDeleteElement(){
+
+
   }
   render = () => {
 
@@ -39,7 +65,7 @@ class SeccionTabla extends Component {
     if(this.props.tipoAuditoria === 1){
       return(
         <div className="row">
-
+hola
           <div className="col-lg-12">
             <div className="panel panel-default">
               <div className="panel-heading" >
@@ -88,7 +114,12 @@ class SeccionTabla extends Component {
                   </div>
                 </div>
             </div>
-            <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria}/>
+          <Pagination current={this.state.page + 1}
+                      pageSize={this.state.pageSize}
+                      hideOnSinglePage={true}
+                      total={this.props.total}
+                      onChange={this.onChangePagination} />
+            <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria} onDeleteElement={this.onDeleteElement}/>
           </div>
       );
     }
@@ -143,6 +174,11 @@ class SeccionTabla extends Component {
             </table>
           </div>
         </div>
+        {this.props.total > 0 &&  <Pagination current={this.state.page + 1}
+                                              pageSize={this.state.pageSize}
+                                              hideOnSinglePage={true}
+                                              total={this.props.total}
+                                              onChange={this.onChangePagination} /> }
         <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria}/>
       </div>
     );
@@ -150,4 +186,10 @@ class SeccionTabla extends Component {
 
 }
 
-export default SeccionTabla;
+function mapStateToProps(state) {
+  return {
+    resetTable: state.cargaAuditora.resetTable
+  }
+}
+export default connect(mapStateToProps,{updatePage})(SeccionTabla);
+

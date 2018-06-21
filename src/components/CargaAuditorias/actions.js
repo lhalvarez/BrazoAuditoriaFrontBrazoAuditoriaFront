@@ -14,6 +14,7 @@ export const SAVE_AUDITORIA = 'SAVE_AUDITORIA'; //Acción para guardar los datos
 export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la auditoría
 export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
 export const NO_PARTIDAS = 'NO_PARTIDAS'; //Acción para regresar un estado sin auditorias encontradas
+export const UPDATE_PAGE = 'UPDATE_PAGE'; //Acción para actualizar tabla
 
 export function getDocs(page, pageSize,tipoAuditoria){
   if(tipoAuditoria === 2){
@@ -78,6 +79,7 @@ export function deleteDoc(idCarga,tipoAuditoria){
     MessageService.destroy(`${API.ENDPOINTS.AUDITORIA.BORRAR.endpoint}/${idCarga}`)
       .then((response) => {
         dispatch( {type: DELETE_DOC });
+        dispatch( {type: CLOSE_MODAL });
         dispatch(addNotification('Respuesta', response.message ,'success'));
         dispatch(getDocs(0, 10,tipoAuditoria));
 
@@ -112,5 +114,11 @@ export function sendNotification(title,message,level){
 export function closeModal(){
   return (dispatch) => {
 		dispatch({ type: CLOSE_MODAL });
+  }
+}
+
+export function updatePage(){
+  return (dispatch) => {
+		dispatch({ type: UPDATE_PAGE });
   }
 }

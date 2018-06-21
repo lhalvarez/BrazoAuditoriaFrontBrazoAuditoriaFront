@@ -14,7 +14,6 @@ class CargarAuditorias extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onChangePagination = this.onChangePagination.bind(this);
     this.CargaFoto = this.CargaFoto.bind(this);
 
     this.state = {
@@ -33,11 +32,7 @@ class CargarAuditorias extends React.Component {
 
 
 
-  onChangePagination = (page, pageSize) => {
-    this.setState({
-      page: page - 1
-    }, this.props.getDocs(page - 1, this.state.pageSize, this.tipoAuditoria));
-  };
+
 
 
 
@@ -61,6 +56,8 @@ class CargarAuditorias extends React.Component {
       sendNotification={this.props.sendNotification}
       api={LEYENDAS}
       total={this.props.total}
+      resetTable={this.props.resetTable}
+
     />
 
   }
@@ -81,7 +78,9 @@ class CargarAuditorias extends React.Component {
 function mapStateToProps(state) {
   return {
     auditorias: state.cargaAuditora.auditorias,
-    total: state.cargaAuditora.totalAuditorias
+    total: state.cargaAuditora.totalAuditorias,
+    resetTable: state.cargaAuditora.resetTable
+
   }
 }
 export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification,getDocs})(CargarAuditorias);
