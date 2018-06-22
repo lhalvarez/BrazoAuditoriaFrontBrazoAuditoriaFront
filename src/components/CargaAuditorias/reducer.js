@@ -20,7 +20,8 @@ const initialState = {
   auditoriaCreada: false,
   archivoCargado: false,
   resetTable: false,
-  totalAuditorias: 0
+  totalAuditorias: 0,
+  resetFormCharge:false
 }
 
 
@@ -45,7 +46,8 @@ export function cargaAuditora(state = initialState, action){
         // documentos: action.payload,
         auditoriaCreada: false,
         archivoCargado: true,
-        resetTable: true
+        resetTable: true,
+        resetFormCharge:true
       })
     case DELETE_DOC:
       return Object.assign({}, state, {
@@ -95,7 +97,8 @@ export function cargaAuditora(state = initialState, action){
       return {...initialState};
     case UPDATE_PAGE:
       return Object.assign({}, state, {
-        resetTable: false
+        resetTable: false,
+        resetFormCharge:false
       });
     default:
       return state

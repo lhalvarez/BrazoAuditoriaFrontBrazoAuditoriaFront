@@ -75,7 +75,8 @@ class AuditoriasFisicas extends React.Component {
         deleteDoc={this.props.deleteDoc}
         api={LEYENDAS}
         total = {this.props.total}
-        resetTable={this.props.resetTable}/>
+        resetTable={this.props.resetTable}
+        getDocs={this.props.getDocs}/>
     }else{
       return <div />
     }
@@ -94,10 +95,10 @@ class AuditoriasFisicas extends React.Component {
             detalleUsuario={this.state.detalleUsuario}
             tipoAuditoria={this.tipoAuditoria}
             saveDoc={this.props.saveDoc}
+            getDocs={this.props.getDocs}
             saveAuditoria={this.props.saveAuditoria}
             sendNotification={this.props.sendNotification}
             api={LEYENDAS}
-            getDocs={this.props.getDocs}
             resetTable={this.props.resetTable}
 
           />

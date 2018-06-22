@@ -4,6 +4,8 @@ import './style.css';
 import ContainerTitle from '../Global/ContainerTitle';
 import { PropTypes } from 'react';
 import { store } from '../../store';
+import {updatePage} from "./actions";
+import {connect} from "react-redux";
 
 
 class SeccionCargarArchivos extends Component {
@@ -90,7 +92,7 @@ class SeccionCargarArchivos extends Component {
     this.crearAuditoria();
   }
 
-  resetForm = () => {
+  resetForm(){
     let newState = {
       fileError: null,
       file: null,
@@ -147,8 +149,22 @@ class SeccionCargarArchivos extends Component {
     }
 
     if(store.getState().cargaAuditora.archivoCargado){
-      this.setState({ percentage: 100 });
+      this.setState({ percentage: 0 });
       this.props.getDocs(0, 10,this.props.tipoAuditoria);
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.props.resetFormCharge === true){
+      this.resetForm();
+      this.props.updatePage();
+      let newState = {
+        fileError: null,
+        file: null,
+        nameFile: this.props.api.CARGA.DD_VACIO,
+        percentage: 0
+      };
+      this.setState(newState);
     }
   }
 
@@ -160,7 +176,6 @@ class SeccionCargarArchivos extends Component {
   render = () => {
 
     const {percentage} = this.state;
-
     if(this.props.tipoAuditoria === 1){
       return(
         <div className="row">
@@ -312,6 +327,11 @@ class SeccionCargarArchivos extends Component {
     }
   };
 }
+function mapStateToProps(state) {
+  return {
+    resetFormCharge: state.cargaAuditora.resetFormCharge
+  }
+}
+export default connect(mapStateToProps,{updatePage})(SeccionCargarArchivos);
 
 
-export default SeccionCargarArchivos;

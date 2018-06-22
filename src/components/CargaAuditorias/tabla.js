@@ -65,7 +65,7 @@ class SeccionTabla extends Component {
     if(this.props.tipoAuditoria === 1){
       return(
         <div className="row">
-hola
+
           <div className="col-lg-12">
             <div className="panel panel-default">
               <div className="panel-heading" >
