@@ -21,7 +21,8 @@ class ValidacionAuditorias extends React.Component {
 
         this.state = {
             detalleUsuario: store.getState().session.detalleUsuario,
-            page: 0,
+            pagePhoto: 0,
+            pageFisica: 0,
             pageSize: 10,
             total: 0,
             idAuditoriaPhoto: 1,
@@ -43,8 +44,9 @@ class ValidacionAuditorias extends React.Component {
         //console.log("SI ENTROOOOOOOOOOOOOOOOOOOOO");
         let aFisica = [];
 
-        aFisica: this.props.getAuditoriasFisica(0, this.state.page, this.state.pageSize);
+        aFisica: this.props.getAuditoriasFisica(0, this.state.pageFisica, this.state.pageSize);
         //console.log(aFisica, "ESTO TIENE LA AFISICA");
+
         this.setState({
             auditoriasPendientesCaja: aFisica.length < 0 ? new Array() : aFisica
         })
@@ -53,7 +55,7 @@ class ValidacionAuditorias extends React.Component {
     auditoriasFotograficas = () => {
         //console.log("SI ENTROOOOOOOOOOOOOOOOOOOOO");
         let auditoriaObtenida = [];
-        auditoriaObtenida: this.props.getAuditorias(1, this.state.page, this.state.pageSize);
+        auditoriaObtenida: this.props.getAuditorias(1, this.state.pagePhoto, this.state.pageSize);
         this.setState({
             auditoriasPendientes: auditoriaObtenida.length < 0 ? new Array() : auditoriaObtenida
         })
@@ -62,10 +64,17 @@ class ValidacionAuditorias extends React.Component {
 
     onChangePagination = (page, pageSize) => {
         this.setState({
-            page: page - 1
-        }, this.props.getAuditorias(page - 1, this.state.pageSize));
+            pagePhoto: page - 1
+        }, this.props.getAuditorias(1, page - 1, this.state.pageSize));
     };
 
+
+
+    onChangePaginationCaja = (page, pageSize) => {
+        this.setState({
+            pageFisica: page - 1
+        }, this.props.getAuditoriasFisica(0, page - 1, this.state.pageSize));
+    };
 
     render() {
         //console.log("esto tienen las auditorias", this.props.auditoriasPendientes)
@@ -87,10 +96,11 @@ class ValidacionAuditorias extends React.Component {
                             getAuditorias={this.props.getAuditorias}
                             getAuditoriasFisica={this.props.getAuditoriasFisica}
                         />
-                        <Pagination current={this.state.page + 1}
+                        <Pagination current={this.state.pagePhoto + 1}
                             pageSize={this.state.pageSize}
                             hideOnSinglePage={true}
-                            total={this.state.total}
+                            total={this.props.total}
+                            showTitle={false}
                             onChange={this.onChangePagination} />
                     </div>
                 );
@@ -109,11 +119,12 @@ class ValidacionAuditorias extends React.Component {
                             getAuditoriasFisica={this.props.getAuditoriasFisica}
                             getAuditorias={this.props.getAuditorias}
                         />
-                        <Pagination current={this.state.page + 1}
+                        <Pagination current={this.state.pageFisica + 1}
                             pageSize={this.state.pageSize}
                             hideOnSinglePage={true}
-                            total={this.state.total}
-                            onChange={this.onChangePagination} />
+                            total={this.props.totalACaja}
+                            showTitle={false}
+                            onChange={this.onChangePaginationCaja} />
                     </div>
                 );
         }
