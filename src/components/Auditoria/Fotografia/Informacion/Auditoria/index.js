@@ -24,7 +24,8 @@ class InformacionAuditoriaFotografia extends Component {
             pageSize: 10,
             total: 0,
             idAuditoria: null,
-            nombreArchivo: null
+            nombreArchivo: null,
+            busqueda: false
         }
     }
     
@@ -61,18 +62,19 @@ class InformacionAuditoriaFotografia extends Component {
         console.log("En funcion buscarAuditoria...");
         console.log("Archivo seleccionado: " + this.state.nombreArchivo);
         console.log("Id auditoria: " + this.state.idAuditoria);
+        this.state.busqueda = true;
         this.props.buscarAuditoria(this.state.idAuditoria, this.state.nombreArchivo);
     };
     
     limpiar = () => {
         console.log("En funcion limpiar...");
-        if ((this.state.idAuditoria || this.state.nombreArchivo)
-                && this.props.total < this.state.pageSize) {
+        if (this.state.busqueda) {
             this.setState({
                 page: 0,
                 pageSize: 10,
                 idAuditoria: null,
-                nombreArchivo: null
+                nombreArchivo: null,
+                busqueda: false
             }, this.props.paginarAuditorias(0, this.state.pageSize));
         }
     };

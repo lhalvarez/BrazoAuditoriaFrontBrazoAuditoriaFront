@@ -27,8 +27,10 @@ class AuditoriasFisicas extends React.Component {
     };
     this.tipoAuditoria = 2;
   }
+
   componentDidMount () {
     this.props.getDocs(this.state.page, this.state.pageSize, this.tipoAuditoria);
+    this.setState({total:this.props.total});
   }
 
 
@@ -71,7 +73,10 @@ class AuditoriasFisicas extends React.Component {
         tipoAuditoria={this.tipoAuditoria}
         getDoc={this.props.getDoc}
         deleteDoc={this.props.deleteDoc}
-        api={LEYENDAS}/>
+        api={LEYENDAS}
+        total = {this.props.total}
+        resetTable={this.props.resetTable}
+        getDocs={this.props.getDocs}/>
     }else{
       return <div />
     }
@@ -90,18 +95,15 @@ class AuditoriasFisicas extends React.Component {
             detalleUsuario={this.state.detalleUsuario}
             tipoAuditoria={this.tipoAuditoria}
             saveDoc={this.props.saveDoc}
+            getDocs={this.props.getDocs}
             saveAuditoria={this.props.saveAuditoria}
             sendNotification={this.props.sendNotification}
             api={LEYENDAS}
-            getDocs={this.props.getDocs}
+            resetTable={this.props.resetTable}
 
           />
           <this.CargaFisica />
-          <Pagination current={this.state.page + 1}
-                      pageSize={this.state.pageSize}
-                      hideOnSinglePage={true}
-                      total={this.props.total}
-                      onChange={this.onChangePagination} />
+
 
         </div>
       );
@@ -113,7 +115,8 @@ function mapStateToProps(state) {
   return {
     auditorias: state.cargaAuditora.auditorias,
     total: state.cargaAuditora.totalAuditorias,
-    auditoriasfisicas:state.cargaAuditora.auditoriasfisicas
+    auditoriasfisicas:state.cargaAuditora.auditoriasfisicas,
+    resetTable: state.cargaAuditora.resetTable
   }
 }
 export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification,getDocs})(AuditoriasFisicas);

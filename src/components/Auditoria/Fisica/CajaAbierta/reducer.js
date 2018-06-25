@@ -13,7 +13,8 @@ const initialState = {
 	rfid: '',
 	folio: '',
 	loadDetail: false,
-	partidaCargada: false
+	partidaCargada: false,
+	partidaEnviada: false
 };
 
 export function cajaAbierta(state = initialState,action){
@@ -41,7 +42,7 @@ export function cajaAbierta(state = initialState,action){
 		case ERROR_ENVIAR_DETALLE_PARTIDA:
 			return {...state, detallePartida: action.detallePartida};
 		case DETALLE_PARTIDA_ENVIADA:
-			return {...initialState};
+			return Object.assign({},{...initialState},{ partidaEnviada: true });
 		case LIMPIAR_PARTIDA:
 			return {...initialState};
 		default:

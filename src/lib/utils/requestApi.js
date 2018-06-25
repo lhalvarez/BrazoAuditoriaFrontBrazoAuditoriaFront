@@ -14,6 +14,8 @@ const client = axios.create({
   baseURL: config.baseUrlBluemix
 });
 
+client.defaults.headers.common['X-Requested-With'] = 'XmlHttpRequest';
+
 client.interceptors.request.use(function (config) {
   console.log('LANZANDO INTERCEPTOR REQUEST;');
   return config;

@@ -20,7 +20,8 @@ class Auditoria extends Component {
         this.state = {
             page: 0,
             pageSize: 10,
-            folio: 0
+            folio: 0,
+            busqueda: false
         };
     };
 
@@ -30,6 +31,7 @@ class Auditoria extends Component {
 
     buscarPartida = () => {
         console.log('Realizando la busqueda de partida para el folio: ' + this.state.folio);
+        this.state.busqueda = true;
         this.props.buscarPartida(this.props.idAuditoria, this.state.folio);
     };
 
@@ -50,11 +52,12 @@ class Auditoria extends Component {
     };
 
     limpiar = () => {
-         if (this.state.folio !== 0 && this.props.total < this.state.pageSize) {
+         if (this.state.busqueda) {
               this.setState({
                   page: 0,
                   pageSize: 10,
-                  folio: 0
+                  folio: 0,
+                  busqueda: false
               }, this.props.paginarResultados(this.props.idAuditoria, 0, this.state.pageSize));
          }
     };

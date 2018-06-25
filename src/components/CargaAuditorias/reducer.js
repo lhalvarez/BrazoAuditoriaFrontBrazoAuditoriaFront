@@ -8,7 +8,8 @@ import {
   SAVE_AUDITORIA,
   DELETE_AUDITORIA,
   CLOSE_MODAL,
-  GET_AUDITORIAS_FISICAS
+  NO_PARTIDAS,
+  UPDATE_PAGE
   } from './actions'
 import {ADD_NOTIFICATION} from "../Global/GlobalActions";
 
@@ -18,7 +19,9 @@ const initialState = {
   documentos: [],
   auditoriaCreada: false,
   archivoCargado: false,
-  totalAuditorias: 0
+  resetTable: false,
+  totalAuditorias: 0,
+  resetFormCharge:false
 }
 
 
@@ -42,13 +45,16 @@ export function cargaAuditora(state = initialState, action){
       return Object.assign({}, state, {
         // documentos: action.payload,
         auditoriaCreada: false,
-        archivoCargado: true
+        archivoCargado: true,
+        resetTable: true,
+        resetFormCharge:true
       })
     case DELETE_DOC:
       return Object.assign({}, state, {
         documentos: action.payload,
         auditoriaCreada: false,
-        archivoCargado: false
+        archivoCargado: false,
+        resetTable: true
       })
     case GET_AUDITORIAS:
       return Object.assign({}, state, {
@@ -57,14 +63,7 @@ export function cargaAuditora(state = initialState, action){
         archivoCargado: false,
         totalAuditorias: action.payload.object.totalElementos
       })
-    case GET_AUDITORIAS_FISICAS:
-      return Object.assign({}, state, {
-        auditorias: action.payload.object.contenido,
-        auditoriasfisicas: action.auditoriasfisicas.object.contenido,
-        auditoriaCreada: false,
-        archivoCargado: false,
-        totalAuditorias: action.payload.object.totalElementos + action.auditoriasfisicas.object.totalElementos
-      })
+
     case GET_AUDITORIA:
       return Object.assign({}, state, {
         auditorias: action.payload,
@@ -75,22 +74,32 @@ export function cargaAuditora(state = initialState, action){
       return Object.assign({}, state, {
         // auditorias: action.payload,
         auditoriaCreada: true,
-        archivoCargado: false
+        archivoCargado: false,
       })
     case DELETE_AUDITORIA:
       return Object.assign({}, state, {
         auditorias: action.payload,
         auditoriaCreada: false,
-        archivoCargado: false
+        archivoCargado: false,
+        resetTable: true,
       })
     case 'ADD_NOTIFICATION':
       return Object.assign({}, state, {
         auditoriaCreada: false,
         archivoCargado: false
-      })
+      });
     case CLOSE_MODAL:
       $('#modalConfirmacion').modal('hide');
-      return Object.assign({}, state, {})
+      return Object.assign({}, state, {
+
+      });
+    case NO_PARTIDAS:
+      return {...initialState};
+    case UPDATE_PAGE:
+      return Object.assign({}, state, {
+        resetTable: false,
+        resetFormCharge:false
+      });
     default:
       return state
 
