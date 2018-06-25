@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { store } from '../../store';
 import { deleteDoc,deleteAuditoria,closeModal } from './actions';
-import { history } from '../../history';
 import { Button } from 'react-bootstrap';
 
 
@@ -22,9 +19,7 @@ class ModalConfirmacion extends Component{
 
 
   	handleSubmit(){
-  		const { valuador, clave } = this.state;
 			this.props.deleteDoc(this.props.idAuditoria,this.props.tipoAuditoria);
-			this.props.closeModal();
 
   	}
 

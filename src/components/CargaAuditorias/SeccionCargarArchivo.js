@@ -4,6 +4,8 @@ import './style.css';
 import ContainerTitle from '../Global/ContainerTitle';
 import { PropTypes } from 'react';
 import { store } from '../../store';
+import {updatePage} from "./actions";
+import {connect} from "react-redux";
 
 
 class SeccionCargarArchivos extends Component {
@@ -20,6 +22,9 @@ class SeccionCargarArchivos extends Component {
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onUploadProgress = this.onUploadProgress.bind(this);
     this.handleStoreChange = this.handleStoreChange.bind(this);
+    this.setFile = this.setFile.bind(this);
+    this.propagateClick = this.propagateClick.bind(this);
+    this.changeAlterFile = this.changeAlterFile.bind(this);
     this.state = {
       tipoCarga: '',
       file:null,
@@ -32,31 +37,37 @@ class SeccionCargarArchivos extends Component {
   };
 
   onChangeFile(e,files) {
+    files.forEach(this.setFile);
+  }
 
-    files.forEach(file => {
-      this.setState({file:file});
-      this.setState({nameFile:file.name});
-      if (file.size > this.props.api.CARGA.TAMANO_NUMERO * this.props.api.CARGA.TAMANO_NUMERO) {
-        file.error = this.props.api.CARGA.TAMANO_ARCHIVO+' '+this.props.api.CARGA.TAMANO_MB;
-        this.setState({fileError:file.error})
-        this.setState({file:null});
-        this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
-      }
-      console.log(file.name.split('.').pop());
+  propagateClick(e){
+    $('#alter-file').click();
+  }
 
-      if(file.name.split('.').pop() !== 'csv'){
-        file.error = this.props.api.CARGA.FORMATO_ARCHIVO_LEYENDA+' '+this.props.api.CARGA.FORMATO_ARCHIVO;
-        this.setState({fileError:file.error});
-        this.setState({file:null});
-        this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
-      }else{
-        this.setState({fileError:null});
-      }
+  changeAlterFile(){
+    let fileInput = document.getElementById('alter-file');
+    this.setFile(fileInput.files[0]);
+  }
 
+  setFile(file){
+    this.setState({file:file});
+    this.setState({nameFile:file.name});
+    if (file.size > this.props.api.CARGA.TAMANO_NUMERO * this.props.api.CARGA.TAMANO_NUMERO) {
+      file.error = this.props.api.CARGA.TAMANO_ARCHIVO+' '+this.props.api.CARGA.TAMANO_MB;
+      this.setState({fileError:file.error})
+      this.setState({file:null});
+      this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
+    }
+    // console.log(file.name.split('.').pop());
 
-
-    });
-
+    if(file.name.split('.').pop() !== 'csv'){
+      file.error = this.props.api.CARGA.FORMATO_ARCHIVO_LEYENDA+' '+this.props.api.CARGA.FORMATO_ARCHIVO;
+      this.setState({fileError:file.error});
+      this.setState({file:null});
+      this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
+    }else{
+      this.setState({fileError:null});
+    }
   }
 
   onChangeTipoAuditoria(e){
@@ -81,7 +92,7 @@ class SeccionCargarArchivos extends Component {
     this.crearAuditoria();
   }
 
-  resetForm = () => {
+  resetForm(){
     let newState = {
       fileError: null,
       file: null,
@@ -138,8 +149,22 @@ class SeccionCargarArchivos extends Component {
     }
 
     if(store.getState().cargaAuditora.archivoCargado){
-      this.setState({ percentage: 100 });
+      this.setState({ percentage: 0 });
       this.props.getDocs(0, 10,this.props.tipoAuditoria);
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.props.resetFormCharge === true){
+      this.resetForm();
+      this.props.updatePage();
+      let newState = {
+        fileError: null,
+        file: null,
+        nameFile: this.props.api.CARGA.DD_VACIO,
+        percentage: 0
+      };
+      this.setState(newState);
     }
   }
 
@@ -151,7 +176,6 @@ class SeccionCargarArchivos extends Component {
   render = () => {
 
     const {percentage} = this.state;
-
     if(this.props.tipoAuditoria === 1){
       return(
         <div className="row">
@@ -170,7 +194,7 @@ class SeccionCargarArchivos extends Component {
                     <div className="col-lg-6 col-lg-offset-3">
                       <div className="form-group row">
                         <label htmlFor="documento" className="col-sm-2 control-label"></label>
-                        <div className="col-sm-12">
+                        <div className="col-sm-12" onClick={this.propagateClick}>
 
                           <Receiver
                             isOpen={true}
@@ -195,6 +219,9 @@ class SeccionCargarArchivos extends Component {
                             </div>
                           }
 
+                          <div className="alter-file-input">
+                            <div><input type="file" accept="text/csv" name="alter-file" id="alter-file" onChange={this.changeAlterFile} /></div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -247,7 +274,7 @@ class SeccionCargarArchivos extends Component {
                       </div>
                       <div className="col-lg-6">
                         <div className="form-group row">
-                          <div className="col-sm-12">
+                          <div className="col-sm-12" onClick={this.propagateClick}>
                             <Receiver
                               isOpen={true}
                               onDragEnter={this.onDragEnter}
@@ -271,6 +298,9 @@ class SeccionCargarArchivos extends Component {
                               </div>
                             }
 
+                            <div className="alter-file-input">
+                              <div><input type="file" accept="text/csv" name="alter-file" id="alter-file" onChange={this.changeAlterFile} /></div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -297,6 +327,11 @@ class SeccionCargarArchivos extends Component {
     }
   };
 }
+function mapStateToProps(state) {
+  return {
+    resetFormCharge: state.cargaAuditora.resetFormCharge
+  }
+}
+export default connect(mapStateToProps,{updatePage})(SeccionCargarArchivos);
 
 
-export default SeccionCargarArchivos;

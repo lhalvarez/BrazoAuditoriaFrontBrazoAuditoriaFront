@@ -8,11 +8,7 @@ class CargaFotografia extends Component {
   constructor(props) {
 
     super(props);
-    this.state = {
-      page: 0,
-      pageSize: 10,
-      total: 0,
-    };
+
     this.onChangePagination = this.onChangePagination.bind(this);
     this.ShowTable = this.ShowTable.bind(this);
 
@@ -24,7 +20,6 @@ class CargaFotografia extends Component {
   };
 
 
-
    ShowTable() {
       if(this.props.auditoriasList.length > 0){
         return <SeccionTabla
@@ -34,7 +29,9 @@ class CargaFotografia extends Component {
           getDoc={this.props.getDoc}
           deleteDoc={this.props.deleteDoc}
           getDocs={this.props.getDocs}
-          api={this.props.api}/>
+          api={this.props.api}
+          total = {this.props.total}
+          resetTable={this.props.resetTable}/>
       }else{
         return <div />;
       }
@@ -54,12 +51,8 @@ class CargaFotografia extends Component {
         getDocs={this.props.getDocs}
       />
 
-      <this.ShowTable />
-      <Pagination current={this.state.page + 1}
-                  pageSize={this.state.pageSize}
-                  hideOnSinglePage={true}
-                  total={this.props.total}
-                  onChange={this.onChangePagination} />
+        <this.ShowTable />
+
 
 
       </div>

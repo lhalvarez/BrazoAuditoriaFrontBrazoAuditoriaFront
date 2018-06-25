@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import NumberFormat from 'react-number-format';
 
 import { store } from '../../../../store';
-import { obtenerDetallePartida } from './actions';
+import { obtenerDetallePartida, limpiarPartida } from './actions';
 import FirmaValuador from '../FirmaValuador';
 
 class FormularioBusquedaPartida extends Component{
@@ -34,6 +35,12 @@ class FormularioBusquedaPartida extends Component{
         const { rfid, folio } = this.state;
 
         this.props.obtenerDetallePartida(rfid,folio);
+      }
+
+      if(store.getState().cajaAbierta.partidaEnviada){
+        this.setState({ rfid: '', folio: '' });
+
+        this.props.limpiarPartida();
       }
     }
 
@@ -91,7 +98,7 @@ class FormularioBusquedaPartida extends Component{
                                         <div className={'form-group row'+( (submitted && this.validate(rfid)) ? ' has-error' : '' )}>
                                             <label htmlFor="rfid" className="col-sm-4 col-form-label">Número de caja:</label>
                                             <div className="col-sm-8">
-                                                <input type="number" name="rfid" value={rfid} className="form-control input-sm" id="rfid" onChange={this.handleChange} />
+                                                <NumberFormat value={rfid} className="form-control input-sm" onChange={this.handleChange} id="rfid" name="rfid" decimalScale={0} />
                                                 { submitted && this.validate(rfid) }
                                             </div>
                                         </div>
@@ -101,7 +108,7 @@ class FormularioBusquedaPartida extends Component{
                                         <div className={'form-group row'+( (submitted && this.validate(folio)) ? ' has-error' : '' )}>
                                             <label htmlFor="folio" className="col-sm-4 col-form-label">Número de partida:</label>
                                             <div className="col-sm-8">
-                                                <input type="number" name="folio" value={folio} className="form-control input-sm" id="folio" onChange={this.handleChange} />
+                                                <NumberFormat value={folio} className="form-control input-sm" onChange={this.handleChange} id="folio" name="folio" decimalScale={0} />
                                                 { submitted && this.validate(folio) }
                                             </div>
                                         </div>
@@ -133,4 +140,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps,{obtenerDetallePartida})(FormularioBusquedaPartida);
+export default connect(mapStateToProps,{obtenerDetallePartida, limpiarPartida})(FormularioBusquedaPartida);

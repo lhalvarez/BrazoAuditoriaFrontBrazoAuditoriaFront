@@ -18,7 +18,8 @@ class TablasValidacion extends Component {
         this.handleOnSubmitAccept = this.handleOnSubmitAccept.bind(this);
         this.handleOnSubmitReject = this.handleOnSubmitReject.bind(this);
         this.initialState = this.initialState.bind(this);
-        this.onChecked = this.onChecked.bind(this);
+        this.checkPhoto = this.checkPhoto.bind(this);
+        this.checkFisica = this.checkFisica.bind(this);
 
         this.state = {
 
@@ -26,37 +27,78 @@ class TablasValidacion extends Component {
             showReject: false,
             selected: [],
             selectedAccept: [],
-            selectedReject: []
+            selectedReject: [],
+            ischecked: [],
+            selectedfisica: [],
+            selectedPhoto: [],
 
         };
     }
 
     initialState() {
         this.setState({
+            showAccept: false,
+            showReject: false,
             selected: [],
             selectedAccept: [],
-            selectedReject: []
+            selectedReject: [],
+            ischecked: [],
+            selectedfisica: [],
+            selectedPhoto: [],
         });
     }
 
     onChange(carga, id, e) {
 
-        const selected = this.state.selected
-        //console.log("este es el id", id)
+        this.state.ischecked[id] = e
+
         const objAuditor = {
             id: id,
             nombreArchivo: carga.nombreArchivo,
         }
-        let index
 
-        if (e) {
-            selected.push(objAuditor)
-        } else {
-            index = selected.indexOf(objAuditor)
-            selected.splice(index, 1)
+        if (this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FISICA) {
+            this.checkFisica(e, objAuditor);
         }
 
-        this.state.selected = selected;
+        if (this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA) {
+            this.checkPhoto(e, objAuditor)
+        }
+
+    }
+
+    checkFisica(e, objAuditor) {
+
+        let selectedfisica = this.state.selectedfisica
+
+        let index
+        if (e) {
+            selectedfisica.push(objAuditor)
+        } else {
+            index = selectedfisica.indexOf(objAuditor)
+            selectedfisica.splice(index, 1)
+        }
+
+        this.setState({
+            selectedfisica: selectedfisica
+        })
+
+        // console.log("ESTO TIENE LA CHECK FISICA", this.state.selectedfisica)
+    }
+
+    checkPhoto(e, objAuditor) {
+        let selectedPhoto = this.state.selectedPhoto
+        let index
+        if (e) {
+            selectedPhoto.push(objAuditor)
+        } else {
+            index = selectedPhoto.indexOf(objAuditor)
+            selectedPhoto.splice(index, 1)
+        }
+
+        this.setState({
+            selectedPhoto: selectedPhoto
+        })
 
     }
 
@@ -66,12 +108,10 @@ class TablasValidacion extends Component {
         }
         else {
             this.state.selected.filter((select) => {
-
-                return select.id === id
+                return select.isChecked
             })
         }
     }
-
 
     handleClose() {
         //console.log(this.state)
@@ -79,12 +119,14 @@ class TablasValidacion extends Component {
             showAccept: false,
             showReject: false
         });
-        this.initialState()
+        // this.initialState()
     }
 
 
     handleShowAccept() {
-        if (this.state.selected.length === 0) {
+
+        if (this.state.selectedPhoto.length == 0 && this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA ||
+            this.state.selectedfisica.length == 0 && this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FISICA) {
             this.props.sendNotification('Aviso', 'Debe seleccionar al menos un elemento', 'error');
             return;
         } else {
@@ -104,29 +146,35 @@ class TablasValidacion extends Component {
         //     "idAuditoria": 0,
         //     "observaciones": "string"
         //}
+        let aceptadas = new Array;
+        if (this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FISICA) {
+            aceptadas = this.state.selectedfisica
+        }
 
-        let aceptadas = this.state.selectedAccept;
-        this.state.selected.forEach(aceptada => {
-
-            let accpt = {
-                "autorizada": true,
-                "autorizador": this.props.usuario,
-                "idAuditoria": aceptada.id,
-                "observaciones": "Fue Aceptada"
-            }
-            aceptadas.push(accpt);
-
-        });
+        if (this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA) {
+            aceptadas = this.state.selectedPhoto
+        }
 
         try {
-            this.props.saveAuditoria(aceptadas);
+            let acept = new Array;
+            aceptadas.forEach(aceptada => {
+
+                let accpt = {
+                    "autorizada": true,
+                    "autorizador": this.props.usuario,
+                    "idAuditoria": aceptada.id,
+                    "observaciones": "Fue Aceptada"
+                }
+                acept.push(accpt);
+            });
+
+            this.props.saveAuditoria(acept);
 
         } catch (error) {
             this.props.sendNotification('Aviso', 'Ocurrrio un error ' + error, 'error');
             return;
         }
         this.handleClose();
-        this.initialState();
         this.props.sendNotification('Aviso', 'Se envia la solicitud', 'info');
 
     }
@@ -147,9 +195,10 @@ class TablasValidacion extends Component {
         }
 
         try {
+            //TODO: ACTIVAR EL SAVE
             this.props.saveAuditoria(this.state.selectedReject);
             this.handleClose();
-            this.initialState();
+            // this.initialState();
         } catch (error) {
             this.props.sendNotification('Aviso', 'Ocurrrio un error ' + error, 'error');
             return;
@@ -160,30 +209,43 @@ class TablasValidacion extends Component {
 
     handleShowReject() {
 
-        if (this.state.selected.length === 0) {
+        if (this.state.selectedPhoto.length == 0 && this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA ||
+            this.state.selectedfisica.length == 0 && this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FISICA) {
             this.props.sendNotification('Aviso', 'Debe seleccionar al menos un elemento', 'error');
             return;
+
         } else {
-            //Se activa el modal
-            //console.log(this.state)
+
+            this.setState({
+                selected: []
+            })
+
+            if (this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FISICA) {
+                this.setState({
+                    selected: this.state.selectedfisica
+                })
+            }
+
+            if (this.props.tipoValidacion == TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA) {
+                this.setState({
+                    selected: this.state.selectedPhoto
+                })
+            }
             this.setState({ showReject: true });
         }
 
     }
 
-    refreshTable() {
-
-    }
 
     render = () => {
 
-        const auditorias = this.props.auditorias;
         const validacion = this.props.tipoValidacion;
+        let { ischecked } = this.state;
 
         switch (validacion) {
             case TIPOS_VALIDACION.VALIDACION_FISICA:
                 return (
-                    <div className="row">
+                    <div className="row" key={this.state.timestamp}>
                         <div className="col-lg-12">
                             <div className="panel panel-default">
                                 <div className="panel-heading" >
@@ -205,23 +267,26 @@ class TablasValidacion extends Component {
                                         <tbody>
                                             {this.props.auditoriaFisica.map((auditoria, index) => {
                                                 const { id, carga } = auditoria;
-                                                return (
-                                                    <tr key={`${index}-${id}`}>
-                                                        <td>{carga.nombreArchivo}</td>
-                                                        <td>{carga.idSucursal}</td>
-                                                        <td>{carga.solicitante}</td>
-                                                        <td>{carga.noPartidas}</td>
-                                                        <td>{carga.tipoAuditoria.descripcion}</td>
-                                                        <td>
-                                                            < div >
-                                                                <SwitchButton
-                                                                    name={carga.nombreArchivo}
-                                                                    onChange={this.onChange.bind(this, carga, id)}
-                                                                />
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                );
+                                                if (carga.tipoAuditoria.id != 4) {
+                                                    return (
+                                                        <tr key={`${index}-${id}`}>
+                                                            <td>{carga.nombreArchivo}</td>
+                                                            <td>{carga.idSucursal}</td>
+                                                            <td>{carga.solicitante}</td>
+                                                            <td>{carga.noPartidas}</td>
+                                                            <td>{carga.tipoAuditoria.descripcion}</td>
+                                                            <td>
+                                                                < div >
+                                                                    <SwitchButton
+                                                                        name={carga.nombreArchivo}
+                                                                        onChange={this.onChange.bind(this, carga, id)}
+                                                                        checked={ischecked[id] || false}
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                }
                                             })}
                                         </tbody>
                                     </table>
@@ -262,7 +327,7 @@ class TablasValidacion extends Component {
                 );
             case TIPOS_VALIDACION.VALIDACION_FOTOGRAFIA:
                 return (
-                    <div className="row">
+                    <div className="row" key={this.state.timestamp}>
                         <div className="col-lg-12">
                             <div className="panel panel-default">
                                 <div className="panel-heading" >
@@ -284,22 +349,26 @@ class TablasValidacion extends Component {
                                         <tbody>
                                             {this.props.auditoriasPendientes.map((auditoria, index) => {
                                                 const { id, carga } = auditoria;
-                                                return (
-                                                    <tr key={`${index}-${id}`}>
-                                                        <td>{carga.nombreArchivo}</td>
-                                                        <td>{carga.idSucursal}</td>
-                                                        <td>{carga.solicitante}</td>
-                                                        <td>{carga.noPartidas}</td>
-                                                        <td>
-                                                            < div >
-                                                                <SwitchButton
-                                                                    name={carga.nombreArchivo}
-                                                                    onChange={this.onChange.bind(this, carga, id)}
-                                                                />
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                );
+                                                if (carga.tipoAuditoria.id != 4) {
+                                                    return (
+                                                        <tr key={`${index}-${id}`}>
+                                                            <td>{carga.nombreArchivo}</td>
+                                                            <td>{carga.idSucursal}</td>
+                                                            <td>{carga.solicitante}</td>
+                                                            <td>{carga.noPartidas}</td>
+                                                            <td>
+                                                                < div >
+                                                                    <SwitchButton
+                                                                        name={carga.nombreArchivo}
+                                                                        onChange={this.onChange.bind(this, carga, id)}
+                                                                        checked={ischecked[id] || false}
+                                                                        key={id}
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                }
                                             })}
                                         </tbody>
                                     </table>
