@@ -48,7 +48,7 @@ class SeccionTabla extends Component {
 
               </div>
 
-                  <div className="table-responsive">
+                  <div className="table-responsive datagrid">
                     <table className="table table-striped table-bordered table-hover table-condensed">
                       <thead>
                       <tr>
