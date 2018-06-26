@@ -426,7 +426,7 @@ class DetallePartidaCajaCerrada extends Component{
                           <div className="form-group row" id="coincidePeso-label" hidden>
                             <label htmlFor="peso" className="col-sm-3 col-form-label">Peso:</label>
                             <div className="col-sm-9">
-                              <input  type="text" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
+                              <input  type="number" step="any" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
                             </div>
                           </div>
 
@@ -444,18 +444,18 @@ class DetallePartidaCajaCerrada extends Component{
                         <div className="form-group row">
                           <label htmlFor="prestamo" className="col-sm-2 col-form-label">Préstamo:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.prestamo} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.prestamo} className="form-control input-sm"   thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$ '}/>
                           </div>
 
                         </div>
                         <div className="form-group row">
                           <label htmlFor="prestamoMaximo" className="col-sm-2 col-form-label">Préstamo máximo:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.prestamoMaximoSugerido} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.prestamoMaximoSugerido} className="form-control input-sm" decimalScale={2} fixedDecimalScale={true}  thousandSeparator={true} prefix={'$ '}/>
                           </div>
                           <label htmlFor="prestamoSugerido" className="col-sm-2 col-form-label">Préstamo Sugerido:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.prestamoSugerido} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.prestamoSugerido} className="form-control input-sm" decimalScale={2} fixedDecimalScale={true}  thousandSeparator={true} prefix={'$ '}/>
 
                           </div>
 
@@ -464,27 +464,27 @@ class DetallePartidaCajaCerrada extends Component{
                         <div className="form-group row">
                           <label htmlFor="valorMonte" className="col-sm-2 col-form-label">Valor Monte:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.valorMonte} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.valorMonte} className="form-control input-sm" decimalScale={2} fixedDecimalScale={true}  thousandSeparator={true} prefix={'$ '}/>
                           </div>
                           <label htmlFor="valorComercial" className="col-sm-2 col-form-label">Valor comercial:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.valorComercial} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.valorComercial} className="form-control input-sm"  decimalScale={2} fixedDecimalScale={true} thousandSeparator={true} prefix={'$ '}/>
                           </div>
                         </div>
                         <div className="form-group row">
                           <label htmlFor="avComp" className="col-sm-2 col-form-label">Av. Comp.:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.avaluoComplementario} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.avaluoComplementario} className="form-control input-sm"  decimalScale={2} fixedDecimalScale={true} thousandSeparator={true} prefix={'$ '}/>
                           </div>
                         </div>
                         <div className="form-group row">
                           <label htmlFor="costoMetal" className="col-sm-2 col-form-label">Costo de Metal:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.costoMetal} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.costoMetal} className="form-control input-sm" decimalScale={2} fixedDecimalScale={true}  thousandSeparator={true} prefix={'$ '}/>
                           </div>
                           <label htmlFor="importeGramo" className="col-sm-2 col-form-label">Importe Gramo:</label>
                           <div className="col-sm-4">
-                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.importeGramo} className="form-control input-sm"   thousandSeparator={true} prefix={'$ '}/>
+                            <NumberFormat disabled="disabled" value={this.props.cajaCerrada.detallePartida.importeGramo} className="form-control input-sm" decimalScale={2} fixedDecimalScale={true}  thousandSeparator={true} prefix={'$ '}/>
                           </div>
                         </div>
                       </div>

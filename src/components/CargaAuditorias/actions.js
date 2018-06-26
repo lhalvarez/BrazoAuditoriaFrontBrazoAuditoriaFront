@@ -29,7 +29,7 @@ export function getDocs(page, pageSize,tipoAuditoria){
   return (dispatch)=>{
     MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
       .then((response) => {
-        console.log(response);
+
         dispatch( {type: GET_AUDITORIAS, payload: response });
       }).catch(error => {
         if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){

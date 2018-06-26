@@ -91,9 +91,15 @@ class SeccionTabla extends Component {
 
                       {listaDeAuditorias.map((auditoria, index) => {
                         const {id, carga} = auditoria;
+                        var clase = '';
+                        if(carga.estadoCarga){
+                          if(carga.estadoCarga.id === 4){ clase = 'danger'}
+                          else{ clase = '';}
+                        }
+
                         if(carga.tipoAuditoria.id === 1){
                           return (
-                            <tr key={`${index}-${id}`}>
+                            <tr key={`${index}-${id}`} className={clase}>
                               <td>{carga.id}</td>
                               <td>{carga.nombreArchivo}</td>
                               <td>{carga.idSucursal}</td>
@@ -150,9 +156,11 @@ class SeccionTabla extends Component {
               {listaDeAuditorias.map((auditoria, index) => {
                 const {id, carga} = auditoria;
 
+                if(carga.estadoCarga.id === 4){var clase = 'danger'}
+                else{var clase = '';}
                 if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
                   return (
-                    <tr key={`${index}-${id}`}>
+                    <tr key={`${index}-${id}`} className={clase}>
                       <td>{carga.id}</td>
                       <td>{carga.nombreArchivo}</td>
                       <td>{carga.idSucursal}</td>
