@@ -426,7 +426,7 @@ class DetallePartidaCajaCerrada extends Component{
                           <div className="form-group row" id="coincidePeso-label" hidden>
                             <label htmlFor="peso" className="col-sm-3 col-form-label">Peso:</label>
                             <div className="col-sm-9">
-                              <input  type="number" step="any" name="peso" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
+                              <input  type="number" step="any" name="peso" min="1" max="1000000" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
                             </div>
                           </div>
 

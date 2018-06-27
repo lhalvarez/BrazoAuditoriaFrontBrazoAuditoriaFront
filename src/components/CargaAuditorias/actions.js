@@ -1,5 +1,6 @@
 
-import { API } from '../../constants/index'
+import { API } from '../../constants/index';
+import { LEYENDAS } from '../../constants/index'
 import {addNotification} from '../../components/Global/GlobalActions';
 import {ADD_NOTIFICATION} from '../../components/Global/GlobalActions';
 import MessageService from '../../lib/utils/MessageService';
@@ -29,8 +30,22 @@ export function getDocs(page, pageSize,tipoAuditoria){
   return (dispatch)=>{
     MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
       .then((response) => {
-
         dispatch( {type: GET_AUDITORIAS, payload: response });
+        var errorExist = 0;
+        if(response.object.contenido){
+          response.object.contenido.forEach(function (value) {
+            console.log(value.carga.estadoCarga.id);
+            console.log('hi');
+            if(value.carga.estadoCarga.id === 4){
+              errorExist++;
+            }
+
+          });
+        }
+        console.log(errorExist);
+        if(errorExist > 0){
+          dispatch(addNotification('Atención',LEYENDAS.CARGA.ERROR_CARGA,'warning'));
+        }
       }).catch(error => {
         if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
           dispatch( {type: NO_PARTIDAS });
