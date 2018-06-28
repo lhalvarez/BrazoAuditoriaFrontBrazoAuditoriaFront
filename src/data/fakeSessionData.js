@@ -1,10 +1,10 @@
 const userData = {
 	"token":"sadfdsafdsafsdfsadfsadfasdfsad",
 	"detalleUsuario": {
-		"correo": "email@fakesession.com",
-		"nombreCompleto": "Sesión Simulada",
+		"correo": "rarce@montepiedad.com.mx",
+		"nombreCompleto": "ARCE DOCTOR RODOLFO ALEJANDRO",
 		"sucursal": 303,
-		"usuario": "fakeSession",
+		"usuario": "rarce",
 		"rol": 1
 	}
 };
