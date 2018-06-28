@@ -540,3 +540,8 @@ legend{
 .alter-file-input{
   display: none;
 }
+
+.money-field{
+  text-align: right;
+  padding-right: 10px !important;
+}

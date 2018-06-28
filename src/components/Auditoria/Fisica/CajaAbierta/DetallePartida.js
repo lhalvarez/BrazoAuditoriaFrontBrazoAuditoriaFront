@@ -636,7 +636,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat disabled="disabled" value={datos.prestamo} className="form-control input-sm" id="prestamo" name="prestamo" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat disabled="disabled" value={datos.prestamo} className="form-control input-sm money-field" id="prestamo" name="prestamo" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -655,7 +655,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat disabled="disabled" value={datos.prestamoMaximoSugerido} className="form-control input-sm" id="prestamoMaximoSugerido" name="prestamoMaximoSugerido" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat disabled="disabled" value={datos.prestamoMaximoSugerido} className="form-control input-sm money-field" id="prestamoMaximoSugerido" name="prestamoMaximoSugerido" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -669,7 +669,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat disabled="disabled" value={datos.prestamoSugerido} className="form-control input-sm" id="prestamoSugerido" name="prestamoSugerido" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat disabled="disabled" value={datos.prestamoSugerido} className="form-control input-sm money-field" id="prestamoSugerido" name="prestamoSugerido" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -688,7 +688,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat disabled="disabled" value={datos.valorMonte} className="form-control input-sm" id="valorMonte" name="valorMonte" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat disabled="disabled" value={datos.valorMonte} className="form-control input-sm money-field" id="valorMonte" name="valorMonte" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -698,7 +698,10 @@ class DetallePartidaCajaAbierta extends Component{
                                                 <div className="form-group row">
                                                     <label htmlFor="avaluoComplementario" className="col-sm-4 col-form-label">Av. Comp:</label>
                                                     <div className="col-sm-8">
-                                                        <input value={datos.avaluoComplementario} disabled="disabled" type="text" className="form-control input-sm" id="avaluoComplementario" name="avaluoComplementario" />
+                                                        <div className="input-group">
+                                                            <span className="input-group-addon">$</span>
+                                                            <NumberFormat disabled="disabled" value={datos.avaluoComplementario} className="form-control input-sm money-field" id="avaluoComplementario" name="avaluoComplementario" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 }
@@ -711,7 +714,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat disabled="disabled" value={datos.valorComercial} className="form-control input-sm" id="valorComercial" name="valorComercial" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat disabled="disabled" value={datos.valorComercial} className="form-control input-sm money-field" id="valorComercial" name="valorComercial" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -730,7 +733,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat disabled="disabled" value={datos.costoMetal} className="form-control input-sm" id="costoMetal" name="costoMetal" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat disabled="disabled" value={datos.costoMetal} className="form-control input-sm money-field" id="costoMetal" name="costoMetal" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -744,7 +747,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat disabled="disabled" value={datos.importeGramo} className="form-control input-sm" id="importeGramo" name="importeGramo" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat disabled="disabled" value={datos.importeGramo} className="form-control input-sm money-field" id="importeGramo" name="importeGramo" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -962,7 +965,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat value={(('prestamoDin') in datos) ? datos['prestamoDin'] : datos['prestamo']} onChange={this.handleNumberChange} className="form-control input-sm" id="prestamoDin" name="prestamoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat value={(('prestamoDin') in datos) ? datos['prestamoDin'] : datos['prestamo']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="prestamoDin" name="prestamoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -981,7 +984,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat value={(('prestamoMaximoSugeridoDin') in datos) ? datos['prestamoMaximoSugeridoDin'] : datos['prestamoMaximoSugerido']} onChange={this.handleNumberChange} className="form-control input-sm" id="prestamoMaximoSugeridoDin" name="prestamoMaximoSugeridoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat value={(('prestamoMaximoSugeridoDin') in datos) ? datos['prestamoMaximoSugeridoDin'] : datos['prestamoMaximoSugerido']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="prestamoMaximoSugeridoDin" name="prestamoMaximoSugeridoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -995,7 +998,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat value={(('prestamoSugeridoDin') in datos) ? datos['prestamoSugeridoDin'] : datos['prestamoSugerido']} onChange={this.handleNumberChange} className="form-control input-sm" id="prestamoSugeridoDin" name="prestamoSugeridoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat value={(('prestamoSugeridoDin') in datos) ? datos['prestamoSugeridoDin'] : datos['prestamoSugerido']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="prestamoSugeridoDin" name="prestamoSugeridoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1014,7 +1017,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat value={(('valorMonteDin') in datos) ? datos['valorMonteDin'] : datos['valorMonte']} onChange={this.handleNumberChange} className="form-control input-sm" id="valorMonteDin" name="valorMonteDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat value={(('valorMonteDin') in datos) ? datos['valorMonteDin'] : datos['valorMonte']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="valorMonteDin" name="valorMonteDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1024,7 +1027,10 @@ class DetallePartidaCajaAbierta extends Component{
                                                 <div className="form-group row">
                                                     <label htmlFor="avaluoComplementarioDin" className="col-sm-4 col-form-label">Av. Comp:</label>
                                                     <div className="col-sm-8">
-                                                        <input value={('avaluoComplementarioDin' in datos) ? datos['avaluoComplementarioDin'] : datos['avaluoComplementario']} onChange={this.handleInputChange} type="text" className="form-control input-sm" id="avaluoComplementarioDin" name="avaluoComplementarioDin" />
+                                                        <div className="input-group">
+                                                            <span className="input-group-addon">$</span>
+                                                            <NumberFormat value={(('avaluoComplementarioDin') in datos) ? datos['avaluoComplementarioDin'] : datos['avaluoComplementario']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="avaluoComplementarioDin" name="avaluoComplementarioDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 }
@@ -1037,7 +1043,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat value={(('valorComercialDin') in datos) ? datos['valorComercialDin'] : datos['valorComercial']} onChange={this.handleNumberChange} className="form-control input-sm" id="valorComercialDin" name="valorComercialDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat value={(('valorComercialDin') in datos) ? datos['valorComercialDin'] : datos['valorComercial']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="valorComercialDin" name="valorComercialDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1056,7 +1062,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat value={(('costoMetalDin') in datos) ? datos['costoMetalDin'] : datos['costoMetal']} onChange={this.handleNumberChange} className="form-control input-sm" id="costoMetalDin" name="costoMetalDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat value={(('costoMetalDin') in datos) ? datos['costoMetalDin'] : datos['costoMetal']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="costoMetalDin" name="costoMetalDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1070,7 +1076,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                     <div className="col-sm-8">
                                                         <div className="input-group">
                                                             <span className="input-group-addon">$</span>
-                                                            <NumberFormat value={(('importeGramoDin') in datos) ? datos['importeGramoDin'] : datos['importeGramo']} onChange={this.handleNumberChange} className="form-control input-sm" id="importeGramoDin" name="importeGramoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
+                                                            <NumberFormat value={(('importeGramoDin') in datos) ? datos['importeGramoDin'] : datos['importeGramo']} onChange={this.handleNumberChange} className="form-control input-sm money-field" id="importeGramoDin" name="importeGramoDin" thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} />
                                                         </div>
                                                     </div>
                                                 </div>
