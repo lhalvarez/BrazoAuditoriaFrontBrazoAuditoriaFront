@@ -44,7 +44,7 @@ class DetallePartidaCajaAbierta extends Component{
         let storeState = store.getState().cajaAbierta;
 
         if(storeState.partidaCargada){
-            this.setState(prevState => ({ 
+            this.setState(prevState => ({
                 partidaCargada: true,
                 datos: Object.assign({},{...storeState.detallePartida},{...prevState.datos}),
                 tiposObservacion: storeState.tiposObservacion,
@@ -54,7 +54,7 @@ class DetallePartidaCajaAbierta extends Component{
             }));
         }
         else{
-            this.setState({ 
+            this.setState({
                 partidaCargada: false,
                 datos: {},
                 tiposObservacion: [],
@@ -68,7 +68,7 @@ class DetallePartidaCajaAbierta extends Component{
     handleInputChange(e){
         const { name, value } = e.target;
 
-        this.setState(prevState => { 
+        this.setState(prevState => {
             return {datos: Object.assign({},{...prevState.datos},{[name]:value})};
         });
     }
@@ -78,7 +78,7 @@ class DetallePartidaCajaAbierta extends Component{
 
         let castValue = Number(value.replace(/\,/g,''));
 
-        this.setState(prevState => { 
+        this.setState(prevState => {
             return {datos: Object.assign({},{...prevState.datos},{[name]:castValue})};
         });
     }
@@ -110,7 +110,7 @@ class DetallePartidaCajaAbierta extends Component{
 
         this.setState({ submitted: true });
 
-        if(Boolean(this.state.datos.observaciones) && Boolean(this.state.datos.estatus) && (this.state.datos.observaciones.length <= 500)){        
+        if(Boolean(this.state.datos.observaciones) && Boolean(this.state.datos.estatus) && (this.state.datos.observaciones.length <= 500)){
             let stagedData = this.stageData();
             this.setState({ submitted: false });
 
@@ -123,7 +123,7 @@ class DetallePartidaCajaAbierta extends Component{
         let $panelBody = $icon.parents('.panel').find('.panel-body');
         let $panelFooter = $icon.parents('.panel').find('.panel-footer');
 
-        $panelBody.toggle(() => $icon.toggleClass('fa-toggle-up fa-toggle-down'));
+        $panelBody.toggle(() => $icon.toggleClass('fa-angle-up fa-angle-down'));
         $panelFooter.toggle();
     }
 
@@ -133,8 +133,8 @@ class DetallePartidaCajaAbierta extends Component{
         var elementsToClear = {};
 
         $panelBody.find('input,textarea').each((index,element) => elementsToClear[element.name] = '');
-        
-        this.setState(prevState => { 
+
+        this.setState(prevState => {
             return {datos: Object.assign({},{...prevState.datos},elementsToClear)};
         });
     }
@@ -220,8 +220,8 @@ class DetallePartidaCajaAbierta extends Component{
 
     componentWillUpdate(){
         const { datos } = this.state;
-        const { 
-            ['estatus']:estExt, 
+        const {
+            ['estatus']:estExt,
             ['observaciones']:obsExt,
             ['sucursal']:sucursalExt,
             ['nombreCliente']:nombreClienteExt,
@@ -256,14 +256,14 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Datos Generales</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                                    <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
                                 <div className="row">
                                     <div className="col-md-12">
                                         {
-                                        ('sucursal' in datos) && 
+                                        ('sucursal' in datos) &&
                                         <div className="form-group row">
                                             <label htmlFor="sucursal" className="col-sm-4 col-form-label">Sucursal:</label>
                                             <div className="col-sm-8">
@@ -273,7 +273,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         }
 
                                         {
-                                        ('nombreCliente' in datos) && 
+                                        ('nombreCliente' in datos) &&
                                         <div className="form-group row">
                                             <label htmlFor="nombreCliente" className="col-sm-4 col-form-label">Nombre de cliente:</label>
                                             <div className="col-sm-8">
@@ -283,7 +283,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         }
 
                                         {
-                                        ('numeroCliente' in datos) && 
+                                        ('numeroCliente' in datos) &&
                                         <div className="form-group row">
                                             <label htmlFor="numeroCliente" className="col-sm-4 col-form-label">Número de cliente:</label>
                                             <div className="col-sm-8">
@@ -293,7 +293,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         }
 
                                         {
-                                        ('nombrePV' in datos) && 
+                                        ('nombrePV' in datos) &&
                                         <div className="form-group row">
                                             <label htmlFor="nombrePV" className="col-sm-4 col-form-label">Nombre PV:</label>
                                             <div className="col-sm-8">
@@ -303,7 +303,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         }
 
                                         {
-                                        ('numeroValuador' in datos) && 
+                                        ('numeroValuador' in datos) &&
                                         <div className="form-group row">
                                             <label htmlFor="numeroValuador" className="col-sm-4 col-form-label">Número de valuador:</label>
                                             <div className="col-sm-8">
@@ -313,7 +313,7 @@ class DetallePartidaCajaAbierta extends Component{
                                         }
                                         <div className="col-md-6">
                                             {
-                                            ('estadoCaja' in datos) && 
+                                            ('estadoCaja' in datos) &&
                                             <div className="form-group row">
                                                 <label htmlFor="estadoCaja" className="col-sm-5 col-form-label">Edo caja:</label>
                                                 <div className="col-sm-7">
@@ -322,7 +322,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             </div>
                                             }
                                             {
-                                            ('estadoPrenda' in datos) && 
+                                            ('estadoPrenda' in datos) &&
                                             <div className="form-group row">
                                                 <label htmlFor="estadoPrenda" className="col-sm-5 col-form-label">Edo prenda:</label>
                                                 <div className="col-sm-7">
@@ -331,7 +331,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             </div>
                                             }
                                             {
-                                            ('tipoContrato' in datos) && 
+                                            ('tipoContrato' in datos) &&
                                             <div className="form-group row">
                                                 <label htmlFor="tipoContrato" className="col-sm-5 col-form-label">Tipo contrato:</label>
                                                 <div className="col-sm-7">
@@ -340,7 +340,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             </div>
                                             }
                                             {
-                                            ('fechaCreacion' in datos) && 
+                                            ('fechaCreacion' in datos) &&
                                             <div className="form-group row">
                                                 <label htmlFor="fechaCreacion" className="col-sm-5 col-form-label">Fecha empeño:</label>
                                                 <div className="col-sm-7">
@@ -350,7 +350,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             }
                                         </div>
                                         <div className="col-md-6">
-                                            { 
+                                            {
                                             <div className="form-group row">
                                                 <label htmlFor="this.state.rfid" className="col-sm-5 col-form-label">RFID:</label>
                                                 <div className="col-sm-7">
@@ -359,7 +359,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             </div>
                                             }
                                             {
-                                            ('noRefrendos' in datos) && 
+                                            ('noRefrendos' in datos) &&
                                             <div className="form-group row">
                                                 <label htmlFor="noRefrendos" className="col-sm-5 col-form-label">Refrendos:</label>
                                                 <div className="col-sm-7">
@@ -368,7 +368,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             </div>
                                             }
                                             {
-                                            ('fechaIngreso' in datos) && 
+                                            ('fechaIngreso' in datos) &&
                                             <div className="form-group row">
                                                 <label htmlFor="fechaIngreso" className="col-sm-5 col-form-label">Fecha ingreso:</label>
                                                 <div className="col-sm-7">
@@ -388,12 +388,12 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Fotografía de la Partida</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                                    <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
-                                <FotoPartida 
-                                    src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg" 
+                                <FotoPartida
+                                    src="https://cdn0.bodas.com.mx/emp/fotos/8/7/2/2/1948197-10153831586765471-1974888041-n_5_118722.jpg"
                                     crop={{
                                         superiorX: 150,
                                         superiorY: 35,
@@ -413,7 +413,7 @@ class DetallePartidaCajaAbierta extends Component{
                                 <p>Descripción de la Partida</p>
                                 <div className="panel-action-icons">
                                     <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
-                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                                    <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -438,7 +438,7 @@ class DetallePartidaCajaAbierta extends Component{
                             <div className="panel-heading">
                                 <p>Detalle de la Partida</p>
                                 <div className="panel-action-icons">
-                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                                    <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -449,7 +449,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('ramo' in datos) && 
+                                                ('ramo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="ramo" className="col-sm-4 col-form-label">Ramo:</label>
                                                     <div className="col-sm-8">
@@ -458,7 +458,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('subramo' in datos) && 
+                                                ('subramo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="subramo" className="col-sm-4 col-form-label">Subramo:</label>
                                                     <div className="col-sm-8">
@@ -469,7 +469,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('deposito' in datos) && 
+                                                ('deposito' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="deposito" className="col-sm-4 col-form-label">Depósito:</label>
                                                     <div className="col-sm-8">
@@ -485,7 +485,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('genero' in datos) && 
+                                                ('genero' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="genero" className="col-sm-4 col-form-label">Género:</label>
                                                     <div className="col-sm-8">
@@ -494,7 +494,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('noSerie' in datos) && 
+                                                ('noSerie' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="noSerie" className="col-sm-4 col-form-label">No. Serie:</label>
                                                     <div className="col-sm-8">
@@ -510,7 +510,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('tipoMoneda' in datos) && 
+                                                ('tipoMoneda' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="tipoMoneda" className="col-sm-4 col-form-label">Tipo de Moneda:</label>
                                                     <div className="col-sm-8">
@@ -521,7 +521,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('catidad' in datos) && 
+                                                ('catidad' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="catidad" className="col-sm-4 col-form-label">Cantidad:</label>
                                                     <div className="col-sm-8">
@@ -538,7 +538,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('metal' in datos) && 
+                                                ('metal' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="metal" className="col-sm-4 col-form-label">Metal:</label>
                                                     <div className="col-sm-8">
@@ -547,7 +547,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('kilates' in datos) && 
+                                                ('kilates' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="kilates" className="col-sm-4 col-form-label">Kilataje:</label>
                                                     <div className="col-sm-8">
@@ -558,7 +558,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('gramaje' in datos) && 
+                                                ('gramaje' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="gramaje" className="col-sm-4 col-form-label">Gramaje:</label>
                                                     <div className="col-sm-8">
@@ -567,7 +567,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('calidadOro' in datos) && 
+                                                ('calidadOro' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="calidadOro" className="col-sm-4 col-form-label">Calidad:</label>
                                                     <div className="col-sm-8">
@@ -584,7 +584,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-6">
                                                 {
-                                                ('rango' in datos) && 
+                                                ('rango' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="rango" className="col-sm-4 col-form-label">Rango:</label>
                                                     <div className="col-sm-8">
@@ -593,7 +593,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('incremento' in datos) && 
+                                                ('incremento' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="incremento" className="col-sm-4 col-form-label">Incremento:</label>
                                                     <div className="col-sm-8">
@@ -604,7 +604,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-6">
                                                 {
-                                                ('condicionesGenerales' in datos) && 
+                                                ('condicionesGenerales' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="condicionesGenerales" className="col-sm-4 col-form-label">Condiciones Generales:</label>
                                                     <div className="col-sm-8">
@@ -613,7 +613,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('desplazamientoComercial' in datos) && 
+                                                ('desplazamientoComercial' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="desplazamientoComercial" className="col-sm-4 col-form-label">Desplazamiento:</label>
                                                     <div className="col-sm-8">
@@ -630,7 +630,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('prestamo' in datos) && 
+                                                ('prestamo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="prestamo" className="col-sm-4 col-form-label">Préstamo:</label>
                                                     <div className="col-sm-8">
@@ -649,7 +649,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('prestamoMaximoSugerido' in datos) && 
+                                                ('prestamoMaximoSugerido' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="prestamoMaximoSugerido" className="col-sm-4 col-form-label">Préstamo Máximo Sugerido:</label>
                                                     <div className="col-sm-8">
@@ -663,7 +663,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('prestamoSugerido' in datos) && 
+                                                ('prestamoSugerido' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="prestamoSugerido" className="col-sm-4 col-form-label">Préstamo Sugerido:</label>
                                                     <div className="col-sm-8">
@@ -682,7 +682,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('valorMonte' in datos) && 
+                                                ('valorMonte' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="valorMonte" className="col-sm-4 col-form-label">Valor Monte:</label>
                                                     <div className="col-sm-8">
@@ -694,7 +694,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('avaluoComplementario' in datos) && 
+                                                ('avaluoComplementario' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="avaluoComplementario" className="col-sm-4 col-form-label">Av. Comp:</label>
                                                     <div className="col-sm-8">
@@ -708,7 +708,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('valorComercial' in datos) && 
+                                                ('valorComercial' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="valorComercial" className="col-sm-4 col-form-label">Valor Comercial:</label>
                                                     <div className="col-sm-8">
@@ -727,7 +727,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('costoMetal' in datos) && 
+                                                ('costoMetal' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="costoMetal" className="col-sm-4 col-form-label">Costo de metal:</label>
                                                     <div className="col-sm-8">
@@ -741,7 +741,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('importeGramo' in datos) && 
+                                                ('importeGramo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="importeGramo" className="col-sm-4 col-form-label">Importe Gramo:</label>
                                                     <div className="col-sm-8">
@@ -767,7 +767,7 @@ class DetallePartidaCajaAbierta extends Component{
                                 <p>Validación de Auditoría</p>
                                 <div className="panel-action-icons">
                                     <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
-                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                                    <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -778,7 +778,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('ramo' in datos) && 
+                                                ('ramo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="ramoDin" className="col-sm-4 col-form-label">Ramo:</label>
                                                     <div className="col-sm-8">
@@ -787,7 +787,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('subramo' in datos) && 
+                                                ('subramo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="subramoDin" className="col-sm-4 col-form-label">Subramo:</label>
                                                     <div className="col-sm-8">
@@ -798,7 +798,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('deposito' in datos) && 
+                                                ('deposito' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="depositoDin" className="col-sm-4 col-form-label">Depósito:</label>
                                                     <div className="col-sm-8">
@@ -814,7 +814,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('genero' in datos) && 
+                                                ('genero' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="generoDin" className="col-sm-4 col-form-label">Género:</label>
                                                     <div className="col-sm-8">
@@ -823,7 +823,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('noSerie' in datos) && 
+                                                ('noSerie' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="noSerieDin" className="col-sm-4 col-form-label">No. Serie:</label>
                                                     <div className="col-sm-8">
@@ -839,7 +839,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('tipoMoneda' in datos) && 
+                                                ('tipoMoneda' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="tipoMonedaDin" className="col-sm-4 col-form-label">Tipo de Moneda:</label>
                                                     <div className="col-sm-8">
@@ -850,7 +850,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('catidad' in datos) && 
+                                                ('catidad' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="catidadDin" className="col-sm-4 col-form-label">Cantidad:</label>
                                                     <div className="col-sm-8">
@@ -867,7 +867,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('metal' in datos) && 
+                                                ('metal' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="metalDin" className="col-sm-4 col-form-label">Metal:</label>
                                                     <div className="col-sm-8">
@@ -876,7 +876,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('kilates' in datos) && 
+                                                ('kilates' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="kilatesDin" className="col-sm-4 col-form-label">Kilataje:</label>
                                                     <div className="col-sm-8">
@@ -887,7 +887,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('gramaje' in datos) && 
+                                                ('gramaje' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="gramajeDin" className="col-sm-4 col-form-label">Gramaje:</label>
                                                     <div className="col-sm-8">
@@ -896,7 +896,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('calidadOro' in datos) && 
+                                                ('calidadOro' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="calidadOro" className="col-sm-4 col-form-label">Calidad:</label>
                                                     <div className="col-sm-8">
@@ -913,7 +913,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-6">
                                                 {
-                                                ('rango' in datos) && 
+                                                ('rango' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="rangoDin" className="col-sm-4 col-form-label">Rango:</label>
                                                     <div className="col-sm-8">
@@ -922,7 +922,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('incremento' in datos) && 
+                                                ('incremento' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="incremento" className="col-sm-4 col-form-label">Incremento:</label>
                                                     <div className="col-sm-8">
@@ -933,7 +933,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-6">
                                                 {
-                                                ('condicionesGenerales' in datos) && 
+                                                ('condicionesGenerales' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="condicionesGeneralesDin" className="col-sm-4 col-form-label">Condiciones Generales:</label>
                                                     <div className="col-sm-8">
@@ -942,7 +942,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('desplazamientoComercial' in datos) && 
+                                                ('desplazamientoComercial' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="desplazamientoComercial" className="col-sm-4 col-form-label">Desplazamiento:</label>
                                                     <div className="col-sm-8">
@@ -959,7 +959,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('prestamo' in datos) && 
+                                                ('prestamo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="prestamoDin" className="col-sm-4 col-form-label">Préstamo:</label>
                                                     <div className="col-sm-8">
@@ -978,7 +978,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('prestamoMaximoSugerido' in datos) && 
+                                                ('prestamoMaximoSugerido' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="prestamoMaximoSugeridoDin" className="col-sm-4 col-form-label">Préstamo Máximo Sugerido:</label>
                                                     <div className="col-sm-8">
@@ -992,7 +992,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('prestamoSugerido' in datos) && 
+                                                ('prestamoSugerido' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="prestamoSugeridoDin" className="col-sm-4 col-form-label">Préstamo Sugerido:</label>
                                                     <div className="col-sm-8">
@@ -1011,7 +1011,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('valorMonte' in datos) && 
+                                                ('valorMonte' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="valorMonteDin" className="col-sm-4 col-form-label">Valor Monte:</label>
                                                     <div className="col-sm-8">
@@ -1023,7 +1023,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 }
                                                 {
-                                                ('avaluoComplementario' in datos) && 
+                                                ('avaluoComplementario' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="avaluoComplementarioDin" className="col-sm-4 col-form-label">Av. Comp:</label>
                                                     <div className="col-sm-8">
@@ -1037,7 +1037,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('valorComercial' in datos) && 
+                                                ('valorComercial' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="valorComercialDin" className="col-sm-4 col-form-label">Valor Comercial:</label>
                                                     <div className="col-sm-8">
@@ -1056,7 +1056,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <div className="row">
                                                 <div className="col-md-7">
                                                 {
-                                                ('costoMetal' in datos) && 
+                                                ('costoMetal' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="costoMetalDin" className="col-sm-4 col-form-label">Costo de metal:</label>
                                                     <div className="col-sm-8">
@@ -1070,7 +1070,7 @@ class DetallePartidaCajaAbierta extends Component{
                                                 </div>
                                                 <div className="col-md-5">
                                                 {
-                                                ('importeGramo' in datos) && 
+                                                ('importeGramo' in datos) &&
                                                 <div className="form-group row">
                                                     <label htmlFor="importeGramoDin" className="col-sm-4 col-form-label">Importe Gramo:</label>
                                                     <div className="col-sm-8">
@@ -1098,7 +1098,7 @@ class DetallePartidaCajaAbierta extends Component{
                                 <p>Observaciones de la Partida</p>
                                 <div className="panel-action-icons">
                                     <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
-                                    <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                                    <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                                 </div>
                             </div>
                             <div className="panel-body">
@@ -1139,7 +1139,7 @@ class DetallePartidaCajaAbierta extends Component{
                                             <button className="btn btn-primary btn-sm">Guardar</button>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>

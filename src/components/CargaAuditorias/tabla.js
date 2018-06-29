@@ -75,7 +75,7 @@ class SeccionTabla extends Component {
               </div>
 
                   <div className="table-responsive">
-                    <table className="table table-striped table-bordered table-hover table-condensed">
+                    <table className="table table-striped table-hover">
                       <thead>
                       <tr>
                         <th>Id</th>
@@ -99,7 +99,7 @@ class SeccionTabla extends Component {
 
                         if(carga.tipoAuditoria.id === 1){
                           return (
-                            <tr key={`${index}-${id}`} className={clase}>
+                            <tr style={{padding:'15px'}} key={`${index}-${id}`} className={clase}>
                               <td>{carga.id}</td>
                               <td>{carga.nombreArchivo}</td>
                               <td>{carga.idSucursal}</td>
@@ -108,7 +108,7 @@ class SeccionTabla extends Component {
                               <td>Pendiente de autorización</td>
                               <td>
                                 <Link to="#" onClick={() => {this.deleteDoc(carga,id)} }>
-                                  Eliminar
+                                  <i className="far fa-trash-alt"></i> Eliminar
                                 </Link>
                               </td>
                             </tr>
@@ -138,7 +138,7 @@ class SeccionTabla extends Component {
 
           </div>
           <div className="table-responsive">
-            <table className="table table-striped table-bordered table-hover table-condensed">
+            <table className="table table-striped ">
               <thead>
               <tr>
                 <th>Id</th>
@@ -160,7 +160,7 @@ class SeccionTabla extends Component {
                 else{var clase = '';}
                 if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
                   return (
-                    <tr key={`${index}-${id}`} className={clase}>
+                    <tr style={{padding:'15px'}} key={`${index}-${id}`} className={clase}>
                       <td>{carga.id}</td>
                       <td>{carga.nombreArchivo}</td>
                       <td>{carga.idSucursal}</td>

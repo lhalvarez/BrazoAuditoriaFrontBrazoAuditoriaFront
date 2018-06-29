@@ -60,10 +60,10 @@ class Header extends Component {
                 {this.state.usuario} <i className="fa fa-caret-down"></i>
                 </a>
                 <ul className="dropdown-menu dropdown-user">
-                    <li><a href="/configuracion"><i className="fa fa-gear fa-fw"></i> Configuraciones</a>
+                    <li><a href="/configuracion"><i className="fas fa-cogs"></i> Configuraciones</a>
                     </li>
                     <li className="divider"></li>
-                    <li><a href="#" onClick={this.logout}><i className="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
+                    <li><a href="#" onClick={this.logout}><i className="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                     </li>
                 </ul>
             </li>

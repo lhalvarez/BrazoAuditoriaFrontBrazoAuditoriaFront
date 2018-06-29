@@ -40,7 +40,7 @@ class ComponentConfiguracion extends Component{
         let $panelBody = $icon.parents('.panel').find('.panel-body');
         let $panelFooter = $icon.parents('.panel').find('.panel-footer');
 
-        $panelBody.toggle(() => $icon.toggleClass('fa-toggle-up fa-toggle-down'));
+        $panelBody.toggle(() => $icon.toggleClass('fa-angle-up fa-angle-down'));
         $panelFooter.toggle();
     }
 
@@ -88,7 +88,7 @@ class ComponentConfiguracion extends Component{
                       <div className="panel-heading">
                           <p>Contantes Generales</p>
                           <div className="panel-action-icons">
-                              <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                              <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                           </div>
                       </div>
                       <div className="panel-body">
@@ -167,7 +167,7 @@ class ComponentConfiguracion extends Component{
                       <div className="panel-heading">
                           <p>Endpoints de Servicios</p>
                           <div className="panel-action-icons">
-                              <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                              <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                           </div>
                       </div>
                       <div className="panel-body">
