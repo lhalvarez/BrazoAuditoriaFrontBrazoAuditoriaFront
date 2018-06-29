@@ -14,14 +14,14 @@ const menu = [
 		"idMenu": 1,
 		"descripcion": "Inicio",
 		"url": "/",
-		"ico": "fa-dashboard",
+		"ico": "fa-tachometer-alt",
 		"submenus": null
 	},
 	{
 		"idMenu": 2,
 		"descripcion": "Gestión de Partidas",
 		"url": "#",
-		"ico": "fa-check-square-o",
+		"ico": "fa-check-square",
 		"submenus": [
 			{
 				"idMenu": 3,
@@ -117,7 +117,7 @@ const menu = [
     "idMenu": 34,
     "descripcion": "Reportes",
     "url": "/reportes",
-    "ico": "fa-bar-chart",
+    "ico": "fa-chart-bar",
     "submenus": null
   }
 ];

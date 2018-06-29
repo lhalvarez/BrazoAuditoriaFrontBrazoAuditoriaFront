@@ -14,7 +14,7 @@ import HelpPane from './Global/HelpPane';
 
 import '../public/plugins/bootstrap/dist/css/bootstrap.css';
 import '../public/css/auditoria.css';
-import '../public/plugins/font-awesome/css/font-awesome.css';
+import '../public/plugins/font-awesome/css/all.css';
 import '../public/plugins/lightbox/dist/ekko-lightbox.css';
 
 
