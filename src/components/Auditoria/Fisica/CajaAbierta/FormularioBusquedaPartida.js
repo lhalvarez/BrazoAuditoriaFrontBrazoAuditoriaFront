@@ -90,7 +90,7 @@ class FormularioBusquedaPartida extends Component{
                 	<form onSubmit={this.search}>
 	                    <div className="panel panel-default">
 	                        <div className="panel-heading">
-	                            <p>Criterios de Búsqueda <i className="fa fa-3x fa-dropbox"></i></p>
+	                            <p>Criterios de Búsqueda <i className="fa-3x fab fa-dropbox"></i></p>
 	                        </div>
 	                        <div className="panel-body">
                                 <div className="row">

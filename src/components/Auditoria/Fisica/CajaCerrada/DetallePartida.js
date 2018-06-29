@@ -110,7 +110,7 @@ class DetallePartidaCajaCerrada extends Component{
     let $panelBody = $icon.parents('.panel').find('.panel-body');
     let $panelFooter = $icon.parents('.panel').find('.panel-footer');
 
-    $panelBody.toggle(() => $icon.toggleClass('fa-toggle-up fa-toggle-down'));
+    $panelBody.toggle(() => $icon.toggleClass('fa-angle-up fa-angle-down'));
     $panelFooter.toggle();
   }
 
@@ -132,7 +132,7 @@ class DetallePartidaCajaCerrada extends Component{
                 <p>Datos Generales</p>
                 <div className="panel-action-icons">
                   <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
-                  <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                 </div>
               </div>
               <div className="panel-body">
@@ -234,7 +234,7 @@ class DetallePartidaCajaCerrada extends Component{
               <div className="panel-heading">
                 <p>Fotografía de la Partida</p>
                 <div className="panel-action-icons">
-                  <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                 </div>
               </div>
               <div className="panel-body">
@@ -262,7 +262,7 @@ class DetallePartidaCajaCerrada extends Component{
                 <p>Descripción de la partida</p>
                 <div className="panel-action-icons">
                   <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
-                  <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                 </div>
               </div>
               <div className="panel-body">
@@ -318,7 +318,7 @@ class DetallePartidaCajaCerrada extends Component{
                 <p>Detalle de la partida</p>
                 <div className="panel-action-icons">
                   <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
-                  <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                 </div>
               </div>
               <div className="panel-body">
@@ -553,7 +553,7 @@ class DetallePartidaCajaCerrada extends Component{
                 <p>Observaciones de la Partida</p>
                 <div className="panel-action-icons">
                   <i className="fa fa-eraser" onClick={this.clearForm} title="Limpiar sección"></i>
-                  <i className="fa fa-toggle-up" onClick={this.toggleForm}></i>
+                  <i className="fas fa-angle-up" onClick={this.toggleForm}></i>
                 </div>
               </div>
               <div className="panel-body">

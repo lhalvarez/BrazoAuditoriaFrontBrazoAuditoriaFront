@@ -56,9 +56,9 @@ class Menu extends Component{
             				{
             					(option.url != '#')
             					?
-            					<NavLink exact location={history.location} to={option.url}><i className={"fa fa-fw" + (option.ico != 'ico' ? (' '+option.ico) : '')}></i> {option.descripcion}</NavLink>
+            					<NavLink exact location={history.location} to={option.url}><i className={"" + (option.ico != 'ico' ? (' '+option.ico) : '')}></i> {option.descripcion}</NavLink>
             					:
-            					<a href={option.url}><i className={"fa fa-fw" + (option.ico != 'ico' ? (' '+option.ico) : '')}></i> {option.descripcion}{(option.submenus) && <span className="fa arrow"></span>}</a>
+            					<a href={option.url}><i className={"" + (option.ico != 'ico' ? (' '+option.ico) : '')}></i> {option.descripcion}{(option.submenus) && <span className="fa arrow"></span>}</a>
             				}
             				{
             					(option.submenus)
@@ -70,9 +70,9 @@ class Menu extends Component{
             									{
             										(secondOption.url != '#')
             										?
-            										<NavLink exact location={history.location} to={secondOption.url}><i className={"fa fa-fw" + (secondOption.ico != 'ico' ? (' '+secondOption.ico) : '')}></i> {secondOption.descripcion}</NavLink>
+            										<NavLink exact location={history.location} to={secondOption.url}><i className={"" + (secondOption.ico != 'ico' ? (' '+secondOption.ico) : '')}></i> {secondOption.descripcion}</NavLink>
             										:
-            										<a href={secondOption.url}><i className={"fa fa-fw" + (secondOption.ico != 'ico' ? (' '+secondOption.ico) : '')}></i> {secondOption.descripcion}{(secondOption.submenus) && <span className="fa arrow"></span>}</a>
+            										<a href={secondOption.url}><i className={"" + (secondOption.ico != 'ico' ? (' '+secondOption.ico) : '')}></i> {secondOption.descripcion}{(secondOption.submenus) && <span className="fa arrow"></span>}</a>
             									}
             									{
             										(secondOption.submenus)
@@ -81,7 +81,7 @@ class Menu extends Component{
             											{
             												secondOption.submenus.map(thirdOption => (
             													<li key={thirdOption.idMenu}>
-            														<NavLink exact location={history.location} to={thirdOption.url}><i className={"fa fa-fw" + (thirdOption.ico != 'ico' ? (' '+thirdOption.ico) : '')}></i> {thirdOption.descripcion}</NavLink>
+            														<NavLink exact location={history.location} to={thirdOption.url}><i className={"" + (thirdOption.ico != 'ico' ? (' '+thirdOption.ico) : '')}></i> {thirdOption.descripcion}</NavLink>
             													</li>
             												))
             											}

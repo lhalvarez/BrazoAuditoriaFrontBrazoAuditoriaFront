@@ -28,7 +28,7 @@ class CamposParametrizables extends Component {
                   <p>Detalle de la Partida</p>
                   <div className="panel-action-icons">
                     <i className="fa fa-eraser" onClick={this.props.clearForm} title="Limpiar sección"></i>
-                    <i className="fa fa-toggle-up" onClick={this.props.toggleForm}></i>
+                    <i className="fas fa-angle-up" onClick={this.props.toggleForm}></i>
                   </div>
                 </div>
                 <div className="panel-body">
@@ -91,7 +91,7 @@ class CamposParametrizables extends Component {
                               </div>
 
                             );
-                          } 
+                          }
 
                         }else{
                           return (
