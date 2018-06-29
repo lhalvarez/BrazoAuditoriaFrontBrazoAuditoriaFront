@@ -235,7 +235,8 @@ export const LEYENDAS = Object.freeze({
         ERROR_DOCUMENTO_VALIDO: 'Debe cargar un documento válido',
         ERROR_SELECT_AUDIT: 'Debe seleccionar un tipo de auditoría física',
         ESPERA_REVISION: 'En espera de revisión',
-        CARGANDO: 'Cargando...'
+        CARGANDO: 'Cargando...',
+        ERROR_CARGA:'Los documentos resaltados en la tabla no se pudieron cargar adecuadamente, elimínelos e intente nuevamente'
     },
     VALIDACION: {
         AUDITORIA_EFECTUADA: 'La partida que esta visualizando ya tiene un resultado de auditoría registrado. Esta información es sólo de consulta'

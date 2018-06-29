@@ -7,7 +7,6 @@ import {LEYENDAS} from  '../../constants';
 import SeccionCargarArchivos from './SeccionCargarArchivo';
 import SeccionTabla from './tabla';
 import CargaFotografia from './cargaFotografia';
-import { history } from '../../history';
 
 class CargarAuditorias extends React.Component {
 
