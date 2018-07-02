@@ -65,13 +65,13 @@ class Formulario extends Component {
     let $icon = $(e.target);
     let $panelBody = $icon.parents('.panel').find('.panel-body');
 
-    $panelBody.find('input,textarea').each((index,element) => element.value = '');
+    $panelBody.find('.clear').each((index,element) => element.value = '');
   }
 
   SelectObservaciones(){
     let cataologoEstadoAuditoria = this.props.cataologoEstadoAuditoria.registros;
     if(cataologoEstadoAuditoria){
-      return <select name="estatus" id="estatus" className="form-control input-sm">
+      return <select name="estatus" id="estatus" className="form-control input-sm clear">
         <option value="">Seleccione un tipo de Observación</option>
         {
           cataologoEstadoAuditoria.map(obs => <option key={obs.id} value={obs.descripcionCorta}>{obs.descripcion}</option>)
@@ -496,8 +496,8 @@ class Formulario extends Component {
                       <div className="form-group row">
                         <label htmlFor="observacion-auditoria" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                         <div className="col-sm-10">
-                          {resultadoAuditoria? <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm " value={resultadoAuditoria.observaciones}></textarea> :
-                            <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm "></textarea>}
+                          {resultadoAuditoria? <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm clear" value={resultadoAuditoria.observaciones}></textarea> :
+                            <textarea name="" id="observaciones" cols="30" rows="4" className="form-control input-sm clear"></textarea>}
                         </div>
                       </div>
                     </div>
