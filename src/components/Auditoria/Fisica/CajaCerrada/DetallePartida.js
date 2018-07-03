@@ -118,7 +118,10 @@ class DetallePartidaCajaCerrada extends Component{
     let $icon = $(e.target);
     let $panelBody = $icon.parents('.panel').find('.panel-body');
 
-    $panelBody.find('input').each((index,element) => element.value = '');
+
+    $panelBody.find('.clear').each((index,element) => element.value = '');
+    
+    this.setState({requiereApertura:false});
   }
 
   render(){
@@ -275,7 +278,7 @@ class DetallePartidaCajaCerrada extends Component{
                       </div>
                       <label htmlFor="coincideDescripcion" className="col-sm-2 col-form-label">Coincide descripción:</label>
                       <div className="col-sm-3">
-                        <select name="coincideDescripcion" id="coincideDescripcion" onChange={this.handleInputChange} className="form-control input-sm" required>
+                        <select name="coincideDescripcion" id="coincideDescripcion" onChange={this.handleInputChange} className="form-control input-sm clear" required>
                           <option value="">Seleccione una opción</option>
                           <option value="0">No</option>
                           <option value="1">Si</option>
@@ -289,7 +292,7 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="col-md-12">
                       <label htmlFor="descripcion" className="col-sm-2 col-form-label">Descripción:</label>
                       <div className="col-sm-5">
-                        <input  type="text" name="descripcion" className="form-control input-sm" onChange={this.handleInputChange} id="coincideDescripcion-input" required disabled/>
+                        <input  type="text" name="descripcion" className="form-control input-sm clear" onChange={this.handleInputChange} id="coincideDescripcion-input" required disabled/>
                       </div>
                     </div>
                 </div>
@@ -415,7 +418,7 @@ class DetallePartidaCajaCerrada extends Component{
                           <div className="form-group row">
                             <label htmlFor="coincidePeso" className="col-sm-3 col-form-label">Coincide peso:</label>
                             <div className="col-sm-9">
-                              <select name="coincidePeso" id="coincidePeso" onChange={this.handleInputChange} className="form-control input-sm" required>
+                              <select name="coincidePeso" id="coincidePeso" onChange={this.handleInputChange} className="form-control input-sm clear" required>
                                 <option value="">Seleccione una opción</option>
                                 <option value="0">No</option>
                                 <option value="1">Si</option>
@@ -426,7 +429,7 @@ class DetallePartidaCajaCerrada extends Component{
                           <div className="form-group row" id="coincidePeso-label" hidden>
                             <label htmlFor="peso" className="col-sm-3 col-form-label">Peso:</label>
                             <div className="col-sm-9">
-                              <input  type="number" step="any" name="peso" min="1" max="1000000" className="form-control input-sm" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
+                              <input  type="number" step="any" name="peso" min="1" max="1000000" className="form-control input-sm clear" onChange={this.handleInputChange} id="coincidePeso-input" required disabled/>
                             </div>
                           </div>
 
@@ -562,7 +565,7 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="estatus" className="col-sm-4 col-form-label">Estatus:</label>
                       <div className="col-sm-8">
-                        <select name="estatus" id="estatus" defaultValue="0" className="form-control input-sm" onChange={this.handleInputChange} required>
+                        <select name="estatus" id="estatus" defaultValue="0" className="form-control input-sm clear" onChange={this.handleInputChange} required>
                         <option value="">Seleccione un estatus</option>
                           {this.props.cajaCerrada.tiposObservacion.map((campo,index)=>{
                             const {id, descripcionCorta, descripcion} = campo;
@@ -585,7 +588,7 @@ class DetallePartidaCajaCerrada extends Component{
                     <div className="form-group row">
                       <label htmlFor="observaciones" className="col-sm-2 col-form-label">Observaciones auditoría:</label>
                       <div className="col-sm-10">
-                        <textarea  name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm" onChange={this.handleInputChange} ></textarea>
+                        <textarea  name="observaciones" id="observaciones" cols="30" rows="4" className="form-control input-sm clear" onChange={this.handleInputChange} ></textarea>
                         <p className="text-danger" id="labelObservacionesLenght" hidden>Introduzca menos de 500 caracteres</p>
                       </div>
                     </div>
