@@ -72,7 +72,7 @@ function getSelect(props) {
 function getLoaderSelect() {
   return (
     <div className='wrapper icono-formato-reporte'>
-      <span className='fa fa-refresh fa-spin icon-select'/>
+      <span className='fa fa-sync fa-spin icon-select'/>
       <select className='form-control' required={true} disabled={true}>
       </select>
     </div>

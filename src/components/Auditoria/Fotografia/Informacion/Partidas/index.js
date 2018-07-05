@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import Pagination from 'rc-pagination';
+import localeInfo from 'rc-pagination/lib/locale/es_ES';
 import PartidaFormSearch from './PartidaFormSearch';
 import PartidaAuditoriaList from './PartidaAuditoriaList';
 import { buscarPartida, paginarResultados } from "../../actions";
@@ -76,6 +77,7 @@ class Auditoria extends Component {
                             pageSize={data.pageSize}
                             total={data.total}
                             hideOnSinglePage={true}
+                            locale={localeInfo}
                             onChange={this.onChange} />
             </div>
         );

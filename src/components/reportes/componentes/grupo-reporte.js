@@ -35,7 +35,7 @@ export default function GrupoReporte(props) {
       <div className='col-lg-9'>
         <div className='input-group'>
           <span className='input-group-addon'>
-            <span className='fa fa-bar-chart'/>
+            <span className=' fa fa-chart-bar'/>
           </span>
           <SelectorReporte nombre='reporte'
                            elementos={props.reportes}

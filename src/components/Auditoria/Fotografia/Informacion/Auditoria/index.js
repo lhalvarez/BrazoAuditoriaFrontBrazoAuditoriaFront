@@ -3,6 +3,7 @@ import {TITLES} from '../../../../../constants/index';
 import ContainerTitle from '../../../../Global/ContainerTitle';
 import AuditoriaFotografiaList from './AuditoriaFotografiaList';
 import Pagination from 'rc-pagination';
+import localeInfo from 'rc-pagination/lib/locale/es_ES';
 import AuditoriaFotografiaFormSearch from './AuditoriaFotografiaFormSearch';
 import {buscarAuditoria, paginarAuditorias} from "../../actions";
 import {connect} from "react-redux";
@@ -99,6 +100,7 @@ class InformacionAuditoriaFotografia extends Component {
                             pageSize={this.state.pageSize}
                             hideOnSinglePage={true}
                             total={this.state.total}
+                            locale={localeInfo}
                             onChange={this.onChangePagination} />
             </div>
         );

@@ -15,7 +15,8 @@
 import React from 'react';
 
 
-const CLS_NAME = 'icono-formato-reporte fa fa-fw ';
+const CLS_NAME = 'icono-formato-reporte fa-fw ';
+const CLS_NAME_FAR = ' far ';
 
 
 /**
@@ -31,7 +32,7 @@ function opcionesFormato(elemento, indice, props) {
   return (
     <li key={indice}>
       <a style={{cursor: 'pointer'}} onClick={() => props.onChange(indice, props.nombre)}>
-        <span className={CLS_NAME + elemento.descripcion}/> {elemento.descripcionCorta}
+        <span className={CLS_NAME + CLS_NAME_FAR + elemento.descripcion}/> {elemento.descripcionCorta}
       </a>
     </li>
   );
@@ -56,7 +57,7 @@ export default function SelectorFormato(props) {
               aria-haspopup='true'
               aria-expanded='false'
               className='btn btn-default dropdown-toggle'>
-        <span className={CLS_NAME + (props.seleccionado ? props.seleccionado.descripcion : 'fa-refresh fa-spin')}/>
+        <span className={CLS_NAME + (props.seleccionado ? CLS_NAME_FAR + props.seleccionado.descripcion : 'fa fa-sync fa-spin')}/>
         {
           props.seleccionado && props.seleccionado.descripcionCorta
         }

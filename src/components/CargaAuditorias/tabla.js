@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ModalConfirmacion from './modalConfirmacion';
 import Pagination from 'rc-pagination';
+import localeInfo from 'rc-pagination/lib/locale/es_ES';
 import { store } from '../../store';
 import {updatePage} from './actions';
 import {connect} from "react-redux";
@@ -124,6 +125,7 @@ class SeccionTabla extends Component {
                       pageSize={this.state.pageSize}
                       hideOnSinglePage={true}
                       total={this.props.total}
+                      locale={localeInfo}
                       onChange={this.onChangePagination} />
             <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria} onDeleteElement={this.onDeleteElement}/>
           </div>
@@ -186,6 +188,7 @@ class SeccionTabla extends Component {
                                               pageSize={this.state.pageSize}
                                               hideOnSinglePage={true}
                                               total={this.props.total}
+                                              locale={localeInfo}
                                               onChange={this.onChangePagination} /> }
         <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria}/>
       </div>

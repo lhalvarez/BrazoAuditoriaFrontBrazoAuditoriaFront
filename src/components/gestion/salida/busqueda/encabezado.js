@@ -25,7 +25,8 @@ import {TITLES} from "../../../../constants";
 export default function Encabezado() {
   return (
     <div className='panel-heading'>
-      <p>{TITLES.GESTION.SALIDA.BUSQUEDA.LEYENDA} <i className='fa fa-3x fa-sign-out'/></p>
+      <i className='fa fa-2x fa-sign-out-alt pull-right'/>
+      <p>{TITLES.GESTION.SALIDA.BUSQUEDA.LEYENDA}</p>
     </div>
   );
 }

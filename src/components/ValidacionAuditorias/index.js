@@ -3,6 +3,7 @@ import { getAuditorias, getAuditoriasFisica, saveAuditoria, sendNotification } f
 import { connect } from 'react-redux';
 import { store } from '../../store';
 import Pagination from 'rc-pagination';
+import localeInfo from 'rc-pagination/lib/locale/es_ES';
 import ContainerTitle from '../Global/ContainerTitle';
 
 import TablasValidacion from './TablasValidacion';
@@ -100,7 +101,7 @@ class ValidacionAuditorias extends React.Component {
                             pageSize={this.state.pageSize}
                             hideOnSinglePage={true}
                             total={this.props.total}
-                            showTitle={false}
+                            locale={localeInfo}
                             onChange={this.onChangePagination} />
                     </div>
                 );
@@ -123,7 +124,7 @@ class ValidacionAuditorias extends React.Component {
                             pageSize={this.state.pageSize}
                             hideOnSinglePage={true}
                             total={this.props.totalACaja}
-                            showTitle={false}
+                            locale={localeInfo}
                             onChange={this.onChangePaginationCaja} />
                     </div>
                 );
