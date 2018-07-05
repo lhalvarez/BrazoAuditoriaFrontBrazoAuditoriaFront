@@ -133,64 +133,66 @@ class SeccionTabla extends Component {
     }
     return(
       <div className="row">
-        <div className="panel panel-default">
-          <div className="panel-heading" >
-            <i className="fa fa-2x fa-table pull-right"></i>
-            <p>Tabla de auditorías pendientes de autorización</p>
+        <div className="col-lg-12">
+          <div className="panel panel-default">
+            <div className="panel-heading" >
+              <i className="fa fa-2x fa-table pull-right"></i>
+              <p>Tabla de auditorías pendientes de autorización</p>
 
+            </div>
+            <div className="table-responsive">
+              <table className="table table-striped ">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre Archivo</th>
+                  <th>Sucursal</th>
+                  <th>Creador</th>
+                  <th>Total Partidas</th>
+                  <th>Estatus</th>
+                  <th>Tipo auditoria</th>
+                  <th>Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {listaDeAuditorias.map((auditoria, index) => {
+                  const {id, carga} = auditoria;
+
+                  if(carga.estadoCarga.id === 4){var clase = 'danger'}
+                  else{var clase = '';}
+                  if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
+                    return (
+                      <tr style={{padding:'15px'}} key={`${index}-${id}`} className={clase}>
+                        <td>{carga.id}</td>
+                        <td>{carga.nombreArchivo}</td>
+                        <td>{carga.idSucursal}</td>
+                        <td>{carga.solicitante}</td>
+                        <td>{carga.noPartidas}</td>
+                        <td>Pendiente de autorización</td>
+                        <td>{carga.tipoAuditoria.descripcion}</td>
+                        <td>
+                          <Link to="#" onClick={() => {this.deleteDoc(carga,id)} }>
+                            Eliminar
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  }
+
+                })}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div className="table-responsive">
-            <table className="table table-striped ">
-              <thead>
-              <tr>
-                <th>Id</th>
-                <th>Nombre Archivo</th>
-                <th>Sucursal</th>
-                <th>Creador</th>
-                <th>Total Partidas</th>
-                <th>Estatus</th>
-                <th>Tipo auditoria</th>
-                <th>Opciones</th>
-              </tr>
-              </thead>
-              <tbody>
-
-              {listaDeAuditorias.map((auditoria, index) => {
-                const {id, carga} = auditoria;
-
-                if(carga.estadoCarga.id === 4){var clase = 'danger'}
-                else{var clase = '';}
-                if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
-                  return (
-                    <tr style={{padding:'15px'}} key={`${index}-${id}`} className={clase}>
-                      <td>{carga.id}</td>
-                      <td>{carga.nombreArchivo}</td>
-                      <td>{carga.idSucursal}</td>
-                      <td>{carga.solicitante}</td>
-                      <td>{carga.noPartidas}</td>
-                      <td>Pendiente de autorización</td>
-                      <td>{carga.tipoAuditoria.descripcion}</td>
-                      <td>
-                        <Link to="#" onClick={() => {this.deleteDoc(carga,id)} }>
-                          Eliminar
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                }
-
-              })}
-              </tbody>
-            </table>
-          </div>
+          {this.props.total > 0 &&  <Pagination current={this.state.page + 1}
+                                                pageSize={this.state.pageSize}
+                                                hideOnSinglePage={true}
+                                                total={this.props.total}
+                                                locale={localeInfo}
+                                                onChange={this.onChangePagination} /> }
+          <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria}/>
         </div>
-        {this.props.total > 0 &&  <Pagination current={this.state.page + 1}
-                                              pageSize={this.state.pageSize}
-                                              hideOnSinglePage={true}
-                                              total={this.props.total}
-                                              locale={localeInfo}
-                                              onChange={this.onChangePagination} /> }
-        <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria}/>
       </div>
     );
   }

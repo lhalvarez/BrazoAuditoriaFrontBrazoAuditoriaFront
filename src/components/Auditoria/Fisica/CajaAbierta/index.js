@@ -30,7 +30,7 @@ class AuditoriaFisicaCajaAbierta extends Component{
   	handleStoreChange(){
   		if(store.getState().cajaAbierta.partidaCargada){
   			this.setState({
-  				title: `${TITLES.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA} ${store.getState().cajaAbierta.llavePartida.rfid}`
+  				title: `${TITLES.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA} ${store.getState().cajaAbierta.llavePartida.folio}`
   			});
   		}
       else
