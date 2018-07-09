@@ -1,6 +1,7 @@
 // Dependencies
 import webpack from 'webpack';
 import path from 'path';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 
 // Environment
@@ -12,6 +13,7 @@ const PATHS = {
   build: path.join(__dirname, 'src/public'),
   src: path.join(__dirname, 'src')
 };
+
 
 const getDevtool = () => 'cheap-module-eval-source-map';
 const getEntry = () => {
@@ -28,6 +30,33 @@ const getOutput = () => ({
   publicPath: '/',
   filename: '[name].bundle.js'
 });
+
+
+const getOptimization = () => ({
+
+  splitChunks: {
+    chunks: 'async',
+    minSize: 30000,
+    minChunks: 1,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
+    automaticNameDelimiter: '~',
+    name: true,
+    cacheGroups: {
+      vendors: {
+        test: /[\\/]node_modules[\\/]/,
+        priority: -10
+      },
+      default: {
+        minChunks: 2,
+        priority: -20,
+        reuseExistingChunk: true
+      }
+    }
+  }
+
+});
+
 const getPlugins = () => {
   const plugins = [];
   //const plugins = [
@@ -35,7 +64,7 @@ const getPlugins = () => {
    //   to: 'vendor',
    //   test: /node_modules/
    // })
-  //];
+  //];]
 
   if (isDevelopment) {
     plugins.push(
@@ -44,10 +73,11 @@ const getPlugins = () => {
     );
   } else {
     plugins.push(
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          screw_ie8: true,
-          warnings: false
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          warningsFilter: false,
+          compress: true,
+          ie8: true
         }
       })
     );
@@ -83,10 +113,27 @@ const getLoaders = () => {
   });
 };
 
+const getEnviroment = () => {
+
+  if (isDevelopment) {
+
+    return "development";
+
+  }else{
+
+    return "production";
+
+  }
+
+}
+
+
 export default {
   devtool: getDevtool(),
   entry: getEntry(),
   output: getOutput(),
   plugins: getPlugins(),
-  module: getLoaders()
+  module: getLoaders(),
+  optimization: getOptimization(),
+  mode: getEnviroment()
 };

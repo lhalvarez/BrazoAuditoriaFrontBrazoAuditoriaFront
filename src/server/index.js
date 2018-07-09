@@ -75,7 +75,7 @@ app.get('*', (req, res) => {
 
 app.listen(appEnv.port, err => {
 
-  console.log("Es ambiente productivo: ", isDevelopment)
+  console.log("Es ambiente DESARROLLO: ", isDevelopment)
 
   console.log("El valor de los datos productivos son: ", appEnv.port)
   console.log("El valor de los datos productivos url: ", appEnv.url)
