@@ -7,7 +7,7 @@ import {
     ModalClose,
     ModalBody,
     ModalFooter
-} from 'react-modal-bootstrap';
+} from 'react-bootstrap';
 
 
 class ModalAceptado extends Component {

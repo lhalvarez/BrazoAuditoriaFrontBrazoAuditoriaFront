@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Receiver } from 'react-file-uploader';
 import './style.css';
 import ContainerTitle from '../Global/ContainerTitle';
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import { store } from '../../store';
 import {updatePage} from "./actions";
 import {connect} from "react-redux";

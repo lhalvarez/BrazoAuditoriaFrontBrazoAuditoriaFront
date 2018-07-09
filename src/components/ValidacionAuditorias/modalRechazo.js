@@ -7,7 +7,7 @@ import {
     ModalClose,
     ModalBody,
     ModalFooter
-} from 'react-modal-bootstrap';
+} from 'react-bootstrap';
 import RechazoList from './rechazolist';
 
 class ModalRechazo extends Component {

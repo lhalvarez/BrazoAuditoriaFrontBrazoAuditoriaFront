@@ -1,7 +1,7 @@
 // Dependencies
 import webpack from 'webpack';
 import path from 'path';
-import ChunksPlugin from 'webpack-split-chunks';
+
 
 // Environment
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -29,12 +29,13 @@ const getOutput = () => ({
   filename: '[name].bundle.js'
 });
 const getPlugins = () => {
-  const plugins = [
-    new ChunksPlugin({
-      to: 'vendor',
-      test: /node_modules/
-    })
-  ];
+  const plugins = [];
+  //const plugins = [
+  //  new ChunksPlugin({
+   //   to: 'vendor',
+   //   test: /node_modules/
+   // })
+  //];
 
   if (isDevelopment) {
     plugins.push(
@@ -54,31 +55,33 @@ const getPlugins = () => {
 
   return plugins;
 };
-const getLoaders = () => ({
-  loaders: [
-    {
-      test: /\.js?$/,
-      loaders: ['babel-loader'],
-      include: PATHS.src
-    },
-    {
-      test: /(\.css)$/,
-      loaders: ['style-loader', 'css-loader']
-    },
-    {
-      test: /\.(eot|ttf|woff|woff2|svg)$/,
-      loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-    },
-    {
-      test: /\.(png)$/,
-      loader: 'url-loader?limit=10000&mimetype=image/png'
-    },
-    {
-      test: /\.(jpg)$/,
-      loader: 'url-loader?limit=10000&mimetype=image/jpg'
-    }
-  ]
-});
+const getLoaders = () => {
+  return ({
+    rules: [
+      {
+        test: /\.js?$/,
+        loader: ['babel-loader'],
+        include: PATHS.src
+      },
+      {
+        test: /(\.css)$/,
+        loader: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2|svg)$/,
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+      },
+      {
+        test: /\.(png)$/,
+        loader: 'url-loader?limit=10000&mimetype=image/png'
+      },
+      {
+        test: /\.(jpg)$/,
+        loader: 'url-loader?limit=10000&mimetype=image/jpg'
+      }
+    ]
+  });
+};
 
 export default {
   devtool: getDevtool(),
