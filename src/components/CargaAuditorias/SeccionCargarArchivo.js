@@ -50,6 +50,9 @@ class SeccionCargarArchivos extends Component {
   }
 
   setFile(file){
+    if('data' in file)
+      file = file.data;
+
     this.setState({file:file});
     this.setState({nameFile:file.name});
     if (file.size > this.props.api.CARGA.TAMANO_NUMERO * this.props.api.CARGA.TAMANO_NUMERO) {
@@ -58,7 +61,6 @@ class SeccionCargarArchivos extends Component {
       this.setState({file:null});
       this.setState({nameFile:this.props.api.CARGA.ERROR_ARCHIVO});
     }
-    // console.log(file.name.split('.').pop());
 
     if(file.name.split('.').pop() !== 'csv'){
       file.error = this.props.api.CARGA.FORMATO_ARCHIVO_LEYENDA+' '+this.props.api.CARGA.FORMATO_ARCHIVO;
