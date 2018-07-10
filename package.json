@@ -59,6 +59,7 @@
     "request-promise": "^4.2.2",
     "sharp": "^0.20.5",
     "style-loader": "^0.18.2",
+    "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^0.5.8",
     "validator": "^9.4.1",
     "webpack": "^4.15.1",
@@ -67,11 +68,12 @@
     "webpack-split-chunks": "^0.2.1"
   },
   "scripts": {
-    "start": "babel-node src/server/index.js",
+    "start": "NODE_ENV=development babel-node src/server/index.js",
     "production": "NODE_ENV=production BABEL_ENV=production npm run build && npm start",
     "build": "NODE_ENV=production webpack --config webpack.config.babel.js"
   },
   "devDependencies": {
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "webpack-cli": "^3.0.8"
   }
 }
