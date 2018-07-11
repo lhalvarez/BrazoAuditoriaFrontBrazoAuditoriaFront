@@ -8,6 +8,12 @@ import { store } from '../../store';
 import {updatePage} from './actions';
 import {connect} from "react-redux";
 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+import Fila from './fila';
+import DeleteDrop from './deleteDrop';
+
 class SeccionTabla extends Component {
 
   constructor(props) {
@@ -70,7 +76,7 @@ class SeccionTabla extends Component {
           <div className="col-lg-12">
             <div className="panel panel-default">
               <div className="panel-heading" >
-                <i className="fa fa-2x fa-table pull-right"></i>
+                <DeleteDrop />
                 <p>Tabla de auditorías pendientes de autorización</p>
 
               </div>
@@ -92,27 +98,10 @@ class SeccionTabla extends Component {
 
                       {listaDeAuditorias.map((auditoria, index) => {
                         const {id, carga} = auditoria;
-                        var clase = '';
-                        if(carga.estadoCarga){
-                          if(carga.estadoCarga.id === 4){ clase = 'danger'}
-                          else{ clase = '';}
-                        }
 
                         if(carga.tipoAuditoria.id === 1){
                           return (
-                            <tr style={{padding:'15px'}} key={`${index}-${id}`} className={clase}>
-                              <td>{carga.id}</td>
-                              <td>{carga.nombreArchivo}</td>
-                              <td>{carga.idSucursal}</td>
-                              <td>{carga.solicitante}</td>
-                              <td>{carga.noPartidas}</td>
-                              <td>Pendiente de autorización</td>
-                              <td>
-                                <Link to="#" onClick={() => {this.deleteDoc(carga,id)} }>
-                                  <i className="far fa-trash-alt"></i> Eliminar
-                                </Link>
-                              </td>
-                            </tr>
+                            <Fila auditoria={auditoria} deleteDoc={this.deleteDoc} key={`${index}-${id}`} />
                           );
                         }
                       })}
@@ -128,7 +117,7 @@ class SeccionTabla extends Component {
                       locale={localeInfo}
                       onChange={this.onChangePagination} />
             <ModalConfirmacion idAuditoria={this.state.idAuditoria} tipoAuditoria={this.props.tipoAuditoria} onDeleteElement={this.onDeleteElement}/>
-          </div>
+        </div>
       );
     }
     return(
@@ -136,7 +125,7 @@ class SeccionTabla extends Component {
         <div className="col-lg-12">
           <div className="panel panel-default">
             <div className="panel-heading" >
-              <i className="fa fa-2x fa-table pull-right"></i>
+              <DeleteDrop />
               <p>Tabla de auditorías pendientes de autorización</p>
 
             </div>
@@ -163,20 +152,7 @@ class SeccionTabla extends Component {
                   else{var clase = '';}
                   if(carga.tipoAuditoria.id === 2 || carga.tipoAuditoria.id === 3){
                     return (
-                      <tr style={{padding:'15px'}} key={`${index}-${id}`} className={clase}>
-                        <td>{carga.id}</td>
-                        <td>{carga.nombreArchivo}</td>
-                        <td>{carga.idSucursal}</td>
-                        <td>{carga.solicitante}</td>
-                        <td>{carga.noPartidas}</td>
-                        <td>Pendiente de autorización</td>
-                        <td>{carga.tipoAuditoria.descripcion}</td>
-                        <td>
-                          <Link to="#" onClick={() => {this.deleteDoc(carga,id)} }>
-                            Eliminar
-                          </Link>
-                        </td>
-                      </tr>
+                      <Fila auditoria={auditoria} deleteDoc={this.deleteDoc} key={`${index}-${id}`} />
                     );
                   }
 
@@ -204,5 +180,5 @@ function mapStateToProps(state) {
     resetTable: state.cargaAuditora.resetTable
   }
 }
-export default connect(mapStateToProps,{updatePage})(SeccionTabla);
+export default connect(mapStateToProps,{updatePage})( DragDropContext(HTML5Backend)(SeccionTabla) );
 

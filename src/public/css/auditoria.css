@@ -546,3 +546,38 @@ legend{
   text-align: right;
   padding-right: 10px !important;
 }
+
+#deleteDrop-wrapper, .deleteDrop-popover-content{
+  position: relative;
+}
+
+.deleteDrop-popover{
+  position: absolute;
+  text-align: center;
+  top: 3px;
+  left: -170px;
+  padding: 5px 8px;
+  width: 145px;
+  background-color: #333333;
+  color: #fff;
+  border-radius: 3px;
+  display: none;
+}
+
+.deleteDrop-popover p{
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0;
+}
+
+.arrow-right{
+  position: absolute;
+  top: 0;
+  right: -15px;
+  width: 0; 
+  height: 0; 
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  
+  border-left: 7px solid #333333; 
+}
