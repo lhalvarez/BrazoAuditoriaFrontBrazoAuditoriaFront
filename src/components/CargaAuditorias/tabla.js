@@ -8,9 +8,6 @@ import { store } from '../../store';
 import {updatePage} from './actions';
 import {connect} from "react-redux";
 
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-
 import Fila from './fila';
 import DeleteDrop from './deleteDrop';
 
@@ -180,5 +177,5 @@ function mapStateToProps(state) {
     resetTable: state.cargaAuditora.resetTable
   }
 }
-export default connect(mapStateToProps,{updatePage})( DragDropContext(HTML5Backend)(SeccionTabla) );
+export default connect(mapStateToProps,{updatePage})( SeccionTabla );
 

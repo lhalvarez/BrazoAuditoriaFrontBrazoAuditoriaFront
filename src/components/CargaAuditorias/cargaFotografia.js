@@ -3,6 +3,9 @@ import SeccionCargarArchivos from './SeccionCargarArchivo';
 import SeccionTabla from './tabla';
 import Pagination from 'rc-pagination';
 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 class CargaFotografia extends Component {
 
   constructor(props) {
@@ -61,4 +64,4 @@ class CargaFotografia extends Component {
 
 }
 
-export default CargaFotografia;
+export default DragDropContext(HTML5Backend)(CargaFotografia);

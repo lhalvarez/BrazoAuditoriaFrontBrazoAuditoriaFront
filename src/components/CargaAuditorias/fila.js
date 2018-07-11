@@ -52,7 +52,7 @@ class Fila extends Component{
 	    const { isDragging, connectDragSource } = this.props;
 
 		return connectDragSource(
-			<tr style={{...style, padding:'15px'}} className={ (carga.estadoCarga && carga.estadoCarga.id === 4) ? 'danger' : '' }>
+			<tr style={{...style, padding:'15px', opacity: isDragging && 0.4}} className={ (carga.estadoCarga && carga.estadoCarga.id === 4) ? 'danger' : '' }>
               <td>{carga.id}</td>
               <td>{carga.nombreArchivo}</td>
               <td>{carga.idSucursal}</td>

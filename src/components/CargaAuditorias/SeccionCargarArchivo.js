@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Receiver } from 'react-file-uploader';
 import './style.css';
 import ContainerTitle from '../Global/ContainerTitle';
 import PropTypes from 'prop-types';
@@ -7,6 +6,7 @@ import { store } from '../../store';
 import {updatePage} from "./actions";
 import {connect} from "react-redux";
 
+import UploadDropZone from './uploadDropZone';
 
 class SeccionCargarArchivos extends Component {
   constructor(props) {
@@ -17,9 +17,6 @@ class SeccionCargarArchivos extends Component {
     this.onChangeFile = this.onChangeFile.bind(this);
     this.onChangeTipoAuditoria = this.onChangeTipoAuditoria.bind(this);
 
-    this.onDragEnter = this.onDragEnter.bind(this);
-    this.onDragOver = this.onDragOver.bind(this);
-    this.onDragLeave = this.onDragLeave.bind(this);
     this.onUploadProgress = this.onUploadProgress.bind(this);
     this.handleStoreChange = this.handleStoreChange.bind(this);
     this.setFile = this.setFile.bind(this);
@@ -36,7 +33,7 @@ class SeccionCargarArchivos extends Component {
     this.unsuscribe = store.subscribe(this.handleStoreChange);
   };
 
-  onChangeFile(e,files) {
+  onChangeFile(files) {
     files.forEach(this.setFile);
   }
 
@@ -131,17 +128,6 @@ class SeccionCargarArchivos extends Component {
     this.setState({ percentage });
   }
 
-  onDragEnter(e) {
-    this.setState({ isReceiverOpen: true });
-  }
-
-  onDragOver(e) {
-  }
-
-  onDragLeave(e) {
-    this.setState({ isReceiverOpen: false });
-  }
-
   handleStoreChange(){
     if(store.getState().cargaAuditora.auditoriaCreada){
       var formData = new FormData();
@@ -198,17 +184,8 @@ class SeccionCargarArchivos extends Component {
                         <label htmlFor="documento" className="col-sm-2 control-label"></label>
                         <div className="col-sm-12" onClick={this.propagateClick}>
 
-                          <Receiver
-                            isOpen={true}
-                            onDragEnter={this.onDragEnter}
-                            onDragOver={this.onDragOver}
-                            onDragLeave={this.onDragLeave}
-                            onFileDrop={this.onChangeFile}
-                          >
-                            <div className="form-control-file text-primary" id="inputDrop" data-title={this.state.nameFile}>
-                            </div>
+                          <UploadDropZone fileName={this.state.nameFile} onFileDrop={this.onChangeFile} />
 
-                          </Receiver>
                           <div className="msgError text-danger">{this.state.fileError}</div>
 
                           {
@@ -277,17 +254,9 @@ class SeccionCargarArchivos extends Component {
                       <div className="col-lg-6">
                         <div className="form-group row">
                           <div className="col-sm-12" onClick={this.propagateClick}>
-                            <Receiver
-                              isOpen={true}
-                              onDragEnter={this.onDragEnter}
-                              onDragOver={this.onDragOver}
-                              onDragLeave={this.onDragLeave}
-                              onFileDrop={this.onChangeFile}
-                            >
-                              <div className="form-control-file text-primary" id="inputDrop"
-                                   data-title={this.state.nameFile}>
-                              </div>
-                            </Receiver>
+
+                            <UploadDropZone fileName={this.state.nameFile} onFileDrop={this.onChangeFile} />
+
                             <div className="msgError text-danger">{this.state.fileError}</div>
 
                             {

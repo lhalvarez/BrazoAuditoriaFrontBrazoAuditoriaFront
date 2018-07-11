@@ -9,6 +9,9 @@ import SeccionTabla from '../tabla';
 import CargaFotografia from '../cargaFotografia';
 import { history } from '../../../history';
 
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 class AuditoriasFisicas extends React.Component {
 
   constructor(props) {
@@ -119,4 +122,4 @@ function mapStateToProps(state) {
     resetTable: state.cargaAuditora.resetTable
   }
 }
-export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification,getDocs})(AuditoriasFisicas);
+export default connect(mapStateToProps,{saveDoc,saveAuditoria,getDoc,deleteDoc,sendNotification,getDocs})( DragDropContext(HTML5Backend)(AuditoriasFisicas) );
