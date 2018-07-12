@@ -33,7 +33,7 @@ export function auditoriaReducer(state = initialState, action) {
 
             result = action.payload ? [{
                 id: action.payload.object.id,
-                totalPartidas: 10, // todo: falta verificar de donde se obtiene el total de partidas
+              numeroPartidas: action.payload.object.numeroPartidas,
                 nombreArchivo
             }] : [];
             return Object.assign({}, state, {

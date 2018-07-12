@@ -21,12 +21,12 @@ const AuditoriaFotografiaList = ({auditorias}) => {
                         </thead>
                         <tbody>
                             {auditorias.map((auditoria, index) => {
-                                const {id, nombreArchivo, totalPartidas} = auditoria;
+                                const {id, nombreArchivo, numeroPartidas} = auditoria;
                                 return (
                                     <tr key={`${index}-${id}`}>
                                         <td>{id}</td>
                                         <td>{nombreArchivo}</td>
-                                        <td>{totalPartidas}</td>
+                                        <td>{numeroPartidas}</td>
                                         <td>
                                             <Link to={{ pathname: `/detalle-auditoria-fotografia/${id}`,
                                                         query: { nombreArchivo: nombreArchivo }}}>

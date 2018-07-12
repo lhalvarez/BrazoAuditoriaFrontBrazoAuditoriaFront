@@ -71,8 +71,8 @@ export const API = Object.freeze({
                 },
                 AUDITORIAS: {
                     BUSQUEDA: {
-                        ID: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria' },
-                        ARCHIVO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/nombreArchivo' },
+                        ID: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/completa' },
+                        ARCHIVO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/completa/nombreArchivo' },
                         AUTO_COMPLETE: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/carga/autocomplete/nombreArchivo' }
                     },
                     PAGINADO: { endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/cargas/completas' }
