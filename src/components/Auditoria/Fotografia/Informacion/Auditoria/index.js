@@ -64,7 +64,7 @@ class InformacionAuditoriaFotografia extends Component {
         console.log("Archivo seleccionado: " + this.state.nombreArchivo);
         console.log("Id auditoria: " + this.state.idAuditoria);
         this.state.busqueda = true;
-        this.props.buscarAuditoria(this.state.idAuditoria, this.state.nombreArchivo);
+        this.props.buscarAuditoria(this.state.idAuditoria, window.btoa(this.state.nombreArchivo));
     };
     
     limpiar = () => {

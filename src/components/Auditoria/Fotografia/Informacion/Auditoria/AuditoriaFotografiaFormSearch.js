@@ -47,7 +47,8 @@ class AuditoriaFotografiaFormSearch extends Component {
     fetchData = (value) => {
         if (value.length >= 3) {
             console.log("Entrando a fetchData...");
-            fetch(`${API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.AUDITORIAS.BUSQUEDA.AUTO_COMPLETE.endpoint}/${value}`)
+            let archivo = window.btoa(value);
+            fetch(`${API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.AUDITORIAS.BUSQUEDA.AUTO_COMPLETE.endpoint}/${archivo}`)
             .then(data =>
                data.json()
             ).then(dataJson => {
