@@ -1,14 +1,6 @@
 // Dependencies
 import React, { Component } from 'react';
-import {
-    Modal,
-    ModalHeader,
-    ModalTitle,
-    ModalClose,
-    ModalBody,
-    ModalFooter
-} from 'react-bootstrap';
-
+import { Modal } from 'react-bootstrap';
 
 class ModalAceptado extends Component {
 
@@ -21,22 +13,24 @@ class ModalAceptado extends Component {
 
     render() {
         return (
-            <Modal isOpen={this.props.showAccept} onRequestHide={this.props.handleClose} onSuccess={this.props.handleClose}>
-                <ModalHeader>
-                    <ModalClose onClick={this.props.handleClose} />
-                    <ModalTitle>AVISO</ModalTitle>
-                </ModalHeader>
-                <ModalBody>
+            <Modal
+                show={this.props.showAccept}
+                onHide={this.props.handleClose}
+            >
+                <Modal.Header>
+                    <Modal.Title>AVISO</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
                     <label>Se validaran las auditorias seleccionadas, ¿Desea Continuar? </label>
-                </ModalBody>
-                <ModalFooter>
+                </Modal.Body>
+                <Modal.Footer>
                     <button style={{ marginRight: '5px' }} className='btn btn-sm btn-primary' onClick={this.props.handleClose}>
                         Cancelar
-              </button>
+                    </button>
                     <button className='btn btn-sm btn-primary' onClick={this.props.handleOnSubmitAccept}>
                         Aceptar
-              </button>
-                </ModalFooter>
+                    </button>
+                </Modal.Footer>
             </Modal>
         );
     }
