@@ -119,7 +119,6 @@ class SeccionCargarArchivos extends Component {
       "solicitante": this.props.detalleUsuario.usuario,
       "tipoAuditoria": tipoAudit
     };
-    //console.log(file);
     this.props.saveAuditoria(auditoria);
   }
 

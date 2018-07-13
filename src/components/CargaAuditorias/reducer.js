@@ -98,7 +98,8 @@ export function cargaAuditora(state = initialState, action){
     case UPDATE_PAGE:
       return Object.assign({}, state, {
         resetTable: false,
-        resetFormCharge:false
+        resetFormCharge:false,
+        archivoCargado: false
       });
     default:
       return state
