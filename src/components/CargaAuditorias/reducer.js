@@ -10,7 +10,8 @@ import {
   CLOSE_MODAL,
   NO_PARTIDAS,
   UPDATE_PAGE,
-  SHOW_ERROR_ALERT
+  SHOW_ERROR_ALERT,
+  CLOSE_ERROR_ALERT
   } from './actions'
 import {ADD_NOTIFICATION} from "../Global/GlobalActions";
 
@@ -114,6 +115,10 @@ export function cargaAuditora(state = initialState, action){
     case SHOW_ERROR_ALERT:
       return Object.assign({}, state, {
         showErrorAlert: true
+      });
+    case CLOSE_ERROR_ALERT:
+      return Object.assign({}, state, {
+        showErrorAlert: false
       });
     default:
       return state

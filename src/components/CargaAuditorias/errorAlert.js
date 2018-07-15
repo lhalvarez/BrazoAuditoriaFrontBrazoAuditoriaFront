@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 
 import { LEYENDAS } from '../../constants/index';
-import {addNotification} from '../../components/Global/GlobalActions';
+import { addNotification } from '../../components/Global/GlobalActions';
+import { closeErrorAlert } from './actions';
 
 class ErrorAlert extends Component{
 	// componentDidUpdate(){
 	// 	if(this.props.showErrorAlert)
 	// 		this.props.addNotification('Atención',LEYENDAS.CARGA.ERROR_CARGA,'warning');
 	// }
+
+	componentWillUnmount(){
+		this.props.closeErrorAlert();
+	}
 
 	render(){
 
@@ -29,4 +34,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,{addNotification})(ErrorAlert);
+export default connect(mapStateToProps,{ addNotification,closeErrorAlert })(ErrorAlert);

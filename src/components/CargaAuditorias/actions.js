@@ -17,6 +17,7 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
 export const NO_PARTIDAS = 'NO_PARTIDAS'; //Acción para regresar un estado sin auditorias encontradas
 export const UPDATE_PAGE = 'UPDATE_PAGE'; //Acción para actualizar tabla
 export const SHOW_ERROR_ALERT = 'SHOW_ERROR_ALERT'; //Acción para mostrar la alerta de error
+export const CLOSE_ERROR_ALERT = 'CLOSE_ERROR_ALERT'; //Acción para ocultar la alerta de error
 
 export function getDocs(page, pageSize,tipoAuditoria){
   if(tipoAuditoria === 2){
@@ -135,5 +136,11 @@ export function closeModal(){
 export function updatePage(){
   return (dispatch) => {
 		dispatch({ type: UPDATE_PAGE });
+  }
+}
+
+export function closeErrorAlert(){
+  return (dispatch) => {
+    dispatch({ type: CLOSE_ERROR_ALERT });
   }
 }
