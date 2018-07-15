@@ -8,6 +8,7 @@ import SeccionCargarArchivos from '../SeccionCargarArchivo';
 import SeccionTabla from '../tabla';
 import CargaFotografia from '../cargaFotografia';
 import { history } from '../../../history';
+import ErrorAlert from '../errorAlert';
 
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -105,6 +106,9 @@ class AuditoriasFisicas extends React.Component {
             resetTable={this.props.resetTable}
 
           />
+          
+          <ErrorAlert />
+
           <this.CargaFisica />
 
 

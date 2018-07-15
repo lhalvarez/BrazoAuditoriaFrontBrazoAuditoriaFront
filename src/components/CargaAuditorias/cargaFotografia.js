@@ -6,6 +6,8 @@ import Pagination from 'rc-pagination';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+import ErrorAlert from './errorAlert';
+
 class CargaFotografia extends Component {
 
   constructor(props) {
@@ -53,6 +55,8 @@ class CargaFotografia extends Component {
         api={this.props.api}
         getDocs={this.props.getDocs}
       />
+
+      <ErrorAlert />
 
         <this.ShowTable />
 

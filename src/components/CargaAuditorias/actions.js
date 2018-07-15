@@ -16,6 +16,7 @@ export const DELETE_AUDITORIA = 'DELETE_AUDITORIA'; //Acción para eliminar la a
 export const CLOSE_MODAL = 'CLOSE_MODAL'; //Acción para eliminar la auditoría
 export const NO_PARTIDAS = 'NO_PARTIDAS'; //Acción para regresar un estado sin auditorias encontradas
 export const UPDATE_PAGE = 'UPDATE_PAGE'; //Acción para actualizar tabla
+export const SHOW_ERROR_ALERT = 'SHOW_ERROR_ALERT'; //Acción para mostrar la alerta de error
 
 export function getDocs(page, pageSize,tipoAuditoria){
   if(tipoAuditoria === 2){
@@ -31,21 +32,20 @@ export function getDocs(page, pageSize,tipoAuditoria){
     MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
       .then((response) => {
         dispatch( {type: GET_AUDITORIAS, payload: response });
+
         var errorExist = 0;
         if(response.object.contenido){
           response.object.contenido.forEach(function (value) {
-            console.log(value.carga.estadoCarga.id);
-            console.log('hi');
             if(value.carga.estadoCarga.id === 4){
               errorExist++;
             }
 
           });
         }
-        console.log(errorExist);
         if(errorExist > 0){
-          dispatch(addNotification('Atención',LEYENDAS.CARGA.ERROR_CARGA,'warning'));
+          dispatch( {type: SHOW_ERROR_ALERT });
         }
+
       }).catch(error => {
         if(error.data.message === 'No se encontraron registros para las auditorias solicitadas'){
           dispatch( {type: NO_PARTIDAS });
