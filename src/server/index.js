@@ -19,6 +19,7 @@ import webpackConfig from '../../webpack.config.babel';
 // API
 import usuariosApi from './api/usuarios';
 import fotografiaApi from './api/fotografia';
+import serviciosApi from './api/servicios';
 
 // Helpers
 import * as hbsHelper from '../lib/handlebars';
@@ -62,6 +63,7 @@ if (isDevelopment) {
 // API dispatch
 app.use('/api/usuarios', usuariosApi);
 app.use('/api/fotografia', fotografiaApi);
+app.use('/api/servicios', serviciosApi);
 
 // Sending all the traffic to React
 app.get('*', (req, res) => {
