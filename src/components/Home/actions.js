@@ -1,6 +1,6 @@
 
-import { API } from '../../constants/index'
-import MessageService from '../../lib/utils/MessageService';
+import { API } from '../../constants/index';
+import HttpService from '../../lib/utils/HttpService';
 import {addNotification} from "../Global/GlobalActions";
 
 export const BUSCAR_USUARIO_SESION = 'BUSCAR_USUARIO_SESION';
@@ -24,15 +24,13 @@ export function buscaDatosUsuarioSesion(){
 
     let {detalleUsuario} = getState().session;
 
-    MessageService.getAll(API.ENDPOINTS.DASHBOARD.RESUMEN_PENDIENTES.endpoint, "")
-      .then((response) => {
-        response.dashboard = response
-        response.usuario = detalleUsuario;
-        handleResponse(dispatch, response, BUSCAR_USUARIO_SESION);
-  }).catch((err) => {
-      handleError(dispatch, err, BUSCAR_USUARIO_SESION);
-    });
-
+    HttpService.get(API.PATHS.DASHBOARD)
+               .then(response => {
+                  response.dashboard = response;
+                  response.usuario = detalleUsuario;
+                  handleResponse(dispatch, response, BUSCAR_USUARIO_SESION);
+               })
+               .catch(err => handleError(dispatch, err, BUSCAR_USUARIO_SESION));
   }
 
 }

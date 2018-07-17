@@ -22,7 +22,8 @@ Router.get('/',async (req,res) => {
 	let requestSettings = {
 		uri: `${api.baseURL}${req.query.path}`,
 		method: 'GET',
-		json: true
+		json: true,
+		headers: { 'Authorization': req.headers.authorization }
 	};
 
 	let response = await rp(requestSettings);
@@ -42,7 +43,8 @@ Router.post('/',async (req,res) => {
 		uri: `${api.baseURL}${req.query.path}`,
 		method: 'POST',
 		json: true,
-		body
+		body,
+		headers: { 'Authorization': req.headers.authorization }
 	};
 
 	let response = await rp(requestSettings);
@@ -62,7 +64,8 @@ Router.put('/',async (req,res) => {
 		uri: `${api.baseURL}${req.query.path}`,
 		method: 'PUT',
 		json: true,
-		body
+		body,
+		headers: { 'Authorization': req.headers.authorization }
 	};
 
 	let response = await rp(requestSettings);
@@ -82,7 +85,8 @@ Router.patch('/',async (req,res) => {
 		uri: `${api.baseURL}${req.query.path}`,
 		method: 'PATCH',
 		json: true,
-		body
+		body,
+		headers: { 'Authorization': req.headers.authorization }
 	};
 
 	let response = await rp(requestSettings);
@@ -102,7 +106,8 @@ Router.delete('/',async (req,res) => {
 		uri: `${api.baseURL}${req.query.path}`,
 		method: 'DELETE',
 		json: true,
-		body
+		body,
+		headers: { 'Authorization': req.headers.authorization }
 	};
 
 	let response = await rp(requestSettings);

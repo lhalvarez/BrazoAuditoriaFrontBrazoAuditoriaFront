@@ -122,6 +122,9 @@ export const API = Object.freeze({
         REPORTES: {
             endpoint: 'https://dev1775-auditoria.mybluemix.net/auditoria/reporte'
         }
+    },
+    PATHS: {
+        DASHBOARD: 'dashboard'
     }
 });
 
