@@ -12,7 +12,7 @@
  */
 
 
-import MessageService from "../../../lib/utils/MessageService";
+import HttpService from "../../../lib/utils/HttpService";
 
 import {addNotification} from "../../Global/GlobalActions";
 
@@ -53,7 +53,7 @@ export function generarReporte(data) {
   return dispatch => {
     dispatch({type: GENERAR_REPORTE_REQ});
 
-    MessageService.fetchBlob(API.ENDPOINTS.REPORTES.endpoint, data)
+    HttpService.fetchBlob(API.ENDPOINTS.REPORTES.endpoint, data)
       .then(resultado => {
         let filename = recuperarNombreArchivo(resultado, data.formato);
         let contentType = recuperarContentType(resultado);

@@ -2,7 +2,7 @@
 * Acciones relacionadas a la sesión
 */
 import { API, CONFIG } from '../../constants';
-import MessageService from '../../lib/utils/MessageService';
+import HttpService from '../../lib/utils/HttpService';
 
 /* Datos de sesión simulados */
 import { fake } from '../../data/fakeSessionData';
@@ -52,7 +52,7 @@ export function iniciarSesion(body){
 	return dispatch => {
 		dispatch({ type: INICIANDO_SESION });
 
-		MessageService.save(API.ENDPOINTS.SEGURIDAD.INICIAR_SESION.endpoint,body)
+    HttpService.post(API.ENDPOINTS.SEGURIDAD.INICIAR_SESION.endpoint,body)
 		.then( response => {
 			let userData = {
 				token: response.object.token,
@@ -62,7 +62,7 @@ export function iniciarSesion(body){
 			sessionStorage.setItem('userData', JSON.stringify(userData));
 			sessionStorage.setItem('menu',JSON.stringify(response.object.menu));
 
-			dispatch({ 
+			dispatch({
 				type: SESION_INICIADA,
 				...userData
 			});
@@ -101,7 +101,7 @@ export function cerrarSesion(){
 		sessionStorage.removeItem('userData');
 		sessionStorage.removeItem('menu');
 
-		MessageService.destroy(API.ENDPOINTS.SEGURIDAD.INICIAR_SESION.endpoint,userData.detalleUsuario.usuario)
+    HttpService.destroy(API.ENDPOINTS.SEGURIDAD.INICIAR_SESION.endpoint,userData.detalleUsuario.usuario)
 		.then(
 			response => {
 				dispatch({ type: SESION_CERRADA });
@@ -122,7 +122,7 @@ export function verificarSesion(){
 	if(!CONFIG.ENABLE_SESSION){
 		return dispatch => {
 			dispatch({ type: VERIFICANDO_SESION });
-			
+
 			sessionStorage.setItem('userData', JSON.stringify(fake.userData));
 			sessionStorage.setItem('menu',JSON.stringify(fake.menu));
 
@@ -146,9 +146,9 @@ export function verificarSesion(){
 
 		dispatch({ type: VERIFICANDO_SESION });
 
-		MessageService.getAll(`${API.ENDPOINTS.SEGURIDAD.VERIFICAR_SESION.endpoint}/${userData.detalleUsuario.usuario}`)
+    HttpService.get(`${API.ENDPOINTS.SEGURIDAD.VERIFICAR_SESION.endpoint}/${userData.detalleUsuario.usuario}`)
 		.then(response => {
-			dispatch({ 
+			dispatch({
 				type: SESION_VERIFICADA,
 				token: userData.token,
 				detalleUsuario: userData.detalleUsuario

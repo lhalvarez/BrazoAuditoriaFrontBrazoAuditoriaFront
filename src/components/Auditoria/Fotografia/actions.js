@@ -1,5 +1,5 @@
 import { API } from '../../../constants/index'
-import MessageService from '../../../lib/utils/MessageService';
+import HttpService from '../../../lib/utils/HttpService';
 import {addNotification} from "../../Global/GlobalActions";
 
 export const PAGINAR_PARTIDAS = 'PAGINAR_PARTIDAS';
@@ -30,7 +30,7 @@ export function paginarResultados (idAuditoria, page, pageSize) {
     };
 
     return (dispatch) => {
-        MessageService.getAll(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.PARTIDAS.PAGINADO.endpoint.replace(":idAuditoria", idAuditoria.toString()), params)
+      HttpService.get(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.PARTIDAS.PAGINADO.endpoint.replace(":idAuditoria", idAuditoria.toString()), params)
         .then((response) => {
             handleResponse(dispatch, response, PAGINAR_PARTIDAS);
             dispatch(addNotification(API.AVISOS.GLOBAL.consulta_exitosa, API.AVISOS.PARTIDAS.AUDITORIA_FOTOGRAFIA.registros_obtenidos, 'info'));
@@ -42,7 +42,7 @@ export function paginarResultados (idAuditoria, page, pageSize) {
 
 export function buscarPartida(idAuditoria, folio) {
     return (dispatch) => {
-        MessageService.getById(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.PARTIDAS.BUSQUEDA.endpoint.replace(":idAuditoria", idAuditoria.toString()), folio)
+      HttpService.getById(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.PARTIDAS.BUSQUEDA.endpoint.replace(":idAuditoria", idAuditoria.toString()), folio)
         .then((response) => {
             handleResponse(dispatch, response, BUSQUEDA_PARTIDAS);
             dispatch(addNotification(API.AVISOS.GLOBAL.consulta_exitosa, API.AVISOS.PARTIDAS.AUDITORIA_FOTOGRAFIA.partida_encontrada, 'success'));
@@ -61,7 +61,7 @@ export function paginarAuditorias(page, pageSize) {
     };
 
     return (dispatch) => {
-        MessageService.getAll(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.AUDITORIAS.PAGINADO.endpoint, params)
+      HttpService.get(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.AUDITORIAS.PAGINADO.endpoint, params)
         .then((response) => {
             handleResponse(dispatch, response, PAGINAR_AUDITORIAS);
             dispatch(addNotification(API.AVISOS.GLOBAL.consulta_exitosa, API.AVISOS.PARTIDAS.AUDITORIA_FOTOGRAFIA.registros_obtenidos, 'info'));
@@ -84,7 +84,7 @@ export function buscarAuditoria(idAuditoria, nombreArchivo) {
     }
 
     return (dispatch) => {
-        MessageService.getById(endpoint, param)
+      HttpService.getById(endpoint, param)
         .then((response) => {
             handleResponse(dispatch, response, BUSQUEDA_AUDITORIAS);
             dispatch(addNotification(API.AVISOS.GLOBAL.consulta_exitosa, API.AVISOS.PARTIDAS.AUDITORIA_FOTOGRAFIA.auditoria_encontrada, 'success'));

@@ -3,7 +3,7 @@ import { API } from '../../constants/index';
 import { LEYENDAS } from '../../constants/index'
 import {addNotification} from '../../components/Global/GlobalActions';
 import {ADD_NOTIFICATION} from '../../components/Global/GlobalActions';
-import MessageService from '../../lib/utils/MessageService';
+import HttpService from '../../lib/utils/HttpService';
 
 export const GET_DOCS = 'GET_DOCS'; // Acción para obtener los documentos que ya se tienen registrados
 export const GET_DOC = 'GET_DOC'; //Acción para obtener el documento .Xls relacionado a una sola carga
@@ -30,7 +30,7 @@ export function getDocs(page, pageSize,tipoAuditoria){
   };
 
   return (dispatch)=>{
-    MessageService.getAll(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
+    HttpService.get(API.ENDPOINTS.PARTIDAS.LEER_AUDITORIAS.endpoint,params)
       .then((response) => {
         dispatch( {type: GET_AUDITORIAS, payload: response });
 
@@ -62,7 +62,7 @@ export function getDocs(page, pageSize,tipoAuditoria){
 
 export function getDoc(nombreArchivo){
   return (dispatch)=>{
-    MessageService.getById(API.ENDPOINTS.PARTIDAS.LEER_DOCUMENTO.endpoint,nombreArchivo)
+    HttpService.getById(API.ENDPOINTS.PARTIDAS.LEER_DOCUMENTO.endpoint,nombreArchivo)
       .then((response) => {
         dispatch( {type: GET_DOC, payload: response });
         dispatch(addNotification('Documento cargado exitósamente', 'success'));
@@ -74,7 +74,7 @@ export function getDoc(nombreArchivo){
 export function saveDoc(formData,onUploadProgress){
 
   return(dispatch, getState) => {
-    MessageService.upload(API.ENDPOINTS.PARTIDAS.CARGAR_DOCUMENTO.endpoint,formData,onUploadProgress)
+    HttpService.upload(API.ENDPOINTS.PARTIDAS.CARGAR_DOCUMENTO.endpoint,formData,onUploadProgress)
       .then((response) => {
         dispatch( {type: SAVE_DOC, payload: response });
         dispatch(addNotification('Carga exitosa','Se ha cargado el documento exitósamente', 'success'));
@@ -92,7 +92,7 @@ export function deleteDoc(idCarga,tipoAuditoria){
   };
   return (dispatch)=>{
 
-    MessageService.destroy(`${API.ENDPOINTS.AUDITORIA.BORRAR.endpoint}/${idCarga}`)
+    HttpService.destroy(`${API.ENDPOINTS.AUDITORIA.BORRAR.endpoint}/${idCarga}`)
       .then((response) => {
         dispatch( {type: DELETE_DOC });
         dispatch( {type: CLOSE_MODAL });
@@ -107,7 +107,7 @@ export function deleteDoc(idCarga,tipoAuditoria){
 
 export function saveAuditoria(formData){
   return(dispatch) => {
-    MessageService.save(API.ENDPOINTS.PARTIDAS.CARGAR_AUDITORIA.endpoint,formData)
+    HttpService.post(API.ENDPOINTS.PARTIDAS.CARGAR_AUDITORIA.endpoint,formData)
       .then((response) => {
         dispatch( {type: SAVE_AUDITORIA, payload: response });
         dispatch(addNotification('Se ha iniciado un nuevo proceso de Auditoría','', 'info'));

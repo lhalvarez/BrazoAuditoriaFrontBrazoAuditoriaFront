@@ -1,7 +1,7 @@
 import { API } from '../../../../constants/index'
 import {addNotification} from '../../../Global/GlobalActions';
 import {ADD_NOTIFICATION} from '../../../Global/GlobalActions';
-import MessageService from '../../../../lib/utils/MessageService';
+import HttpService from '../../../../lib/utils/HttpService';
 
 export const VALIDAR_USUARIO= 'VALIDAR_USUARIO';
 export const OCULTAR_DETALLE= 'OCULTAR_DETALLE';
@@ -12,9 +12,9 @@ export function validarUsuario(valuador,clave){
     	usuario: valuador,
     	clave: clave
   	};
-	
+
 	return (dispatch)=>{
-	    MessageService.save(API.ENDPOINTS.SEGURIDAD.VALIDAR_USUARIO.endpoint,params)
+    HttpService.post(API.ENDPOINTS.SEGURIDAD.VALIDAR_USUARIO.endpoint,params)
 	      .then((response) => {
 	        dispatch( {type: VALIDAR_USUARIO, payload: response});
 	      }).catch(error => {
@@ -29,7 +29,7 @@ export function validarUsuario(valuador,clave){
 }
 
 export function requeridos(mensaje){
-	
+
 	return (dispatch)=>{
 		dispatch( {type: OCULTAR_DETALLE });
 	    dispatch( {type: ADD_NOTIFICATION});

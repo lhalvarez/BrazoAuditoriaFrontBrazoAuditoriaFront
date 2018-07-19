@@ -13,7 +13,7 @@
 
 
 import {API, CATALOGOS} from "../../../constants";
-import MessageService from "../../../lib/utils/MessageService";
+import HttpService from "../../../lib/utils/HttpService";
 import {addNotification} from "../../Global/GlobalActions";
 
 
@@ -44,7 +44,7 @@ function realizarPeticion(catalogo, dispatch) {
   const ERR = `err${catalogo}`;
   payload[ERR] = false;
 
-  MessageService.getById(API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint, catalogo)
+  HttpService.getById(API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint, catalogo)
     .then(resultado => {
       payload[catalogo] = resultado.object.registros;
       lanzarEvento(dispatch, RECUPERAR_CATALOGOS_REPORTES, payload);

@@ -12,7 +12,7 @@
  */
 
 
-import MessageService from '../../../lib/utils/MessageService';
+import HttpService from '../../../lib/utils/HttpService';
 
 import {addNotification} from '../../Global/GlobalActions';
 import {API, NUMERICAS} from '../../../constants';
@@ -65,7 +65,7 @@ export function ejecutarSalida(rfid, folio, p, t) {
     dispatch({type: EJECUTAR_SALIDA_REQ, payload: {errorParametros: false, rfid: rfid, folio: folio}});
 
     const URL = API.ENDPOINTS.GESTION.SALIDA.BUSQUEDA.endpoint.replace(':rfid', rfid).replace(':folio', folio);
-    MessageService.update(URL, {p, t})
+    HttpService.patch(URL, {p, t})
       .then(resultado => {
         dispatch(addNotification(BUSQUEDA.TITULO, BUSQUEDA.CORRECTO, 'success'));
         ejecutarSalidaRes(dispatch, false, '', '');
@@ -106,7 +106,7 @@ export function actualizarLista(p, t) {
   return dispatch => {
     dispatch({type: ACTUALIZAR_LISTA_REQ});
 
-    MessageService.getAll(API.ENDPOINTS.GESTION.SALIDA.PAGINADO.endpoint, {p, t})
+    HttpService.get(API.ENDPOINTS.GESTION.SALIDA.PAGINADO.endpoint, {p, t})
       .then(resultado => {
         if (resultado.object.totalElementos) {
           dispatch(addNotification(LISTA.TITULO, LISTA.CORRECTO, 'success'));

@@ -1,5 +1,5 @@
 import { API, CATALOGOS } from '../../../../constants';
-import MessageService from '../../../../lib/utils/MessageService';
+import HttpService from '../../../../lib/utils/HttpService';
 import { addNotification } from '../../../Global/GlobalActions';
 
 export const ERROR_CARGAR_DETALLE_PARTIDA_CAJA_CERRADA= 'ERROR_CARGAR_DETALLE_PARTIDA_CAJA_CERRADA';
@@ -14,9 +14,9 @@ const PARAM_FILTRO_CAT_EST = {
 
 export function obtenerDetallePartida(rfid,folio){
   return dispatch => {
-    MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_CERRADA.DETALLE_PARTIDA.endpoint}${rfid}/${folio}/2`)
+    HttpService.get(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_CERRADA.DETALLE_PARTIDA.endpoint}${rfid}/${folio}/2`)
       .then(response => {
-        MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.ESTATUS}`, PARAM_FILTRO_CAT_EST)
+        HttpService.get(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.ESTATUS}`, PARAM_FILTRO_CAT_EST)
           .then(catResponse => {
             dispatch({ type: GET_DETALLE_PARTIDA_CAJA_CERRADA, ...response.object, rfid, folio, tiposObservacion: catResponse.object.registros });
             dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );
@@ -41,7 +41,7 @@ export function flushdetallePartida(){
 
 export function enviarResultado(requestBody){
   return dispatch => {
-    MessageService.save(API.ENDPOINTS.AUDITORIA.RESULTADO.endpoint,requestBody)
+    HttpService.post(API.ENDPOINTS.AUDITORIA.RESULTADO.endpoint,requestBody)
       .then(response => {
         dispatch({ type: DETALLE_PARTIDA_CC_ENVIADA });
         dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );

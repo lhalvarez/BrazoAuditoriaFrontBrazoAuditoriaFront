@@ -2,7 +2,7 @@
 * Acciones relacionadas a la Auditoría de Caja Abierta
 */
 import { API, CATALOGOS } from '../../../../constants';
-import MessageService from '../../../../lib/utils/MessageService';
+import HttpService from '../../../../lib/utils/HttpService';
 import { addNotification } from '../../../Global/GlobalActions';
 
 export const CARGAR_DETALLE_PARTIDA= 'CARGAR_DETALLE_PARTIDA';
@@ -30,7 +30,7 @@ export function obtenerDetallePartida(rfid,folio){
 	return dispatch => {
 		dispatch({ type: CARGANDO_DETALLE_PARTIDA });
 
-		MessageService.getAll(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA.endpoint}/${rfid}/${folio}/3`)
+    HttpService.get(`${API.ENDPOINTS.AUDITORIA.FISICA.CAJA_ABIERTA.DETALLE_PARTIDA.endpoint}/${rfid}/${folio}/3`)
 		.then(response => {
 			MessageService.getAll(`${API.ENDPOINTS.CATALOGOS.BUSCAR_CATALOGO.endpoint}/${CATALOGOS.ESTATUS}`, PARAM_FILTRO_CAT_EST)
 			.then(catResponse => {
@@ -54,7 +54,7 @@ export function enviarDetallePartida(requestBody){
 	return dispatch => {
 		dispatch({ type: ENVIANDO_DETALLE_PARTIDA, detallePartida: requestBody.cajaAbierta });
 
-		MessageService.save(API.ENDPOINTS.AUDITORIA.RESULTADO.endpoint,requestBody)
+    HttpService.post(API.ENDPOINTS.AUDITORIA.RESULTADO.endpoint,requestBody)
 		.then(response => {
 			dispatch({ type: DETALLE_PARTIDA_ENVIADA });
 			dispatch( addNotification(API.AVISOS.GLOBAL.consulta_exitosa,response.message,'success') );

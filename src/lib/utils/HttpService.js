@@ -12,52 +12,89 @@ function authHeader(){
 }
 
 function get(path){
-	return requestApi({
-		url: '/api/servicios',
-		params: { path },
-		method: 'GET',
-		headers: { Authorization: authHeader() }
-	});
+  return requestApi({
+    url: '/api/servicios',
+    params: { path },
+    method: 'GET',
+    headers: { Authorization: authHeader() }
+  });
+}
+
+function getById(path, id){
+
+  return requestApi({
+
+    url: `${path}/${id}` ,
+    method: 'GET',
+    headers: { Authorization: authHeader() }
+
+  });
+
 }
 
 function post(path,data = {}){
-	return requestApi({
-		url: '/api/servicios',
-		params: { path },
-		method: 'POST',
-		headers: { Authorization: authHeader() },
-		data
-	});
+  return requestApi({
+    url: '/api/servicios',
+    params: { path },
+    method: 'POST',
+    headers: { Authorization: authHeader() },
+    data
+  });
 }
 
 function put(path,data = {}){
-	return requestApi({
-		url: '/api/servicios',
-		params: { path },
-		method: 'PUT',
-		headers: { Authorization: authHeader() },
-		data
-	});
+  return requestApi({
+    url: '/api/servicios',
+    params: { path },
+    method: 'PUT',
+    headers: { Authorization: authHeader() },
+    data
+  });
 }
 
 function patch(path,data = {}){
-	return requestApi({
-		url: '/api/servicios',
-		params: { path },
-		method: 'PATCH',
-		headers: { Authorization: authHeader() },
-		data
-	});
+  return requestApi({
+    url: '/api/servicios',
+    params: { path },
+    method: 'PATCH',
+    headers: { Authorization: authHeader() },
+    data
+  });
 }
 
 function destroy(path,data = {}){
-	return requestApi({
-		url: '/api/servicios',
-		params: { path },
-		method: 'DELETE',
-		headers: { Authorization: authHeader() },
-		data
-	});
+  return requestApi({
+    url: '/api/servicios',
+    params: { path },
+    method: 'DELETE',
+    headers: { Authorization: authHeader() },
+    data
+  });
 }
 
-export default { get,post,put,patch,destroy };
+function upload(path,params,onUploadProgress){
+  return requestApi({
+    url: `${path}`,
+    method: 'POST',
+    headers: {
+      Authorization: authHeader()
+    },
+    data: params,
+    onUploadProgress
+  });
+}
+
+function fetchBlob(endpoint, body, wHeaders = true) {
+  return requestApi({
+    url: endpoint,
+    responseType: 'blob',
+    method: 'POST',
+    headers: {
+      Authorization: authHeader()
+    },
+    data: body
+  }, wHeaders);
+
+}
+
+export default { get,getById,post,put,patch,destroy,upload ,fetchBlob};
