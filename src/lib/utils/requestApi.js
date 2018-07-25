@@ -28,6 +28,7 @@ const requestApi = function(options, wHeaders = false) {
   const onSuccess = function(response) {
     console.debug('Request Successful!', response);
     console.log('Respuesta correcta, a implementar');
+
     return wHeaders ? response : response.data;
   };
 

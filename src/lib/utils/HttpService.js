@@ -11,10 +11,13 @@ function authHeader(){
   return `Basic ${window.btoa(tokens)}`;
 }
 
-function get(path){
+function get(path,params){
+  console.log(params);
+  console.log('PaRAMETROS');
+
   return requestApi({
     url: '/api/servicios',
-    params: { path },
+    params: { path , params },
     method: 'GET',
     headers: { Authorization: authHeader() }
   });
@@ -24,7 +27,8 @@ function getById(path, id){
 
   return requestApi({
 
-    url: `${path}/${id}` ,
+    url: '/api/servicios',
+    params: { path , id },
     method: 'GET',
     headers: { Authorization: authHeader() }
 

@@ -63,6 +63,7 @@ export function paginarAuditorias(page, pageSize) {
     return (dispatch) => {
       HttpService.get(API.ENDPOINTS.AUDITORIA.FOTOGRAFIA.AUDITORIAS.PAGINADO.endpoint, params)
         .then((response) => {
+          console.log(response);
             handleResponse(dispatch, response, PAGINAR_AUDITORIAS);
             dispatch(addNotification(API.AVISOS.GLOBAL.consulta_exitosa, API.AVISOS.PARTIDAS.AUDITORIA_FOTOGRAFIA.registros_obtenidos, 'info'));
         }).catch((err) => {
